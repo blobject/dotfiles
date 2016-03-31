@@ -1,0 +1,29 @@
+Xft.dpi: 115
+
+rofi.bc:          #586e75
+rofi.bg:          #839496
+rofi.fg:          #002b36
+rofi.bg-active:   #839496
+rofi.fg-active:   #586e75
+rofi.bg-urgent:   #839496
+rofi.fg-urgent:   #d33682
+rofi.hlbg:        #073642
+rofi.hlfg:        #839496
+rofi.hlbg-active: #073642
+rofi.hlfg-active: #6c71c4
+rofi.hlbg-urgent: #073642
+rofi.hlfg-urgent: #cb4b16
+rofi.bw:          0
+rofi.disable-history: true
+rofi.font:        autonoe 12
+rofi.lines:       10
+rofi.location:    7
+rofi.modi:        run,window
+rofi.padding:     8
+rofi.terminal:    st
+rofi.width:       100
+rofi.xoffset:     0
+rofi.yoffset:     0
+rofi.kb-mode-next: Tab
+rofi.kb-mode-previous: Shift+Tab
+rofi.kb-row-tab:  Control+Tab

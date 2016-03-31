@@ -1,0 +1,55 @@
+[global]
+  font = autonoe 12
+  format = "%s: <b>%b</b>"
+  alignment = center
+  word_wrap = yes
+  ignore_newline = no
+  geometry = "384x8-32+56"
+  history_length = 32
+  separator_height = 4
+  padding = 8
+  horizontal_padding = 0
+  separator_color = frame
+[frame]
+  width = 4
+  color = "#657b83"
+[shortcuts]
+  close = mod4+space
+  close_all = mod4+mod1+space
+  history = mod4+shift+space
+[urgency_low]
+  background = "#93a1a1"
+  foreground = "#073642"
+  timeout = 3
+[urgency_normal]
+  background = "#93a1a1"
+  foreground = "#002b36"
+  timeout = 5
+[urgency_critical]
+  background = "#93a1a1"
+  foreground = "#dc322f"
+  timeout = 0
+#[ignore]
+## This notification will not be displayed
+#  summary = "foobar"
+#  format = ""
+#[signed_on]
+#  appname = Pidgin
+#  summary = "*signed on*"
+#  urgency = low
+#
+#[signed_off]
+#  appname = Pidgin
+#  summary = *signed off*
+#  urgency = low
+#
+#[says]
+#  appname = Pidgin
+#  summary = *says*
+#  urgency = critical
+#
+#[twitter]
+#  appname = Pidgin
+#  summary = *twitter.com*
+#  urgency = normal
+#

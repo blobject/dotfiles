@@ -1,0 +1,7 @@
+clear lock
+keycode 9 = Caps_Lock NoSymbol Caps_Lock
+keycode 66 = Escape NoSymbol Escape
+add lock = Caps_Lock
+
+!keycode 108 = Super_R
+!remove mod1 = Super_R

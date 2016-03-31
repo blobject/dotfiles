@@ -1,0 +1,125 @@
+#mod4+backslash   = nabi switch
+#mod4+space       = dunst close
+#mod4+mod1+space  = dunst close all
+#mod4+shift+space = dunst history
+set $a Mod1
+set $m Mod4
+set $c Control
+set $s Shift
+set $clr-k  #073642
+set $clr-r  #dc322f
+set $clr-g  #859900
+set $clr-y  #b58900
+set $clr-b  #268bd2
+set $clr-m  #d33682
+set $clr-c  #2aa198
+set $clr-w  #eee8d5
+set $clr-bk #002b36
+set $clr-br #cb4b16
+set $clr-bg #586e75
+set $clr-by #657b83
+set $clr-bb #839496
+set $clr-bm #6c71c4
+set $clr-bc #93a1a1
+set $clr-bw #fdf6e3
+bindsym $m+f            fullscreen toggle
+bindsym $m+comma        border toggle
+bindsym $m+period       layout default
+bindsym $m+$a+period    layout tabbed
+bindsym $m+$c+period    layout stacked
+bindsym $m+semicolon    split vertical
+bindsym $m+$a+semicolon split horizontal
+bindsym $m+$c+semicolon layout toggle split
+bindsym $m+slash        floating toggle
+bindsym $m+apostrophe   focus mode_toggle
+bindsym $m+BackSpace    scratchpad show
+bindsym $m+$a+BackSpace move scratchpad
+bindsym $m+h     focus left
+bindsym $m+j     focus down
+bindsym $m+k     focus up
+bindsym $m+l     focus right
+bindsym $m+minus focus child
+bindsym $m+equal focus parent
+bindsym $m+$a+h  move left
+bindsym $m+$a+j  move down
+bindsym $m+$a+k  move up
+bindsym $m+$a+l  move right
+bindsym $m+1     workspace 1
+bindsym $m+2     workspace 2
+bindsym $m+3     workspace 3
+bindsym $m+4     workspace 4
+bindsym $m+Left  workspace prev
+bindsym $m+Right workspace next
+bindsym $m+$a+1     move container to workspace 1
+bindsym $m+$a+2     move container to workspace 2
+bindsym $m+$a+3     move container to workspace 3
+bindsym $m+$a+4     move container to workspace 4
+bindsym $m+$a+Left  move container to workspace prev
+bindsym $m+$a+Right move container to workspace next
+bindsym $m+r mode "resize"
+mode "resize" {
+  bindsym h     resize shrink width  5 px or 5 ppt
+  bindsym j     resize grow   height 5 px or 5 ppt
+  bindsym k     resize shrink height 5 px or 5 ppt
+  bindsym l     resize grow   width  5 px or 5 ppt
+  bindsym Left  resize shrink width  1 px or 1 ppt
+  bindsym Down  resize grow   height 1 px or 1 ppt
+  bindsym Up    resize shrink height 1 px or 1 ppt
+  bindsym Right resize grow   width  1 px or 1 ppt
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym    XF86AudioMute         exec --no-startup-id 0hot vol x  # 121
+bindsym $s+XF86AudioLowerVolume  exec --no-startup-id 0hot vol -  # 122
+bindsym    XF86AudioLowerVolume  exec --no-startup-id 0hot vol --
+bindsym $s+XF86AudioRaiseVolume  exec --no-startup-id 0hot vol +  # 123
+bindsym    XF86AudioRaiseVolume  exec --no-startup-id 0hot vol ++
+#bindsym    XF86AudioPrev         exec --no-startup-id 0hot lock   # 173
+#bindsym    XF86AudioPlay         exec --no-startup-id 0hot lock   # 172
+#bindsym    XF86AudioNext         exec --no-startup-id 0hot lock   # 171
+#bindsym    XF86Search            exec --no-startup-id 0hot lock   # 225
+bindsym    XF86MonBrightnessDown exec --no-startup-id sudo 0lum - # 232
+bindsym    XF86MonBrightnessUp   exec --no-startup-id sudo 0lum + # 233
+bindsym    Print                 exec --no-startup-id 0hot shot   # 107
+bindsym $a+Print                 exec --no-startup-id 0hot shot s
+bindsym $c+Print                 exec --no-startup-id 0hot shot w
+#bindsym    XF86Sleep             exec --no-startup-id 0hot lock   # 150
+#bindsym    XF86PowerOff          exec --no-startup-id 0hot lock   # 124
+bindsym $m+$s+c reload
+bindsym $m+$s+r restart
+bindsym $a+$c+BackSpace exec "i3-nagbar -f 0autonoe -t warning -m 'really exit i3?' -b 'yes' 'i3-msg exit'"
+bindsym $m+$s+Escape kill
+bindsym $m+Return    exec --no-startup-id "rofi -show run"
+bindsym $m+$a+Return exec --no-startup-id "0hot i3m"
+bindsym $m+e         exec --no-startup-id "emacs"
+bindsym $m+t         exec --no-startup-id "st -e tmux"
+bindsym $m+$a+t      exec --no-startup-id "st-alt"
+bindsym $m+w         exec vivaldi
+client.background       $clr-bk
+client.focused          $clr-bg $clr-bg $clr-bk $clr-bb
+client.focused_inactive $clr-k  $clr-k  $clr-bb $clr-by
+client.unfocused        $clr-k  $clr-k  $clr-bg $clr-by
+client.urgent           $clr-c  $clr-c  $clr-bw $clr-bm
+client.placeholder      $clr-k  $clr-k  $clr-w  $clr-w
+floating_minimum_size 32 x 32
+floating_modifier $m
+focus_follows_mouse no
+for_window [class="Vlc"] floating enable
+#font 0title
+new_float normal 3
+new_window pixel 5
+bar {
+  colors {
+    background         $clr-bk
+    separator          $clr-k
+    focused_workspace  $clr-bk $clr-bk $clr-bw
+    active_workspace   $clr-bk $clr-bk $clr-b
+    inactive_workspace $clr-bk $clr-bk $clr-bg
+    urgent_workspace   $clr-c  $clr-c  $clr-bw
+  }
+  font 0autonoe
+  id i3bar
+  mode dock
+  position top
+  status_command 0mon
+}

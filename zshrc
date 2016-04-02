@@ -8,10 +8,12 @@ PAGER=/usr/bin/less  # for i3
 TERMINAL=/usr/bin/st  # for i3
 LESS=-imRS  # icase search,verbose,rawcolor,chop
 LESSHISTFILE=-
+WINEDDLOVERRIDES='winemenubuilder.exe=d'
+#WINEPREFIX="$HOME/opt/wine"
 B_DAT=/data     # used in .xinitrc,0save
 B_IPC=/tmp/b_ipc    # used in .xinitrc,0core,0hot
 B_NOW='%d%b%y-%H%M%S' # used in 0hot,0save
-export TERM EDITOR VISUAL PAGER TERMINAL LESS LESSHISTFILE B_DAT B_IPC B_NOW
+export TERM EDITOR VISUAL PAGER TERMINAL LESS LESSHISTFILE WINEDDLOVERRIDES WINEPREFIX B_DAT B_IPC B_NOW
 
 HISTFILE=$HOME/.zshlog
 HISTSIZE=2048

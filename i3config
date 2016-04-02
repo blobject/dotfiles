@@ -83,18 +83,18 @@ bindsym    XF86MonBrightnessUp   exec --no-startup-id sudo 0lum + # 233
 bindsym    Print                 exec --no-startup-id 0hot shot   # 107
 bindsym $a+Print                 exec --no-startup-id 0hot shot s
 bindsym $c+Print                 exec --no-startup-id 0hot shot w
-#bindsym    XF86Sleep             exec --no-startup-id 0hot lock   # 150
-#bindsym    XF86PowerOff          exec --no-startup-id 0hot lock   # 124
+bindsym    XF86PowerOff          exec --no-startup-id 0hot lock   # 124
 bindsym $m+$s+c reload
 bindsym $m+$s+r restart
-bindsym $a+$c+BackSpace exec "i3-nagbar -f 0autonoe -t warning -m 'really exit i3?' -b 'yes' 'i3-msg exit'"
 bindsym $m+$s+Escape kill
-bindsym $m+Return    exec --no-startup-id "rofi -show run"
-bindsym $m+$a+Return exec --no-startup-id "0hot i3m"
-bindsym $m+e         exec --no-startup-id "emacs"
-bindsym $m+t         exec --no-startup-id "st -e tmux"
-bindsym $m+$a+t      exec --no-startup-id "st-alt"
-bindsym $m+w         exec vivaldi
+bindsym $a+$c+BackSpace exec "i3-nagbar -f 0autonoe -t warning -m 'really exit i3?' -b 'yes' 'i3-msg exit'"
+bindsym $m+bracketleft exec --no-startup-id "0hot kbl"
+bindsym $m+Return      exec --no-startup-id "rofi -show run"
+bindsym $m+$a+Return   exec --no-startup-id "0hot i3m"
+bindsym $m+e           exec emacs
+bindsym $m+t           exec --no-startup-id "st -e tmux"
+bindsym $m+$a+t        exec --no-startup-id st-alt
+bindsym $m+w           exec vivaldi
 client.background       $clr-bk
 client.focused          $clr-bg $clr-bg $clr-bk $clr-bb
 client.focused_inactive $clr-k  $clr-k  $clr-bb $clr-by
@@ -105,7 +105,7 @@ floating_minimum_size 32 x 32
 floating_modifier $m
 focus_follows_mouse no
 for_window [class="Vlc"] floating enable
-#font 0title
+font 0title
 new_float normal 3
 new_window pixel 5
 bar {

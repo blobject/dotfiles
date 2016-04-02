@@ -10,7 +10,7 @@ export GTK_IM_MODULE=xim
 export QT_IM_MODULE=xim
 
 # settings
-sudo 0lum 531
+sudo 0lum 473
 xsetroot -cursor_name left_ptr -solid '#073642'
 setxkbmap hsnt
 xmodmap $HOME/.xmodmap
@@ -25,7 +25,6 @@ echo '-1' >$B_IPC  # defined in .zshrc; see 0mon,0hot
 eval $(keychain --eval --quick --quiet --agents ssh id_rsa)  # cb6ebccf
 
 # services
-#bgin dropbox
 bgin nabi
 bgin wicd-gtk -t
 0browsertmp &  # cf. .zlogout

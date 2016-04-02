@@ -3,4 +3,5 @@
 LABEL=boot  /boot  vfat  noauto,noatime  1 2
 LABEL=root  /      ext4  noatime,commit=60  0 1
 LABEL=data  /data  ext4  noatime,commit=60  0 2
+/swap       none   swap  defaults,noauto  0 0
 none  /var/tmp/portage  tmpfs  size=4G,uid=portage,gid=portage,mode=775,noatime  0 0

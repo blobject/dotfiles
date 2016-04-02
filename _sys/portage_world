@@ -1,11 +1,11 @@
 app-admin/sudo
-app-arch/lz4
 app-editors/emacs
 app-editors/vim
 app-emulation/virtualbox-bin
 app-i18n/nabi
 app-misc/tmux
 app-office/openoffice-bin
+app-portage/layman
 app-shells/funtoo-zsh-completions
 app-shells/zsh
 app-text/mupdf
@@ -13,6 +13,7 @@ dev-db/mariadb
 dev-db/sqldeveloper
 dev-java/oracle-jdk-bin
 dev-scheme/racket
+games-util/steam-launcher
 media-fonts/corefonts
 media-fonts/font-adobe-utopia-75dpi
 media-fonts/nanum
@@ -21,6 +22,7 @@ media-gfx/gimp
 media-gfx/imagemagick
 media-gfx/scrot
 media-gfx/viewnior
+media-libs/libtxc_dxtn
 media-video/vlc
 net-ftp/lftp
 net-irc/irssi
@@ -45,7 +47,7 @@ x11-apps/xsetroot
 x11-base/xorg-server
 x11-misc/dunst
 x11-misc/rofi
-x11-misc/xautolock
+x11-misc/slock
 x11-terms/st
 x11-themes/faenza-icon-theme
 x11-wm/i3

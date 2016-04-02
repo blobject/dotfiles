@@ -2,13 +2,16 @@ app-arch/p7zip rar
 app-crypt/gcr gtk
 app-crypt/pinentry gnome-keyring
 app-editors/emacs sound xft
+app-portage/layman sync-plugin-portage -mercurial -subversion
 app-text/mupdf javascript
 dev-db/sqldeveloper mysql
+media-fonts/corefonts tahoma
 media-libs/fontconfig-infinality -nyx
 media-libs/freetype infinality
+media-libs/libtxc_dxtn abi_x86_32
 net-misc/wicd ambiance gtk libnotify
-sys-auth/consolekit policykit
 www-client/firefox-bin startup-notification
 x11-base/xorg-server glamor
 x11-misc/rofi windowmode
+x11-misc/slock savedconfig
 x11-terms/st savedconfig

@@ -9,6 +9,6 @@ set nohlsearch incsearch
 set showcmd showmatch
 set wrap
 highlight Comment      ctermfg=10
-highlight LineNr       ctermfg=10 ctermbg=8
+highlight LineNr       ctermfg=10 ctermbg=0
 highlight MatchParen   ctermbg=10
 highlight SpecialKey   ctermfg=11

@@ -1,5 +1,5 @@
 static char font[] = "monospace:size=16";
-static int borderpx = 0;
+static int borderpx = 1;
 static char shell[] = "/bin/zsh";
 static char *utmp = NULL;
 static char stty_args[] = "stty raw -echo -iexten echonl";

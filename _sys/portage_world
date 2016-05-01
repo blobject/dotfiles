@@ -1,9 +1,12 @@
 app-admin/sudo
+app-arch/lz4
 app-editors/emacs
 app-editors/vim
 app-emulation/virtualbox-bin
+app-emulation/virtualbox-modules
 app-i18n/nabi
 app-misc/tmux
+app-misc/when
 app-office/openoffice-bin
 app-portage/layman
 app-shells/funtoo-zsh-completions
@@ -14,6 +17,7 @@ dev-db/sqldeveloper
 dev-java/oracle-jdk-bin
 dev-scheme/racket
 games-util/steam-launcher
+mail-client/thunderbird-bin
 media-fonts/corefonts
 media-fonts/font-adobe-utopia-75dpi
 media-fonts/nanum
@@ -29,6 +33,7 @@ net-irc/irssi
 net-misc/keychain
 net-misc/ssh-askpass-fullscreen
 net-misc/wicd
+net-wireless/rfkill
 sys-boot/efibootmgr
 sys-boot/refind
 sys-fs/jmtpfs
@@ -42,7 +47,8 @@ www-plugins/adobe-flash
 www-servers/nginx
 x11-apps/setxkbmap
 x11-apps/xev
-x11-apps/xmodmap
+x11-apps/xinput
+x11-apps/xrandr
 x11-apps/xsetroot
 x11-base/xorg-server
 x11-misc/dunst

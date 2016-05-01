@@ -1,6 +1,7 @@
 # vars
-export GTK2_RC_FILES=$HOME/.gtkrc-2.0
 export BROWSER=vivaldi
+export GTK2_RC_FILES=$HOME/.gtkrc-2.0
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp'
 export MOZ_DISABLE_PANGO=1
 export XIM=nabi
 export XIM_ARGS=
@@ -11,9 +12,10 @@ export QT_IM_MODULE=xim
 
 # settings
 sudo 0lum 473
+sudo 0shed
+amixer -q sset Master 50% mute
 xsetroot -cursor_name left_ptr -solid '#073642'
-setxkbmap hsnt
-xmodmap $HOME/.xmodmap
+setxkbmap -option ctrl:nocaps hsnt
 xset  b off  m 4 4  r rate 250 35 \
   -r 121 -r 122 -r 123 -r 173 -r 172 -r 171 \
   -r 225 -r 232 -r 233 -r 107 -r 150 \
@@ -25,9 +27,11 @@ echo '-1' >$B_IPC  # defined in .zshrc; see 0mon,0hot
 eval $(keychain --eval --quick --quiet --agents ssh id_rsa)  # cb6ebccf
 
 # services
+0browsertmp &  # cf. 0pow
+bgin dunst
+emacs --daemon &
 bgin nabi
 bgin wicd-gtk -t
-0browsertmp &  # cf. .zlogout
 
 # start wm
 exec i3

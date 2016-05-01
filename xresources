@@ -1,19 +1,11 @@
 Xft.dpi: 115
 
-rofi.bc:          #586e75
-rofi.bg:          #839496
-rofi.fg:          #002b36
-rofi.bg-active:   #839496
-rofi.fg-active:   #586e75
-rofi.bg-urgent:   #839496
-rofi.fg-urgent:   #d33682
-rofi.hlbg:        #073642
-rofi.hlfg:        #839496
-rofi.hlbg-active: #073642
-rofi.hlfg-active: #6c71c4
-rofi.hlbg-urgent: #073642
-rofi.hlfg-urgent: #cb4b16
 rofi.bw:          0
+rofi.color-normal: #839496, #002b36, #657b83, #073642, #839496
+rofi.color-urgent: #839496, #d33682, #657b83, #073642, #cb4b16
+rofi.color-active: #839496, #586e75, #657b83, #073642, #6c71c4
+rofi.color-window: #839496, #839496, #657b83
+rofi.color-enabled: true
 rofi.disable-history: true
 rofi.font:        autonoe 12
 rofi.lines:       10

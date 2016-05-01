@@ -5,6 +5,7 @@ app-editors/emacs sound xft
 app-portage/layman sync-plugin-portage -mercurial -subversion
 app-text/mupdf javascript
 dev-db/sqldeveloper mysql
+mail-client/thunderbird-bin -crashreporter
 media-fonts/corefonts tahoma
 media-libs/fontconfig-infinality -nyx
 media-libs/freetype infinality

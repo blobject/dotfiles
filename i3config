@@ -34,6 +34,7 @@ bindsym $m+slash        floating toggle
 bindsym $m+apostrophe   focus mode_toggle
 bindsym $m+BackSpace    scratchpad show
 bindsym $m+$a+BackSpace move scratchpad
+bindsym $m+g     [urgent=latest] focus
 bindsym $m+h     focus left
 bindsym $m+j     focus down
 bindsym $m+k     focus up
@@ -48,12 +49,16 @@ bindsym $m+1     workspace 1
 bindsym $m+2     workspace 2
 bindsym $m+3     workspace 3
 bindsym $m+4     workspace 4
+bindsym $m+5     workspace 5
+bindsym $m+6     workspace 6
 bindsym $m+Left  workspace prev
 bindsym $m+Right workspace next
 bindsym $m+$a+1     move container to workspace 1
 bindsym $m+$a+2     move container to workspace 2
 bindsym $m+$a+3     move container to workspace 3
 bindsym $m+$a+4     move container to workspace 4
+bindsym $m+$a+5     move container to workspace 5
+bindsym $m+$a+6     move container to workspace 6
 bindsym $m+$a+Left  move container to workspace prev
 bindsym $m+$a+Right move container to workspace next
 bindsym $m+r mode "resize"
@@ -81,24 +86,26 @@ bindsym    XF86AudioRaiseVolume  exec --no-startup-id 0hot vol ++
 bindsym    XF86MonBrightnessDown exec --no-startup-id sudo 0lum - # 232
 bindsym    XF86MonBrightnessUp   exec --no-startup-id sudo 0lum + # 233
 bindsym    Print                 exec --no-startup-id 0hot shot   # 107
-bindsym $a+Print                 exec --no-startup-id 0hot shot s
+bindsym $s+Print                 exec --no-startup-id 0hot shot s
 bindsym $c+Print                 exec --no-startup-id 0hot shot w
-bindsym    XF86PowerOff          exec --no-startup-id 0hot lock   # 124
+bindsym    XF86PowerOff          exec --no-startup-id 0pow Lock   # 124
 bindsym $m+$s+c reload
 bindsym $m+$s+r restart
 bindsym $m+$s+Escape kill
-bindsym $a+$c+BackSpace exec "i3-nagbar -f 0autonoe -t warning -m 'really exit i3?' -b 'yes' 'i3-msg exit'"
-bindsym $m+bracketleft exec --no-startup-id "0hot kbl"
-bindsym $m+Return      exec --no-startup-id "rofi -show run"
-bindsym $m+$a+Return   exec --no-startup-id "0hot i3m"
-bindsym $m+e           exec emacs
-bindsym $m+t           exec --no-startup-id "st -e tmux"
-bindsym $m+$a+t        exec --no-startup-id st-alt
-bindsym $m+w           exec vivaldi
+bindsym $a+$c+BackSpace exec --no-startup-id 0pow
+bindsym $m+bracketleft  exec --no-startup-id 0hot kbl
+bindsym $m+Return       exec --no-startup-id rofi -show run
+bindsym $m+$a+Return    exec --no-startup-id 0hot i3m
+bindsym $m+e            exec emacsclient -nc
+bindsym $m+m            exec thunderbird-bin
+bindsym $m+t            exec --no-startup-id st -e tmux
+bindsym $m+$a+t         exec --no-startup-id st-alt
+bindsym $m+w            exec vivaldi
+bindsym $m+$a+w         exec firefox-bin
 client.background       $clr-bk
 client.focused          $clr-bg $clr-bg $clr-bk $clr-bb
-client.focused_inactive $clr-k  $clr-k  $clr-bb $clr-by
-client.unfocused        $clr-k  $clr-k  $clr-bg $clr-by
+client.focused_inactive $clr-k  $clr-k  $clr-by $clr-by
+client.unfocused        $clr-bk $clr-bk $clr-bg $clr-by
 client.urgent           $clr-c  $clr-c  $clr-bw $clr-bm
 client.placeholder      $clr-k  $clr-k  $clr-w  $clr-w
 floating_minimum_size 32 x 32
@@ -113,7 +120,7 @@ bar {
     background         $clr-bk
     separator          $clr-k
     focused_workspace  $clr-bk $clr-bk $clr-bw
-    active_workspace   $clr-bk $clr-bk $clr-b
+    active_workspace   $clr-bk $clr-bk $clr-y
     inactive_workspace $clr-bk $clr-bk $clr-bg
     urgent_workspace   $clr-c  $clr-c  $clr-bw
   }

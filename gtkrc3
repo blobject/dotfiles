@@ -1,0 +1,5 @@
+# ~/.config/gtk-3.0/settings.ini
+[Settings]
+gtk-font-name = sans 8.5
+gtk-icon-theme-name = Faenza
+gtk-print-preview-command = mupdf %f

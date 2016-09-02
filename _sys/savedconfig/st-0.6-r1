@@ -27,7 +27,7 @@ static const char *colorname[] = {
   "#d33682",  //  5 m
   "#2aa198",  //  6 c
   "#eee8d5",  //  7 w
-  "#002b36",  //  8 bk
+  "#415257",  //  8 bk
   "#cb4b16",  //  9 br
   "#586e75",  // 10 bg
   "#657b83",  // 11 by
@@ -54,9 +54,10 @@ static const char *colorname[] = {
   //"#fdf6e3",  // 15 bw
   [255] = 0,
   /* DefaultXX */
+  "#002b36",
   "#000000",
 };
-static unsigned int defaultbg = 8;
+static unsigned int defaultbg = 256;
 static unsigned int defaultfg = 12;
 static unsigned int defaultcs = 7;
 static unsigned int defaultitalic = 6;

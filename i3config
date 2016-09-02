@@ -93,6 +93,7 @@ bindsym $m+$s+c reload
 bindsym $m+$s+r restart
 bindsym $m+$s+Escape kill
 bindsym $a+$c+BackSpace exec --no-startup-id 0pow
+bindsym $a+$c+Delete    exec --no-startup-id 0pow
 bindsym $m+bracketleft  exec --no-startup-id 0hot kbl
 bindsym $m+Return       exec --no-startup-id rofi -show run
 bindsym $m+$a+Return    exec --no-startup-id 0hot i3m
@@ -100,7 +101,7 @@ bindsym $m+e            exec emacsclient -nc
 bindsym $m+m            exec thunderbird-bin
 bindsym $m+t            exec --no-startup-id st -e tmux
 bindsym $m+$a+t         exec --no-startup-id st-alt
-bindsym $m+w            exec vivaldi
+bindsym $m+w            exec google-chrome-stable --disk-cache-dir=/tmp/b_tmp_chrome_cache
 bindsym $m+$a+w         exec firefox-bin
 client.background       $clr-bk
 client.focused          $clr-bg $clr-bg $clr-bk $clr-bb
@@ -113,8 +114,8 @@ floating_modifier $m
 focus_follows_mouse no
 for_window [class="Vlc"] floating enable
 font 0title
-new_float normal 3
-new_window pixel 5
+new_float normal 4
+new_window pixel 4
 bar {
   colors {
     background         $clr-bk

@@ -1,3 +1,15 @@
 [user]
   email = agaric@protonmail.com
   name = agaric
+[core]
+  editor = vim
+[alias]
+  br = branch
+  cm = commit
+  co = checkout
+  df = diff
+  lo = log --graph --pretty=format:'%C(cyan)%h %C(yellow)%ad %C(green)%an %C(reset)%s%d'
+  rb = rebase
+  st = status
+[log]
+  date = format:%y-%m-%d %H:%M:%S

@@ -1,5 +1,5 @@
 # vars
-export BROWSER=vivaldi
+export BROWSER=google-chrome-stable
 export GTK2_RC_FILES=$HOME/.gtkrc-2.0
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp'
 export MOZ_DISABLE_PANGO=1
@@ -11,7 +11,7 @@ export GTK_IM_MODULE=xim
 export QT_IM_MODULE=xim
 
 # settings
-sudo 0lum 473
+sudo 0lum $(expr $(cat /sys/class/backlight/intel_backlight/max_brightness) / 2)
 sudo 0shed
 amixer -q sset Master 50% mute
 xsetroot -cursor_name left_ptr -solid '#073642'
@@ -28,8 +28,8 @@ eval $(keychain --eval --quick --quiet --agents ssh id_rsa)  # cb6ebccf
 
 # services
 0browsertmp &  # cf. 0pow
-bgin dunst
 emacs --daemon &
+bgin dunst
 bgin nabi
 bgin wicd-gtk -t
 

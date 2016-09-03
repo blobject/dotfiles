@@ -3,12 +3,12 @@ export BROWSER=google-chrome-stable
 export GTK2_RC_FILES=$HOME/.gtkrc-2.0
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp'
 export MOZ_DISABLE_PANGO=1
-export XIM=nabi
-export XIM_ARGS=
-export XIM_PROGRAM=nabi
-export XMODIFIERS='@im=nabi'
-export GTK_IM_MODULE=xim
-export QT_IM_MODULE=xim
+#export XIM=nabi
+#export XIM_ARGS=
+#export XIM_PROGRAM=nabi
+export GTK_IM_MODULE=uim
+export QT_IM_MODULE=uim
+export XMODIFIERS=@im=uim
 
 # settings
 sudo 0lum $(expr $(cat /sys/class/backlight/intel_backlight/max_brightness) / 2)
@@ -27,10 +27,11 @@ echo '-1' >$B_IPC  # defined in .zshrc; see 0mon,0hot
 eval $(keychain --eval --quick --quiet --agents ssh id_rsa)  # cb6ebccf
 
 # services
-0browsertmp &  # cf. 0pow
-emacs --daemon &
+bgin 0browsertmp  # cf. 0pow
 bgin dunst
-bgin nabi
+bgin emacs --daemon
+bgin uim-toolbar-gtk-systray
+bgin uim-xim
 bgin wicd-gtk -t
 
 # start wm

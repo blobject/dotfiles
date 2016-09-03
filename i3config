@@ -94,7 +94,7 @@ bindsym $m+$s+r restart
 bindsym $m+$s+Escape kill
 bindsym $a+$c+BackSpace exec --no-startup-id 0pow
 bindsym $a+$c+Delete    exec --no-startup-id 0pow
-bindsym $m+bracketleft  exec --no-startup-id 0hot kbl
+bindsym $m+backslash    exec --no-startup-id 0hot kbl
 bindsym $m+Return       exec --no-startup-id rofi -show run
 bindsym $m+$a+Return    exec --no-startup-id 0hot i3m
 bindsym $m+e            exec emacsclient -nc

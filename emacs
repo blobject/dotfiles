@@ -38,7 +38,7 @@
   '(default-tab-width 2 t)
   '(electric-indent-inhibit t t)
   '(electric-pair-mode t)
-  '(face-font-family-alternatives (quote (("consolas" "nanumbarungothic" "nsimsun" "meiryo"))))
+  '(face-font-family-alternatives (quote (("consolas" "seoul namsan" "nsimsun" "meiryo"))))
   '(fringe-mode 0 nil (fringe))
   '(indent-tabs-mode nil)
   '(inhibit-startup-screen t)
@@ -135,6 +135,12 @@
 (global-unset-key (kbd "<C-down-mouse-1>"))
 (global-unset-key (kbd "<C-down-mouse-2>"))
 (global-unset-key (kbd "<C-down-mouse-3>"))
+
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+((nil . ((eval . (progn
+  (add-to-list 'exec-path
+    (concat (locate-dominating-file default-directory ".dir-locals.el")
+            "node_modules/.bin/")))))))
 
 (defun my/back-to-indentation-or-beginning ()
   "do what i mean when i go back to beginning"

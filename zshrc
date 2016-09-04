@@ -1,7 +1,7 @@
 # .zshrc
 
 [ "$TERM" = screen ] && TERM=screen-256color
-PATH="$HOME/opt/bin:/usr/local/bin:/usr/local/sbin:$HOME/.gem/ruby/2.1.0/bin:$PATH:/sbin:/usr/sbin"
+PATH="$PATH:/sbin:/usr/sbin:$HOME/opt/bin:/usr/local/bin:/usr/local/sbin:$HOME/.gem/ruby/2.1.0/bin:$HOME/src/kona/node_modules/.bin"
 EDITOR='emacsclient -nc'
 VISUAL='emacsclient -nc'
 PAGER=less  # for i3

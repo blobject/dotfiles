@@ -4,7 +4,7 @@ app-editors/emacs
 app-editors/vim
 app-emulation/virtualbox-bin
 app-emulation/virtualbox-modules
-app-i18n/nabi
+app-i18n/uim
 app-misc/tmux
 app-misc/when
 app-office/libreoffice-bin

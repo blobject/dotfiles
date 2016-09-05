@@ -25,6 +25,10 @@
 ; web-mode
 
 (custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
   '(auto-save-default nil)
   '(aw-keys (quote (104 115 110 116 114 105 101 97 111)))
   '(backup-directory-alist (quote ((".*" . "~/bak/emacs/"))))
@@ -46,9 +50,10 @@
   '(initial-scratch-message "")
   '(isearch-lazy-highlight nil)
   '(ivy-mode t)
+  '(js-indent-level 2)
   '(menu-bar-mode nil)
-  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 5) ((control) . 10))))
   '(mouse-wheel-progressive-speed nil)
+  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 5) ((control) . 10))))
   '(neo-show-hidden-files t)
   '(neo-smart-open t)
   '(neo-theme (quote ascii))
@@ -66,11 +71,15 @@
   '(tool-bar-mode nil)
   '(uniquify-buffer-name-style (quote post-forward) nil (uniquify))
   '(vc-follow-symlinks nil)
-  '(web-mode-markup-indent-offset 2)
   '(web-mode-code-indent-offset 2)
-  '(web-mode-css-indent-offset 2))
+  '(web-mode-css-indent-offset 2)
+  '(web-mode-markup-indent-offset 2))
 
 (custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
   '(default ((t (:family "monospace" :height 105))))
   '(fringe ((t (:background "#073642" :foreground "#073642"))))
   '(linum ((t (:background "#002b36" :foreground "#073642" :weight bold))))
@@ -88,6 +97,8 @@
   '(tooltip ((t (:background "#93a1a1" :foreground "#002b36" :family "monospace"))))
   '(trailing-whitespace ((t (:background "#073642"))))
   '(vertical-border ((t (:foreground "#073642")))))
+
+(require 'flycheck)
 
 (add-hook 'after-init-hook 'global-company-mode)
 (add-hook 'after-init-hook 'global-flycheck-mode)
@@ -124,6 +135,7 @@
 (global-set-key (kbd "C-o") 'my/open-next-line)
 (global-set-key (kbd "M-o") 'my/open-previous-line)
 (global-set-key (kbd "C-x [") 'neotree-toggle)
+(global-set-key (kbd "C-x /") 'my/toggle-selective-display)
 (global-set-key (kbd "C-x 2") 'my/vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'my/hsplit-last-buffer)
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -135,12 +147,17 @@
 (global-unset-key (kbd "<C-down-mouse-1>"))
 (global-unset-key (kbd "<C-down-mouse-2>"))
 (global-unset-key (kbd "<C-down-mouse-3>"))
+(global-unset-key (kbd "<S-down-mouse-1>"))
+(global-unset-key (kbd "<S-down-mouse-2>"))
+(global-unset-key (kbd "<S-down-mouse-3>"))
 
 (flycheck-add-mode 'javascript-eslint 'web-mode)
-((nil . ((eval . (progn
-  (add-to-list 'exec-path
-    (concat (locate-dominating-file default-directory ".dir-locals.el")
-            "node_modules/.bin/")))))))
+
+(defadvice web-mode-highlight-part (around tweak-jsx activate)
+  (if (equal web-mode-content-type "jsx")
+    (let ((web-mode-enable-part-face nil))
+      ad-do-it)
+    ad-do-it))
 
 (defun my/back-to-indentation-or-beginning ()
   "do what i mean when i go back to beginning"
@@ -183,8 +200,8 @@
   (open-line arg)
   (indent-according-to-mode))
 
-(defadvice web-mode-highlight-part (around tweak-jsx activate)
-  (if (equal web-mode-content-type "jsx")
-    (let ((web-mode-enable-part-face nil))
-      ad-do-it)
-    ad-do-it))
+(defun my/toggle-selective-display (column)
+  "fold code block"
+  (interactive "p")
+  (set-selective-display
+    (if selective-display nil (or column 1))))

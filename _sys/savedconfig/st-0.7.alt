@@ -1,4 +1,4 @@
-static char font[] = "monospace:size=20";
+static char font[] = "monospace:pixelsize=31";
 static int borderpx = 4;
 static char shell[] = "/bin/zsh";
 static char *utmp = NULL;

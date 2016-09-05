@@ -1,16 +1,16 @@
 # .zshrc
 
 [ "$TERM" = screen ] && TERM=screen-256color
-PATH="$PATH:/sbin:/usr/sbin:$HOME/opt/bin:/usr/local/bin:/usr/local/sbin:$HOME/.gem/ruby/2.1.0/bin:$HOME/src/kona/node_modules/.bin"
+PATH="$PATH:/sbin:/usr/sbin:$HOME/opt/bin:/usr/local/bin:/usr/local/sbin:$HOME/.gem/ruby/2.1.0/bin"
 EDITOR='emacsclient -nc'
 VISUAL='emacsclient -nc'
 PAGER=less  # for i3
 TERMINAL=st  # for i3
 LESS=-imRS  # icase search,verbose,rawcolor,chop
 LESSHISTFILE=-
-B_DAT=/data     # used in .xinitrc,0save
-B_IPC=/tmp/b_ipc    # used in .xinitrc,0core,0hot
-B_NOW='%d%b%y-%H%M%S' # used in 0hot,0save
+B_DAT=/data  # used in .xinitrc,0save
+B_IPC=/tmp/b_ipc  # used in .xinitrc,0core,0hot
+B_NOW='%d%b%y-%H%M%S'  # used in 0hot,0save
 export TERM EDITOR VISUAL PAGER TERMINAL LESS LESSHISTFILE B_DAT B_IPC B_NOW
 
 HISTFILE=$HOME/.zshlog
@@ -62,11 +62,12 @@ alias sudo='sudo '
 alias    e='emacsclient -nc '
 alias    g='git '
 alias    v='vim '
-alias pstree='pstree -h'
+alias pstree='pstree -h '
 alias 0fonts="fc-list|sed 's/^.\+: //;s/:.\+$//;s/,.*$//'|sort -u|pr -2 -T"
 alias   0psc="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time|sed '/^ 0.0 /d'"
 alias   0psm='ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz|awk "{if(\$1>5000)print;}"'
 alias 0update='sudo emerge --sync && sudo q -r && sudo emerge -uDNa @world'
+alias 1lint="$HOME/src/kona/node_modules/eslint/bin/eslint.js $HOME/src/kona/client/"
 c() { cd "$@" && \
   { local lim=128 count=$(ls --color=n|wc -l);
     [ $count -gt $lim ] \
@@ -77,17 +78,9 @@ alias    ...='c ../..'
 alias   ....='c ../../..'
 alias  .....='c ../../../..'
 
-#alias   0fus='sshfs -o idmap=user s:/ /mnt/s'
-#alias   0fub='sshfs -o idmap=user s:/home/b /mnt/s'
-#alias   0fun='fusermount -u /mnt/s'
-#alias  0tune='vlc http://192.168.1.10:8000 -I ncurses'
-#alias     bc='bc -l /usr/local/lib/bc/{custom,typography}.bc'
-#alias    mpc='mpc -h 192.168.1.10 -p 6600'
-#alias mpcloop='while true; do clear;mpc;sleep 10;done'
-#
-alias 1lint="$HOME/src/kona/node_modules/eslint/bin/eslint.js $HOME/src/kona/client/"
-
 eval "$(dircolors $HOME/.config/dircolors)"
+source /usr/bin/aws_zsh_completer.sh
+
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' menu select

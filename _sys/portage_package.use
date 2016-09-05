@@ -2,6 +2,7 @@ app-arch/p7zip rar
 app-crypt/gcr gtk
 app-crypt/pinentry gnome-keyring
 app-editors/emacs sound xft
+app-i18n/uim gtk gtk3 xft -anthy
 app-portage/layman sync-plugin-portage -mercurial -subversion
 app-text/mupdf javascript
 dev-db/sqldeveloper mysql

@@ -1,5 +1,6 @@
 syntax on
 filetype plugin indent on
+
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab
 set backup backupdir=$HOME/bak/vim
 set ignorecase smartcase
@@ -8,7 +9,9 @@ set number ruler
 set nohlsearch incsearch
 set showcmd showmatch
 set wrap
-highlight Comment      ctermfg=10
-highlight LineNr       ctermfg=10 ctermbg=0
-highlight MatchParen   ctermbg=10
-highlight SpecialKey   ctermfg=11
+
+highlight Comment    ctermfg=10
+highlight LineNr     ctermfg=10 ctermbg=0
+highlight MatchParen ctermbg=10
+highlight SpecialKey ctermfg=11
+highlight StatusLine ctermfg=0 ctermbg=0

@@ -1,21 +1,29 @@
 Xft.dpi: 120
+Xft.antialias: 1
+Xft.hinting: 1
+Xft.hintstyle: hintmedium
+Xft.rgba: none
 
-rofi.bw:          0
-rofi.color-normal: #839496, #002b36, #657b83, #073642, #839496
-rofi.color-urgent: #839496, #d33682, #657b83, #073642, #cb4b16
-rofi.color-active: #839496, #586e75, #657b83, #073642, #6c71c4
-rofi.color-window: #839496, #839496, #657b83
+rofi.bw: 0
+rofi.color-normal: #6c71c4, #002b36, #6c71c4, #073642, #6c71c4
+rofi.color-urgent: #6c71c4, #cb4b16, #6c71c4, #073642, #dc322f
+rofi.color-active: #6c71c4, #eee8d5, #6c71c4, #073642, #fdf6e3
+rofi.color-window: #6c71c4
 rofi.color-enabled: true
+rofi.columns: 4
 rofi.disable-history: true
-rofi.font:        autonoe 12
-rofi.lines:       10
-rofi.location:    7
-rofi.modi:        run,window
-rofi.padding:     8
-rofi.terminal:    st
-rofi.width:       100
-rofi.xoffset:     0
-rofi.yoffset:     0
+rofi.font: mono semibold 16
+rofi.lines: 10
+rofi.line-margin: 10
+rofi.location: 2
+rofi.matching: regex
+rofi.modi: run,window
+rofi.padding: 10
+rofi.sidebar-mode: true
+rofi.terminal: st
+rofi.width: 100
+rofi.xoffset: 0
+rofi.yoffset: 0
 rofi.kb-mode-next: Tab
 rofi.kb-mode-previous: Shift+Tab
-rofi.kb-row-tab:  Control+Tab
+rofi.kb-row-tab: Control+Tab

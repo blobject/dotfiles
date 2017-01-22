@@ -1,27 +1,4 @@
 (package-initialize)
-; ace-window
-; auctex
-; avy
-; browse-kill-ring
-; company
-; counsel
-; expand-region
-; flycheck
-; haskell-mode
-; hlinum
-; ivy
-; iy-go-to-char
-; magit
-; markdown-mode
-; multiple-cursors
-; neotree
-; org
-; paredit
-; rainbow-delimiters
-; smart-mode-line
-; solarized-theme
-; web-mode
-
 (require 'flycheck)
 
 (custom-set-variables
@@ -60,6 +37,7 @@
   '(org-agenda-files (quote ("~/todo.org")))
   '(org-hide-leading-stars t)
   '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("melpa" . "https://melpa.org/packages/"))))
+  '(package-selected-packages (quote (web-mode solarized-theme smart-mode-line rainbow-delimiters paredit org neotree multiple-cursors markdown-mode magit iy-go-to-char hlinum haskell-mode geiser flycheck expand-region counsel company clojure-mode cider browse-kill-ring auctex ace-window)))
   '(read-quoted-char-radix 16)
   '(scroll-bar-mode nil)
   '(show-paren-mode t)
@@ -72,7 +50,8 @@
   '(vc-follow-symlinks nil)
   '(web-mode-code-indent-offset 2)
   '(web-mode-css-indent-offset 2)
-  '(web-mode-markup-indent-offset 2))
+  '(web-mode-markup-indent-offset 2)
+  '(x-underline-at-descent-line t))
 
 (custom-set-faces
   '(default ((t (:family "monospace" :height 90))))
@@ -104,6 +83,7 @@
 (add-hook 'prog-mode-hook 'linum-mode)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+(add-hook 'geiser-mode-hook 'enable-paredit-mode)
 (add-hook 'lisp-mode-hook 'enable-paredit-mode)
 (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
 (add-hook 'scheme-mode-hook 'enable-paredit-mode)

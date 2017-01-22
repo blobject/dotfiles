@@ -19,11 +19,13 @@ dev-db/pgadmin3
 dev-db/postgresql
 dev-db/postgresql:9.5
 dev-db/redis
+dev-java/leiningen-bin
 dev-java/oracle-jdk-bin
 dev-lang/gnu-smalltalk
 dev-lang/go
 dev-python/awscli
 dev-python/beautifulsoup
+dev-scheme/guile
 dev-scheme/racket
 games-util/steam-launcher
 mail-client/thunderbird-bin

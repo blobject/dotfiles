@@ -1,12 +1,10 @@
 (package-initialize)
 ; ace-window
-; angular-mode
 ; auctex
 ; avy
 ; browse-kill-ring
 ; company
 ; counsel
-; evil
 ; expand-region
 ; flycheck
 ; haskell-mode
@@ -24,16 +22,16 @@
 ; solarized-theme
 ; web-mode
 
+(require 'flycheck)
+
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
   '(auto-save-default nil)
   '(aw-keys (quote (104 115 110 116 114 105 101 97 111)))
   '(backup-directory-alist (quote ((".*" . "~/bak/emacs/"))))
   '(blink-cursor-mode nil)
   '(column-number-mode t)
+  '(company-dabbrev-downcase nil)
+  '(company-dabbrev-ignore-case nil)
   '(company-idle-delay 0)
   '(create-lockfiles nil)
   '(css-indent-offset 2)
@@ -44,12 +42,13 @@
   '(electric-pair-mode t)
   '(face-font-family-alternatives (quote (("consolas" "seoul namsan" "nsimsun" "meiryo"))))
   '(fringe-mode 0 nil (fringe))
+  '(global-hl-line-mode t)
   '(indent-tabs-mode nil)
   '(inhibit-startup-screen t)
   '(initial-buffer-choice t)
   '(initial-scratch-message "")
   '(isearch-lazy-highlight nil)
-  '(ivy-mode t)
+  '(ivy-mode 1)
   '(js-indent-level 2)
   '(menu-bar-mode nil)
   '(mouse-wheel-progressive-speed nil)
@@ -76,12 +75,9 @@
   '(web-mode-markup-indent-offset 2))
 
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-  '(default ((t (:family "monospace" :height 105))))
+  '(default ((t (:family "monospace" :height 90))))
   '(fringe ((t (:background "#073642" :foreground "#073642"))))
+  '(hl-line ((t (:background "#06303b"))))
   '(linum ((t (:background "#002b36" :foreground "#073642" :weight bold))))
   '(linum-highlight-face ((t (:background "#002b36" :foreground "#93a1a1" :weight bold))))
   '(mode-line-highlight ((t (:background "#002b36"))))
@@ -94,11 +90,11 @@
   '(org-level-6 ((t (:inherit variable-pitch :foreground "#859900" :family "monospace"))))
   '(org-level-7 ((t (:inherit variable-pitch :foreground "#dc322f" :family "monospace"))))
   '(org-level-8 ((t (:inherit variable-pitch :foreground "#268bd2" :family "monospace"))))
+  '(smerge-refined-added ((t (:inherit smerge-refined-change :background "#224422"))))
+  '(smerge-refined-removed ((t (:inherit smerge-refined-change :background "#552222"))))
   '(tooltip ((t (:background "#93a1a1" :foreground "#002b36" :family "monospace"))))
   '(trailing-whitespace ((t (:background "#073642"))))
   '(vertical-border ((t (:foreground "#073642")))))
-
-(require 'flycheck)
 
 (add-hook 'after-init-hook 'global-company-mode)
 (add-hook 'after-init-hook 'global-flycheck-mode)

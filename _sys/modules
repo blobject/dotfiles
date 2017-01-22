@@ -1,1 +1,1 @@
-modules="vboxdrv vboxnetflt vboxnetadp"
+modules="vboxdrv vboxnetflt vboxnetadp vboxpci"

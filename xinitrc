@@ -13,18 +13,13 @@ export XMODIFIERS=@im=uim
 # settings
 sudo 0lum $(expr $(cat /sys/class/backlight/intel_backlight/max_brightness) / 2)
 sudo 0shed
-amixer -q sset Master 50% mute
-xsetroot -cursor_name left_ptr -solid '#073642'
 setxkbmap -option ctrl:nocaps hsnt
 xset  b off  m 4 4  r rate 250 35 \
   -r 121 -r 122 -r 123 -r 173 -r 172 -r 171 \
   -r 225 -r 232 -r 233 -r 107 -r 150 \
   fp+ $HOME/.fonts/bitmap  fp rehash
+xsetroot -cursor_name left_ptr -solid '#073642'
 xrdb $HOME/.xresources
-
-# more vars
-echo '-1' >$B_IPC  # defined in .zshrc; see 0mon,0hot
-eval $(keychain --eval --quick --quiet --agents ssh id_rsa)  # cb6ebccf
 
 # services
 bgin 0browsertmp  # cf. 0pow
@@ -33,6 +28,7 @@ bgin emacs --daemon
 bgin uim-toolbar-gtk-systray
 bgin uim-xim
 bgin wicd-gtk -t
+eval $(keychain --eval --quick --quiet --agents ssh id_rsa)  # cb6ebccf
 
 # start wm
-exec i3
+exec ck-launch-session dbus-launch --sh-syntax --exit-with-session i3

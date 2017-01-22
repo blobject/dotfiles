@@ -82,7 +82,7 @@ bindsym    XF86AudioRaiseVolume  exec --no-startup-id 0hot vol ++
 #bindsym    XF86AudioPrev         exec --no-startup-id 0hot lock   # 173
 #bindsym    XF86AudioPlay         exec --no-startup-id 0hot lock   # 172
 #bindsym    XF86AudioNext         exec --no-startup-id 0hot lock   # 171
-#bindsym    XF86Search            exec --no-startup-id 0hot lock   # 225
+bindsym    XF86Search            exec --no-startup-id 0hot rat dwt # 225
 bindsym    XF86MonBrightnessDown exec --no-startup-id sudo 0lum - # 232
 bindsym    XF86MonBrightnessUp   exec --no-startup-id sudo 0lum + # 233
 bindsym    Print                 exec --no-startup-id 0hot shot   # 107
@@ -114,6 +114,7 @@ floating_modifier $m
 focus_follows_mouse no
 for_window [class="Vlc"] floating enable
 font 0title
+mouse_warping none
 new_float normal 4
 new_window pixel 4
 bar {

@@ -1,5 +1,5 @@
-static char font[] = "monospace:pixelsize=29";
-static int borderpx = 4;
+static char font[] = "monospace:pixelsize=15";
+static int borderpx = 1;
 static char shell[] = "/bin/zsh";
 static char *utmp = NULL;
 static char stty_args[] = "stty raw pass8 nl -echo -iexten -cstopb 38400";
@@ -15,34 +15,52 @@ static unsigned int actionfps = 30;
 static unsigned int blinktimeout = 0;
 static unsigned int cursorthickness = 2;
 static int bellvolume = 0;
-static char termname[] = "xterm";
+static char termname[] = "st-256color";
 static unsigned int tabspaces = 8;
 static const char *colorname[] = {
-  "#171717",  //  0 k
-  "#c36161",  //  1 r
-  "#61c361",  //  2 g
-  "#c3c361",  //  3 y
-  "#6161c3",  //  4 b
-  "#c361c3",  //  5 m
-  "#61c3c3",  //  6 c
-  "#c3c3c3",  //  7 w
-  "#616161",  //  8 bk
-  "#c36192",  //  9 br
-  "#92c361",  // 10 bg
-  "#c39261",  // 11 by
-  "#6192c3",  // 12 bb
-  "#9261c3",  // 13 bm
-  "#61c392",  // 14 bc
-  "#ffffff",  // 15 bw
+// dark
+  "#073642",  //  0 k
+  "#dc322f",  //  1 r
+  "#859900",  //  2 g
+  "#b58900",  //  3 y
+  "#268bd2",  //  4 b
+  "#d33682",  //  5 m
+  "#2aa198",  //  6 c
+  "#eee8d5",  //  7 w
+  "#415257",  //  8 bk
+  "#cb4b16",  //  9 br
+  "#586e75",  // 10 bg
+  "#657b83",  // 11 by
+  "#839496",  // 12 bb
+  "#6c71c4",  // 13 bm
+  "#93a1a1",  // 14 bc
+  "#fdf6e3",  // 15 bw
+// light
+  //"#073642",  //  0 k
+  //"#dc322f",  //  1 r
+  //"#859900",  //  2 y
+  //"#b58900",  //  3 g
+  //"#268bd2",  //  4 b
+  //"#d33682",  //  5 m
+  //"#2aa198",  //  6 c
+  //"#eee8d5",  //  7 w
+  //"#002b36",  //  8 bk
+  //"#cb4b16",  //  9 br
+  //"#586e75",  // 10 by
+  //"#657b83",  // 11 bg
+  //"#839496",  // 12 bb
+  //"#6c71c4",  // 13 bm
+  //"#93a1a1",  // 14 bc
+  //"#fdf6e3",  // 15 bw
   [255] = 0,
   /* DefaultXX */
-  "#a0a0a0",
-  "#448844",
+  "#002b36",
+  "#000000",
 };
 
-static unsigned int defaultbg = 0;
-static unsigned int defaultfg = 7;
-static unsigned int defaultcs = 256;
+static unsigned int defaultbg = 256;
+static unsigned int defaultfg = 12;
+static unsigned int defaultcs = 7;
 static unsigned int defaultrcs = 257;
 static unsigned int defaultitalic = 6;
 static unsigned int defaultunderline = 0;

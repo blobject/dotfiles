@@ -9,8 +9,10 @@ dev-db/sqldeveloper mysql
 mail-client/thunderbird-bin -crashreporter
 mail-mta/msmtp -mta
 media-fonts/corefonts tahoma
+media-fonts/source-pro -cjk
 media-libs/fontconfig-infinality -nyx
 media-libs/freetype infinality
+media-video/mpv -bluray -cdda -dvd -xscreensaver
 media-video/vlc fontconfig
 net-misc/wicd ambiance gtk libnotify
 sys-kernel/vanilla-sources symlink
@@ -23,4 +25,6 @@ x11-terms/st savedconfig
 dev-libs/libpcre abi_x86_32
 media-libs/libmypaint gegl
 media-libs/libtxc_dxtn abi_x86_32
+x11-libs/libva abi_x86_32
+x11-libs/libva-intel-driver abi_x86_32
 virtual/libintl abi_x86_32

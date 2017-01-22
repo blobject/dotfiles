@@ -66,10 +66,9 @@ alias pstree='pstree -h '
 alias 0fonts="fc-list|sed 's/^.\+: //;s/:.\+$//;s/,.*$//'|sort -u|pr -2 -T"
 alias   0psc="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time|sed '/^ 0.0 /d'"
 alias   0psm='ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz|awk "{if(\$1>5000)print;}"'
-alias 0update='sudo emerge --sync && sudo q -r && sudo emerge -uDNa @world'
 alias 1lint="$HOME/src/kona/node_modules/eslint/bin/eslint.js $HOME/src/kona/client/"
 c() { cd "$@" && \
-  { local lim=128 count=$(ls --color=n|wc -l);
+  { local lim=256 count=$(ls --color=n|wc -l);
     [ $count -gt $lim ] \
     && echo "skipping ls ($count entries > $lim)" \
     || l; }; }

@@ -7,10 +7,9 @@ http://mirrors.163.com/gentoo/
 http://ftp.snt.utwente.nl/pub/os/linux/gentoo
 http://www.gtlib.gatech.edu/gentoo'
 USE='acpi bluetooth cairo cgroups cjk consolekit emacs i3 infinality introspection ipv6 policykit pulseaudio socks5 vaapi vim-syntax xcb xkb xpm xv zsh-completion
--accessibility -development -doc -gnome -joystick -wayland'
+-accessibility -development -doc -egl -gnome -joystick -wayland'
 EMERGE_DEFAULT_OPTS='--ask-enter-invalid --quiet-build=y --with-bdeps=y'
 CPU_FLAGS_X86='3dnow 3dnowext aes avx avx2 fma3 fma4 mmx mmxext padlock popcnt sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3 x87'
 INPUT_DEVICES='libinput'
 RUBY_TARGETS='ruby21 ruby22'
 VIDEO_CARDS='intel i915 i965'
-PORTAGE_TMPDIR='/var/tmp/portage_notmpfs'

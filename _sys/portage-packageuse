@@ -15,7 +15,7 @@ media-libs/freetype infinality
 media-video/mpv -bluray -cdda -dvd -xscreensaver
 media-video/vlc fontconfig
 net-misc/wicd ambiance gtk libnotify
-sys-kernel/vanilla-sources symlink
+sys-kernel/ck-sources symlink
 www-client/firefox-bin startup-notification
 x11-base/xorg-server glamor
 x11-misc/rofi windowmode

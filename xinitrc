@@ -18,6 +18,15 @@ xset  b off  m 4 4  r rate 250 35 \
 xsetroot -cursor_name left_ptr -solid '#073642'
 xrdb $HOME/.xresources
 
+# note: let pulse restore how it wants, but restore alsa manually
+restore_alsa() {
+  while [ -z "$(pidof pulseaudio)" ]; do
+    sleep 1
+  done
+  alsactl --file $HOME/.config/asound.state restore
+}
+restore_alsa &
+
 # services
 bgin 0browsertmp  # cf. 0pow
 bgin dunst

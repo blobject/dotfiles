@@ -1,9 +1,3 @@
-Xft.dpi: 120
-Xft.antialias: 1
-Xft.hinting: 1
-Xft.hintstyle: hintmedium
-Xft.rgba: none
-
 rofi.bw: 0
 rofi.color-normal: #6c71c4, #002b36, #6c71c4, #073642, #6c71c4
 rofi.color-urgent: #6c71c4, #cb4b16, #6c71c4, #073642, #dc322f

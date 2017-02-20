@@ -8,7 +8,7 @@ export QT_IM_MODULE=uim
 export XMODIFIERS=@im=uim
 
 # settings
-sudo 0lum $(expr $(cat /sys/class/backlight/intel_backlight/max_brightness) / 2)
+sudo 0lum $(expr $(cat /sys/class/backlight/intel_backlight/max_brightness) '*' 6 '/' 16)
 sudo 0shed
 setxkbmap -option ctrl:nocaps hsnt
 xset  b off  m 4 4  r rate 250 35 \

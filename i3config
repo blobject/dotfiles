@@ -113,6 +113,7 @@ floating_minimum_size 32 x 32
 floating_modifier $m
 focus_follows_mouse no
 for_window [class="Vlc"] floating enable
+for_window [title="goetia"] floating enable
 font 0title
 mouse_warping none
 new_float normal 4

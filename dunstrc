@@ -4,7 +4,7 @@
   alignment = center
   word_wrap = yes
   ignore_newline = no
-  geometry = "384x8-32+56"
+  geometry = "384x29-32+56"
   history_length = 32
   separator_height = 4
   padding = 8

@@ -48,7 +48,6 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 RPROMPT=%{$'\e[1;36m'%}\$vcs_info_msg_0_%{$'\e[0m'%}
 
-alias   ag="ag --color-line-number '33' --color-match '37' --color-path '1;35' "
 alias   cp='cp -iv'
 alias   mv='mv -iv'
 alias   rm='rm -i'
@@ -56,8 +55,9 @@ alias   ls='ls --color=auto'
 alias    l='ls -A'
 alias   ll='ls -lh'
 alias  lla='ll -a'
-alias  lls='ll -S'  # size
-alias  llt='ll -t'  # time
+alias  lls='ll -S'
+alias  llt='ll -t'
+alias   rg="rg --colors 'match:fg:white' --colors 'match:style:nobold' --colors 'path:style:bold' --colors 'line:fg:yellow'"
 alias sudo='sudo '
 alias    e='emacsclient -nc '
 alias    g='git '

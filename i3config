@@ -103,12 +103,12 @@ bindsym $m+t            exec --no-startup-id st -e tmux
 bindsym $m+$a+t         exec --no-startup-id st-alt
 bindsym $m+w            exec google-chrome-stable --disk-cache-dir=/tmp/b_tmp_chrome_cache
 bindsym $m+$a+w         exec firefox-bin
-client.background       $clr-bk
-client.focused          $clr-bg $clr-bg $clr-bk $clr-bb
-client.focused_inactive $clr-k  $clr-k  $clr-by $clr-by
-client.unfocused        $clr-bk $clr-bk $clr-bg $clr-by
-client.urgent           $clr-c  $clr-c  $clr-bw $clr-bm
-client.placeholder      $clr-k  $clr-k  $clr-w  $clr-w
+client.background       $clr-w
+client.focused          $clr-bc $clr-bc $clr-bw $clr-bm
+client.focused_inactive $clr-w  $clr-w  $clr-bg $clr-bc
+client.unfocused        $clr-w  $clr-w  $clr-bc $clr-bc
+client.urgent           $clr-c  $clr-c  $clr-w  $clr-bm
+client.placeholder      $clr-w  $clr-w  $clr-bk $clr-bk
 floating_minimum_size 32 x 32
 floating_modifier $m
 focus_follows_mouse no
@@ -120,12 +120,12 @@ new_float normal 4
 new_window pixel 4
 bar {
   colors {
-    background         $clr-bk
-    separator          $clr-k
-    focused_workspace  $clr-bk $clr-bk $clr-bw
-    active_workspace   $clr-bk $clr-bk $clr-y
-    inactive_workspace $clr-bk $clr-bk $clr-bg
-    urgent_workspace   $clr-c  $clr-c  $clr-bw
+    background         $clr-w
+    separator          $clr-bc
+    focused_workspace  $clr-w $clr-w $clr-bk
+    active_workspace   $clr-w $clr-w $clr-bc
+    inactive_workspace $clr-w $clr-w $clr-bc
+    urgent_workspace   $clr-c $clr-c $clr-w
   }
   font 0autonoe
   id i3bar

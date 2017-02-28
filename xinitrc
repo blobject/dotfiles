@@ -8,14 +8,14 @@ export QT_IM_MODULE=uim
 export XMODIFIERS=@im=uim
 
 # settings
-sudo 0lum $(expr $(cat /sys/class/backlight/intel_backlight/max_brightness) '*' 6 '/' 16)
+sudo 0lum $(expr $(cat /sys/class/backlight/intel_backlight/max_brightness) '/' 16)
 sudo 0shed
 setxkbmap -option ctrl:nocaps hsnt
 xset  b off  m 4 4  r rate 250 35 \
   -r 121 -r 122 -r 123 -r 173 -r 172 -r 171 \
   -r 225 -r 232 -r 233 -r 107 -r 150 \
   fp+ $HOME/.fonts/bitmap  fp rehash
-xsetroot -cursor_name left_ptr -solid '#073642'
+xsetroot -cursor_name left_ptr -solid '#839496'
 xrdb $HOME/.xresources
 
 # note: let pulse restore however it wants, but restore alsa manually
@@ -33,7 +33,7 @@ bgin dunst
 bgin emacs --daemon
 bgin uim-toolbar-gtk-systray
 bgin uim-xim
-bgin wicd-gtk -t
+bgin wicd-gtk --tray
 eval $(keychain --eval --quick --quiet --agents ssh id_rsa)  # cb6ebccf
 
 # start wm

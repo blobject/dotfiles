@@ -37,7 +37,7 @@ if [ "$TERM" != linux ] && [ "$TERM" != eterm-color ]; then
   zle -N zle-line-finish; fi
 
 precmd() {
-  PS1=%{$'\e[1;36m'%}"$(echo ${PWD/#$HOME/\~}|sed 's!\([^/]\{3\}\)[^/]\{2,\}/!\1+/!g')"%{$'\e[0m'%}' '
+  PS1=%{$'\e[0;37m'%}"$(echo ${PWD/#$HOME/\~}|sed 's!\([^/]\{3\}\)[^/]\{2,\}/!\1+/!g')"%{$'\e[0m'%}' '
   [ "$TERM" = linux ] || printf "\a"; }
 [ "$TERM" = linux ] || [ "$TERM" = eterm-color ] || preexec() {
   #PROMPT_COMMAND="printf '\033k$(hostname)\033\\';"${PROMPT_COMMAND}
@@ -46,7 +46,7 @@ precmd() {
   print -Pn "\e]0;[$quo] $que\a"; }
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
-RPROMPT=%{$'\e[1;36m'%}\$vcs_info_msg_0_%{$'\e[0m'%}
+RPROMPT=%{$'\e[0;37m'%}\$vcs_info_msg_0_%{$'\e[0m'%}
 
 alias   cp='cp -iv'
 alias   mv='mv -iv'

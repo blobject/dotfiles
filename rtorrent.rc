@@ -1,10 +1,10 @@
 # ~/.rtorrent.rc
 directory = /home/b/got/torrent
 session = /home/b/got/torrent
-port_range = 20081-20081
+port_range = 20030-20030
 check_hash = yes
 use_udp_trackers = yes
 dht = auto
-dht_port = 20082
+dht_port = 20031
 peer_exchange = yes
 encryption = allow_incoming,try_outgoing,enable_retry

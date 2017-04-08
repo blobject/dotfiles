@@ -51,6 +51,7 @@ bindsym $m+3     workspace 3
 bindsym $m+4     workspace 4
 bindsym $m+5     workspace 5
 bindsym $m+6     workspace 6
+bindsym $m+7     workspace 7
 bindsym $m+Left  workspace prev
 bindsym $m+Right workspace next
 bindsym $m+$a+1     move container to workspace 1
@@ -59,6 +60,7 @@ bindsym $m+$a+3     move container to workspace 3
 bindsym $m+$a+4     move container to workspace 4
 bindsym $m+$a+5     move container to workspace 5
 bindsym $m+$a+6     move container to workspace 6
+bindsym $m+$a+7     move container to workspace 7
 bindsym $m+$a+Left  move container to workspace prev
 bindsym $m+$a+Right move container to workspace next
 bindsym $m+r mode "resize"
@@ -74,28 +76,30 @@ mode "resize" {
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
-bindsym    XF86AudioMute         exec --no-startup-id 0hot vol x  # 121
-bindsym $s+XF86AudioLowerVolume  exec --no-startup-id 0hot vol -  # 122
+bindsym    XF86AudioMute         exec --no-startup-id 0hot vol x   # 121
+bindsym $s+XF86AudioLowerVolume  exec --no-startup-id 0hot vol -   # 122
 bindsym    XF86AudioLowerVolume  exec --no-startup-id 0hot vol --
-bindsym $s+XF86AudioRaiseVolume  exec --no-startup-id 0hot vol +  # 123
+bindsym $s+XF86AudioRaiseVolume  exec --no-startup-id 0hot vol +   # 123
 bindsym    XF86AudioRaiseVolume  exec --no-startup-id 0hot vol ++
-#bindsym    XF86AudioPrev         exec --no-startup-id 0hot lock   # 173
-#bindsym    XF86AudioPlay         exec --no-startup-id 0hot lock   # 172
-#bindsym    XF86AudioNext         exec --no-startup-id 0hot lock   # 171
+#bindsym    XF86AudioPrev         exec # 173
+#bindsym    XF86AudioPlay         exec # 172
+#bindsym    XF86AudioNext         exec # 171
 bindsym    XF86Search            exec --no-startup-id 0hot rat dwt # 225
-bindsym    XF86MonBrightnessDown exec --no-startup-id sudo 0lum - # 232
-bindsym    XF86MonBrightnessUp   exec --no-startup-id sudo 0lum + # 233
-bindsym    Print                 exec --no-startup-id 0hot shot   # 107
+bindsym    XF86MonBrightnessDown exec --no-startup-id 0hot lum -   # 232
+bindsym    XF86MonBrightnessUp   exec --no-startup-id 0hot lum +   # 233
+bindsym    XF86AudioRewind       exec --no-startup-id 0hot lum -
+bindsym    XF86AudioForward      exec --no-startup-id 0hot lum +
+bindsym    Print                 exec --no-startup-id 0hot shot    # 107
 bindsym $s+Print                 exec --no-startup-id 0hot shot s
 bindsym $c+Print                 exec --no-startup-id 0hot shot w
-bindsym    XF86PowerOff          exec --no-startup-id 0pow Lock   # 124
+bindsym    XF86PowerOff          exec --no-startup-id 0pow Lock    # 124
 bindsym $m+$s+c reload
 bindsym $m+$s+r restart
 bindsym $m+$s+Escape kill
 bindsym $a+$c+BackSpace exec --no-startup-id 0pow
 bindsym $a+$c+Delete    exec --no-startup-id 0pow
 bindsym $m+backslash    exec --no-startup-id 0hot kbl
-bindsym $m+Return       exec --no-startup-id rofi -show run
+bindsym $m+Return       exec --no-startup-id rofi -m '-1' -show run
 bindsym $m+$a+Return    exec --no-startup-id 0hot i3m
 bindsym $m+e            exec emacsclient -nc
 bindsym $m+m            exec thunderbird-bin
@@ -112,8 +116,12 @@ client.placeholder      $clr-w  $clr-w  $clr-bk $clr-bk
 floating_minimum_size 32 x 32
 floating_modifier $m
 focus_follows_mouse no
-for_window [class="Vlc"] floating enable
-for_window [title="goetia"] floating enable
+for_window [class="^KakaoTalk"] floating enable
+for_window [class="^UDKGame-Linux"] floating enable
+for_window [class="^Vlc"] floating enable
+for_window [class="^qjackctl"] floating enable
+for_window [title="^Android Emulator - .*"] floating enable
+for_window [title="^goetia"] floating enable
 font 0title
 mouse_warping none
 new_float normal 4
@@ -121,7 +129,7 @@ new_window pixel 4
 bar {
   colors {
     background         $clr-w
-    separator          $clr-bc
+    separator          #c9d0d0
     focused_workspace  $clr-w $clr-w $clr-bk
     active_workspace   $clr-w $clr-w $clr-bc
     inactive_workspace $clr-w $clr-w $clr-bc

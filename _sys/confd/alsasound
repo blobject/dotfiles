@@ -13,3 +13,5 @@ RESTORE_ON_START="no"
 # yes - Save state
 
 SAVE_ON_STOP="no"
+
+# save/restore manually, because it gets confusing with pulseaudio

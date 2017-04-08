@@ -35,6 +35,8 @@ load-module module-switch-on-port-available
 ### Load audio drivers statically
 ### (it's probably better to not load these drivers manually, but instead
 ### use module-udev-detect -- see below -- for doing this automatically)
+#load-module module-alsa-sink
+#load-module module-alsa-source device=hw:1,0
 #load-module module-null-sink
 #load-module module-pipe-sink
 
@@ -133,3 +135,8 @@ load-module module-filter-apply
 ### Make some devices default
 set-default-sink alsa_output.pci-0000_00_1f.3.analog-stereo
 set-default-source alsa_output.pci-0000_00_1f.3.analog-stereo.monitor
+#set-default-sink output
+#set-default-source input
+
+load-module module-equalizer-sink
+load-module module-dbus-protocol

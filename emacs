@@ -1,8 +1,12 @@
 (package-initialize)
 (require 'flycheck)
+(require 'dot-mode)
 
 (custom-set-variables
- '(auto-save-default nil)
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(aw-keys (quote (104 115 110 116 114 105 101 97 111)))
  '(backup-directory-alist (quote ((".*" . "~/bak/emacs/"))))
  '(blink-cursor-mode nil)
@@ -17,12 +21,15 @@
  '(create-lockfiles nil)
  '(css-indent-offset 2)
  '(custom-enabled-themes (quote (solarized-light)))
- '(custom-safe-themes (quote ("a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+ '(custom-safe-themes
+   (quote
+    ("a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
  '(default-tab-width 2 t)
  '(electric-indent-inhibit t t)
  '(electric-pair-mode t)
  '(face-font-family-alternatives (quote (("seoul namsan" "nsimsun" "meiryo"))))
  '(fringe-mode 0 nil (fringe))
+ '(global-dot-mode t)
  '(global-hl-line-mode t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
@@ -40,8 +47,13 @@
  '(neo-theme (quote ascii))
  '(neo-window-width 20)
  '(org-hide-leading-stars t)
- '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("melpa" . "https://melpa.org/packages/"))))
- '(package-selected-packages (quote (solarized-theme smart-mode-line-powerline-theme syslog-mode flycheck-clojure flycheck-rust go-mode rust-mode web-mode smart-mode-line rainbow-delimiters paredit neotree multiple-cursors markdown-mode magit iy-go-to-char hlinum haskell-mode geiser flycheck expand-region counsel clojure-mode cider browse-kill-ring)))
+ '(package-archives
+   (quote
+    (("gnu" . "http://elpa.gnu.org/packages/")
+     ("melpa" . "https://melpa.org/packages/"))))
+ '(package-selected-packages
+   (quote
+    (yaml-mode ess lua-mode csharp-mode swift-mode ace-window auctex avy company ivy org dot-mode ripgrep solarized-theme smart-mode-line-powerline-theme syslog-mode flycheck-clojure flycheck-rust go-mode rust-mode web-mode smart-mode-line rainbow-delimiters paredit neotree multiple-cursors markdown-mode magit iy-go-to-char hlinum haskell-mode geiser flycheck expand-region counsel clojure-mode cider browse-kill-ring)))
  '(read-quoted-char-radix 16)
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
@@ -58,29 +70,23 @@
  '(web-mode-markup-indent-offset 2))
 
 (custom-set-faces
- '(default ((t (:weight semi-bold :height 105)))))
-;(custom-set-faces
-; '(default ((t (:inherit nil :stipple nil :background "#002b36" :foreground "#839496" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :foundry "adobe" :family "Source Code Pro"))))
-; '(fringe ((t (:background "#073642" :foreground "#073642"))))
-; '(hl-line ((t (:background "#06303b"))))
-; '(linum ((t (:background "#002b36" :foreground "#073642" :weight bold))))
-; '(linum-highlight-face ((t (:background "#002b36" :foreground "#93a1a1" :weight bold))))
-; '(mode-line-highlight ((t (:background "#002b36"))))
-; '(org-document-title ((t (:foreground "#93a1a1" :weight bold :height 1.0))))
-; '(org-level-1 ((t (:inherit variable-pitch :foreground "#cb4b16" :height 1.0 :family "monospace"))))
-; '(org-level-2 ((t (:inherit variable-pitch :foreground "#859900" :height 1.0 :family "monospace"))))
-; '(org-level-3 ((t (:inherit variable-pitch :foreground "#268bd2" :height 1.0 :family "monospace"))))
-; '(org-level-4 ((t (:inherit variable-pitch :foreground "#b58900" :height 1.0 :family "monospace"))))
-; '(org-level-5 ((t (:inherit variable-pitch :foreground "#2aa198" :family "monospace"))))
-; '(org-level-6 ((t (:inherit variable-pitch :foreground "#859900" :family "monospace"))))
-; '(org-level-7 ((t (:inherit variable-pitch :foreground "#dc322f" :family "monospace"))))
-; '(org-level-8 ((t (:inherit variable-pitch :foreground "#268bd2" :family "monospace"))))
-; '(smerge-refined-added ((t (:inherit smerge-refined-change :background "#224422"))))
-; '(smerge-refined-removed ((t (:inherit smerge-refined-change :background "#552222"))))
-; '(tooltip ((t (:background "#93a1a1" :foreground "#002b36" :family "monospace"))))
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:weight semi-bold :height 115))))
+ '(aw-background-face ((t (:foreground "#93a1a1"))))
+ '(org-level-1 ((t (:inherit variable-pitch :height 1.0 :family "monospace"))))
+ '(org-level-2 ((t (:inherit variable-pitch :height 1.0 :family "monospace"))))
+ '(org-level-3 ((t (:inherit variable-pitch :height 1.0 :family "monospace"))))
+ '(org-level-4 ((t (:inherit variable-pitch :height 1.0 :family "monospace"))))
+ '(org-level-5 ((t (:inherit variable-pitch :family "monospace"))))
+ '(org-level-6 ((t (:inherit variable-pitch :family "monospace"))))
+ '(org-level-7 ((t (:inherit variable-pitch :family "monospace"))))
+ '(org-level-8 ((t (:inherit variable-pitch :family "monospace")))))
 ; '(trailing-whitespace ((t (:background "#073642"))))
-; '(vertical-border ((t (:foreground "#073642")))))
 
+(add-hook 'find-file-hooks 'dot-mode-on)
 (add-hook 'after-init-hook 'global-company-mode)
 (add-hook 'after-init-hook 'global-flycheck-mode)
 (add-hook 'after-init-hook 'hlinum-activate)
@@ -110,7 +116,6 @@
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-,") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-all-like-this)
-(global-set-key (kbd "C-.") 'er/expand-region)
 (global-set-key (kbd "C-;") 'my/select-current-line)
 (global-set-key (kbd "C-:") 'avy-goto-char-timer)
 (global-set-key (kbd "C-'") 'iy-go-up-to-char)
@@ -118,6 +123,7 @@
 (global-set-key (kbd "C-a") 'my/back-to-indentation-or-beginning)
 (global-set-key (kbd "C-o") 'my/open-next-line)
 (global-set-key (kbd "M-o") 'my/open-previous-line)
+(global-set-key (kbd "<C-return>") 'er/expand-region)
 (global-set-key (kbd "C-x [") 'neotree-toggle)
 (global-set-key (kbd "C-x /") 'my/toggle-selective-display)
 (global-set-key (kbd "C-x 2") 'my/vsplit-last-buffer)

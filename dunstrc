@@ -1,55 +1,88 @@
 [global]
-  font = autonoe 12
-  format = "%s: <b>%b</b>"
-  alignment = center
-  word_wrap = yes
-  ignore_newline = no
-  geometry = "384x29-32+56"
-  history_length = 32
-  separator_height = 4
-  padding = 8
-  horizontal_padding = 0
-  separator_color = frame
-[frame]
-  width = 4
-  color = "#657b83"
+    alignment = center
+    browser = /usr/bin/google-chrome-stable
+    class = Dunst
+    dmenu = /usr/bin/dmenu -p dunst:
+    follow = keyboard
+    font = autonoe 12
+    force_xinerama = true
+    format = "%s: <b>%b</b>\n"
+    frame_width = 4
+    frame_color = "#6c71c4"
+    geometry = "384x29-32+56"
+    hide_duplicate_count = false
+    history_length = 32
+    horizontal_padding = 0
+    icon_folders = /usr/share/icons/Faenza/status/16/:/usr/share/icons/Faenza/devices/16/
+    icon_position = off
+    idle_threshold = 120
+    ignore_newline = no
+    indicate_hidden = yes
+    line_height = 0
+    markup = full
+    max_icon_size = 32
+    monitor = 0
+    notification_height = 0
+    padding = 8
+    separator_height = 4
+    separator_color = frame
+    show_age_threshold = 60
+    show_indicators = yes
+    shrink = no
+    sort = yes
+    stack_duplicates = true
+    startup_notification = false
+    sticky_history = yes
+    title = Dunst
+    transparency = 0
+    word_wrap = yes
+    always_run_script = true
+[experimental]
+    per_monitor_dpi = false
 [shortcuts]
-  close = mod4+space
-  close_all = mod4+mod1+space
-  history = mod4+shift+space
+    close = mod4+space
+    close_all = mod4+mod1+space
+    history = mod4+shift+space
+    context = mod4+ctrl+space
 [urgency_low]
-  background = "#93a1a1"
-  foreground = "#073642"
-  timeout = 3
+    background = "#93a1a1"
+    foreground = "#073642"
+    timeout = 3
+    #icon = /path/to/icon
 [urgency_normal]
-  background = "#93a1a1"
-  foreground = "#002b36"
-  timeout = 5
+    background = "#93a1a1"
+    foreground = "#002b36"
+    timeout = 5
+    #icon = /path/to/icon
 [urgency_critical]
-  background = "#93a1a1"
-  foreground = "#dc322f"
-  timeout = 0
+    background = "#93a1a1"
+    foreground = "#dc322f"
+    #frame_color = "#ff0000"
+    timeout = 0
+    #icon = /path/to/icon
+#[espeak]
+#    summary = "*"
+#    script = dunst_espeak.sh
+#[script-test]
+#    summary = "*script*"
+#    script = dunst_test.sh
 #[ignore]
-## This notification will not be displayed
-#  summary = "foobar"
-#  format = ""
-#[signed_on]
-#  appname = Pidgin
-#  summary = "*signed on*"
-#  urgency = low
-#
+#    # This notification will not be displayed
+#    summary = "foobar"
+#    format = ""
+#[history-ignore]
+#    # This notification will not be saved in history
+#    summary = "foobar"
+#    history_ignore = yes
 #[signed_off]
-#  appname = Pidgin
-#  summary = *signed off*
-#  urgency = low
-#
+#    appname = Pidgin
+#    summary = *signed off*
+#    urgency = low
 #[says]
-#  appname = Pidgin
-#  summary = *says*
-#  urgency = critical
-#
+#    appname = Pidgin
+#    summary = *says*
+#    urgency = critical
 #[twitter]
-#  appname = Pidgin
-#  summary = *twitter.com*
-#  urgency = normal
-#
+#    appname = Pidgin
+#    summary = *twitter.com*
+#    urgency = normal

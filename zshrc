@@ -48,25 +48,31 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 RPROMPT=%{$'\e[0;37m'%}\$vcs_info_msg_0_%{$'\e[0m'%}
 
-alias   cp='cp -iv'
-alias   mv='mv -iv'
-alias   rm='rm -i'
-alias   ls='ls --color=auto'
-alias    l='ls -A'
-alias   ll='ls -lh'
-alias  lla='ll -a'
-alias  lls='ll -S'
-alias  llt='ll -t'
-alias   rg="rg --colors 'match:fg:white' --colors 'match:style:nobold' --colors 'path:style:bold' --colors 'line:fg:yellow'"
-alias sudo='sudo '
-alias    e='emacsclient -nc '
-alias    g='git '
-alias    v='vim '
-alias pstree='pstree -h '
+alias 0clock='echo "  UTC:       $(TZ=UTC date)";echo "$(tput bold)* Here:      $(date)$(tput sgr0)";echo "  London:    $(TZ=Europe/London date)";echo "  Los Angls: $(TZ=America/Los_Angeles date)";echo "  New York:  $(TZ=America/New_York date)";echo "  Riyadh:    $(TZ=Asia/Riyadh date)"'
 alias 0fonts="fc-list|sed 's/^.\+: //;s/:.\+$//;s/,.*$//'|sort -u|pr -2 -T"
-alias   0psc="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time|sed '/^ 0.0 /d'"
-alias   0psm='ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz|awk "{if(\$1>5000)print;}"'
+alias 0ip='wget -q -O - ipinfo.io/ip'
+alias 0psc="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time|sed '/^ 0.0 /d'"
+alias 0psm='ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz|awk "{if(\$1>5000)print;}"'
+alias 0qmk_build="docker run -e keymap=agaric -e subproject=rev4 -e keyboard=planck --rm -v $HOME/src/qmk_firmware:/qmk:rw edasque/qmk_firmware"
 alias 1lint="$HOME/src/kona/node_modules/eslint/bin/eslint.js $HOME/src/kona/client/"
+alias     cp='cp -iv'
+alias   diff='diff --color'
+alias  dmesg='dmesg --color=always'
+alias     mv='mv -iv'
+alias     rm='rm -i'
+alias     ls='ls --color=auto'
+alias      l='ls -A'
+alias     ll='ls -lh'
+alias    lla='ll -a'
+alias    lls='ll -S'
+alias    llt='ll -t'
+alias     rg="rg --colors 'match:fg:white' --colors 'match:style:nobold' --colors 'path:style:bold' --colors 'line:fg:yellow'"
+alias   sudo='sudo '
+alias      e='emacsclient -nc '
+alias      g='git '
+alias      v='vim '
+alias   lein='rlwrap lein '
+alias pstree='pstree -h '
 c() { cd "$@" && \
   { local lim=256 count=$(ls --color=n|wc -l);
     [ $count -gt $lim ] \
@@ -76,9 +82,15 @@ alias     ..='c ..'
 alias    ...='c ../..'
 alias   ....='c ../../..'
 alias  .....='c ../../../..'
+0qmk_flash() {
+  [ -z "$1" ] \
+  && echo "no file given" \
+  || { sudo dfu-programmer atmega32u4 erase \
+     && sudo dfu-programmer atmega32u4 flash $1 \
+     && sudo dfu-programmer atmega32u4 reset; }
+}
 
 eval "$(dircolors $HOME/.config/dircolors)"
-source /usr/bin/aws_zsh_completer.sh
 
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}

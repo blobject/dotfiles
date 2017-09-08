@@ -100,7 +100,7 @@ bindsym $a+$c+BackSpace exec --no-startup-id 0pow
 bindsym $a+$c+Delete    exec --no-startup-id 0pow
 bindsym $m+backslash    exec --no-startup-id 0hot kbl
 bindsym $m+Return       exec --no-startup-id rofi -m '-1' -show run
-bindsym $m+$a+Return    exec --no-startup-id 0hot i3m
+bindsym $m+$a+Return    exec --no-startup-id 0hot wm
 bindsym $m+e            exec emacsclient -nc
 bindsym $m+m            exec thunderbird-bin
 bindsym $m+t            exec --no-startup-id st -e tmux
@@ -136,7 +136,7 @@ bar {
     urgent_workspace   $clr-c $clr-c $clr-w
   }
   font 0autonoe
-  id i3bar
+  id bar0
   mode dock
   position top
   status_command 0mon

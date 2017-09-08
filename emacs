@@ -3,10 +3,6 @@
 (require 'dot-mode)
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(aw-keys (quote (104 115 110 116 114 105 101 97 111)))
  '(backup-directory-alist (quote ((".*" . "~/bak/emacs/"))))
  '(blink-cursor-mode nil)
@@ -21,9 +17,7 @@
  '(create-lockfiles nil)
  '(css-indent-offset 2)
  '(custom-enabled-themes (quote (solarized-light)))
- '(custom-safe-themes
-   (quote
-    ("a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+ '(custom-safe-themes (quote ("a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
  '(default-tab-width 2 t)
  '(electric-indent-inhibit t t)
  '(electric-pair-mode t)
@@ -47,17 +41,16 @@
  '(neo-theme (quote ascii))
  '(neo-window-width 20)
  '(org-hide-leading-stars t)
- '(package-archives
-   (quote
-    (("gnu" . "http://elpa.gnu.org/packages/")
-     ("melpa" . "https://melpa.org/packages/"))))
- '(package-selected-packages
-   (quote
-    (yaml-mode ess lua-mode csharp-mode swift-mode ace-window auctex avy company ivy org dot-mode ripgrep solarized-theme smart-mode-line-powerline-theme syslog-mode flycheck-clojure flycheck-rust go-mode rust-mode web-mode smart-mode-line rainbow-delimiters paredit neotree multiple-cursors markdown-mode magit iy-go-to-char hlinum haskell-mode geiser flycheck expand-region counsel clojure-mode cider browse-kill-ring)))
+ '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("melpa" . "https://melpa.org/packages/"))))
+ '(package-selected-packages (quote (slime yaml-mode ess lua-mode csharp-mode swift-mode ace-window auctex avy company ivy org dot-mode ripgrep solarized-theme smart-mode-line-powerline-theme syslog-mode flycheck-clojure flycheck-rust go-mode rust-mode web-mode smart-mode-line rainbow-delimiters paredit neotree multiple-cursors markdown-mode magit iy-go-to-char hlinum haskell-mode geiser flycheck expand-region counsel clojure-mode cider browse-kill-ring)))
  '(read-quoted-char-radix 16)
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(show-trailing-whitespace t)
+ '(sml/col-number-format "%1c")
+ '(sml/line-number-format "%1l")
+ '(sml/name-width 16)
+ '(sml/shorten-modes nil)
  '(solarized-high-contrast-mode-line t)
  '(tab-stop-list (number-sequence 2 100 2))
  '(tab-width 2)
@@ -70,10 +63,6 @@
  '(web-mode-markup-indent-offset 2))
 
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(default ((t (:weight semi-bold :height 115))))
  '(aw-background-face ((t (:foreground "#93a1a1"))))
  '(org-level-1 ((t (:inherit variable-pitch :height 1.0 :family "monospace"))))
@@ -83,7 +72,10 @@
  '(org-level-5 ((t (:inherit variable-pitch :family "monospace"))))
  '(org-level-6 ((t (:inherit variable-pitch :family "monospace"))))
  '(org-level-7 ((t (:inherit variable-pitch :family "monospace"))))
- '(org-level-8 ((t (:inherit variable-pitch :family "monospace")))))
+ '(org-level-8 ((t (:inherit variable-pitch :family "monospace"))))
+ '(sml/line-number ((t (:weight bold))))
+ '(sml/minor-modes ((t (:inherit sml/global :height 0.9))))
+ '(sml/modes ((t (:inherit sml/global :weight bold :height 0.9)))))
 ; '(trailing-whitespace ((t (:background "#073642"))))
 
 (add-hook 'find-file-hooks 'dot-mode-on)
@@ -94,11 +86,11 @@
 (add-hook 'org-mode-hook (lambda () (visual-line-mode) (org-indent-mode)))
 (add-hook 'prog-mode-hook 'linum-mode)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-(add-hook 'geiser-mode-hook 'enable-paredit-mode)
-(add-hook 'lisp-mode-hook 'enable-paredit-mode)
-(add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
-(add-hook 'scheme-mode-hook 'enable-paredit-mode)
+;(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+;(add-hook 'geiser-mode-hook 'enable-paredit-mode)
+;(add-hook 'lisp-mode-hook 'enable-paredit-mode)
+;(add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+;(add-hook 'scheme-mode-hook 'enable-paredit-mode)
 (add-hook 'web-mode-hook (lambda ()
   (if (equal web-mode-content-type "javascript")
     (web-mode-set-content-type "jsx"))))
@@ -195,3 +187,6 @@
   (interactive "p")
   (set-selective-display
     (if selective-display nil (or column 1))))
+
+(load (expand-file-name "~/.quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "sbcl")

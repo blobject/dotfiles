@@ -67,6 +67,7 @@ alias    lla='ll -a'
 alias    lls='ll -S'
 alias    llt='ll -t'
 alias     rg="rg --colors 'match:fg:white' --colors 'match:style:nobold' --colors 'path:style:bold' --colors 'line:fg:yellow'"
+alias rlwrap='rlwrap '
 alias   sudo='sudo '
 alias      e='emacsclient -nc '
 alias      g='git '
@@ -82,6 +83,7 @@ alias     ..='c ..'
 alias    ...='c ../..'
 alias   ....='c ../../..'
 alias  .....='c ../../../..'
+alias 0xephyr='Xephyr -screen 1200x800 :1 &' # DISPLAY=:1 cmd
 0qmk_flash() {
   [ -z "$1" ] \
   && echo "no file given" \
@@ -105,5 +107,5 @@ compdef _command bgin=command
 compdef _cd c=cd
 
 [ $(tty) = /dev/tty4 ] && [ -z $DISPLAY ] && \
-{ mv -f $HOME/.xlog $HOME/.xlog.old >/dev/null 2>/dev/null
+{ mv -f $HOME/.xlog $HOME/.xlog.old >/dev/null 2>/dev/null && \
   xinit >/dev/null 2>$HOME/.xlog; }

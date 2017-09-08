@@ -7,6 +7,7 @@ export GTK_IM_MODULE=uim
 export QT_IM_MODULE=uim
 export XMODIFIERS=@im=uim
 export SQUEAK_IMAGE=$HOME/opt/squeak/SBE.image
+export SUDO_ASKPASS=/usr/local/bin/0askpass #SSH_ASKPASS
 
 # settings
 sudo 0lum $(expr $(cat /sys/class/backlight/intel_backlight/max_brightness) '/' 4)
@@ -38,4 +39,5 @@ bgin wicd-gtk --tray
 eval $(keychain --eval --quick --quiet --agents ssh id_rsa)  # cb6ebccf
 
 # start wm
-exec ck-launch-session dbus-launch --sh-syntax --exit-with-session i3
+#exec ck-launch-session dbus-launch --sh-syntax --exit-with-session i3
+exec ck-launch-session dbus-launch --sh-syntax --exit-with-session stumpwm

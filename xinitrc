@@ -39,5 +39,4 @@ bgin wicd-gtk --tray
 eval $(keychain --eval --quick --quiet --agents ssh id_rsa)  # cb6ebccf
 
 # start wm
-#exec ck-launch-session dbus-launch --sh-syntax --exit-with-session i3
 exec ck-launch-session dbus-launch --sh-syntax --exit-with-session stumpwm

@@ -10,7 +10,7 @@ set nohlsearch incsearch
 set showcmd showmatch
 set wrap
 
-set background=light
+"set background=light
 colorscheme solarized
 
 highlight LineNr     ctermfg=12 ctermbg=0

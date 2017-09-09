@@ -4,7 +4,7 @@
     class = Dunst
     dmenu = /usr/bin/dmenu -p dunst:
     follow = keyboard
-    font = autonoe 12
+    font = iosevka 10
     force_xinerama = true
     format = "%s: <b>%b</b>\n"
     frame_width = 4

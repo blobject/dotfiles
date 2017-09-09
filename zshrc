@@ -4,14 +4,13 @@
 PATH="$PATH:/sbin:/usr/sbin:$HOME/opt/bin:/usr/local/bin:/usr/local/sbin:$HOME/.gem/ruby/2.1.0/bin"
 EDITOR='emacsclient -nc'
 VISUAL='emacsclient -nc'
-PAGER=less  # for i3
-TERMINAL=st  # for i3
+PAGER=less
+TERMINAL=st
 LESS=-imRS  # icase search,verbose,rawcolor,chop
 LESSHISTFILE=-
 B_DAT=/data  # used in .xinitrc,0save
-B_IPC=/tmp/b_ipc  # used in .xinitrc,0core,0hot
 B_NOW='%d%b%y-%H%M%S'  # used in 0hot,0save
-export TERM EDITOR VISUAL PAGER TERMINAL LESS LESSHISTFILE B_DAT B_IPC B_NOW
+export TERM EDITOR VISUAL PAGER TERMINAL LESS LESSHISTFILE B_DAT B_NOW
 
 HISTFILE=$HOME/.zshlog
 HISTSIZE=4096

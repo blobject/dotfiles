@@ -6,7 +6,7 @@ rofi.color-window: #6c71c4
 rofi.color-enabled: true
 rofi.columns: 4
 rofi.disable-history: true
-rofi.font: mono semibold 16
+rofi.font: iosevka bold 16
 rofi.lines: 10
 rofi.line-margin: 10
 rofi.location: 2

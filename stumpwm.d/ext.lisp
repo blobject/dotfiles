@@ -9,6 +9,7 @@
 
 ;; modeline variables
 
+(defvar my/agaric (concat "^(:fg \"" (my/color :r) "\")" '(#\black_club_suit)))
 (defvar my/modeline-sep '(#\box_drawings_light_vertical))
 (defvar *my/str-u* "") (defvar *my/next-u* 0)
 (defvar *my/str-t* "") (defvar *my/next-t* 0)
@@ -59,8 +60,11 @@
 
 ;; styling helpers
 
-(defun my/color-out (s color)
-  (concat (format nil "^(:fg \"~a\")" color) s "^n"))
+(defun my/color-out (s color-in &optional color-out)
+  (concat (format nil "^(:fg \"~a\")" color-in)
+          s
+          (format nil "^(:fg \"~a\")"
+                  (or color-out (my/color :cc)))))
 
 (defun my/modeline-out (s &optional color)
   (concat
@@ -70,9 +74,24 @@
              (if color
                (my/color-out s color)
                s)))
-   (my/color-out my/modeline-sep (my/color :dd))))
+   (my/color-out my/modeline-sep (my/color :dim))))
 
 ;; getter helpers
+
+(defun my/groups (color-focus color-normal)
+  (concat
+   "^(:fg \"" color-normal "\")"
+   (let* ((a (sort1 (screen-groups (current-screen)) '< :key 'group-number))
+          (b (mapcar (lambda (g)
+                       (let ((n (group-number g)))
+                         (if (= n (group-number (current-group)))
+                             (format nil "^(:fg \"~a\")~a^(:fg \"~a\")"
+                                     color-focus n color-normal)
+                             (if (group-windows g)
+                                 (princ-to-string n)))))
+                     a))
+          (out (remove-if #'null b)))
+     (reduce (lambda (head tail) (concat head " " tail)) out))))
 
 (defvar my/cdev
   (let ((a (directory "/sys/class/hwmon/*/temp1_max")))
@@ -241,11 +260,14 @@
 ;; the actual modeline
 
 (defvar my/modeline
-  (list '(:eval (my/color-out '(#\black_club_suit) (my/color :r)))
-        " %g "
-        (my/color-out my/modeline-sep (my/color :dd))
-        '(:eval (my/color-out "%u" (my/color :c)))
+  (list my/agaric
+        " "
+        '(:eval (my/groups (my/color :kk) (my/color :cc)))
+        " "
+        (my/color-out my/modeline-sep (my/color :dim))
+        (my/color-out "%u" (my/color :c) (my/color :g))
         " %v^>"
+        (my/color-out my/modeline-sep (my/color :dim))
         '(:eval (my/modeline-do #'my/get-u '*my/str-u* '*my/next-u* 14))
         '(:eval (my/modeline-do #'my/get-t '*my/str-t* '*my/next-t*  9))
         '(:eval (my/modeline-do #'my/get-c '*my/str-c* '*my/next-c*  1))
@@ -435,12 +457,14 @@
 (setf
  ; order matters
  *group-format* "%n"
- *mode-line-highlight-template* (concat "^(:fg \"" (my/color :kk) "\")~a^n")
- *hidden-window-color* (format nil "^(:fg \"~a\")" (my/color :d))
+ *mode-line-highlight-template* (concat "^(:fg \"" (my/color :kk) "\")"
+                                        "~a"
+                                        "^(:fg \"" (my/color :g) "\")")
+ *hidden-window-color* (format nil "^(:fg \"~a\")" (my/color :cc))
  *window-format* "%8c: %17t"
  *screen-mode-line-format* my/modeline
- *mode-line-background-color* (my/color :w)
  *mode-line-foreground-color* (my/color :cc)
+ *mode-line-background-color* (my/color :w)
  )
 
 ;; hotkeys

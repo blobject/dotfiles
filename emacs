@@ -21,7 +21,7 @@
  '(default-tab-width 2 t)
  '(electric-indent-inhibit t t)
  '(electric-pair-mode t)
- '(face-font-family-alternatives (quote (("seoul namsan" "nsimsun" "meiryo"))))
+ '(face-font-family-alternatives (quote (("custom" "Source Code Pro" "NanumBarunGothic" "NSimSun" "Meiryo" "FreeMono"))))
  '(fringe-mode 0 nil (fringe))
  '(global-dot-mode t)
  '(global-hl-line-mode t)
@@ -42,7 +42,7 @@
  '(neo-window-width 20)
  '(org-hide-leading-stars t)
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("melpa" . "https://melpa.org/packages/"))))
- '(package-selected-packages (quote (slime yaml-mode ess lua-mode csharp-mode swift-mode ace-window auctex avy company ivy org dot-mode ripgrep solarized-theme smart-mode-line-powerline-theme syslog-mode flycheck-clojure flycheck-rust go-mode rust-mode web-mode smart-mode-line rainbow-delimiters paredit neotree multiple-cursors markdown-mode magit iy-go-to-char hlinum haskell-mode geiser flycheck expand-region counsel clojure-mode cider browse-kill-ring)))
+ '(package-selected-packages (quote (pixie-mode slime yaml-mode ess lua-mode csharp-mode swift-mode ace-window auctex avy company ivy org dot-mode ripgrep solarized-theme smart-mode-line-powerline-theme syslog-mode flycheck-clojure flycheck-rust go-mode rust-mode web-mode smart-mode-line rainbow-delimiters paredit neotree multiple-cursors markdown-mode magit iy-go-to-char hlinum haskell-mode geiser flycheck expand-region counsel clojure-mode cider browse-kill-ring)))
  '(read-quoted-char-radix 16)
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
@@ -63,16 +63,17 @@
  '(web-mode-markup-indent-offset 2))
 
 (custom-set-faces
- '(default ((t (:weight semi-bold :height 115))))
+ '(default ((t (:weight semi-bold :height 115 :family "custom"))))
  '(aw-background-face ((t (:foreground "#93a1a1"))))
- '(org-level-1 ((t (:inherit variable-pitch :height 1.0 :family "monospace"))))
- '(org-level-2 ((t (:inherit variable-pitch :height 1.0 :family "monospace"))))
- '(org-level-3 ((t (:inherit variable-pitch :height 1.0 :family "monospace"))))
- '(org-level-4 ((t (:inherit variable-pitch :height 1.0 :family "monospace"))))
- '(org-level-5 ((t (:inherit variable-pitch :family "monospace"))))
- '(org-level-6 ((t (:inherit variable-pitch :family "monospace"))))
- '(org-level-7 ((t (:inherit variable-pitch :family "monospace"))))
- '(org-level-8 ((t (:inherit variable-pitch :family "monospace"))))
+ '(linum-highlight-face ((t (:background "#eee8d5" :foreground "#002b36"))))
+ '(org-level-1 ((t (:inherit variable-pitch :height 1.0 :family "custom"))))
+ '(org-level-2 ((t (:inherit variable-pitch :height 1.0 :family "custom"))))
+ '(org-level-3 ((t (:inherit variable-pitch :height 1.0 :family "custom"))))
+ '(org-level-4 ((t (:inherit variable-pitch :height 1.0 :family "custom"))))
+ '(org-level-5 ((t (:inherit variable-pitch :family "custom"))))
+ '(org-level-6 ((t (:inherit variable-pitch :family "custom"))))
+ '(org-level-7 ((t (:inherit variable-pitch :family "custom"))))
+ '(org-level-8 ((t (:inherit variable-pitch :family "custom"))))
  '(sml/line-number ((t (:weight bold))))
  '(sml/minor-modes ((t (:inherit sml/global :height 0.9))))
  '(sml/modes ((t (:inherit sml/global :weight bold :height 0.9)))))
@@ -101,6 +102,7 @@
 (add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode))
+(flycheck-add-mode 'javascript-eslint 'web-mode)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 (global-set-key (kbd "M-n") (lambda () (interactive) (scroll-up 1)))
@@ -133,7 +135,7 @@
 (global-unset-key (kbd "<S-down-mouse-2>"))
 (global-unset-key (kbd "<S-down-mouse-3>"))
 
-(flycheck-add-mode 'javascript-eslint 'web-mode)
+(load (expand-file-name "~/.quicklisp/slime-helper.el"))
 
 (defadvice web-mode-highlight-part (around tweak-jsx activate)
   (if (equal web-mode-content-type "jsx")
@@ -187,6 +189,3 @@
   (interactive "p")
   (set-selective-display
     (if selective-display nil (or column 1))))
-
-(load (expand-file-name "~/.quicklisp/slime-helper.el"))
-(setq inferior-lisp-program "sbcl")

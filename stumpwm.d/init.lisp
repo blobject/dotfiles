@@ -11,7 +11,7 @@
               :m "#d33682" :mm "#6c71c4"
               :c "#2aa198" :cc "#93a1a1"
               :w "#eee8d5" :ww "#fdf6e3"
-              :d "#aababa" :dd "#b8c9c9")))
+              :dim "#b8c9c9")))
     (getf cs key)))
 
 (mapcar #'load-module

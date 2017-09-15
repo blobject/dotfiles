@@ -82,7 +82,7 @@ alias     ..='c ..'
 alias    ...='c ../..'
 alias   ....='c ../../..'
 alias  .....='c ../../../..'
-alias 0xephyr='Xephyr -screen 1200x800 :1 &' # DISPLAY=:1 cmd
+alias 0xephyr='bgin Xephyr -screen 1900x1040 :1' # DISPLAY=:1 cmd
 0qmk_flash() {
   [ -z "$1" ] \
   && echo "no file given" \

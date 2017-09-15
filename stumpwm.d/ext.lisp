@@ -79,19 +79,18 @@
 ;; getter helpers
 
 (defun my/groups (color-focus color-normal)
-  (concat
-   "^(:fg \"" color-normal "\")"
-   (let* ((a (sort1 (screen-groups (current-screen)) '< :key 'group-number))
-          (b (mapcar (lambda (g)
-                       (let ((n (group-number g)))
-                         (if (= n (group-number (current-group)))
-                             (format nil "^(:fg \"~a\")~a^(:fg \"~a\")"
-                                     color-focus n color-normal)
-                             (if (group-windows g)
-                                 (princ-to-string n)))))
-                     a))
-          (out (remove-if #'null b)))
-     (reduce (lambda (head tail) (concat head " " tail)) out))))
+  (let* ((a (sort1 (screen-groups (current-screen)) '< :key 'group-number))
+         (b (lambda (g)
+              (let ((n (group-number g)))
+                (if (= n (group-number (current-group)))
+                    (format nil "^(:fg \"~a\")~a^(:fg \"~a\")"
+                            color-focus n color-normal)
+                    (if (or (group-windows g)
+                            (< 1 (list-length (ignore-errors (group-frames g)))))
+                        (princ-to-string n))))))
+         (c (remove-if #'null (mapcar b a)))
+         (out (reduce (lambda (x xs) (concat x " " xs)) c)))
+    (concat "^(:fg \"" color-normal "\")" out)))
 
 (defvar my/cdev
   (let ((a (directory "/sys/class/hwmon/*/temp1_max")))
@@ -113,13 +112,13 @@
   (let* ((a "/sys/class/backlight/intel_backlight/")
          (b (my/read (concat a "max_brightness")))
          (c (my/read (concat a "brightness"))))
-    (list b c)))
+    `(,b . ,c)))
 
 (defun my/get-vol ()
   (let* ((a (my/call "amixer sget Master | grep 'Front Left:'"))
          (b (my/extract ".*\\[([^\\]]+)%\\].*" a))
          (c (string= "off" (my/extract ".*\\[([^\\]]+)\\]" a))))
-    (list b c)))
+    `(,b . ,c)))
 
 ;; getters
 
@@ -232,7 +231,7 @@
              (my/get-vol))
   (let* ((a *my/put-amixer*)
          (vol (car a))
-         (mute (cadr a))
+         (mute (cdr a))
          (out (my/modeline-out
                (if vol
                    (concat '(#\black_right-pointing_triangle)
@@ -241,14 +240,14 @@
 
 (defun my/get-l ()
   (let* ((a (my/get-lum))
-         (out (my/modeline-out (concat (cadr a) "/" (car a)))))
+         (out (my/modeline-out (concat (cdr a) "/" (car a)))))
     (setf *my/str-l* out)))
 
 (defun my/get-b ()
   (let* ((a (my/chomp (my/call "acpi")))
-         (b (cl-ppcre:split ", " (cadr (cl-ppcre:split ": " a))))
-         (stat (car b))
-         (perc (string-right-trim "%" (cadr b)))
+         (b (cl-ppcre:split ", " (second (cl-ppcre:split ": " a))))
+         (stat (first b))
+         (perc (string-right-trim "%" (second b)))
          (c (concat perc (cond
                            ((string= "Discharging" stat) ":")
                            ((string= "Charging" stat) "⚡")
@@ -257,44 +256,30 @@
          (out (my/modeline-out c)))
     (setf *my/str-b* out)))
 
-;; the actual modeline
-
-(defvar my/modeline
-  (list my/agaric
-        " "
-        '(:eval (my/groups (my/color :kk) (my/color :cc)))
-        " "
-        (my/color-out my/modeline-sep (my/color :dim))
-        (my/color-out "%u" (my/color :c) (my/color :g))
-        " %v^>"
-        (my/color-out my/modeline-sep (my/color :dim))
-        '(:eval (my/modeline-do #'my/get-u '*my/str-u* '*my/next-u* 14))
-        '(:eval (my/modeline-do #'my/get-t '*my/str-t* '*my/next-t*  9))
-        '(:eval (my/modeline-do #'my/get-c '*my/str-c* '*my/next-c*  1))
-        '(:eval (my/modeline-do #'my/get-m '*my/str-m* '*my/next-m* 14))
-        '(:eval (my/modeline-do #'my/get-d '*my/str-d* '*my/next-d* 14))
-        '(:eval (my/modeline-do #'my/get-n '*my/str-n* '*my/next-n*  1))
-        '(:eval (my/modeline-do #'my/get-p '*my/str-p* '*my/next-p* 14))
-        '(:eval (my/modeline-do #'my/get-l '*my/str-l* '*my/next-l*  4))
-        '(:eval (my/modeline-do #'my/get-v '*my/str-v* '*my/next-v*  2))
-        '(:eval (my/modeline-do #'my/get-k '*my/str-k* '*my/next-k*  2))
-        '(:eval (my/modeline-do #'my/get-b '*my/str-b* '*my/next-b*  4))
-        " %T"))
-
 ;;;; command extension
 
 ;; command helpers
 
 (defun my/notify (head body &optional urg)
-  (my/acall (concat "notify-send "
-                    "-u " (or urg "low")
-                    " '" head "' '" body "'")))
+  (declare (ignore urg))
+  (message (format nil "~a: ~a" head body)))
+  ; libnotify alternative
+  ; - requires notification daemon like 'dunst'
+  ;(my/acall (concat "notify-send "
+  ;                  "-u " (or urg "low")
+  ;                  " '" head "' '" body "'"))
 
 ;; askpass
 
 (defcommand my/askpass (prompt) ((:string "prompt: "))
   "prompt for password"
   (read-one-line (current-screen) (concat prompt " ") :password t))
+
+;; exec
+
+(defcommand my/exec (cmd) ((:shell "bgin: "))
+  "orphan program starter"
+  (run-prog "/usr/local/bin/bgin" :args (list cmd) :wait nil))
 
 ;; hot
 
@@ -311,7 +296,7 @@
   "hot command: lum"
   (my/call (concat "sudo 0lum " arg))
   (let* ((a (my/get-lum))
-         (lum (parse-integer (cadr a)))
+         (lum (parse-integer (cdr a)))
          (lim (parse-integer (car a)))
          (out (concat (cond
                         ((string= "-" arg) "down (")
@@ -330,7 +315,7 @@
          (a (my/call "xinput list"))
          (id (my/extract (concat dev "\\s+id=([0-9]+)") a))
          (b (my/call (concat "xinput list-props " id " | grep '" prop " ('")))
-         (old (string= "1" (car (reverse (cl-ppcre:split "\\s+" b)))))
+         (old (string= "1" (first (reverse (cl-ppcre:split "\\s+" b)))))
          (cmd (cond
                 ((string= "dwt" arg)
                  (concat "set-prop " id " '" prop "' " (if old "0" "1")))
@@ -358,7 +343,8 @@
                 ((string= "s" arg) "selectshot")
                 ((string= "w" arg) "windowshot")
                 (t "screenshot"))))
-    (my/acall (concat "scrot " opt file))
+    (funcall (if (string= arg "s") #'my/call #'my/acall)
+             (concat "scrot " opt file))
     (my/notify out (concat "taken (" dir ")"))))
 
 (defcommand my/hot-vol (arg) ((:string "volume (x|-|--|+|++|*): "))
@@ -367,7 +353,7 @@
          (a (list (my/extract ".*\\[([^\\]]+)%\\].*" x)
                   (string= "off" (my/extract ".*\\[([^\\]]+)\\]" x))))
          (vol (parse-integer (car a)))
-         (mute (cadr a))
+         (mute (cdr a))
          (c (cond
               ((string= "-"  arg) (- vol 1))
               ((string= "--" arg) (- vol 5))
@@ -450,18 +436,48 @@
                        :dont-close t)
   (message "Starting swank. M-x slime-connect RET RET. \"(in-package :stumpwm)\"."))
 
+;; urgent
+
+(defun my/urgent-message (target)
+  (message "urgent: ~a" (window-title target)))
+(add-hook *urgent-window-hook* 'my/urgent-message)
+
 ;;;; the actual extending
 
 ;; modeline
 
+(defvar my/modeline
+  (list my/agaric
+        " "
+        '(:eval (my/groups (my/color :kk) (my/color :cc)))
+        " "
+        (my/color-out my/modeline-sep (my/color :dim))
+        (my/color-out "%u" (my/color :c) (my/color :gg))
+        " %v^>"
+        (my/color-out my/modeline-sep (my/color :dim))
+        '(:eval (my/modeline-do #'my/get-u '*my/str-u* '*my/next-u* 14))
+        '(:eval (my/modeline-do #'my/get-t '*my/str-t* '*my/next-t*  9))
+        '(:eval (my/modeline-do #'my/get-c '*my/str-c* '*my/next-c*  1))
+        '(:eval (my/modeline-do #'my/get-m '*my/str-m* '*my/next-m* 14))
+        '(:eval (my/modeline-do #'my/get-d '*my/str-d* '*my/next-d* 14))
+        '(:eval (my/modeline-do #'my/get-n '*my/str-n* '*my/next-n*  1))
+        '(:eval (my/modeline-do #'my/get-p '*my/str-p* '*my/next-p* 14))
+        '(:eval (my/modeline-do #'my/get-l '*my/str-l* '*my/next-l*  4))
+        '(:eval (my/modeline-do #'my/get-v '*my/str-v* '*my/next-v*  2))
+        '(:eval (my/modeline-do #'my/get-k '*my/str-k* '*my/next-k*  2))
+        '(:eval (my/modeline-do #'my/get-b '*my/str-b* '*my/next-b*  4))
+        " %T"))
+
 (setf
  ; order matters
  *group-format* "%n"
- *mode-line-highlight-template* (concat "^(:fg \"" (my/color :kk) "\")"
-                                        "~a"
-                                        "^(:fg \"" (my/color :g) "\")")
+ *mode-line-highlight-template* (concat "^(:fg \"" (my/color :k) "\")"
+                                        "^(:bg \"" (my/color :dim) "\")"
+                                        " ~a "
+                                        "^(:fg \"" (my/color :gg) "\")"
+                                        "^(:bg \"" (my/color :w) "\")")
  *hidden-window-color* (format nil "^(:fg \"~a\")" (my/color :cc))
- *window-format* "%8c: %17t"
+ *window-format* (concat "%n" '(#\middle_dot) "%26t")
  *screen-mode-line-format* my/modeline
  *mode-line-foreground-color* (my/color :cc)
  *mode-line-background-color* (my/color :w)
@@ -469,22 +485,24 @@
 
 ;; hotkeys
 
-(mapcar (lambda (x) (define-key *top-map* (kbd (car x)) (cadr x)))
-        '(("XF86AudioMute"          "my/hot-vol x")
-          ("S-XF86AudioLowerVolume" "my/hot-vol -")
-          ("XF86AudioLowerVolume"   "my/hot-vol --")
-          ("S-XF86AudioRaiseVolume" "my/hot-vol +")
-          ("XF86AudioRaiseVolume"   "my/hot-vol ++")
-          ("XF86Search"             "my/hot-rat dwt")
-          ("XF86MonBrightnessDown"  "my/hot-lum -")
-          ("XF86MonBrightnessUp"    "my/hot-lum +")
-          ("XF86AudioRewind"        "my/hot-lum -")
-          ("XF86AudioForward"       "my/hot-lum +")
-          ("Print"                  "my/hot-shot")
-          ("S-Print"                "my/hot-shot s")
-          ("C-Print"                "my/hot-shot w")
-          ("XF86PowerOff"           "my/power-lock")
-          ("C-M-BackSpace"          "my/power")
-          ("C-M-Delete"             "my/power")
-          ("s-\\"                   "my/hot-kbl")
+(mapcar (lambda (x) (define-key *top-map* (kbd (car x)) (cdr x)))
+        '(("XF86AudioMute"          . "my/hot-vol x")
+          ("S-XF86AudioLowerVolume" . "my/hot-vol -")
+          ("XF86AudioLowerVolume"   . "my/hot-vol --")
+          ("S-XF86AudioRaiseVolume" . "my/hot-vol +")
+          ("XF86AudioRaiseVolume"   . "my/hot-vol ++")
+          ("XF86Search"             . "my/hot-rat dwt")
+          ("XF86MonBrightnessDown"  . "my/hot-lum -")
+          ("XF86MonBrightnessUp"    . "my/hot-lum +")
+          ("XF86AudioRewind"        . "my/hot-lum -") ; planck
+          ("XF86AudioForward"       . "my/hot-lum +") ; planck
+          ("Print"                  . "my/hot-shot")
+          ("S-Print"                . "my/hot-shot s")
+          ("Sys_Req"                . "my/hot-shot s") ; laptop
+          ("C-Print"                . "my/hot-shot w")
+          ("XF86PowerOff"           . "my/power-lock")
+          ("C-M-Delete"             . "my/power")
+          ("C-M-BackSpace"          . "my/power")
+          ("s-\\"                   . "my/hot-kbl")
+          ("s-o"                    . "my/exec")
           ))

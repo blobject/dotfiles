@@ -135,6 +135,7 @@
 (global-unset-key (kbd "<S-down-mouse-2>"))
 (global-unset-key (kbd "<S-down-mouse-3>"))
 
+(setq inferior-lisp-program "sbcl")
 (load (expand-file-name "~/.quicklisp/slime-helper.el"))
 
 (defadvice web-mode-highlight-part (around tweak-jsx activate)

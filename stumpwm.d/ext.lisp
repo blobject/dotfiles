@@ -2,6 +2,8 @@
 
 (in-package :stumpwm)
 
+(declaim (optimize (speed 3) (space 0) (debug 0)))
+
 (load "~/.quicklisp/dists/quicklisp/software/slime-v2.20/swank-loader.lisp")
 (swank-loader:init)
 
@@ -9,8 +11,6 @@
 
 ;; modeline variables
 
-(defvar my/agaric (concat "^(:fg \"" (my/color :r) "\")" '(#\black_club_suit)))
-(defvar my/modeline-sep '(#\box_drawings_light_vertical))
 (defvar *my/str-u* "") (defvar *my/next-u* 0)
 (defvar *my/str-t* "") (defvar *my/next-t* 0)
 (defvar *my/str-c* "") (defvar *my/next-c* 0)
@@ -28,6 +28,7 @@
 (defvar *my/put-setxkbmap* t)
 (defvar *my/put-xset* nil)
 (defvar *my/put-amixer* '())
+(defvar my/size-l 8)
 
 ;; operational + string + stream helpers
 
@@ -60,37 +61,40 @@
 
 ;; styling helpers
 
-(defun my/color-out (s color-in &optional color-out)
-  (concat (format nil "^(:fg \"~a\")" color-in)
-          s
-          (format nil "^(:fg \"~a\")"
-                  (or color-out (my/color :cc)))))
+(defun my/bg (color)
+  (format nil "^(:bg \"~a\")" (my/color color)))
 
-(defun my/modeline-out (s &optional color)
-  (concat
-   (format nil " ~a "
-           (if (not s)
-             (my/color-out "x" (my/color :c))
-             (if color
-               (my/color-out s color)
-               s)))
-   (my/color-out my/modeline-sep (my/color :dim))))
+(defun my/fg (color)
+  (format nil "^(:fg \"~a\")" (my/color color)))
+
+(defvar my/agaric (format nil "~a~a" (my/fg :r) #\black_club_suit))
+
+(defvar my/sep #\box_drawings_light_vertical)
+
+(defun my/color-out (s color)
+  (format nil "^[~a~a^]" (my/fg color) s))
+
+(defun my/get-out (s &optional color)
+  (format nil " ~a ~a"
+          (if s
+              (if color (my/color-out s color) s)
+              (my/color-out "x" :c))
+          (my/color-out my/sep :dim)))
 
 ;; getter helpers
 
-(defun my/groups (color-focus color-normal)
+(defun my/groups (active dim)
   (let* ((a (sort1 (screen-groups (current-screen)) '< :key 'group-number))
          (b (lambda (g)
               (let ((n (group-number g)))
                 (if (= n (group-number (current-group)))
-                    (format nil "^(:fg \"~a\")~a^(:fg \"~a\")"
-                            color-focus n color-normal)
+                    (format nil "^[~a~a^]" (my/fg active) n)
                     (if (or (group-windows g)
                             (< 1 (list-length (ignore-errors (group-frames g)))))
                         (princ-to-string n))))))
          (c (remove-if #'null (mapcar b a)))
          (out (reduce (lambda (x xs) (concat x " " xs)) c)))
-    (concat "^(:fg \"" color-normal "\")" out)))
+    (format nil "~a~a" (my/fg dim) out)))
 
 (defvar my/cdev
   (let ((a (directory "/sys/class/hwmon/*/temp1_max")))
@@ -109,9 +113,9 @@
                    a))))
 
 (defun my/get-lum ()
-  (let* ((a "/sys/class/backlight/intel_backlight/")
-         (b (my/read (concat a "max_brightness")))
-         (c (my/read (concat a "brightness"))))
+  (let* ((a "/sys/class/backlight/intel_backlight")
+         (b (my/read (format nil "~a/brightness" a)))
+         (c (my/read (format nil "~a/max_brightness" a))))
     `(,b . ,c)))
 
 (defun my/get-vol ()
@@ -125,23 +129,23 @@
 (defun my/get-u ()
   (let* ((a (my/call "uptime"))
          (b (my/extract "up\\s+([^,]*)," a))
-         (out (my/modeline-out b)))
+         (out (my/get-out b)))
     (setf *my/str-u* out)))
 
 (defun my/get-t ()
-  (let* ((a (concat "date '+%a %b %d " '(#\middle_dot) " %H:%M'"))
+  (let* ((a (format nil "date '+%a %b %d ~a %H:%M'" #\middle_dot))
          (b (my/chomp (my/call a)))
-         (out (my/modeline-out b (my/color :gg))))
+         (out (my/get-out b :gg)))
     (setf *my/str-t* out)))
 
 (defun my/get-c ()
-  (let* ((dev (concat "/sys/class/hwmon/" my/cdev))
-         (one (parse-integer (my/read (concat dev "/temp1_input"))))
-         (two (parse-integer (my/read (concat dev "/temp2_input"))))
-         (thr (parse-integer (my/read (concat dev "/temp3_input"))))
+  (let* ((dev (format nil "/sys/class/hwmon/~a" my/cdev))
+         (one (parse-integer (my/read (format nil "~a/temp1_input" dev))))
+         (two (parse-integer (my/read (format nil "~a/temp2_input" dev))))
+         (thr (parse-integer (my/read (format nil "~a/temp3_input" dev))))
          (avg (round (/ (/ (+ one two thr) 3) 1000)))
-         (out (my/modeline-out (concat (princ-to-string avg) '(#\degree_sign))
-                               (if (< 88 avg) (my/color :c)))))
+         (out (my/get-out (format nil "~d~c" avg #\degree_sign)
+                          (if (< 88 avg) :c))))
     (setf *my/str-c* out)))
 
 (defun my/get-m ()
@@ -149,7 +153,7 @@
          (tot (parse-integer (my/extract "\\s+([0-9]+).*" a)))
          (use (parse-integer (my/extract "\\s+[0-9]+\\s+([0-9]+).*" a)))
          (avg (round (* (/ use tot) 100)))
-         (out (my/modeline-out (concat (princ-to-string avg) "%"))))
+         (out (my/get-out (format nil "~d%" avg))))
     (setf *my/str-m* out)))
 
 (defun my/get-d ()
@@ -161,34 +165,33 @@
          (c (cl-ppcre:scan-to-strings "/dev/nvme0n1p3.*" a))
          (root (funcall get b))
          (data (funcall get c))
-         (out (my/modeline-out (concat "/" root " +" data))))
+         (out (my/get-out (format nil "/~a +~a" root data))))
     (setf *my/str-d* out)))
 
 (defun my/get-n ()
-  (let ((n (my/get-ndev)))
-    (when (not n)
-      (setf *my/str-n* (my/modeline-out nil))
+  (let ((dev (my/get-ndev)))
+    (when (not dev)
+      (setf *my/str-n* (my/get-out nil))
       (return-from my/get-n))
-    (let* ((dev (concat "/sys/class/net/" n))
-           (tx (parse-integer (my/read (concat dev "/statistics/tx_bytes"))))
-           (rx (parse-integer (my/read (concat dev "/statistics/rx_bytes"))))
+    (let* ((path (concat (format nil "/sys/class/net/~a" dev)
+                         "/statistics/~a_bytes"))
+           (tx (parse-integer (my/read (format nil path "tx"))))
+           (rx (parse-integer (my/read (format nil path "rx"))))
            (now (get-internal-real-time)))
       (when (not *my/last-n-time*)
         (setf *my/last-n-tx* tx
               *my/last-n-rx* rx
               *my/last-n-time* now
-              *my/str-n* (my/modeline-out nil))
+              *my/str-n* (my/get-out nil))
         (return-from my/get-n))
       (let* ((diff (- now *my/last-n-time*))
              (up (round (/ (- tx *my/last-n-tx*) diff)))
              (dn (round (/ (- rx *my/last-n-rx*) diff)))
-             (a (concat '(#\black_up-pointing_triangle)
-                        (princ-to-string up)
-                        " " '(#\middle_dot) " "
-                        (princ-to-string dn)
-                        '(#\black_down-pointing_triangle)))
-             (out (my/modeline-out a)))
-        (print tx)
+             (a (format nil "~c~d ~c ~d~c"
+                        #\black_up-pointing_triangle
+                        up #\middle_dot dn
+                        #\black_down-pointing_triangle))
+             (out (my/get-out a)))
         (setf *my/last-n-tx* tx
               *my/last-n-rx* rx
               *my/last-n-time* now
@@ -198,8 +201,8 @@
   (let* ((a (my/call "iwgetid"))
          (b (my/extract "ESSID:\"(.*)\"" a))
          (c (if (> 20 (length b)) b
-                (concat (subseq b 0 19) '(#\horizontal_ellipsis))))
-         (out (my/modeline-out c)))
+                (format nil "~a~c" (subseq b 0 19) #\horizontal_ellipsis)))
+         (out (my/get-out c)))
     (setf *my/str-p* out)))
 
 (defun my/get-k ()
@@ -219,7 +222,7 @@
          (caps *my/put-xset*)
          (a (funcall (if caps #'string-upcase #'identity)
                      (if hsnt "h" "q")))
-         (out (my/modeline-out a)))
+         (out (my/get-out a)))
     (setf *my/str-k* out)))
 
 (defun my/get-v ()
@@ -232,15 +235,19 @@
   (let* ((a *my/put-amixer*)
          (vol (car a))
          (mute (cdr a))
-         (out (my/modeline-out
+         (out (my/get-out
                (if vol
-                   (concat '(#\black_right-pointing_triangle)
+                   (format nil "~c~a" #\black_right-pointing_triangle
                            (if mute "x" vol))))))
     (setf *my/str-v* out)))
 
 (defun my/get-l ()
   (let* ((a (my/get-lum))
-         (out (my/modeline-out (concat (cdr a) "/" (car a)))))
+         (lum (parse-integer (car a)))
+         (lim (parse-integer (cdr a)))
+         (b (round (/ (* 100 lum) lim)))
+         (out (my/get-out
+               (format nil "~c~d%" #\circle_with_lower_half_black b))))
     (setf *my/str-l* out)))
 
 (defun my/get-b ()
@@ -248,12 +255,13 @@
          (b (cl-ppcre:split ", " (second (cl-ppcre:split ": " a))))
          (stat (first b))
          (perc (string-right-trim "%" (second b)))
-         (c (concat perc (cond
-                           ((string= "Discharging" stat) ":")
-                           ((string= "Charging" stat) "⚡")
-                           ((string= "Full" stat) "")
-                           (t "?"))))
-         (out (my/modeline-out c)))
+         (c (format nil "~a~a" perc
+                    (cond
+                      ((string= "Discharging" stat) ":")
+                      ((string= "Charging" stat) #\high_voltage_sign)
+                      ((string= "Full" stat) "")
+                      (t "?"))))
+         (out (my/get-out c)))
     (setf *my/str-b* out)))
 
 ;;;; command extension
@@ -261,19 +269,18 @@
 ;; command helpers
 
 (defun my/notify (head body &optional urg)
-  (declare (ignore urg))
-  (message (format nil "~a: ~a" head body)))
   ; libnotify alternative
   ; - requires notification daemon like 'dunst'
-  ;(my/acall (concat "notify-send "
-  ;                  "-u " (or urg "low")
-  ;                  " '" head "' '" body "'"))
+  ;(my/acall (format nil "notify-send -u ~a '~a' '~a'"
+  ;                  (or urg "low") head body))
+  (declare (ignore urg))
+  (message (format nil "~a: ~a" head body)))
 
 ;; askpass
 
 (defcommand my/askpass (prompt) ((:string "prompt: "))
   "prompt for password"
-  (read-one-line (current-screen) (concat prompt " ") :password t))
+  (read-one-line (current-screen) (format nil "~a " prompt) :password t))
 
 ;; exec
 
@@ -288,21 +295,21 @@
   (let* ((hsnt (search "+hsnt+" (my/call "setxkbmap -print")))
          (cmd (if hsnt "us" "hsnt"))
          (out (if hsnt "qwerty" "hsnt")))
-    (my/call (concat "setxkbmap -option ctrl:nocaps " cmd))
-    (my/acall (concat "xset r rate 250 35"))
+    (my/call (format nil "setxkbmap -option ctrl:nocaps ~a" cmd))
+    (my/acall "xset r rate 250 35")
     (my/notify "keyboard layout" out)))
 
 (defcommand my/hot-lum (arg) ((:string "luminosity (-|+|*): "))
   "hot command: lum"
-  (my/call (concat "sudo 0lum " arg))
+  (my/call (format nil "sudo 0lum ~a" arg))
   (let* ((a (my/get-lum))
-         (lum (parse-integer (cdr a)))
-         (lim (parse-integer (car a)))
-         (out (concat (cond
+         (lum (parse-integer (car a)))
+         (lim (parse-integer (cdr a)))
+         (out (format nil "~a~c%~a"
+                      (cond
                         ((string= "-" arg) "down (")
                         ((string= "+" arg) "up ("))
-                      (princ-to-string (round (/ (* lum 100) lim)))
-                      "%"
+                      (round (/ (* lum 100) lim))
                       (if (member arg '("-" "+") :test 'string=) ")"))))
     (my/notify "luminosity" out)))
 
@@ -313,39 +320,39 @@
                  ((string= "dwt" arg) "libinput Disable While Typing Enabled")
                  (t "Device Enabled"))) ; arg = "tog"
          (a (my/call "xinput list"))
-         (id (my/extract (concat dev "\\s+id=([0-9]+)") a))
-         (b (my/call (concat "xinput list-props " id " | grep '" prop " ('")))
+         (id (my/extract (format nil "~a\\s+id=([0-9]+)" dev) a))
+         (b (my/call (format nil "xinput list-props ~a | grep '~a ('" id prop)))
          (old (string= "1" (first (reverse (cl-ppcre:split "\\s+" b)))))
          (cmd (cond
                 ((string= "dwt" arg)
-                 (concat "set-prop " id " '" prop "' " (if old "0" "1")))
+                 (format nil "set-prop ~a '~a' ~d" id prop (if old 0 1)))
                 (t ; arg = "tog"
-                 (concat (if old "disable " "enable ") id))))
+                 (format nil "~a ~a" (if old "disable" "enable") id))))
          (out (cond
                 ((string= "dwt" arg)
-                 (concat "DisableWhileTyping " (if old "off" "on")))
+                 (format nil "DisableWhileTyping ~a" (if old "off" "on")))
                 (t ; arg = "tog"
                  (if old "off" "on")))))
-    (my/acall (concat "xinput " cmd))
+    (my/acall (format nil "xinput ~a" cmd))
     (my/notify "touchpad" out)))
 
 (defcommand my/hot-shot (arg) ((:string "screenshot (s|w|*): "))
   "hot command: shot"
   (let* ((now (my/chomp (my/call "date +$B_NOW")))
          (dir (my/call "echo -n $HOME"))
-         (file (concat dir "/shot_" now "-\\$wx\\$h.png"))
-         (opt (concat (cond
+         (file (format nil "~a/shot_~a-\\$wx\\$h.png" dir now))
+         (opt (format nil "~a-q 100 -z"
+                      (cond
                         ((string= "s" arg) "-s ")
                         ((string= "w" arg) "-u ")
-                        (t ""))
-                      "-q 100 -z "))
+                        (t ""))))
          (out (cond
                 ((string= "s" arg) "selectshot")
                 ((string= "w" arg) "windowshot")
                 (t "screenshot"))))
     (funcall (if (string= arg "s") #'my/call #'my/acall)
-             (concat "scrot " opt file))
-    (my/notify out (concat "taken (" dir ")"))))
+             (format nil "scrot ~a ~a" opt file))
+    (my/notify out (format nil "taken (~a)" dir))))
 
 (defcommand my/hot-vol (arg) ((:string "volume (x|-|--|+|++|*): "))
   "hot command: vol"
@@ -368,15 +375,15 @@
               ((member arg '("-" "--") :test 'string=) (< 0 vol))
               ((member arg '("+" "++") :test 'string=) (> 100 vol))
               (t t))) ; arg = "x", *
-         (s (concat (princ-to-string n) "%"))
+         (s (format nil "~d%" n))
          (cmd (cond
                 ((string= "x" arg)
                  (if mute "unmute" "mute"))
                 ((member arg '("-" "--" "+" "++") :test 'string=)
-                 (concat s " unmute"))
+                 (format nil "~a unmute" s))
                 (t "unmute"))) ; arg = *
          (out (if (and (string= "x" arg) (not mute)) cmd s)))
-    (if p (my/acall (concat "amixer -q set Master " cmd)))
+    (if p (my/acall (format nil "amixer -q set Master ~a" cmd)))
     (my/notify "volume" out)))
 
 ;; power
@@ -392,7 +399,7 @@
     ((pick (options)
        (let ((which (select-from-menu (current-screen) options "")))
          (cond
-           ((null which) (throw 'stumpwm::error "cancel."))
+           ((null which) (throw 'stumpwm::error "Abort."))
            ((stringp (second which)) (second which))
            (t (pick (cdr which)))))))
     (run-commands (pick menu))))
@@ -449,12 +456,13 @@
 (defvar my/modeline
   (list my/agaric
         " "
-        '(:eval (my/groups (my/color :kk) (my/color :cc)))
+        '(:eval (my/groups :kk :cc))
         " "
-        (my/color-out my/modeline-sep (my/color :dim))
-        (my/color-out "%u" (my/color :c) (my/color :gg))
+        (my/color-out my/sep :dim)
+        (my/fg :gg)
+        (my/color-out "%u" :c)
         " %v^>"
-        (my/color-out my/modeline-sep (my/color :dim))
+        (my/color-out my/sep :dim)
         '(:eval (my/modeline-do #'my/get-u '*my/str-u* '*my/next-u* 14))
         '(:eval (my/modeline-do #'my/get-t '*my/str-t* '*my/next-t*  9))
         '(:eval (my/modeline-do #'my/get-c '*my/str-c* '*my/next-c*  1))
@@ -469,19 +477,21 @@
         " %T"))
 
 (setf
- ; order matters
- *group-format* "%n"
- *mode-line-highlight-template* (concat "^(:fg \"" (my/color :k) "\")"
-                                        "^(:bg \"" (my/color :dim) "\")"
-                                        " ~a "
-                                        "^(:fg \"" (my/color :gg) "\")"
-                                        "^(:bg \"" (my/color :w) "\")")
- *hidden-window-color* (format nil "^(:fg \"~a\")" (my/color :cc))
- *window-format* (concat "%n" '(#\middle_dot) "%26t")
- *screen-mode-line-format* my/modeline
- *mode-line-foreground-color* (my/color :cc)
+ *hidden-window-color* (my/fg :cc)
  *mode-line-background-color* (my/color :w)
- )
+ *mode-line-foreground-color* (my/color :cc)
+ *mode-line-highlight-template* (concat "^[" (my/bg :dim) (my/fg :k) " ~a ^]")
+ *screen-mode-line-format* my/modeline
+ *window-info-format* (format nil "%n ~a ^>~a
+~a %t
+~a %c
+~a %i"
+(my/color-out "%m" :r)
+(my/color-out "%wx%h" :gg)
+(my/color-out "name:" :gg)
+(my/color-out "class:" :gg)
+(my/color-out "id:" :gg))
+ *window-format* (format nil "^[~a%n^] %44t" (my/fg :y)))
 
 ;; hotkeys
 
@@ -504,5 +514,14 @@
           ("C-M-Delete"             . "my/power")
           ("C-M-BackSpace"          . "my/power")
           ("s-\\"                   . "my/hot-kbl")
-          ("s-o"                    . "my/exec")
-          ))
+          ("s-o"                    . "my/exec")))
+
+(defvar *my/keymap-exchange*
+  (let ((m (make-sparse-keymap)))
+    (mapcar (lambda (x) (define-key m (kbd (car x)) (cdr x)))
+            '(("h" . "exchange-direction left")
+              ("j" . "exchange-direction down")
+              ("k" . "exchange-direction up")
+              ("l" . "exchange-direction right")))
+    m))
+(define-key *top-map* (kbd "s-x") '*my/keymap-exchange*)

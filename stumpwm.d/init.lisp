@@ -28,9 +28,11 @@
           "a" "b" "c" "f" "F" "g" "G" "k" "K"
           "l" "n" "o" "p" "R" "s" "S" "v"
           "C-c" "C-h"))
+
 (mapcar (lambda (x) (define-key *root-map* (kbd (car x)) (cdr x)))
         '(("F10" . "other")
           ("w"   . "windows")))
+
 (mapcar (lambda (x) (define-key *top-map* (kbd (car x)) (cdr x)))
         '(("M-s-Escape"  . "kill")
           ("s-BackSpace" . "remove-split")
@@ -43,8 +45,11 @@
           ("s-="         . "balance-frames")
           ("s-;"         . "eval")
           ("s-:"         . "colon")
+          ("s-'"         . "pull-hidden-next")
+          ("s-\""        . "pull-hidden-previous")
           ("s-,"         . "prev-in-frame")
           ("s-."         . "next-in-frame")
+          ("s-/"         . "pull-from-windowlist")
           ("s-f"         . "fullscreen")
           ("s-g"         . "abort")
           ("s-r"         . "iresize")
@@ -82,8 +87,7 @@
           ("s-t"   . "exec bgin st -e tmux")
           ("M-s-t" . "exec bgin st-alt")
           ("s-w"   . "exec bgin google-chrome-stable --disk-cache-dir=/tmp/b_tmp_chrome_cache")
-          ("M-s-w" . "exec bgin firefox-bin")
-          ))
+          ("M-s-w" . "exec bgin firefox-bin")))
 
 (set-font (make-instance 'xft:font :family "Iosevka" :subfamily "Bold" :size 10))
 (set-prefix-key          (kbd "F10"))
@@ -122,8 +126,7 @@
 
  stumptray:*tray-viwin-background* (my/color :w)
  stumptray:*tray-hiwin-background* (my/color :w)
- stumptray:*tray-placeholder-pixels-per-space* 7
- )
+ stumptray:*tray-placeholder-pixels-per-space* 7)
 
 (load "~/.stumpwm.d/ext.lisp")
 (if (not (head-mode-line (current-head)))

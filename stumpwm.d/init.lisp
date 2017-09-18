@@ -1,5 +1,17 @@
 ;; -*-lisp-*-
 
+(declaim (optimize (speed 3) (space 0) (debug 3) (safety 3)))
+
+;(ql:quickload "alexandria")
+;(ql:quickload "cl-ppcre")
+;(ql:quickload "clx")
+;(ql:quickload "clx-truetype")
+;(xft:cache-fonts)
+
+(mapcar #'load-module
+        '("stumptray"
+          "ttf-fonts"))
+
 (in-package :stumpwm)
 
 (defun my/color (key)
@@ -13,10 +25,6 @@
               :w "#eee8d5" :ww "#fdf6e3"
               :dim "#d9d3c2")))
     (getf cs key)))
-
-(mapcar #'load-module
-        '("stumptray"
-          "ttf-fonts"))
 
 (grename "A")
 (mapcar #'gnewbg '("B" "C" "D" "E" "F" "G" "H"))
@@ -34,27 +42,27 @@
           ("w"   . "windows")))
 
 (mapcar (lambda (x) (define-key *top-map* (kbd (car x)) (cdr x)))
-        '(("M-s-Escape"  . "kill")
-          ("s-BackSpace" . "remove-split")
-          ("s-Return"    . "vsplit")
-          ("M-s-Return"  . "hsplit")
-          ("s-space"     . "info")
-          ("s-Left"      . "gprev")
-          ("s-Right"     . "gnext")
-          ("s-`"         . "float-this")
-          ("s-="         . "balance-frames")
-          ("s-;"         . "eval")
-          ("s-:"         . "colon")
-          ("s-'"         . "pull-hidden-next")
-          ("s-\""        . "pull-hidden-previous")
-          ("s-,"         . "prev-in-frame")
-          ("s-."         . "next-in-frame")
-          ("s-/"         . "pull-from-windowlist")
-          ("s-f"         . "fullscreen")
-          ("s-g"         . "abort")
-          ("s-r"         . "iresize")
-          ("M-s-r"       . "loadrc")
-          ("s-u"         . "next-urgent")
+        '(("M-s-Escape" . "kill")
+          ("s-Return"   . "vsplit")
+          ("M-s-Return" . "hsplit")
+          ("S-s-Return" . "remove-split")
+          ("s-space"    . "info")
+          ("s-Left"     . "gprev")
+          ("s-Right"    . "gnext")
+          ("s-`"        . "float-this")
+          ("s-="        . "balance-frames")
+          ("s-;"        . "eval")
+          ("s-:"        . "colon")
+          ("s-'"        . "pull-hidden-next")
+          ("s-\""       . "pull-hidden-previous")
+          ("s-,"        . "prev-in-frame")
+          ("s-."        . "next-in-frame")
+          ("s-/"        . "windowlist")
+          ("s-f"        . "fullscreen")
+          ("s-g"        . "abort")
+          ("s-r"        . "iresize")
+          ("M-s-r"      . "loadrc")
+          ("s-u"        . "next-urgent")
           ("s-1"   . "gselect A")
           ("s-2"   . "gselect B")
           ("s-3"   . "gselect C")
@@ -119,7 +127,7 @@
  *window-border-style*    :thin
  *min-frame-width*        100
  *min-frame-height*       100
- *resize-increment*       20
+ *resize-increment*       50
 
  *mode-line-border-width* 0
  *mode-line-timeout*      600

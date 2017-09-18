@@ -1,16 +1,16 @@
 # .zshrc
 
 [ "$TERM" = screen ] && TERM=screen-256color
-PATH="$PATH:/sbin:/usr/sbin:$HOME/opt/bin:/usr/local/bin:/usr/local/sbin:$HOME/.gem/ruby/2.1.0/bin"
-EDITOR='emacsclient -nc'
-VISUAL='emacsclient -nc'
-PAGER=less
-TERMINAL=st
-LESS=-imRS  # icase search,verbose,rawcolor,chop
-LESSHISTFILE=-
-B_DAT=/data  # used in .xinitrc,0save
-B_NOW='%d%b%y-%H%M%S'  # used in 0hot,0save
-export TERM EDITOR VISUAL PAGER TERMINAL LESS LESSHISTFILE B_DAT B_NOW
+export PATH="$PATH:/sbin:/usr/sbin:$HOME/opt/bin:/usr/local/sbin:$HOME/.gem/ruby/2.1.0/bin"
+export MANPATH="$MANPATH:/usr/local/man:$HOME/opt/man:$HOME/opt/share/man"
+export EDITOR='emacsclient -nc'
+export VISUAL='emacsclient -nc'
+export PAGER=less
+export TERMINAL=st
+export LESS=-imRS  # icase search,verbose,rawcolor,chop
+export LESSHISTFILE=-
+export B_DAT=/data  # used in .xinitrc,0save
+export B_NOW='%d%b%y-%H%M%S'  # used in 0hot,0save
 
 HISTFILE=$HOME/.zshlog
 HISTSIZE=4096
@@ -47,13 +47,13 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 RPROMPT=%{$'\e[0;37m'%}\$vcs_info_msg_0_%{$'\e[0m'%}
 
+alias 0X='bgin Xephyr -screen 1900x1040 :1' # DISPLAY=:1 cmd
 alias 0clock='echo "  UTC:       $(TZ=UTC date)";echo "$(tput bold)* Here:      $(date)$(tput sgr0)";echo "  London:    $(TZ=Europe/London date)";echo "  Los Angls: $(TZ=America/Los_Angeles date)";echo "  New York:  $(TZ=America/New_York date)";echo "  Riyadh:    $(TZ=Asia/Riyadh date)"'
 alias 0fonts="fc-list|sed 's/^.\+: //;s/:.\+$//;s/,.*$//'|sort -u|pr -2 -T"
 alias 0ip='wget -q -O - ipinfo.io/ip'
 alias 0psc="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time|sed '/^ 0.0 /d'"
 alias 0psm='ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz|awk "{if(\$1>5000)print;}"'
-alias 0qmk_build="docker run -e keymap=agaric -e subproject=rev4 -e keyboard=planck --rm -v $HOME/src/qmk_firmware:/qmk:rw edasque/qmk_firmware"
-alias 1lint="$HOME/src/kona/node_modules/eslint/bin/eslint.js $HOME/src/kona/client/"
+alias 0qmk="docker run -e keymap=agaric -e subproject=rev4 -e keyboard=planck --rm -v $HOME/src/qmk_firmware:/qmk:rw edasque/qmk_firmware"
 alias     cp='cp -iv'
 alias   diff='diff --color'
 alias  dmesg='dmesg --color=always'
@@ -82,7 +82,6 @@ alias     ..='c ..'
 alias    ...='c ../..'
 alias   ....='c ../../..'
 alias  .....='c ../../../..'
-alias 0xephyr='bgin Xephyr -screen 1900x1040 :1' # DISPLAY=:1 cmd
 0qmk_flash() {
   [ -z "$1" ] \
   && echo "no file given" \

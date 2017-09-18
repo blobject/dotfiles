@@ -2,8 +2,6 @@
 
 (in-package :stumpwm)
 
-(declaim (optimize (speed 3) (space 0) (debug 0)))
-
 (load "~/.quicklisp/dists/quicklisp/software/slime-v2.20/swank-loader.lisp")
 (swank-loader:init)
 
@@ -45,7 +43,7 @@
   `(bt:make-thread (lambda () (setf ,var (,@fn))) :name ,name))
 
 (defun my/chomp (s)
-  (string-trim '(#\newline #\return #\null) s))
+  (string-trim (format nil " ~c~c~c" #\newline #\return #\null) s))
 
 (defun my/extract (re s)
   (multiple-value-bind (match sub)
@@ -67,7 +65,7 @@
 (defun my/fg (color)
   (format nil "^(:fg \"~a\")" (my/color color)))
 
-(defvar my/agaric (format nil "~a~a" (my/fg :r) #\black_club_suit))
+(defvar my/agaric (format nil "~a~c" (my/fg :r) #\black_club_suit))
 
 (defvar my/sep #\box_drawings_light_vertical)
 
@@ -88,7 +86,7 @@
          (b (lambda (g)
               (let ((n (group-number g)))
                 (if (= n (group-number (current-group)))
-                    (format nil "^[~a~a^]" (my/fg active) n)
+                    (format nil "^[~a~d^]" (my/fg active) n)
                     (if (or (group-windows g)
                             (< 1 (list-length (ignore-errors (group-frames g)))))
                         (princ-to-string n))))))
@@ -133,7 +131,7 @@
     (setf *my/str-u* out)))
 
 (defun my/get-t ()
-  (let* ((a (format nil "date '+%a %b %d ~a %H:%M'" #\middle_dot))
+  (let* ((a (format nil "date '+%a %b %d ~c %H:%M'" #\middle_dot))
          (b (my/chomp (my/call a)))
          (out (my/get-out b :gg)))
     (setf *my/str-t* out)))
@@ -268,13 +266,11 @@
 
 ;; command helpers
 
-(defun my/notify (head body &optional urg)
-  ; libnotify alternative
-  ; - requires notification daemon like 'dunst'
-  ;(my/acall (format nil "notify-send -u ~a '~a' '~a'"
-  ;                  (or urg "low") head body))
-  (declare (ignore urg))
-  (message (format nil "~a: ~a" head body)))
+(defun my/clean-message (s)
+  (message (cl-ppcre:regex-replace-all "~" s "~~")))
+
+(defun my/notify-get (head body)
+  (my/clean-message (format nil "~a: ~a" head body)))
 
 ;; askpass
 
@@ -284,7 +280,11 @@
 
 ;; exec
 
-(defcommand my/exec (cmd) ((:shell "bgin: "))
+(define-stumpwm-type :my-shell (input prompt)
+  (or (argument-pop-rest input)
+      (completing-read (current-screen) prompt 'complete-program)))
+
+(defcommand my/exec (cmd) ((:my-shell "bgin: "))
   "orphan program starter"
   (run-prog "/usr/local/bin/bgin" :args (list cmd) :wait nil))
 
@@ -297,7 +297,7 @@
          (out (if hsnt "qwerty" "hsnt")))
     (my/call (format nil "setxkbmap -option ctrl:nocaps ~a" cmd))
     (my/acall "xset r rate 250 35")
-    (my/notify "keyboard layout" out)))
+    (my/notify-get "keyboard layout" out)))
 
 (defcommand my/hot-lum (arg) ((:string "luminosity (-|+|*): "))
   "hot command: lum"
@@ -305,13 +305,13 @@
   (let* ((a (my/get-lum))
          (lum (parse-integer (car a)))
          (lim (parse-integer (cdr a)))
-         (out (format nil "~a~c%~a"
+         (out (format nil "~a~d%~a"
                       (cond
                         ((string= "-" arg) "down (")
                         ((string= "+" arg) "up ("))
                       (round (/ (* lum 100) lim))
                       (if (member arg '("-" "+") :test 'string=) ")"))))
-    (my/notify "luminosity" out)))
+    (my/notify-get "luminosity" out)))
 
 (defcommand my/hot-rat (arg) ((:string "touchpad (tog|dwt|*): "))
   "hot command: rat"
@@ -334,7 +334,7 @@
                 (t ; arg = "tog"
                  (if old "off" "on")))))
     (my/acall (format nil "xinput ~a" cmd))
-    (my/notify "touchpad" out)))
+    (my/notify-get "touchpad" out)))
 
 (defcommand my/hot-shot (arg) ((:string "screenshot (s|w|*): "))
   "hot command: shot"
@@ -352,7 +352,7 @@
                 (t "screenshot"))))
     (funcall (if (string= arg "s") #'my/call #'my/acall)
              (format nil "scrot ~a ~a" opt file))
-    (my/notify out (format nil "taken (~a)" dir))))
+    (my/notify-get out (format nil "taken (~a)" dir))))
 
 (defcommand my/hot-vol (arg) ((:string "volume (x|-|--|+|++|*): "))
   "hot command: vol"
@@ -384,7 +384,7 @@
                 (t "unmute"))) ; arg = *
          (out (if (and (string= "x" arg) (not mute)) cmd s)))
     (if p (my/acall (format nil "amixer -q set Master ~a" cmd)))
-    (my/notify "volume" out)))
+    (my/notify-get "volume" out)))
 
 ;; power
 
@@ -446,8 +446,9 @@
 ;; urgent
 
 (defun my/urgent-message (target)
-  (message "urgent: ~a" (window-title target)))
-(add-hook *urgent-window-hook* 'my/urgent-message)
+  (my/clean-message (format nil ">>> ~a" (window-title target))))
+
+(add-hook *urgent-window-hook* #'my/urgent-message)
 
 ;;;; the actual extending
 

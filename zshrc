@@ -2,7 +2,8 @@
 
 [ "$TERM" = screen ] && TERM=screen-256color
 export PATH="$PATH:/sbin:/usr/sbin:$HOME/opt/bin:/usr/local/sbin:$HOME/.gem/ruby/2.1.0/bin"
-export MANPATH="$MANPATH:/usr/local/man:$HOME/opt/man:$HOME/opt/share/man"
+export MANPATH="$MANPATH:/usr/local/man:$HOME/opt/share/man"
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig"
 export EDITOR='emacsclient -nc'
 export VISUAL='emacsclient -nc'
 export PAGER=less
@@ -47,7 +48,6 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 RPROMPT=%{$'\e[0;37m'%}\$vcs_info_msg_0_%{$'\e[0m'%}
 
-alias 0X='bgin Xephyr -screen 1900x1040 :1' # DISPLAY=:1 cmd
 alias 0clock='echo "  UTC:       $(TZ=UTC date)";echo "$(tput bold)* Here:      $(date)$(tput sgr0)";echo "  London:    $(TZ=Europe/London date)";echo "  Los Angls: $(TZ=America/Los_Angeles date)";echo "  New York:  $(TZ=America/New_York date)";echo "  Riyadh:    $(TZ=Asia/Riyadh date)"'
 alias 0fonts="fc-list|sed 's/^.\+: //;s/:.\+$//;s/,.*$//'|sort -u|pr -2 -T"
 alias 0ip='wget -q -O - ipinfo.io/ip'
@@ -66,13 +66,13 @@ alias    lla='ll -a'
 alias    lls='ll -S'
 alias    llt='ll -t'
 alias     rg="rg --colors 'match:fg:white' --colors 'match:style:nobold' --colors 'path:style:bold' --colors 'line:fg:yellow'"
-alias rlwrap='rlwrap '
+alias rlwrap='rlwrap'
 alias   sudo='sudo '
-alias      e='emacsclient -nc '
-alias      g='git '
-alias      v='vim '
-alias   lein='rlwrap lein '
-alias pstree='pstree -h '
+alias      e='emacsclient -nc'
+alias      g='git'
+alias      v='vim'
+alias   lein='rlwrap lein'
+alias pstree='pstree -h'
 c() { cd "$@" && \
   { local lim=256 count=$(ls --color=n|wc -l);
     [ $count -gt $lim ] \

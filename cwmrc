@@ -1,0 +1,40 @@
+borderwidth 4
+color activeborder   "#93a1a1"
+color inactiveborder "#eee8d5"
+color font           "#eee8d5"
+color menubg         "#073642"
+color menufg         "#93a1a1"
+color selfont        "#002b36"
+fontname    "Iosevka:bold:pixelsize=14"
+gap         0 0 0 0
+moveamount  10
+snapdist    10
+sticky      yes
+
+command gimp gimp
+command terminal "st -e tmux"
+command kakaotalk kakaotalk
+
+#unbind all
+bind 4-Tab  window-cycle
+bind 4M-Tab window-rcycle
+bind 4-h    moveleft
+bind 4-j    movebottom
+bind 4-k    movetop
+bind 4-l    moveright
+bind 4M-h   bigmoveleft
+bind 4M-j   bigmovebottom
+bind 4M-k   bigmovetop
+bind 4M-l   bigmoveright
+bind 4C-h   resizeleft
+bind 4C-j   resizebottom
+bind 4C-k   resizetop
+bind 4C-l   resizeright
+bind 4-g gimp
+bind 4-k kakaotalk
+bind 4M-q quit
+bind 4-t "st -e tmux"
+mousebind 4-1  window_move
+mousebind 4-2  window_raise
+mousebind 4S-2 window_lower
+mousebind 4-3  window_resize

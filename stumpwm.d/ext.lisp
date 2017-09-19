@@ -65,19 +65,33 @@
 (defun my/fg (color)
   (format nil "^(:fg \"~a\")" (my/color color)))
 
-(defvar my/agaric (format nil "~a~c" (my/fg :r) #\black_club_suit))
-
-(defvar my/sep #\box_drawings_light_vertical)
+(defun my/icon (icon &optional sep?)
+  (if sep?
+      (format nil " ^[~a^(:font 1)~c^(:font 0)^] " (my/fg :y) icon)
+      (format nil "^(:font 1)~c^(:font 0)" icon)))
 
 (defun my/color-out (s color)
   (format nil "^[~a~a^]" (my/fg color) s))
 
+(defvar my/agaric (format nil "~a~c" (my/fg :r) #\black_club_suit))
+(defvar my/high :c)
+(defvar my/sep (format nil "~c " #\middle_dot))
+(defvar my/icon-bchrg #\uf0e7) ; bolt
+(defvar my/icon-bfull #\uf240) ; battery full
+(defvar my/icon-bhalf #\uf242) ; battery half
+(defvar my/icon-bnone #\uf244) ; battery empty
+(defvar my/icon-t (my/icon #\uf017 t)) ; clock
+(defvar my/icon-c (my/icon #\uf1b2 t)) ; cube
+(defvar my/icon-n (my/icon #\uf1eb t)) ; wifi
+(defvar my/icon-l (my/icon #\uf185 t)) ; sun
+(defvar my/icon-v (my/icon #\uf028 t)) ; volume
+(defvar my/icon-k (my/icon #\uf11c t)) ; keyboard
+
 (defun my/get-out (s &optional color)
-  (format nil " ~a ~a"
+  (format nil "~a "
           (if s
               (if color (my/color-out s color) s)
-              (my/color-out "x" :c))
-          (my/color-out my/sep :dim)))
+              (my/color-out "x" my/high))))
 
 ;; getter helpers
 
@@ -132,8 +146,7 @@
 
 (defun my/get-t ()
   (let* ((a (format nil "date '+%a %b %d ~c %H:%M'" #\middle_dot))
-         (b (my/chomp (my/call a)))
-         (out (my/get-out b :gg)))
+         (out (my/get-out (my/chomp (my/call a)) :gg)))
     (setf *my/str-t* out)))
 
 (defun my/get-c ()
@@ -143,7 +156,7 @@
          (thr (parse-integer (my/read (format nil "~a/temp3_input" dev))))
          (avg (round (/ (/ (+ one two thr) 3) 1000)))
          (out (my/get-out (format nil "~d~c" avg #\degree_sign)
-                          (if (< 88 avg) :c))))
+                          (if (< 88 avg) my/high))))
     (setf *my/str-c* out)))
 
 (defun my/get-m ()
@@ -155,15 +168,15 @@
     (setf *my/str-m* out)))
 
 (defun my/get-d ()
-  (let* ((get (lambda (s)
-                (string-right-trim
-                 "%" (second (reverse (cl-ppcre:split "\\s+" s))))))
-         (a (my/call "df"))
+  (let* ((a (my/call "df"))
          (b (cl-ppcre:scan-to-strings "/dev/nvme0n1p2.*" a))
          (c (cl-ppcre:scan-to-strings "/dev/nvme0n1p3.*" a))
+         (get (lambda (s)
+                (string-right-trim
+                 "%" (second (reverse (cl-ppcre:split "\\s+" s))))))
          (root (funcall get b))
          (data (funcall get c))
-         (out (my/get-out (format nil "/~a +~a" root data))))
+         (out (my/get-out (format nil "/~a +~a" (or root "x") (or data "x")))))
     (setf *my/str-d* out)))
 
 (defun my/get-n ()
@@ -185,11 +198,10 @@
       (let* ((diff (- now *my/last-n-time*))
              (up (round (/ (- tx *my/last-n-tx*) diff)))
              (dn (round (/ (- rx *my/last-n-rx*) diff)))
-             (a (format nil "~c~d ~c ~d~c"
-                        #\black_up-pointing_triangle
-                        up #\middle_dot dn
-                        #\black_down-pointing_triangle))
-             (out (my/get-out a)))
+             (out (my/get-out (format nil "~c~d ~c ~d~c"
+                                      #\black_up-pointing_triangle
+                                      up #\middle_dot dn
+                                      #\black_down-pointing_triangle))))
         (setf *my/last-n-tx* tx
               *my/last-n-rx* rx
               *my/last-n-time* now
@@ -198,10 +210,31 @@
 (defun my/get-p ()
   (let* ((a (my/call "iwgetid"))
          (b (my/extract "ESSID:\"(.*)\"" a))
-         (c (if (> 20 (length b)) b
-                (format nil "~a~c" (subseq b 0 19) #\horizontal_ellipsis)))
-         (out (my/get-out c)))
+         (out (my/get-out (if (> 20 (length b)) b
+                              (format nil "~a~c"
+                                      (subseq b 0 19)
+                                      #\horizontal_ellipsis)))))
     (setf *my/str-p* out)))
+
+(defun my/get-l ()
+  (let* ((a (my/get-lum))
+         (lum (parse-integer (car a)))
+         (lim (parse-integer (cdr a)))
+         (out (my/get-out (princ-to-string (round (/ (* 100 lum) lim))))))
+    (setf *my/str-l* out)))
+
+(defun my/get-v ()
+  ; sep 2017 (near stumpwm-88c4e90d)
+  ; - https://github.com/stumpwm/stumpwm/issues/246
+  ; - looks like the `bt:make-thread` must happen on this level (hence macro)
+  (my/thread "my-amixer-thread"
+             *my/put-amixer*
+             (my/get-vol))
+  (let* ((a *my/put-amixer*)
+         (vol (car a))
+         (mute (cdr a))
+         (out (my/get-out (if vol (if mute "x" vol)))))
+    (setf *my/str-v* out)))
 
 (defun my/get-k ()
   ; sep 2017 (near stumpwm-88c4e90d)
@@ -218,35 +251,9 @@
                (string= "on" c)))
   (let* ((hsnt *my/put-setxkbmap*)
          (caps *my/put-xset*)
-         (a (funcall (if caps #'string-upcase #'identity)
-                     (if hsnt "h" "q")))
-         (out (my/get-out a)))
+         (out (my/get-out (funcall (if caps #'string-upcase #'identity)
+                                   (if hsnt "h" "q")))))
     (setf *my/str-k* out)))
-
-(defun my/get-v ()
-  ; sep 2017 (near stumpwm-88c4e90d)
-  ; - https://github.com/stumpwm/stumpwm/issues/246
-  ; - looks like the `bt:make-thread` must happen on this level (hence macro)
-  (my/thread "my-amixer-thread"
-             *my/put-amixer*
-             (my/get-vol))
-  (let* ((a *my/put-amixer*)
-         (vol (car a))
-         (mute (cdr a))
-         (out (my/get-out
-               (if vol
-                   (format nil "~c~a" #\black_right-pointing_triangle
-                           (if mute "x" vol))))))
-    (setf *my/str-v* out)))
-
-(defun my/get-l ()
-  (let* ((a (my/get-lum))
-         (lum (parse-integer (car a)))
-         (lim (parse-integer (cdr a)))
-         (b (round (/ (* 100 lum) lim)))
-         (out (my/get-out
-               (format nil "~c~d%" #\circle_with_lower_half_black b))))
-    (setf *my/str-l* out)))
 
 (defun my/get-b ()
   (let* ((a (my/chomp (my/call "acpi")))
@@ -254,13 +261,16 @@
          (stat (first b))
          (perc (string-right-trim "%" (second b)))
          (c (format nil "~a~a" perc
-                    (cond
-                      ((string= "Discharging" stat) ":")
-                      ((string= "Charging" stat) #\high_voltage_sign)
-                      ((string= "Full" stat) "")
-                      (t "?"))))
-         (out (my/get-out c)))
-    (setf *my/str-b* out)))
+                    (if (string= "Charging" stat)
+                        (my/icon my/icon-bchrg t) "")))
+         (low? (> 11 (parse-integer perc)))
+         (out (my/get-out c (if low? my/high)))
+         (icon (my/icon (cond
+                          (low?                  my/icon-bnone)
+                          ((string= "Full" stat) my/icon-bfull)
+                          (t                     my/icon-bhalf))
+                        t)))
+    (setf *my/str-b* (format nil "~a~a" icon out))))
 
 ;;;; command extension
 
@@ -356,9 +366,7 @@
 
 (defcommand my/hot-vol (arg) ((:string "volume (x|-|--|+|++|*): "))
   "hot command: vol"
-  (let* ((x (my/call "amixer sget Master | grep 'Front Left:'"))
-         (a (list (my/extract ".*\\[([^\\]]+)%\\].*" x)
-                  (string= "off" (my/extract ".*\\[([^\\]]+)\\]" x))))
+  (let* ((a (my/get-vol))
          (vol (parse-integer (car a)))
          (mute (cdr a))
          (c (cond
@@ -441,12 +449,16 @@
   (swank:create-server :port 4006
                        :style swank:*communication-style*
                        :dont-close t)
-  (message "Starting swank. M-x slime-connect RET RET. \"(in-package :stumpwm)\"."))
+  (message "Swank started. M-x slime-connect. \"(in-package :stumpwm)\"."))
 
 ;; urgent
 
 (defun my/urgent-message (target)
-  (my/clean-message (format nil ">>> ~a" (window-title target))))
+  (my/clean-message
+   (format nil "^[~a~c^] ~a"
+           (my/fg :r)
+           #\double_exclamation_mark
+           (window-title target))))
 
 (add-hook *urgent-window-hook* #'my/urgent-message)
 
@@ -459,21 +471,31 @@
         " "
         '(:eval (my/groups :kk :cc))
         " "
-        (my/color-out my/sep :dim)
+        (my/color-out #\box_drawings_light_vertical :dim)
         (my/fg :gg)
-        (my/color-out "%u" :c)
+        (my/color-out "%u" my/high)
         " %v^>"
-        (my/color-out my/sep :dim)
+        my/icon-t
         '(:eval (my/modeline-do #'my/get-u '*my/str-u* '*my/next-u* 14))
+        my/sep
         '(:eval (my/modeline-do #'my/get-t '*my/str-t* '*my/next-t*  9))
+        my/icon-c
         '(:eval (my/modeline-do #'my/get-c '*my/str-c* '*my/next-c*  1))
+        my/sep
         '(:eval (my/modeline-do #'my/get-m '*my/str-m* '*my/next-m* 14))
+        my/sep
         '(:eval (my/modeline-do #'my/get-d '*my/str-d* '*my/next-d* 14))
+        my/icon-n
         '(:eval (my/modeline-do #'my/get-n '*my/str-n* '*my/next-n*  1))
+        my/sep
         '(:eval (my/modeline-do #'my/get-p '*my/str-p* '*my/next-p* 14))
+        my/icon-l
         '(:eval (my/modeline-do #'my/get-l '*my/str-l* '*my/next-l*  4))
+        my/icon-v
         '(:eval (my/modeline-do #'my/get-v '*my/str-v* '*my/next-v*  2))
+        my/icon-k
         '(:eval (my/modeline-do #'my/get-k '*my/str-k* '*my/next-k*  2))
+        ; dynamic icon, see 'my/get-b
         '(:eval (my/modeline-do #'my/get-b '*my/str-b* '*my/next-b*  4))
         " %T"))
 
@@ -492,7 +514,7 @@
 (my/color-out "name:" :gg)
 (my/color-out "class:" :gg)
 (my/color-out "id:" :gg))
- *window-format* (format nil "^[~a%n^] %44t" (my/fg :y)))
+ *window-format* (format nil "^[~a%n^] %36t" (my/fg :y)))
 
 ;; hotkeys
 

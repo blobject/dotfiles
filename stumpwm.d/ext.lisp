@@ -2,9 +2,6 @@
 
 (in-package :stumpwm)
 
-(load "~/.quicklisp/dists/quicklisp/software/slime-v2.20/swank-loader.lisp")
-(swank-loader:init)
-
 ;;;; modeline extension
 
 ;; modeline variables
@@ -23,6 +20,9 @@
 (defvar *my/last-n-tx* 0)
 (defvar *my/last-n-rx* 0)
 (defvar *my/last-n-time* nil)
+(defvar *my/alert-c* nil)
+(defvar *my/alert-m* nil)
+(defvar *my/alert-d* nil)
 (defvar *my/put-setxkbmap* t)
 (defvar *my/put-xset* nil)
 (defvar *my/put-amixer* '())
@@ -30,8 +30,8 @@
 
 ;; operational + string + stream helpers
 
-(defun my/read (path)
-  (with-open-file (stream path) (read-line stream)))
+(defmacro my/read (path)
+  `(with-open-file (stream ,path) (read-line stream)))
 
 (defun my/call (cmd)
   (run-shell-command cmd t))
@@ -42,73 +42,66 @@
 (defmacro my/thread (name var fn)
   `(bt:make-thread (lambda () (setf ,var (,@fn))) :name ,name))
 
-(defun my/chomp (s)
-  (string-trim (format nil " ~c~c~c" #\newline #\return #\null) s))
+(defmacro my/chomp (s)
+  `(string-trim (format nil " ~c~c~c" #\newline #\return #\null) ,s))
 
 (defun my/extract (re s)
   (multiple-value-bind (match sub)
     (cl-ppcre:scan-to-strings re s)
     (if match (aref sub 0))))
 
-(defun my/modeline-do (fn vstr vnext interval)
+(defun my/modeline-do (fn fk vstr vnext interval)
   (let ((now (get-universal-time)))
     (when (< now (symbol-value vnext))
       (return-from my/modeline-do (symbol-value vstr)))
     (set vnext (+ now interval)))
-  (set vstr (funcall fn)))
+  (set vstr (funcall fn fk)))
 
 ;; styling helpers
 
-(defun my/bg (color)
-  (format nil "^(:bg \"~a\")" (my/color color)))
+(defmacro my/bg (color)
+  `(format nil "^(:bg \"~a\")" (my/color ,color)))
 
-(defun my/fg (color)
-  (format nil "^(:fg \"~a\")" (my/color color)))
+(defmacro my/fg (color)
+  `(format nil "^(:fg \"~a\")" (my/color ,color)))
 
-(defun my/icon (icon &optional sep?)
-  (if sep?
-      (format nil " ^[~a^(:font 1)~c^(:font 0)^] " (my/fg :y) icon)
-      (format nil "^(:font 1)~c^(:font 0)" icon)))
+(defmacro my/icon (icon)
+  `(format nil "^(:font 1)~c^(:font 0)" ,icon))
 
-(defun my/color-out (s color)
-  (format nil "^[~a~a^]" (my/fg color) s))
+(defun my/sep (key &optional s color)
+  (case key
+    (:icon (format nil " ^[~a~a^] "
+                   (if color (my/fg color) (my/fg :y))
+                   (if (stringp s) s (my/icon s))))
+    (:dot (format nil "~c " #\middle_dot))
+    (t " ")))
 
-(defvar my/agaric (format nil "~a~c" (my/fg :r) #\black_club_suit))
-(defvar my/high :c)
-(defvar my/sep (format nil "~c " #\middle_dot))
-(defvar my/icon-bchrg #\uf0e7) ; bolt
-(defvar my/icon-bfull #\uf240) ; battery full
-(defvar my/icon-bhalf #\uf242) ; battery half
-(defvar my/icon-bnone #\uf244) ; battery empty
-(defvar my/icon-t (my/icon #\uf017 t)) ; clock
-(defvar my/icon-c (my/icon #\uf1b2 t)) ; cube
-(defvar my/icon-n (my/icon #\uf1eb t)) ; wifi
-(defvar my/icon-l (my/icon #\uf185 t)) ; sun
-(defvar my/icon-v (my/icon #\uf028 t)) ; volume
-(defvar my/icon-k (my/icon #\uf11c t)) ; keyboard
+(defmacro my/clout (s color)
+  `(format nil "^[~a~a^]" (my/fg ,color) ,s))
 
-(defun my/get-out (s &optional color)
-  (format nil "~a "
-          (if s
-              (if color (my/color-out s color) s)
-              (my/color-out "x" my/high))))
+(defun my/out (s &optional color)
+  (format nil "~a " (if s
+                        (if color (my/clout s color) s)
+                        (my/clout "x" :h))))
+
+(defun my/char (key)
+  (case key
+    (:agaric (format nil "~a~c" (my/fg :r) #\black_club_suit))
+    (:t #\uf017) ; clock
+    (:c #\uf1b2) ; cube
+    (:n #\uf1eb) ; wifi
+    (:l #\uf185) ; sun
+    (:v #\uf028) ; volume
+    (:k #\uf11c) ; keyboard
+    (:bchrg #\uf0e7) ; bolt
+    (:bfull #\uf240) ; battery full
+    (:bpart #\uf243) ; battery quarter
+    (:bnone #\uf244) ; battery empty
+    ))
 
 ;; getter helpers
 
-(defun my/groups (active dim)
-  (let* ((a (sort1 (screen-groups (current-screen)) '< :key 'group-number))
-         (b (lambda (g)
-              (let ((n (group-number g)))
-                (if (= n (group-number (current-group)))
-                    (format nil "^[~a~d^]" (my/fg active) n)
-                    (if (or (group-windows g)
-                            (< 1 (list-length (ignore-errors (group-frames g)))))
-                        (princ-to-string n))))))
-         (c (remove-if #'null (mapcar b a)))
-         (out (reduce (lambda (x xs) (concat x " " xs)) c)))
-    (format nil "~a~a" (my/fg dim) out)))
-
-(defvar my/cdev
+(defvar my/dev-c
   (let ((a (directory "/sys/class/hwmon/*/temp1_max")))
     (if a (funcall (compose #'car
                             #'last
@@ -116,171 +109,191 @@
                             #'car)
                    a))))
 
-(defun my/get-ndev ()
-  (let ((a (directory "/sys/class/net/*/wireless")))
-    (if a (funcall (compose #'second
-                            #'reverse
-                            #'pathname-directory
-                            #'car)
-                   a))))
+(defun my/get-sub (key)
+  (case key
 
-(defun my/get-lum ()
-  (let* ((a "/sys/class/backlight/intel_backlight")
-         (b (my/read (format nil "~a/brightness" a)))
-         (c (my/read (format nil "~a/max_brightness" a))))
-    `(,b . ,c)))
+    (:dev-n ; net device
+     (let ((a (directory "/sys/class/net/*/wireless")))
+       (if a (funcall (compose #'second
+                               #'reverse
+                               #'pathname-directory
+                               #'car)
+                      a))))
 
-(defun my/get-vol ()
-  (let* ((a (my/call "amixer sget Master | grep 'Front Left:'"))
-         (b (my/extract ".*\\[([^\\]]+)%\\].*" a))
-         (c (string= "off" (my/extract ".*\\[([^\\]]+)\\]" a))))
-    `(,b . ,c)))
+    (:lum ; luminosity
+     (let* ((a "/sys/class/backlight/intel_backlight")
+            (b (my/read (format nil "~a/brightness" a)))
+            (c (my/read (format nil "~a/max_brightness" a))))
+       `(,b . ,c)))
+
+    (:vol ; volume
+     (let* ((a (my/call "amixer sget Master | grep 'Front Left:'"))
+            (b (my/extract ".*\\[([^\\]]+)%\\].*" a))
+            (c (equal "off" (my/extract ".*\\[([^\\]]+)\\]" a))))
+       `(,b . ,c)))))
 
 ;; getters
 
-(defun my/get-u ()
-  (let* ((a (my/call "uptime"))
-         (b (my/extract "up\\s+([^,]*)," a))
-         (out (my/get-out b)))
-    (setf *my/str-u* out)))
+(defun my/get (key)
+  (case key
 
-(defun my/get-t ()
-  (let* ((a (format nil "date '+%a %b %d ~c %H:%M'" #\middle_dot))
-         (out (my/get-out (my/chomp (my/call a)) :gg)))
-    (setf *my/str-t* out)))
+    (:u ; uptime
+     (let* ((a (my/call "uptime"))
+            (out (my/out (my/extract "up\\s+([^,]*)," a))))
+       (setf *my/str-u* out)))
 
-(defun my/get-c ()
-  (let* ((dev (format nil "/sys/class/hwmon/~a" my/cdev))
-         (one (parse-integer (my/read (format nil "~a/temp1_input" dev))))
-         (two (parse-integer (my/read (format nil "~a/temp2_input" dev))))
-         (thr (parse-integer (my/read (format nil "~a/temp3_input" dev))))
-         (avg (round (/ (/ (+ one two thr) 3) 1000)))
-         (out (my/get-out (format nil "~d~c" avg #\degree_sign)
-                          (if (< 88 avg) my/high))))
-    (setf *my/str-c* out)))
+    (:t ; time
+     (let* ((a (format nil "date '+%a %b %d ~c %H:%M'" #\middle_dot))
+            (out (my/out (my/chomp (my/call a)) :gg)))
+       (setf *my/str-t* out)))
 
-(defun my/get-m ()
-  (let* ((a (cl-ppcre:scan-to-strings "Mem:.*" (my/call "free")))
-         (tot (parse-integer (my/extract "\\s+([0-9]+).*" a)))
-         (use (parse-integer (my/extract "\\s+[0-9]+\\s+([0-9]+).*" a)))
-         (avg (round (* (/ use tot) 100)))
-         (out (my/get-out (format nil "~d%" avg))))
-    (setf *my/str-m* out)))
+    (:c ; cpu
+     (let* ((dev (format nil "/sys/class/hwmon/~a" my/dev-c))
+            (a (parse-integer (my/read (format nil "~a/temp1_input" dev))))
+            (b (parse-integer (my/read (format nil "~a/temp2_input" dev))))
+            (c (parse-integer (my/read (format nil "~a/temp3_input" dev))))
+            (cpu (round (/ (/ (+ a b c) 3) 1000)))
+            (alert (< 88 cpu))
+            (out (my/out (format nil "~d~c" cpu #\degree_sign)
+                         (if alert :h))))
+       (setf *my/alert-c* alert)
+       (setf *my/str-c* out)))
 
-(defun my/get-d ()
-  (let* ((a (my/call "df"))
-         (b (cl-ppcre:scan-to-strings "/dev/nvme0n1p2.*" a))
-         (c (cl-ppcre:scan-to-strings "/dev/nvme0n1p3.*" a))
-         (get (lambda (s)
-                (string-right-trim
-                 "%" (second (reverse (cl-ppcre:split "\\s+" s))))))
-         (root (funcall get b))
-         (data (funcall get c))
-         (out (my/get-out (format nil "/~a +~a" (or root "x") (or data "x")))))
-    (setf *my/str-d* out)))
+    (:m ; memory
+     (let* ((a (cl-ppcre:scan-to-strings "Mem:.*" (my/call "free")))
+            (b (parse-integer (my/extract "\\s+([0-9]+).*" a)))
+            (c (parse-integer (my/extract "\\s+[0-9]+\\s+([0-9]+).*" a)))
+            (mem (round (* (/ c b) 100)))
+            (alert (< 64 mem))
+            (out (my/out (format nil "~d%%" mem)
+                         (if alert :h))))
+       (setf *my/alert-m* alert)
+       (setf *my/str-m* out)))
 
-(defun my/get-n ()
-  (let ((dev (my/get-ndev)))
-    (when (not dev)
-      (setf *my/str-n* (my/get-out nil))
-      (return-from my/get-n))
-    (let* ((path (concat (format nil "/sys/class/net/~a" dev)
-                         "/statistics/~a_bytes"))
-           (tx (parse-integer (my/read (format nil path "tx"))))
-           (rx (parse-integer (my/read (format nil path "rx"))))
-           (now (get-internal-real-time)))
-      (when (not *my/last-n-time*)
-        (setf *my/last-n-tx* tx
-              *my/last-n-rx* rx
-              *my/last-n-time* now
-              *my/str-n* (my/get-out nil))
-        (return-from my/get-n))
-      (let* ((diff (- now *my/last-n-time*))
-             (up (round (/ (- tx *my/last-n-tx*) diff)))
-             (dn (round (/ (- rx *my/last-n-rx*) diff)))
-             (out (my/get-out (format nil "~c~d ~c ~d~c"
-                                      #\black_up-pointing_triangle
-                                      up #\middle_dot dn
-                                      #\black_down-pointing_triangle))))
-        (setf *my/last-n-tx* tx
-              *my/last-n-rx* rx
-              *my/last-n-time* now
-              *my/str-n* out)))))
+    (:d ; disk
+     (let* ((a (my/call "df"))
+            (b (cl-ppcre:scan-to-strings "/dev/nvme0n1p2.*" a))
+            (c (cl-ppcre:scan-to-strings "/dev/nvme0n1p3.*" a))
+            (get (lambda (s)
+                   (string-right-trim
+                    "%" (second (reverse (cl-ppcre:split "\\s+" s))))))
+            (d (funcall get b))
+            (e (funcall get c))
+            (fr (format nil "/~a" d))
+            (fd (format nil "+~a" e))
+            (alert-r (< 98 (parse-integer d)))
+            (alert-d (< 98 (parse-integer e)))
+            (root (if alert-r (my/clout fr :h) fr))
+            (data (if alert-d (my/clout fd :h) fd))
+            (out (my/out (format nil "~a ~a" root data))))
+       (setf *my/alert-d* (or alert-r alert-d))
+       (setf *my/str-d* out)))
 
-(defun my/get-p ()
-  (let* ((a (my/call "iwgetid"))
-         (b (my/extract "ESSID:\"(.*)\"" a))
-         (out (my/get-out (if (> 20 (length b)) b
-                              (format nil "~a~c"
-                                      (subseq b 0 19)
-                                      #\horizontal_ellipsis)))))
-    (setf *my/str-p* out)))
+    (:n ; net
+     (let ((dev (my/get-sub :dev-n)))
+       (when (not dev)
+         (setf *my/str-n* (my/out nil))
+         (return-from my/get))
+       (let* ((path (concat (format nil "/sys/class/net/~a" dev)
+                            "/statistics/~a_bytes"))
+              (tx (parse-integer (my/read (format nil path "tx"))))
+              (rx (parse-integer (my/read (format nil path "rx"))))
+              (now (get-internal-real-time)))
+         (when (not *my/last-n-time*)
+           (setf *my/last-n-tx* tx
+                 *my/last-n-rx* rx
+                 *my/last-n-time* now
+                 *my/str-n* (my/out nil))
+           (return-from my/get))
+         (let* ((diff (- now *my/last-n-time*))
+                (up (round (/ (- tx *my/last-n-tx*) diff)))
+                (dn (round (/ (- rx *my/last-n-rx*) diff)))
+                (out (my/out (format nil "~c~d ~c ~d~c"
+                                     #\black_down-pointing_triangle
+                                     dn #\middle_dot up
+                                     #\black_up-pointing_triangle))))
+           (setf *my/last-n-tx* tx
+                 *my/last-n-rx* rx
+                 *my/last-n-time* now
+                 *my/str-n* out)))))
 
-(defun my/get-l ()
-  (let* ((a (my/get-lum))
-         (lum (parse-integer (car a)))
-         (lim (parse-integer (cdr a)))
-         (out (my/get-out (princ-to-string (round (/ (* 100 lum) lim))))))
-    (setf *my/str-l* out)))
+    (:p ; point
+     (let* ((a (my/call "iwgetid"))
+            (b (my/extract "ESSID:\"(.*)\"" a))
+            (out (my/out (if (> 20 (length b)) b
+                             (format nil "~a~c"
+                                     (subseq b 0 19)
+                                     #\horizontal_ellipsis)))))
+       (setf *my/str-p* out)))
 
-(defun my/get-v ()
-  ; sep 2017 (near stumpwm-88c4e90d)
-  ; - https://github.com/stumpwm/stumpwm/issues/246
-  ; - looks like the `bt:make-thread` must happen on this level (hence macro)
-  (my/thread "my-amixer-thread"
-             *my/put-amixer*
-             (my/get-vol))
-  (let* ((a *my/put-amixer*)
-         (vol (car a))
-         (mute (cdr a))
-         (out (my/get-out (if vol (if mute "x" vol)))))
-    (setf *my/str-v* out)))
+    (:l ; luminosity
+     (let* ((a (my/get-sub :lum))
+            (lum (parse-integer (car a)))
+            (lim (parse-integer (cdr a)))
+            (out (my/out (princ-to-string (round (/ (* 100 lum) lim))))))
+       (setf *my/str-l* out)))
 
-(defun my/get-k ()
-  ; sep 2017 (near stumpwm-88c4e90d)
-  ; - https://github.com/stumpwm/stumpwm/issues/246
-  ; - looks like the `bt:make-thread` must happen on this level (hence macro)
-  (my/thread "my-setxkbmap-thread"
-             *my/put-setxkbmap*
-             (search "+hsnt+" (my/call "setxkbmap -print")))
-  (my/thread "my-xset-thread"
-             *my/put-xset*
-             (let* ((a (my/call "xset q"))
-                    (b (cl-ppcre:scan-to-strings "00: C.*" a))
-                    (c (fourth (cl-ppcre:split "\\s+" b))))
-               (string= "on" c)))
-  (let* ((hsnt *my/put-setxkbmap*)
-         (caps *my/put-xset*)
-         (out (my/get-out (funcall (if caps #'string-upcase #'identity)
-                                   (if hsnt "h" "q")))))
-    (setf *my/str-k* out)))
+    (:v ; volume
+     ; sep 2017 (near stumpwm-88c4e90d)
+     ; - https://github.com/stumpwm/stumpwm/issues/246
+     ; - looks like the `bt:make-thread` must happen on this level (hence macro)
+     (my/thread "my-amixer-thread"
+                *my/put-amixer*
+                (my/get-sub :vol))
+     (let* ((a *my/put-amixer*)
+            (vol (car a))
+            (mute (cdr a))
+            (out (my/out (if vol (if mute "x" vol)))))
+       (setf *my/str-v* out)))
 
-(defun my/get-b ()
-  (let* ((a (my/chomp (my/call "acpi")))
-         (b (cl-ppcre:split ", " (second (cl-ppcre:split ": " a))))
-         (stat (first b))
-         (perc (string-right-trim "%" (second b)))
-         (c (format nil "~a~a" perc
-                    (if (string= "Charging" stat)
-                        (my/icon my/icon-bchrg t) "")))
-         (low? (> 11 (parse-integer perc)))
-         (out (my/get-out c (if low? my/high)))
-         (icon (my/icon (cond
-                          (low?                  my/icon-bnone)
-                          ((string= "Full" stat) my/icon-bfull)
-                          (t                     my/icon-bhalf))
-                        t)))
-    (setf *my/str-b* (format nil "~a~a" icon out))))
+    (:k ; keyboard
+     ; sep 2017 (near stumpwm-88c4e90d)
+     ; - https://github.com/stumpwm/stumpwm/issues/246
+     ; - looks like the `bt:make-thread` must happen on this level (hence macro)
+     (my/thread "my-setxkbmap-thread"
+                *my/put-setxkbmap*
+                (search "+hsnt+" (my/call "setxkbmap -print")))
+     (my/thread "my-xset-thread"
+                *my/put-xset*
+                (let* ((a (my/call "xset q"))
+                       (b (cl-ppcre:scan-to-strings "00: C.*" a))
+                       (c (fourth (cl-ppcre:split "\\s+" b))))
+                  (equal "on" c)))
+     (let* ((hsnt *my/put-setxkbmap*)
+            (caps *my/put-xset*)
+            (out (my/out (funcall (if caps #'string-upcase #'identity)
+                                  (if hsnt "h" "q")))))
+       (setf *my/str-k* out)))
+
+    (:b ; battery
+     (let* ((a (my/chomp (my/call "acpi")))
+            (b (cl-ppcre:split ", " (second (cl-ppcre:split ": " a))))
+            (stat (first b))
+            (perc (string-right-trim "%" (second b)))
+            (alert (> 11 (parse-integer perc)))
+            (icon (my/sep :icon
+                          (format nil "~a~a"
+                                  (my/icon
+                                   (cond
+                                     (alert               (my/char :bnone))
+                                     ((equal "Full" stat) (my/char :bfull))
+                                     (t                   (my/char :bpart))))
+                                  (if (equal "Charging" stat)
+                                      (my/icon (my/char :bchrg)) ""))
+                          (if alert :h)))
+            (out (my/out perc (if alert :h))))
+       (setf *my/str-b* (format nil "~a~a" icon out))))
+    ))
 
 ;;;; command extension
 
 ;; command helpers
 
-(defun my/clean-message (s)
-  (message (cl-ppcre:regex-replace-all "~" s "~~")))
+(defmacro my/sanitise-message (s)
+  `(message (cl-ppcre:regex-replace-all "~" ,s "~~")))
 
-(defun my/notify-get (head body)
-  (my/clean-message (format nil "~a: ~a" head body)))
+(defmacro my/notify (head body)
+  `(my/sanitise-message (format nil "~a: ~a" ,head ,body)))
 
 ;; askpass
 
@@ -307,44 +320,44 @@
          (out (if hsnt "qwerty" "hsnt")))
     (my/call (format nil "setxkbmap -option ctrl:nocaps ~a" cmd))
     (my/acall "xset r rate 250 35")
-    (my/notify-get "keyboard layout" out)))
+    (my/notify "keyboard layout" out)))
 
 (defcommand my/hot-lum (arg) ((:string "luminosity (-|+|*): "))
   "hot command: lum"
   (my/call (format nil "sudo 0lum ~a" arg))
-  (let* ((a (my/get-lum))
+  (let* ((a (my/get-sub :lum))
          (lum (parse-integer (car a)))
          (lim (parse-integer (cdr a)))
          (out (format nil "~a~d%~a"
                       (cond
-                        ((string= "-" arg) "down (")
-                        ((string= "+" arg) "up ("))
+                        ((equal "-" arg) "down (")
+                        ((equal "+" arg) "up ("))
                       (round (/ (* lum 100) lim))
-                      (if (member arg '("-" "+") :test 'string=) ")"))))
-    (my/notify-get "luminosity" out)))
+                      (if (member arg '("-" "+") :test 'equal) ")"))))
+    (my/notify "luminosity" out)))
 
 (defcommand my/hot-rat (arg) ((:string "touchpad (tog|dwt|*): "))
   "hot command: rat"
   (let* ((dev "SynPS/2 Synaptics TouchPad")
          (prop (cond
-                 ((string= "dwt" arg) "libinput Disable While Typing Enabled")
+                 ((equal "dwt" arg) "libinput Disable While Typing Enabled")
                  (t "Device Enabled"))) ; arg = "tog"
          (a (my/call "xinput list"))
          (id (my/extract (format nil "~a\\s+id=([0-9]+)" dev) a))
          (b (my/call (format nil "xinput list-props ~a | grep '~a ('" id prop)))
-         (old (string= "1" (first (reverse (cl-ppcre:split "\\s+" b)))))
+         (old (equal "1" (first (reverse (cl-ppcre:split "\\s+" b)))))
          (cmd (cond
-                ((string= "dwt" arg)
+                ((equal "dwt" arg)
                  (format nil "set-prop ~a '~a' ~d" id prop (if old 0 1)))
                 (t ; arg = "tog"
                  (format nil "~a ~a" (if old "disable" "enable") id))))
          (out (cond
-                ((string= "dwt" arg)
+                ((equal "dwt" arg)
                  (format nil "DisableWhileTyping ~a" (if old "off" "on")))
                 (t ; arg = "tog"
                  (if old "off" "on")))))
     (my/acall (format nil "xinput ~a" cmd))
-    (my/notify-get "touchpad" out)))
+    (my/notify "touchpad" out)))
 
 (defcommand my/hot-shot (arg) ((:string "screenshot (s|w|*): "))
   "hot command: shot"
@@ -353,64 +366,48 @@
          (file (format nil "~a/shot_~a-\\$wx\\$h.png" dir now))
          (opt (format nil "~a-q 100 -z"
                       (cond
-                        ((string= "s" arg) "-s ")
-                        ((string= "w" arg) "-u ")
+                        ((equal "s" arg) "-s ")
+                        ((equal "w" arg) "-u ")
                         (t ""))))
          (out (cond
-                ((string= "s" arg) "selectshot")
-                ((string= "w" arg) "windowshot")
+                ((equal "s" arg) "selectshot")
+                ((equal "w" arg) "windowshot")
                 (t "screenshot"))))
-    (funcall (if (string= arg "s") #'my/call #'my/acall)
+    (funcall (if (equal arg "s") #'my/call #'my/acall)
              (format nil "scrot ~a ~a" opt file))
-    (my/notify-get out (format nil "taken (~a)" dir))))
+    (my/notify out (format nil "taken (~a)" dir))))
 
 (defcommand my/hot-vol (arg) ((:string "volume (x|-|--|+|++|*): "))
   "hot command: vol"
-  (let* ((a (my/get-vol))
+  (let* ((a (my/get-sub :vol))
          (vol (parse-integer (car a)))
          (mute (cdr a))
          (c (cond
-              ((string= "-"  arg) (- vol 1))
-              ((string= "--" arg) (- vol 5))
-              ((string= "+"  arg) (+ vol 1))
-              ((string= "++" arg) (+ vol 5))
+              ((equal "-"  arg) (- vol 1))
+              ((equal "--" arg) (- vol 5))
+              ((equal "+"  arg) (+ vol 1))
+              ((equal "++" arg) (+ vol 5))
               (t vol))) ; arg = "x", *
          (n (cond
-              ((member arg '("-" "--") :test 'string=) (if (> 0 c) 0 c))
-              ((member arg '("+" "++") :test 'string=) (if (< 100 c) 100 c))
+              ((member arg '("-" "--") :test 'equal) (if (> 0 c) 0 c))
+              ((member arg '("+" "++") :test 'equal) (if (< 100 c) 100 c))
               (t c))) ; arg = "x", *
          (p (cond
-              ((member arg '("-" "--") :test 'string=) (< 0 vol))
-              ((member arg '("+" "++") :test 'string=) (> 100 vol))
+              ((member arg '("-" "--") :test 'equal) (< 0 vol))
+              ((member arg '("+" "++") :test 'equal) (> 100 vol))
               (t t))) ; arg = "x", *
          (s (format nil "~d%" n))
          (cmd (cond
-                ((string= "x" arg)
+                ((equal "x" arg)
                  (if mute "unmute" "mute"))
-                ((member arg '("-" "--" "+" "++") :test 'string=)
+                ((member arg '("-" "--" "+" "++") :test 'equal)
                  (format nil "~a unmute" s))
                 (t "unmute"))) ; arg = *
-         (out (if (and (string= "x" arg) (not mute)) cmd s)))
+         (out (if (and (equal "x" arg) (not mute)) cmd s)))
     (if p (my/acall (format nil "amixer -q set Master ~a" cmd)))
-    (my/notify-get "volume" out)))
+    (my/notify "volume" out)))
 
 ;; power
-
-(defvar my/menu-power
-  '(("lock" "my/power-lock")
-    ("quit" "my/power-quit")
-    ("reboot" "my/power-reboot")
-    ("halt" "my/power-halt")))
-
-(defun my/menu (menu)
-  (labels
-    ((pick (options)
-       (let ((which (select-from-menu (current-screen) options "")))
-         (cond
-           ((null which) (throw 'stumpwm::error "Abort."))
-           ((stringp (second which)) (second which))
-           (t (pick (cdr which)))))))
-    (run-commands (pick menu))))
 
 (defun my/power-stop ()
   (mapcar #'my/acall
@@ -438,6 +435,22 @@
   (my/power-stop)
   (my/acall "sudo halt"))
 
+(defvar my/menu-power
+  '(("lock" "my/power-lock")
+    ("quit" "my/power-quit")
+    ("reboot" "my/power-reboot")
+    ("halt" "my/power-halt")))
+
+(defun my/menu (menu)
+  (labels
+    ((pick (options)
+       (let ((which (select-from-menu (current-screen) options "")))
+         (cond
+           ((null which) (throw 'stumpwm::error "Abort."))
+           ((stringp (second which)) (second which))
+           (t (pick (cdr which)))))))
+    (run-commands (pick menu))))
+
 (defcommand my/power () ()
   "power menu"
   (my/menu my/menu-power))
@@ -446,74 +459,88 @@
 
 (defcommand my/swank () ()
   "start swank"
-  (swank:create-server :port 4006
+  (swank:create-server :port 4005
                        :style swank:*communication-style*
                        :dont-close t)
   (message "Swank started. M-x slime-connect. \"(in-package :stumpwm)\"."))
 
 ;; urgent
 
-(defun my/urgent-message (target)
-  (my/clean-message
+(defun my/urgent (target)
+  (my/sanitise-message
    (format nil "^[~a~c^] ~a"
            (my/fg :r)
            #\double_exclamation_mark
            (window-title target))))
 
-(add-hook *urgent-window-hook* #'my/urgent-message)
+(add-hook *urgent-window-hook* #'my/urgent)
 
 ;;;; the actual extending
 
 ;; modeline
 
+(defun my/groups (active inactive)
+  (flet ((show (g)
+           (let ((n (group-number g)))
+             (if (= n (group-number (current-group)))
+                 (format nil "^[~a~d^]" (my/fg active) n)
+                 (if (or (group-windows g)
+                         (< 1 (list-length (ignore-errors (group-frames g)))))
+                     (princ-to-string n))))))
+    (let* ((a (sort1 (screen-groups (current-screen)) '< :key 'group-number))
+           (b (remove-if #'null (mapcar #'show a)))
+           (out (reduce (lambda (x xs) (concat x " " xs)) b)))
+      (format nil "~a~a" (my/fg inactive) out))))
+
 (defvar my/modeline
-  (list my/agaric
+  (list (my/char :agaric)
         " "
         '(:eval (my/groups :kk :cc))
         " "
-        (my/color-out #\box_drawings_light_vertical :dim)
+        (my/clout #\box_drawings_light_vertical :d)
         (my/fg :gg)
-        (my/color-out "%u" my/high)
+        (my/clout "%u" :h)
         " %v^>"
-        my/icon-t
-        '(:eval (my/modeline-do #'my/get-u '*my/str-u* '*my/next-u* 14))
-        my/sep
-        '(:eval (my/modeline-do #'my/get-t '*my/str-t* '*my/next-t*  9))
-        my/icon-c
-        '(:eval (my/modeline-do #'my/get-c '*my/str-c* '*my/next-c*  1))
-        my/sep
-        '(:eval (my/modeline-do #'my/get-m '*my/str-m* '*my/next-m* 14))
-        my/sep
-        '(:eval (my/modeline-do #'my/get-d '*my/str-d* '*my/next-d* 14))
-        my/icon-n
-        '(:eval (my/modeline-do #'my/get-n '*my/str-n* '*my/next-n*  1))
-        my/sep
-        '(:eval (my/modeline-do #'my/get-p '*my/str-p* '*my/next-p* 14))
-        my/icon-l
-        '(:eval (my/modeline-do #'my/get-l '*my/str-l* '*my/next-l*  4))
-        my/icon-v
-        '(:eval (my/modeline-do #'my/get-v '*my/str-v* '*my/next-v*  2))
-        my/icon-k
-        '(:eval (my/modeline-do #'my/get-k '*my/str-k* '*my/next-k*  2))
-        ; dynamic icon, see 'my/get-b
-        '(:eval (my/modeline-do #'my/get-b '*my/str-b* '*my/next-b*  4))
+        (my/sep :icon (my/char :t))
+        '(:eval (my/modeline-do #'my/get :u '*my/str-u* '*my/next-u* 14))
+        (my/sep :dot)
+        '(:eval (my/modeline-do #'my/get :t '*my/str-t* '*my/next-t*  9))
+        '(:eval (my/sep :icon (my/char :c)
+                 (if (or *my/alert-c* *my/alert-m* *my/alert-d*) :h)))
+        '(:eval (my/modeline-do #'my/get :c '*my/str-c* '*my/next-c*  1))
+        (my/sep :dot)
+        '(:eval (my/modeline-do #'my/get :m '*my/str-m* '*my/next-m* 14))
+        (my/sep :dot)
+        '(:eval (my/modeline-do #'my/get :d '*my/str-d* '*my/next-d* 14))
+        (my/sep :icon (my/char :n))
+        '(:eval (my/modeline-do #'my/get :n '*my/str-n* '*my/next-n*  1))
+        (my/sep :dot)
+        '(:eval (my/modeline-do #'my/get :p '*my/str-p* '*my/next-p* 14))
+        (my/sep :icon (my/char :l))
+        '(:eval (my/modeline-do #'my/get :l '*my/str-l* '*my/next-l*  4))
+        (my/sep :icon (my/char :v))
+        '(:eval (my/modeline-do #'my/get :v '*my/str-v* '*my/next-v*  2))
+        (my/sep :icon (my/char :k))
+        '(:eval (my/modeline-do #'my/get :k '*my/str-k* '*my/next-k*  2))
+        ; dynamic icon, see 'my/get :b
+        '(:eval (my/modeline-do #'my/get :b '*my/str-b* '*my/next-b*  4))
         " %T"))
 
 (setf
  *hidden-window-color* (my/fg :cc)
  *mode-line-background-color* (my/color :w)
  *mode-line-foreground-color* (my/color :cc)
- *mode-line-highlight-template* (concat "^[" (my/bg :dim) (my/fg :k) " ~a ^]")
+ *mode-line-highlight-template* (concat "^[" (my/bg :d) (my/fg :k) " ~a ^]")
  *screen-mode-line-format* my/modeline
  *window-info-format* (format nil "%n ~a ^>~a
 ~a %t
 ~a %c
 ~a %i"
-(my/color-out "%m" :r)
-(my/color-out "%wx%h" :gg)
-(my/color-out "name:" :gg)
-(my/color-out "class:" :gg)
-(my/color-out "id:" :gg))
+(my/clout "%m" :r)
+(my/clout "%wx%h" :gg)
+(my/clout "name:" :gg)
+(my/clout "class:" :gg)
+(my/clout "id:" :gg))
  *window-format* (format nil "^[~a%n^] %36t" (my/fg :y)))
 
 ;; hotkeys
@@ -536,8 +563,8 @@
           ("XF86PowerOff"           . "my/power-lock")
           ("C-M-Delete"             . "my/power")
           ("C-M-BackSpace"          . "my/power")
-          ("s-\\"                   . "my/hot-kbl")
-          ("s-o"                    . "my/exec")))
+          ("s-Return"               . "my/exec")
+          ("s-\\"                   . "my/hot-kbl")))
 
 (defvar *my/keymap-exchange*
   (let ((m (make-sparse-keymap)))

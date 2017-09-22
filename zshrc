@@ -1,7 +1,7 @@
 # .zshrc
 
 [ "$TERM" = screen ] && TERM=screen-256color
-export PATH="$PATH:/sbin:/usr/sbin:$HOME/opt/bin:/usr/local/sbin:$HOME/.gem/ruby/2.1.0/bin"
+export PATH="$PATH:/sbin:/usr/sbin:$HOME/opt/bin:/usr/local/sbin:/usr/local/games:$HOME/.gem/ruby/2.1.0/bin"
 export MANPATH="$MANPATH:/usr/local/man:$HOME/opt/share/man"
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig"
 export EDITOR='emacsclient -nc'
@@ -10,7 +10,7 @@ export PAGER=less
 export TERMINAL=st
 export LESS=-imRS  # icase search,verbose,rawcolor,chop
 export LESSHISTFILE=-
-export B_DAT=/data  # used in .xinitrc,0save
+export B_DAT=/data  # used in 0save
 export B_NOW='%d%b%y-%H%M%S'  # used in 0hot,0save
 
 HISTFILE=$HOME/.zshlog
@@ -37,23 +37,24 @@ if [ "$TERM" != linux ] && [ "$TERM" != eterm-color ]; then
   zle -N zle-line-finish; fi
 
 precmd() {
-  PS1=%{$'\e[0;37m'%}"$(echo ${PWD/#$HOME/\~}|sed 's!\([^/]\{3\}\)[^/]\{2,\}/!\1+/!g')"%{$'\e[0m'%}' '
+  PS1=%{$'\e[0;37m'%}"$(echo ${PWD/#$HOME/\~} | sed 's!\([^/]\{3\}\)[^/]\{2,\}/!\1+/!g')"%{$'\e[0m'%}' '
   [ "$TERM" = linux ] || printf "\a"; }
 [ "$TERM" = linux ] || [ "$TERM" = eterm-color ] || preexec() {
   #PROMPT_COMMAND="printf '\033k$(hostname)\033\\';"${PROMPT_COMMAND}
-  local quo="$(echo ${PWD/#$HOME/\~}|sed 's!\([^/ :]\{2\}\)[^/ :]*/!\1/!g')"
-  local que="$(echo $2|sed 's/ --color=auto//g')"
+  local quo="$(echo ${PWD/#$HOME/\~} | sed 's!\([^/ :]\{2\}\)[^/ :]*/!\1/!g')"
+  local que="$(echo $2 | sed 's/ --color=auto//g')"
   print -Pn "\e]0;[$quo] $que\a"; }
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 RPROMPT=%{$'\e[0;37m'%}\$vcs_info_msg_0_%{$'\e[0m'%}
 
-alias 0clock='echo "  UTC:       $(TZ=UTC date)";echo "$(tput bold)* Here:      $(date)$(tput sgr0)";echo "  London:    $(TZ=Europe/London date)";echo "  Los Angls: $(TZ=America/Los_Angeles date)";echo "  New York:  $(TZ=America/New_York date)";echo "  Riyadh:    $(TZ=Asia/Riyadh date)"'
-alias 0fonts="fc-list|sed 's/^.\+: //;s/:.\+$//;s/,.*$//'|sort -u|pr -2 -T"
+alias 0clock='echo "  UTC:       $(TZ=UTC date)"; echo "$(tput bold)* Here:      $(date)$(tput sgr0)"; echo "  London:    $(TZ=Europe/London date)"; echo "  Los Angls: $(TZ=America/Los_Angeles date)"; echo "  New York:  $(TZ=America/New_York date)"; echo "  Riyadh:    $(TZ=Asia/Riyadh date)"; echo "  Seoul:     $(TZ=Asia/Seoul date)"'
+alias 0fonts="fc-list | sed 's/^.\+: //;s/:.\+$//;s/,.*$//' | sort -u | pr -2 -T"
 alias 0ip='wget -q -O - ipinfo.io/ip'
-alias 0psc="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time|sed '/^ 0.0 /d'"
-alias 0psm='ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz|awk "{if(\$1>5000)print;}"'
-alias 0qmk="docker run -e keymap=agaric -e subproject=rev4 -e keyboard=planck --rm -v $HOME/src/qmk_firmware:/qmk:rw edasque/qmk_firmware"
+alias 0top-c="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time | sed '/^ 0.0 /d'"
+alias 0top-d="du -kx | rg -v '\./.+/' | sort -rn"
+alias 0top-m='ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz | awk "{if(\$1>5000)print;}"'
+alias 0qmk-build="docker run -e keymap=agaric -e subproject=rev4 -e keyboard=planck --rm -v $HOME/src/qmk_firmware:/qmk:rw edasque/qmk_firmware"
 alias     cp='cp -iv'
 alias   diff='diff --color'
 alias  dmesg='dmesg --color=always'
@@ -72,9 +73,11 @@ alias      e='emacsclient -nc'
 alias      g='git'
 alias      v='vim'
 alias   lein='rlwrap lein'
-alias pstree='pstree -h'
+alias pstree='pstree -hnp'
+alias   sbcl='rlwrap sbcl'
+alias   tome='tome -mgcu'
 c() { cd "$@" && \
-  { local lim=256 count=$(ls --color=n|wc -l);
+  { local lim=256 count=$(ls --color=n | wc -l);
     [ $count -gt $lim ] \
     && echo "skipping ls ($count entries > $lim)" \
     || l; }; }
@@ -82,7 +85,7 @@ alias     ..='c ..'
 alias    ...='c ../..'
 alias   ....='c ../../..'
 alias  .....='c ../../../..'
-0qmk_flash() {
+0qmk-flash() {
   [ -z "$1" ] \
   && echo "no file given" \
   || { sudo dfu-programmer atmega32u4 erase \

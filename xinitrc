@@ -20,23 +20,21 @@ xset  b off  m 4 4  r rate 250 35 \
 xsetroot -cursor_name left_ptr -solid '#657b83'
 
 # note: let pulse restore however it wants, but restore alsa manually
-restore_alsa() {
-  while [ -z "$(pidof pulseaudio)" ]; do
-    sleep 1
+{ while [ -z "$(pidof pulseaudio)" ]; do
+  sleep 1
   done
   alsactl --file $HOME/.config/asound.state restore
-}
-restore_alsa &
+} &
 
 # services
-bgin 0browsertmp  # cf. 0pow
+bgin 0browsertmp
 #bgin blueman-applet
+bgin connman-gtk
 bgin dunst
 bgin emacs --daemon
 bgin uim-toolbar-gtk-systray
 bgin uim-xim
-bgin wicd-gtk --tray
-eval $(keychain --eval --quick --quiet --agents ssh id_rsa)  # cb6ebccf
+eval $(keychain --eval --quick --quiet --agents ssh id_rsa) # cb6ebccf
 
 # start wm
-exec ck-launch-session dbus-launch --sh-syntax --exit-with-session stumpwm
+exec stumpwm # cwm

@@ -26,7 +26,6 @@
 (defvar *my/put-setxkbmap* t)
 (defvar *my/put-xset* nil)
 (defvar *my/put-amixer* '())
-(defvar my/size-l 8)
 
 ;; operational + string + stream helpers
 
@@ -65,17 +64,6 @@
 (defmacro my/fg (color)
   `(format nil "^(:fg \"~a\")" (my/color ,color)))
 
-(defmacro my/icon (icon)
-  `(format nil "^(:font 1)~c^(:font 0)" ,icon))
-
-(defun my/sep (key &optional s color)
-  (case key
-    (:icon (format nil " ^[~a~a^] "
-                   (if color (my/fg color) (my/fg :y))
-                   (if (stringp s) s (my/icon s))))
-    (:dot (format nil "~c " #\middle_dot))
-    (t " ")))
-
 (defmacro my/clout (s color)
   `(format nil "^[~a~a^]" (my/fg ,color) ,s))
 
@@ -98,6 +86,16 @@
     (:bpart #\uf243) ; battery quarter
     (:bnone #\uf244) ; battery empty
     ))
+
+(defun my/sep (key &optional s color)
+  (case key
+    (:icon (format nil " ^[~a~a^] "
+                   (if color (my/fg color) (my/fg :y))
+                   (if (keywordp s)
+                       (format nil "^(:font 1)~c^(:font 0)" (my/char s))
+                       s)))
+    (:dot (format nil "~c " #\middle_dot))
+    (t " ")))
 
 ;; getter helpers
 
@@ -272,14 +270,11 @@
             (perc (string-right-trim "%" (second b)))
             (alert (> 11 (parse-integer perc)))
             (icon (my/sep :icon
-                          (format nil "~a~a"
-                                  (my/icon
-                                   (cond
-                                     (alert               (my/char :bnone))
-                                     ((equal "Full" stat) (my/char :bfull))
-                                     (t                   (my/char :bpart))))
-                                  (if (equal "Charging" stat)
-                                      (my/icon (my/char :bchrg)) ""))
+                          (cond
+                            (alert                   :bnone)
+                            ((equal "Full" stat)     :bfull)
+                            ((equal "Charging" stat) :bchrg)
+                            (t                       :bpart))
                           (if alert :h)))
             (out (my/out perc (if alert :h))))
        (setf *my/str-b* (format nil "~a~a" icon out))))
@@ -289,11 +284,11 @@
 
 ;; command helpers
 
-(defmacro my/sanitise-message (s)
+(defmacro my/sanitise (s)
   `(message (cl-ppcre:regex-replace-all "~" ,s "~~")))
 
 (defmacro my/notify (head body)
-  `(my/sanitise-message (format nil "~a: ~a" ,head ,body)))
+  `(my/sanitise (format nil "~a: ~a" ,head ,body)))
 
 ;; askpass
 
@@ -307,7 +302,7 @@
   (or (argument-pop-rest input)
       (completing-read (current-screen) prompt 'complete-program)))
 
-(defcommand my/exec (cmd) ((:my-shell "bgin: "))
+(defcommand my/run (cmd) ((:my-shell "Run: "))
   "orphan program starter"
   (run-prog "/usr/local/bin/bgin" :args (list cmd) :wait nil))
 
@@ -467,11 +462,10 @@
 ;; urgent
 
 (defun my/urgent (target)
-  (my/sanitise-message
-   (format nil "^[~a~c^] ~a"
-           (my/fg :r)
-           #\double_exclamation_mark
-           (window-title target))))
+  (format nil "^[~a~c^] ~a"
+          (my/fg :r)
+          #\double_exclamation_mark
+          (my/sanitise (window-title target))))
 
 (add-hook *urgent-window-hook* #'my/urgent)
 
@@ -494,33 +488,33 @@
 
 (defvar my/modeline
   (list (my/char :agaric)
-        " "
+        "  "
         '(:eval (my/groups :kk :cc))
-        " "
-        (my/clout #\box_drawings_light_vertical :d)
+        "  "
+        (my/sep :dot)
         (my/fg :gg)
         (my/clout "%u" :h)
         " %v^>"
-        (my/sep :icon (my/char :t))
+        (my/sep :icon :t)
         '(:eval (my/modeline-do #'my/get :u '*my/str-u* '*my/next-u* 14))
         (my/sep :dot)
         '(:eval (my/modeline-do #'my/get :t '*my/str-t* '*my/next-t*  9))
-        '(:eval (my/sep :icon (my/char :c)
+        '(:eval (my/sep :icon :c
                  (if (or *my/alert-c* *my/alert-m* *my/alert-d*) :h)))
         '(:eval (my/modeline-do #'my/get :c '*my/str-c* '*my/next-c*  1))
         (my/sep :dot)
         '(:eval (my/modeline-do #'my/get :m '*my/str-m* '*my/next-m* 14))
         (my/sep :dot)
         '(:eval (my/modeline-do #'my/get :d '*my/str-d* '*my/next-d* 14))
-        (my/sep :icon (my/char :n))
+        (my/sep :icon :n)
         '(:eval (my/modeline-do #'my/get :n '*my/str-n* '*my/next-n*  1))
         (my/sep :dot)
         '(:eval (my/modeline-do #'my/get :p '*my/str-p* '*my/next-p* 14))
-        (my/sep :icon (my/char :l))
+        (my/sep :icon :l)
         '(:eval (my/modeline-do #'my/get :l '*my/str-l* '*my/next-l*  4))
-        (my/sep :icon (my/char :v))
+        (my/sep :icon :v)
         '(:eval (my/modeline-do #'my/get :v '*my/str-v* '*my/next-v*  2))
-        (my/sep :icon (my/char :k))
+        (my/sep :icon :k)
         '(:eval (my/modeline-do #'my/get :k '*my/str-k* '*my/next-k*  2))
         ; dynamic icon, see 'my/get :b
         '(:eval (my/modeline-do #'my/get :b '*my/str-b* '*my/next-b*  4))
@@ -563,7 +557,7 @@
           ("XF86PowerOff"           . "my/power-lock")
           ("C-M-Delete"             . "my/power")
           ("C-M-BackSpace"          . "my/power")
-          ("s-Return"               . "my/exec")
+          ("s-Return"               . "my/run")
           ("s-\\"                   . "my/hot-kbl")))
 
 (defvar *my/keymap-exchange*

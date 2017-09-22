@@ -1,6 +1,6 @@
 ;; -*-lisp-*-
 
-(declaim (optimize (speed 3) (space 0) (debug 3) (safety 3)))
+(declaim (optimize (speed 3) (space 0) (debug 1) (safety 1)))
 
 (load "~/.quicklisp/dists/quicklisp/software/slime-v2.20/swank-loader.lisp")
 (swank-loader:init)
@@ -46,6 +46,7 @@
 
 (mapcar (lambda (x) (define-key *top-map* (kbd (car x)) (cdr x)))
         '(("M-s-Escape"    . "kill")
+          ("S-s-Escape"    . "delete")
           ("s-BackSpace"   . "vsplit")
           ("M-s-BackSpace" . "hsplit")
           ("s-Delete"      . "remove-split")

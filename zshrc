@@ -1,8 +1,13 @@
 # .zshrc
 
 [ "$TERM" = screen ] && TERM=screen-256color
-export PATH="$PATH:/sbin:/usr/sbin:$HOME/opt/bin:/usr/local/sbin:/usr/local/games:$HOME/.gem/ruby/2.1.0/bin"
-export MANPATH="$MANPATH:/usr/local/man:$HOME/opt/share/man"
+PATH="$HOME/.gem/ruby/2.1.0/bin${PATH:+:}$PATH"
+PATH="/sbin:/usr/sbin:$HOME/opt/bin:/usr/local/sbin:/usr/local/games${PATH:+:}$PATH"
+PATH="$HOME/.guix-profile/bin:$HOME/.guix-profile/sbin${PATH:+:}$PATH"
+export PATH
+export GUIX_LOCPATH="$HOME/.guix-profile/lib/locale"
+export INFOPATH="$HOME/.guix-profile/share/info:${INFOPATH:+:}$INFOPATH"
+export MANPATH="$HOME/.guix-profile/share/man:$HOME/opt/share/man:/usr/local/man${MANPATH:+:}$MANPATH"
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig"
 export EDITOR='emacsclient -nc'
 export VISUAL='emacsclient -nc'
@@ -10,8 +15,6 @@ export PAGER=less
 export TERMINAL=st
 export LESS=-imRS  # icase search,verbose,rawcolor,chop
 export LESSHISTFILE=-
-export B_DAT=/data  # used in 0save
-export B_NOW='%d%b%y-%H%M%S'  # used in 0hot,0save
 
 HISTFILE=$HOME/.zshlog
 HISTSIZE=4096

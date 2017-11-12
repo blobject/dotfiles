@@ -356,20 +356,18 @@
 
 (defcommand my/hot-shot (arg) ((:string "screenshot (s|w|*): "))
   "hot command: shot"
-  (let* ((now (my/chomp (my/call "date +$B_NOW")))
-         (dir (my/call "echo -n $HOME"))
-         (file (format nil "~a/shot_~a-\\$wx\\$h.png" dir now))
-         (opt (format nil "~a-q 100 -z"
-                      (cond
-                        ((equal "s" arg) "-s ")
-                        ((equal "w" arg) "-u ")
-                        (t ""))))
+  (let* ((dir (my/call "echo -n $HOME"))
+         (file (format nil "~a/shot~a.png" dir (my/chomp (my/call "date +%s"))))
+         (opt (cond
+                ((equal "s" arg) "-s ")
+                ((equal "w" arg) "-i $(xdotool getactivewindow) ")
+                (t "")))
          (out (cond
                 ((equal "s" arg) "selectshot")
                 ((equal "w" arg) "windowshot")
                 (t "screenshot"))))
     (funcall (if (equal arg "s") #'my/call #'my/acall)
-             (format nil "scrot ~a ~a" opt file))
+             (format nil "maim ~a~a" opt file))
     (my/notify out (format nil "taken (~a)" dir))))
 
 (defcommand my/hot-vol (arg) ((:string "volume (x|-|--|+|++|*): "))

@@ -58,6 +58,7 @@ alias 0top-c="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time | sed '/^ 0.0 /d'
 alias 0top-d="du -kx | rg -v '\./.+/' | sort -rn"
 alias 0top-m='ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz | awk "{if(\$1>5000)print;}"'
 alias 0qmk-build="docker run -e keymap=agaric -e subproject=rev4 -e keyboard=planck --rm -v $HOME/src/qmk_firmware:/qmk:rw edasque/qmk_firmware"
+alias 0steam='STEAM_RUNTIME=1 STEAM_RUNTIME_PREFER_HOST_LIBRARIES=1 steam'
 alias     cp='cp -iv'
 alias   diff='diff --color'
 alias  dmesg='dmesg --color=always'

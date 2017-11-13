@@ -38,8 +38,32 @@
 (defun my/acall (cmd)
   (run-shell-command cmd))
 
+(defun my/run (cmd)
+  (run-prog "/usr/local/bin/bgin" :args (cl-ppcre:split " " cmd) :wait nil))
+
 (defmacro my/thread (name var fn)
   `(bt:make-thread (lambda () (setf ,var (,@fn))) :name ,name))
+
+(defun my/in? (x l)
+  (cond
+    ((stringp l) ; l: str
+     (if (listp x) ; x: list of str
+         (progn
+           (mapcar (lambda (i) (if (search i l) (return-from my/in? t))) x)
+           nil)
+         (if (search x l) t nil)))
+    ((keywordp x) ; x: kw, l: list of kw
+     (if (member x l) t nil))
+    ((stringp x) ; x: str, l: list of str
+     (if (member x l :test #'equal) t nil))
+    ((listp x) ; x: list of _, l: list of _
+     (mapcar (lambda (i) (if (cond
+                               ((stringp i) (member i l :test #'equal))
+                               (t (member i l)))
+                             (return-from my/in? t)))
+             x)
+     nil)
+    (t (if (member x l) t nil))))
 
 (defmacro my/chomp (s)
   `(string-trim (format nil " ~c~c~c" #\newline #\return #\null) ,s))
@@ -68,9 +92,10 @@
   `(format nil "^[~a~a^]" (my/fg ,color) ,s))
 
 (defun my/out (s &optional color)
-  (format nil "~a " (if s
-                        (if color (my/clout s color) s)
-                        (my/clout "x" :h))))
+  (concat (if s
+              (if color (my/clout s color) s)
+              (my/clout "x" :h))
+          " "))
 
 (defun my/char (key)
   (case key
@@ -107,7 +132,7 @@
                             #'car)
                    a))))
 
-(defun my/get-sub (key)
+(defun my/gut (key)
   (case key
 
     (:dev-n ; net device
@@ -120,15 +145,15 @@
 
     (:lum ; luminosity
      (let* ((a "/sys/class/backlight/intel_backlight")
-            (b (my/read (format nil "~a/brightness" a)))
-            (c (my/read (format nil "~a/max_brightness" a))))
-       `(,b . ,c)))
+            (b (my/read (concat a "/brightness")))
+            (c (my/read (concat a "/max_brightness"))))
+       (cons b c)))
 
     (:vol ; volume
      (let* ((a (my/call "amixer sget Master | grep 'Front Left:'"))
             (b (my/extract ".*\\[([^\\]]+)%\\].*" a))
             (c (equal "off" (my/extract ".*\\[([^\\]]+)\\]" a))))
-       `(,b . ,c)))))
+       (cons b c)))))
 
 ;; getters
 
@@ -146,10 +171,10 @@
        (setf *my/str-t* out)))
 
     (:c ; cpu
-     (let* ((dev (format nil "/sys/class/hwmon/~a" my/dev-c))
-            (a (parse-integer (my/read (format nil "~a/temp1_input" dev))))
-            (b (parse-integer (my/read (format nil "~a/temp2_input" dev))))
-            (c (parse-integer (my/read (format nil "~a/temp3_input" dev))))
+     (let* ((dev (concat "/sys/class/hwmon/" my/dev-c))
+            (a (parse-integer (my/read (concat dev "/temp1_input"))))
+            (b (parse-integer (my/read (concat dev "/temp2_input"))))
+            (c (parse-integer (my/read (concat dev "/temp3_input"))))
             (cpu (round (/ (/ (+ a b c) 3) 1000)))
             (alert (< 88 cpu))
             (out (my/out (format nil "~d~c" cpu #\degree_sign)
@@ -169,26 +194,26 @@
        (setf *my/str-m* out)))
 
     (:d ; disk
-     (let* ((a (my/call "df"))
-            (b (cl-ppcre:scan-to-strings "/dev/nvme0n1p2.*" a))
-            (c (cl-ppcre:scan-to-strings "/dev/nvme0n1p3.*" a))
-            (get (lambda (s)
-                   (string-right-trim
-                    "%" (second (reverse (cl-ppcre:split "\\s+" s))))))
-            (d (funcall get b))
-            (e (funcall get c))
-            (fr (format nil "/~a" d))
-            (fd (format nil "+~a" e))
-            (alert-r (< 98 (parse-integer d)))
-            (alert-d (< 98 (parse-integer e)))
-            (root (if alert-r (my/clout fr :h) fr))
-            (data (if alert-d (my/clout fd :h) fd))
-            (out (my/out (format nil "~a ~a" root data))))
-       (setf *my/alert-d* (or alert-r alert-d))
-       (setf *my/str-d* out)))
+     (flet ((perc (s)
+              (string-right-trim
+               "%" (second (reverse (cl-ppcre:split "\\s+" s))))))
+       (let* ((a (my/call "df"))
+              (b (cl-ppcre:scan-to-strings ".* /" a))
+              (c (cl-ppcre:scan-to-strings ".* /data" a))
+              (r (perc b))
+              (d (perc c))
+              (rr (concat "/" r))
+              (dd (concat "+" d))
+              (alert-r (< 98 (parse-integer r)))
+              (alert-d (< 98 (parse-integer d)))
+              (root (if alert-r (my/clout rr :h) rr))
+              (data (if alert-d (my/clout dd :h) dd))
+              (out (my/out (concat root " " data))))
+         (setf *my/alert-d* (or alert-r alert-d))
+         (setf *my/str-d* out))))
 
     (:n ; net
-     (let ((dev (my/get-sub :dev-n)))
+     (let ((dev (my/gut :dev-n)))
        (when (not dev)
          (setf *my/str-n* (my/out nil))
          (return-from my/get))
@@ -225,7 +250,7 @@
        (setf *my/str-p* out)))
 
     (:l ; luminosity
-     (let* ((a (my/get-sub :lum))
+     (let* ((a (my/gut :lum))
             (lum (parse-integer (car a)))
             (lim (parse-integer (cdr a)))
             (out (my/out (princ-to-string (round (/ (* 100 lum) lim))))))
@@ -237,7 +262,7 @@
      ; - looks like the `bt:make-thread` must happen on this level (hence macro)
      (my/thread "my-amixer-thread"
                 *my/put-amixer*
-                (my/get-sub :vol))
+                (my/gut :vol))
      (let* ((a *my/put-amixer*)
             (vol (car a))
             (mute (cdr a))
@@ -271,13 +296,13 @@
             (alert (> 11 (parse-integer perc)))
             (icon (my/sep :icon
                           (cond
+                            ((equal "Charging" stat) :bchrg)
                             (alert                   :bnone)
                             ((equal "Full" stat)     :bfull)
-                            ((equal "Charging" stat) :bchrg)
                             (t                       :bpart))
                           (if alert :h)))
             (out (my/out perc (if alert :h))))
-       (setf *my/str-b* (format nil "~a~a" icon out))))
+       (setf *my/str-b* (concat icon out))))
     ))
 
 ;;;; command extension
@@ -288,13 +313,13 @@
   `(message (cl-ppcre:regex-replace-all "~" ,s "~~")))
 
 (defmacro my/notify (head body)
-  `(my/sanitise (format nil "~a: ~a" ,head ,body)))
+  `(my/sanitise (concat ,head ": " ,body)))
 
 ;; askpass
 
 (defcommand my/askpass (prompt) ((:string "prompt: "))
   "prompt for password"
-  (read-one-line (current-screen) (format nil "~a " prompt) :password t))
+  (read-one-line (current-screen) (concat prompt " ") :password t))
 
 ;; exec
 
@@ -302,9 +327,9 @@
   (or (argument-pop-rest input)
       (completing-read (current-screen) prompt 'complete-program)))
 
-(defcommand my/run (cmd) ((:my-shell "Run: "))
+(defcommand my/run-prompt (cmd) ((:my-shell "Run: "))
   "orphan program starter"
-  (run-prog "/usr/local/bin/bgin" :args (list cmd) :wait nil))
+  (my/run cmd))
 
 ;; hot
 
@@ -313,14 +338,14 @@
   (let* ((hsnt (search "+hsnt+" (my/call "setxkbmap -print")))
          (cmd (if hsnt "us" "hsnt"))
          (out (if hsnt "qwerty" "hsnt")))
-    (my/call (format nil "setxkbmap -option ctrl:nocaps ~a" cmd))
+    (my/call (concat "setxkbmap -option ctrl:nocaps " cmd))
     (my/acall "xset r rate 250 35")
     (my/notify "keyboard layout" out)))
 
 (defcommand my/hot-lum (arg) ((:string "luminosity (-|+|*): "))
   "hot command: lum"
-  (my/call (format nil "sudo 0lum ~a" arg))
-  (let* ((a (my/get-sub :lum))
+  (my/call (concat "sudo 0lum " arg))
+  (let* ((a (my/gut :lum))
          (lum (parse-integer (car a)))
          (lim (parse-integer (cdr a)))
          (out (format nil "~a~d%~a"
@@ -328,30 +353,30 @@
                         ((equal "-" arg) "down (")
                         ((equal "+" arg) "up ("))
                       (round (/ (* lum 100) lim))
-                      (if (member arg '("-" "+") :test 'equal) ")"))))
+                      (if (my/in? arg '("-" "+")) ")"))))
     (my/notify "luminosity" out)))
 
 (defcommand my/hot-rat (arg) ((:string "touchpad (tog|dwt|*): "))
   "hot command: rat"
-  (let* ((dev "SynPS/2 Synaptics TouchPad")
+  (let* ((dev "PS/2 Synaptics TouchPad")
          (prop (cond
                  ((equal "dwt" arg) "libinput Disable While Typing Enabled")
                  (t "Device Enabled"))) ; arg = "tog"
          (a (my/call "xinput list"))
-         (id (my/extract (format nil "~a\\s+id=([0-9]+)" dev) a))
+         (id (my/extract (concat dev "\\s+id=([0-9]+)") a))
          (b (my/call (format nil "xinput list-props ~a | grep '~a ('" id prop)))
          (old (equal "1" (first (reverse (cl-ppcre:split "\\s+" b)))))
          (cmd (cond
                 ((equal "dwt" arg)
                  (format nil "set-prop ~a '~a' ~d" id prop (if old 0 1)))
                 (t ; arg = "tog"
-                 (format nil "~a ~a" (if old "disable" "enable") id))))
+                 (concat (if old "disable" "enable") " " id))))
          (out (cond
                 ((equal "dwt" arg)
-                 (format nil "DisableWhileTyping ~a" (if old "off" "on")))
+                 (concat "DisableWhileTyping " (if old "off" "on")))
                 (t ; arg = "tog"
                  (if old "off" "on")))))
-    (my/acall (format nil "xinput ~a" cmd))
+    (my/acall (concat "xinput " cmd))
     (my/notify "touchpad" out)))
 
 (defcommand my/hot-shot (arg) ((:string "screenshot (s|w|*): "))
@@ -366,41 +391,110 @@
                 ((equal "s" arg) "selectshot")
                 ((equal "w" arg) "windowshot")
                 (t "screenshot"))))
-    (funcall (if (equal arg "s") #'my/call #'my/acall)
-             (format nil "maim ~a~a" opt file))
+    (funcall (if (equal "s" arg) #'my/call #'my/acall)
+             (concat "maim " opt file))
     (my/notify out (format nil "taken (~a)" dir))))
 
 (defcommand my/hot-vol (arg) ((:string "volume (x|-|--|+|++|*): "))
   "hot command: vol"
-  (let* ((a (my/get-sub :vol))
+  (let* ((a (my/gut :vol))
          (vol (parse-integer (car a)))
          (mute (cdr a))
-         (c (cond
-              ((equal "-"  arg) (- vol 1))
-              ((equal "--" arg) (- vol 5))
-              ((equal "+"  arg) (+ vol 1))
-              ((equal "++" arg) (+ vol 5))
-              (t vol))) ; arg = "x", *
-         (n (cond
-              ((member arg '("-" "--") :test 'equal) (if (> 0 c) 0 c))
-              ((member arg '("+" "++") :test 'equal) (if (< 100 c) 100 c))
-              (t c))) ; arg = "x", *
-         (p (cond
-              ((member arg '("-" "--") :test 'equal) (< 0 vol))
-              ((member arg '("+" "++") :test 'equal) (> 100 vol))
-              (t t))) ; arg = "x", *
-         (s (format nil "~d%" n))
+         (cal (cond
+                ((equal "-"  arg) (- vol 1))
+                ((equal "--" arg) (- vol 5))
+                ((equal "+"  arg) (+ vol 1))
+                ((equal "++" arg) (+ vol 5))
+                (t vol))) ; arg = "x", *
+         (new (cond
+                ((my/in? arg '("-" "--")) (if (> 0   cal) 0   cal))
+                ((my/in? arg '("+" "++")) (if (< 100 cal) 100 cal))
+                (t cal))) ; arg = "x", *
+         (val (format nil "~d%" new))
          (cmd (cond
-                ((equal "x" arg)
-                 (if mute "unmute" "mute"))
-                ((member arg '("-" "--" "+" "++") :test 'equal)
-                 (format nil "~a unmute" s))
+                ((and (equal "x" arg) (not mute)) "mute")
+                ((my/in? arg '("-" "--" "+" "++")) (concat val " unmute"))
                 (t "unmute"))) ; arg = *
-         (out (if (and (equal "x" arg) (not mute)) cmd s)))
-    (if p (my/acall (format nil "amixer -q set Master ~a" cmd)))
+         (out (if (and (equal "x" arg) (not mute)) cmd val)))
+    (my/acall (concat "amixer -q set Master " cmd))
     (my/notify "volume" out)))
 
-;; power
+;; menus
+
+(defun my/menu (menu &optional run?)
+  (labels
+    ((pick (opt)
+       (let ((which (select-from-menu (current-screen) opt "")))
+         (cond
+           ((null which) (throw 'stumpwm::error "Abort."))
+           ((stringp (second which)) (second which))
+           (t (pick (cdr which)))))))
+    (funcall (if run? #'my/run #'run-commands) (pick menu))))
+
+;; menu: apps
+
+(defun my/apps-list (files)
+  (mapcar
+   (lambda (file)
+     (let* ((term? (equal "true" (cl-xdg:get-string-key "Terminal" file)))
+            (exec_ (cl-ppcre:regex-replace-all
+                    " +%." (cl-xdg:get-string-key "Exec" file) ""))
+            (exec (concat
+                   (if term? "st -e tmux -c " "")
+                   exec_))
+            (name (concat
+                   (cl-xdg:get-string-key "Name" file)
+                   " -> "
+                   (if term? "term: " "")
+                   (if (> 50 (length exec_)) exec_
+                       (format nil "~a~c"
+                               (subseq exec_ 0 49)
+                               #\horizontal_ellipsis)))))
+       (list name exec)))
+   files))
+
+(defun my/apps-sort (files)
+  (sort files
+        (lambda (a b)
+          (string-lessp (cl-xdg:get-string-key "Name" a)
+                        (cl-xdg:get-string-key "Name" b)))))
+
+(defvar my/menu-apps
+  (flet ((add (h k i) (setf (gethash k h) (nconc (gethash k h) (list i)))))
+    (let ((apps (make-hash-table))
+          (files (loop for f being the :hash-value of
+                   (slot-value (cl-xdg:load-desktop-files) 'cl-xdg::files)
+                   collect f)))
+      (mapcar
+       (lambda (file)
+         (let ((cats (cl-xdg:get-string-key "Categories" file)))
+           (cond ; order matters
+             ((my/in? "Network" cats)
+              (add apps "net" file))
+             ((my/in? "Office" cats)
+              (add apps "office" file))
+             ((my/in? '("Development" "Education") cats)
+              (add apps "dev" file))
+             ((my/in? '("Audio" "Graphics" "Video") cats)
+              (add apps "media" file))
+             ((my/in? '("Settings" "System") cats)
+              (add apps "system" file))
+             ((my/in? "Utility" cats)
+              (add apps "util" file))
+             ((my/in? "Wine" cats)
+              (add apps "wine" file))
+             (t (add apps "misc" file)))))
+       files)
+      (mapcar
+       (lambda (c) (cons c (my/apps-list (my/apps-sort (gethash c apps)))))
+       (sort (loop for c being the :hash-key of apps collect c)
+             #'string-lessp)))))
+
+(defcommand my/apps () ()
+  "apps menu"
+  (my/menu my/menu-apps t))
+
+;; menu: power
 
 (defun my/power-stop ()
   (mapcar #'my/acall
@@ -434,16 +528,6 @@
     ("reboot" "my/power-reboot")
     ("halt" "my/power-halt")))
 
-(defun my/menu (menu)
-  (labels
-    ((pick (options)
-       (let ((which (select-from-menu (current-screen) options "")))
-         (cond
-           ((null which) (throw 'stumpwm::error "Abort."))
-           ((stringp (second which)) (second which))
-           (t (pick (cdr which)))))))
-    (run-commands (pick menu))))
-
 (defcommand my/power () ()
   "power menu"
   (my/menu my/menu-power))
@@ -473,16 +557,21 @@
 
 (defun my/groups (active inactive)
   (flet ((show (g)
-           (let ((n (group-number g)))
-             (if (= n (group-number (current-group)))
-                 (format nil "^[~a~d^]" (my/fg active) n)
+           (let* ((num (group-number g))
+                  (n (cond
+                       ((= 10 num) "0'")
+                       ((= 9 num) "9'")
+                       (t (princ-to-string num)))))
+             (if (= num (group-number (current-group)))
+                 (format nil "^[~a~a^]" (my/fg active) n)
                  (if (or (group-windows g)
                          (< 1 (list-length (ignore-errors (group-frames g)))))
-                     (princ-to-string n))))))
-    (let* ((a (sort1 (screen-groups (current-screen)) '< :key 'group-number))
-           (b (remove-if #'null (mapcar #'show a)))
-           (out (reduce (lambda (x xs) (concat x " " xs)) b)))
-      (format nil "~a~a" (my/fg inactive) out))))
+                     n)))))
+    (let* ((a (copy-list (screen-groups (current-screen))))
+           (b (sort a #'< :key 'group-number))
+           (c (remove-if #'null (mapcar #'show b)))
+           (out (reduce (lambda (x xs) (concat x " " xs)) c)))
+      (concat (my/fg inactive) out))))
 
 (defvar my/modeline
   (list (my/char :agaric)
@@ -528,11 +617,11 @@
 ~a %t
 ~a %c
 ~a %i"
-(my/clout "%m" :r)
-(my/clout "%wx%h" :gg)
-(my/clout "name:" :gg)
-(my/clout "class:" :gg)
-(my/clout "id:" :gg))
+                              (my/clout "%m" :r)
+                              (my/clout "%wx%h" :gg)
+                              (my/clout "name:" :gg)
+                              (my/clout "class:" :gg)
+                              (my/clout "id:" :gg))
  *window-format* (format nil "^[~a%n^] %36t" (my/fg :y)))
 
 ;; hotkeys
@@ -555,15 +644,17 @@
           ("XF86PowerOff"           . "my/power-lock")
           ("C-M-Delete"             . "my/power")
           ("C-M-BackSpace"          . "my/power")
-          ("s-Return"               . "my/run")
+          ("s-Return"               . "my/run-prompt")
+          ("s-S-Return"             . "my/apps")
           ("s-\\"                   . "my/hot-kbl")))
 
-(defvar *my/keymap-exchange*
+(defvar *my/keymap-x*
   (let ((m (make-sparse-keymap)))
     (mapcar (lambda (x) (define-key m (kbd (car x)) (cdr x)))
             '(("h" . "exchange-direction left")
               ("j" . "exchange-direction down")
               ("k" . "exchange-direction up")
-              ("l" . "exchange-direction right")))
+              ("l" . "exchange-direction right")
+              ("r" . "repack-window-numbers")))
     m))
-(define-key *top-map* (kbd "s-x") '*my/keymap-exchange*)
+(define-key *top-map* (kbd "s-x") '*my/keymap-x*)

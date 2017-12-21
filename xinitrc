@@ -6,8 +6,9 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd -Dsun.java2d.xrender=tru
 export MOZ_DISABLE_PANGO=1
 export GTK_IM_MODULE=uim
 export QT_IM_MODULE=uim
-export XMODIFIERS=@im=uim
-export SQUEAK_IMAGE=$HOME/opt/squeak/SBE.image
+export XMODIFIERS='@im=uim'
+export QT_QPA_PLATFORMTHEME=qt5ct
+#export SQUEAK_IMAGE=$HOME/opt/squeak/SBE.image
 export SUDO_ASKPASS=/usr/local/bin/0askpass #SSH_ASKPASS
 
 # settings
@@ -37,4 +38,4 @@ bgin uim-xim
 eval $(keychain --eval --quick --quiet --agents ssh id_rsa) # cb6ebccf
 
 # start wm
-exec stumpwm # cwm
+exec ck-launch-session dbus-launch --exit-with-session stumpwm # cwm

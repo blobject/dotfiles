@@ -3,7 +3,7 @@
 # This hostname will be automatically added to /etc/hosts for the 127.0.0.1 and
 # ::1 addresses.
 
-hostname="c"
+hostname="c.d"
 
 # If your local system has other aliases for your local interfaces, you can
 # add them here. These will also be added to /etc/hosts for 127.0.0.1 and ::1:

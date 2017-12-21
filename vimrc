@@ -10,9 +10,9 @@ set nohlsearch incsearch
 set showcmd showmatch
 set wrap
 
-"set background=light
+set background=dark
 colorscheme solarized
 
-highlight LineNr     ctermfg=12 ctermbg=0
-highlight SpecialKey ctermfg=14 ctermbg=15
-highlight StatusLine ctermfg=0  ctermbg=10
+highlight LineNr     ctermfg=11 ctermbg=0
+highlight SpecialKey ctermfg=10 ctermbg=0
+highlight StatusLine ctermfg=0  ctermbg=14

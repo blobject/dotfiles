@@ -1,20 +1,21 @@
 # .zshrc
 
 [ "$TERM" = screen ] && TERM=screen-256color
-PATH="$HOME/.gem/ruby/2.1.0/bin${PATH:+:}$PATH"
-PATH="/sbin:/usr/sbin:$HOME/opt/bin:/usr/local/sbin:/usr/local/games${PATH:+:}$PATH"
+PATH="$HOME/.cargo/bin:$HOME/.gem/ruby/2.1.0/bin${PATH:+:}$PATH"
+PATH="/sbin:/usr/sbin:$HOME/.local/bin:$HOME/opt/bin:/usr/local/sbin:/usr/local/games${PATH:+:}$PATH"
 PATH="$HOME/.guix-profile/bin:$HOME/.guix-profile/sbin${PATH:+:}$PATH"
 export PATH
-export GUIX_LOCPATH="$HOME/.guix-profile/lib/locale"
-export INFOPATH="$HOME/.guix-profile/share/info:${INFOPATH:+:}$INFOPATH"
-export MANPATH="$HOME/.guix-profile/share/man:$HOME/opt/share/man:/usr/local/man${MANPATH:+:}$MANPATH"
-export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig"
 export EDITOR='emacsclient -nc'
 export VISUAL='emacsclient -nc'
-export PAGER=less
-export TERMINAL=st
+export GUILE_AUTO_COMPILE=0
+export GUIX_LOCPATH="$HOME/.guix-profile/lib/locale"
+export INFOPATH="$HOME/.guix-profile/share/info:${INFOPATH:+:}$INFOPATH"
 export LESS=-imRS  # icase search,verbose,rawcolor,chop
 export LESSHISTFILE=-
+export MANPATH="$HOME/.guix-profile/share/man:$HOME/opt/share/man:/usr/local/man${MANPATH:+:}$MANPATH"
+export PAGER=less
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig"
+export TERMINAL=st
 
 HISTFILE=$HOME/.zshlog
 HISTSIZE=4096
@@ -51,7 +52,7 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 RPROMPT=%{$'\e[0;37m'%}\$vcs_info_msg_0_%{$'\e[0m'%}
 
-alias 0clock='echo "  UTC:       $(TZ=UTC date)"; echo "$(tput bold)* Here:      $(date)$(tput sgr0)"; echo "  London:    $(TZ=Europe/London date)"; echo "  Los Angls: $(TZ=America/Los_Angeles date)"; echo "  New York:  $(TZ=America/New_York date)"; echo "  Riyadh:    $(TZ=Asia/Riyadh date)"; echo "  Seoul:     $(TZ=Asia/Seoul date)"'
+alias 0clock='echo "$(date +%s)"; echo "  UTC:       $(TZ=UTC date)"; echo "$(tput bold)* Here:      $(date)$(tput sgr0)"; echo "  London:    $(TZ=Europe/London date)"; echo "  Los Angls: $(TZ=America/Los_Angeles date)"; echo "  New York:  $(TZ=America/New_York date)"; echo "  Riyadh:    $(TZ=Asia/Riyadh date)"; echo "  Seoul:     $(TZ=Asia/Seoul date)"'
 alias 0fonts="fc-list | sed 's/^.\+: //;s/:.\+$//;s/,.*$//' | sort -u | pr -2 -T"
 alias 0ip='wget -q -O - ipinfo.io/ip'
 alias 0top-c="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time | sed '/^ 0.0 /d'"
@@ -71,15 +72,15 @@ alias    lla='ll -a'
 alias    lls='ll -S'
 alias    llt='ll -t'
 alias     rg="rg --colors 'match:fg:white' --colors 'match:style:nobold' --colors 'path:style:bold' --colors 'line:fg:yellow'"
-alias rlwrap='rlwrap'
 alias   sudo='sudo '
 alias      e='emacsclient -nc'
 alias      g='git'
 alias      v='vim'
+alias  guile='rlwrap guile'
 alias   lein='rlwrap lein'
 alias pstree='pstree -hnp'
 alias   sbcl='rlwrap sbcl'
-alias   tome='tome -mgcu'
+alias  tclsh='rlwrap tclsh'
 c() { cd "$@" && \
   { local lim=256 count=$(ls --color=n | wc -l);
     [ $count -gt $lim ] \

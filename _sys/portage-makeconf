@@ -2,15 +2,14 @@ CHOST='x86_64-pc-linux-gnu'
 CFLAGS='-march=native -O2'
 CXXFLAGS='-march=native -O2'
 MAKEOPTS='-j4'
-GENTOO_MIRRORS='http://ftp.kaist.ac.kr/pub/gentoo/
-http://ftp.jaist.ac.jp/pub/Linux/Gentoo
-http://mirrors.163.com/gentoo/
-http://ftp.snt.utwente.nl/pub/os/linux/gentoo
-http://www.gtlib.gatech.edu/gentoo'
-USE='acpi bluetooth cairo cgroups cjk consolekit egl emacs i3 infinality introspection imagemagick ipv6 jack libinput libnotify policykit pulseaudio socks5 vaapi vim-syntax wayland xcb xkb xpm xv zsh-completion
+GENTOO_MIRRORS='https://mirror.dkm.cz/gentoo/
+http://mirror.netcologne.de/gentoo/
+http://mirror.mdfnet.se/gentoo
+http://mirror.switch.ch/ftp/mirror/gentoo/
+http://ftp.snt.utwente.nl/pub/os/linux/gentoo'
+USE='acpi bluetooth cairo cgroups cjk consolekit egl emacs glamor guile i3 infinality introspection imagemagick ipv6 jack libinput libnotify policykit pulseaudio socks5 vaapi vim-syntax wayland xcb xkb xpm xv zsh-completion
 -accessibility -development -doc -gnome -joystick'
 EMERGE_DEFAULT_OPTS='--ask-enter-invalid --quiet-build=y --with-bdeps=y'
 CPU_FLAGS_X86='3dnow 3dnowext aes avx avx2 fma3 fma4 mmx mmxext padlock popcnt sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3 x87'
 INPUT_DEVICES='libinput'
-RUBY_TARGETS='ruby23'
 VIDEO_CARDS='intel i965'

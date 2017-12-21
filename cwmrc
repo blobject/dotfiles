@@ -12,8 +12,9 @@ snapdist    10
 sticky      yes
 
 command gimp gimp
-command terminal "st -e tmux"
 command kakaotalk kakaotalk
+command terminal "st -e tmux"
+command quit quit
 
 #unbind all
 bind 4-Tab  window-cycle

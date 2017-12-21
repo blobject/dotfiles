@@ -310,10 +310,10 @@
 ;; command helpers
 
 (defmacro my/sanitise (s)
-  `(message (cl-ppcre:regex-replace-all "~" ,s "~~")))
+  `(cl-ppcre:regex-replace-all "~" ,s "~~"))
 
 (defmacro my/notify (head body)
-  `(my/sanitise (concat ,head ": " ,body)))
+  `(message (my/sanitise (concat ,head ": " ,body))))
 
 ;; askpass
 
@@ -355,6 +355,26 @@
                       (round (/ (* lum 100) lim))
                       (if (my/in? arg '("-" "+")) ")"))))
     (my/notify "luminosity" out)))
+
+(defcommand my/hot-play (arg) ((:string "play (p|pp|n): "))
+  "hot command: play"
+  (if (not (my/in? arg '("p" "pp" "n")))
+      (my/notify "play" "?")
+      (let* ((dbus "dbus-send --print-reply=literal --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 ")
+             (memb "org.mpris.MediaPlayer2.Player")
+             (stat (my/call (concat dbus "org.freedesktop.DBus.Properties.Get string:'" memb "' string:'PlaybackStatus' | sed 's/.*\\s//'")))
+             (cmd (cond
+                    ((equal "p" arg) "Previous")
+                    ((equal "pp" arg) "PlayPause")
+                    ((equal "n" arg) "Next")))
+             (out (cond
+                    ((equal "p" arg) "prev")
+                    ((equal "n" arg) "next")
+                    ((equal "Playing" stat) "pause")
+                    ((equal "Paused" stat) "resume")
+                    (t "?"))))
+        (my/acall (concat dbus memb "." cmd))
+        (my/notify "play" out))))
 
 (defcommand my/hot-rat (arg) ((:string "touchpad (tog|dwt|*): "))
   "hot command: rat"
@@ -632,7 +652,10 @@
           ("XF86AudioLowerVolume"   . "my/hot-vol --")
           ("S-XF86AudioRaiseVolume" . "my/hot-vol +")
           ("XF86AudioRaiseVolume"   . "my/hot-vol ++")
-          ("XF86Search"             . "my/hot-rat dwt")
+          ("XF86AudioPrev"          . "my/hot-play p")
+          ("XF86AudioPlay"          . "my/hot-play pp")
+          ("XF86AudioNext"          . "my/hot-play n")
+          ("XF86Search"             . "my/hot-rat ")
           ("XF86MonBrightnessDown"  . "my/hot-lum -")
           ("XF86MonBrightnessUp"    . "my/hot-lum +")
           ("XF86AudioRewind"        . "my/hot-lum -") ; planck

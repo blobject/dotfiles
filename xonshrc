@@ -1,0 +1,96 @@
+for p in ['/usr/local/bin', '/usr/local/games', '/opt/bin', '/usr/sbin', '/sbin',
+          $HOME + '/opt/bin', $HOME + '/.local/bin',
+          $HOME + '/.gem/ruby/2.1.0/bin', $HOME + '/.cargo/bin',
+          $HOME + '/.guix-profile/bin', $HOME + '/.guix-profile/sbin']:
+    $PATH.insert(0, p)
+if $TERM == 'screen': $TERM = 'screen-256color'
+$PROMPT = '{env_name:{} }{branch_color}{curr_branch:{} }{WHITE}{cwd}{NO_COLOR} '
+
+$EDITOR = 'emacsclient -nc'
+$PAGER = 'less'
+$VISUAL = 'emacsclient -nc'
+$GUILE_AUTO_COMPILE = '0'
+$GUIX_LOCPATH = $HOME + '/.guix-profile/lib/locale'
+if 'INFOPATH' not in ${...}: $INFOPATH = []
+$INFOPATH.insert(0, $HOME + '/.guix-profile/share/info')
+$LESS = '-imRS'  # icase search,verbose,rawcolor,chop
+$LESSHISTFILE = '-'
+if 'MANPATH' not in ${...}: $MANPATH = []
+$MANPATH.insert(0, $HOME + '/.guix-profile/share/man:$HOME/opt/share/man:/usr/local/man')
+$PKG_CONFIG_PATH = '/usr/local/lib/pkgconfig'
+$TERMINAL = 'st'
+
+aliases['0clock'] = 'sh -c \"echo "$(date +%s)"; echo "  UTC:       $(TZ=UTC date)"; echo "$(tput bold)* Here:      $(date)$(tput sgr0)"; echo "  London:    $(TZ=Europe/London date)"; echo "  Los Angls: $(TZ=America/Los_Ange    les date)"; echo "  New York:  $(TZ=America/New_York date)"; echo "  Riyadh:    $(TZ=Asia/Riyadh date)"; echo "  Seoul:     $(TZ=Asia/Seoul date)"\"'
+aliases['0fonts'] = "sh -c \"fc-list | sed 's/^.\+: //;s/:.\+$//;s/,.*$//' | sort -u | pr -2 -T\""
+aliases['0ip']    = 'wget -q -O - ipinfo.io/ip'
+aliases['0top-c'] = "sh -c \"ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time | sed '/^ 0.0 /d'\""
+aliases['0top-d'] = "sh -c \"du -kx | rg -v '\./.+/' | sort -rn\""
+aliases['0top-m'] = "sh -c \"ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz | awk '{if($1>5000)print;}'\""
+aliases['0qmk-build'] = "sh -c \"docker run -e keymap=agaric -e subproject=rev4 -e keyboard=planck --rm -v $HOME/src/qmk_firmware:/qmk:rw edasque/qmk_firmware\""
+#aliases['0steam'] = 'STEAM_RUNTIME=1 STEAM_RUNTIME_PREFER_HOST_LIBRARIES=1 steam'
+aliases['cp']     = 'cp -iv'
+aliases['diff']   = 'diff --color'
+aliases['dmesg']  = 'dmesg --color=always'
+aliases['mv']     = 'mv -iv'
+aliases['rm']     = 'rm -i'
+aliases['ls']     = 'ls --color=auto'
+aliases['l']      = 'ls -A'
+aliases['ll']     = 'ls -lh'
+aliases['lla']    = 'll -a'
+aliases['lls']    = 'll -S'
+aliases['llt']    = 'll -t'
+aliases['rg']     = 'rg --colors match:fg:white --colors match:style:nobold --colors path:style:bold --colors line:fg:yellow'
+aliases['sudo']   = 'sudo '
+aliases['e']      = 'emacsclient -nc'
+aliases['g']      = 'git'
+aliases['v']      = 'vim'
+aliases['guile']  = 'rlwrap guile'
+aliases['lein']   = 'rlwrap lein'
+aliases['pstree'] = 'pstree -hnp'
+aliases['sbcl']   = 'rlwrap sbcl'
+aliases['tclsh']  = 'rlwrap tclsh'
+
+
+## .zshrc
+#precmd() {
+#  PS1=%{$'\e[0;37m'%}"$(echo ${PWD/#$HOME/\~} | sed 's!\([^/]\{3\}\)[^/]\{2,\}/!\1+/!g')"%{$'\e[0m'%}' '
+#  [ "$TERM" = linux ] || printf "\a"; }
+#[ "$TERM" = linux ] || [ "$TERM" = eterm-color ] || preexec() {
+#  #PROMPT_COMMAND="printf '\033k$(hostname)\033\\';"${PROMPT_COMMAND}
+#  local quo="$(echo ${PWD/#$HOME/\~} | sed 's!\([^/ :]\{2\}\)[^/ :]*/!\1/!g')"
+#  local que="$(echo $2 | sed 's/ --color=auto//g')"
+#  print -Pn "\e]0;[$quo] $que\a"; }
+#c() { cd "$@" && \
+#  { local lim=256 count=$(ls --color=n | wc -l);
+#    [ $count -gt $lim ] \
+#    && echo "skipping ls ($count entries > $lim)" \
+#    || l; }; }
+#alias     ..='c ..'
+#alias    ...='c ../..'
+#alias   ....='c ../../..'
+#alias  .....='c ../../../..'
+#0qmk-flash() {
+#  [ -z "$1" ] \
+#  && echo "no file given" \
+#  || { sudo dfu-programmer atmega32u4 erase \
+#     && sudo dfu-programmer atmega32u4 flash $1 \
+#     && sudo dfu-programmer atmega32u4 reset; }
+#}
+#
+#eval "$(dircolors $HOME/.config/dircolors)"
+#
+#zstyle ':completion:*' accept-exact '*(N)'
+#zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+#zstyle ':completion:*' menu select
+#zstyle ':completion:*' verbose 'yes'
+##zstyle ':completion:*:descriptions' format '%B%d%b'
+##zstyle ':completion:*:manuals' separate-sections true
+##zstyle ':completion:*:messages' format '%d'
+##zstyle ':completion:*:warnings' format 'no %d'
+#zstyle ':vcs_info:git:*' formats '%b'
+#compdef _command bgin=command
+#compdef _cd c=cd
+#
+#[ $(tty) = /dev/tty4 ] && [ -z $DISPLAY ] && \
+#{ mv -f $HOME/.xlog $HOME/.xlog.old >/dev/null 2>/dev/null && \
+#  xinit >/dev/null 2>$HOME/.xlog; }

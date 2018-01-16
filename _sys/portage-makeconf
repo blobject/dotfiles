@@ -7,7 +7,7 @@ http://mirror.netcologne.de/gentoo/
 http://mirror.mdfnet.se/gentoo
 http://mirror.switch.ch/ftp/mirror/gentoo/
 http://ftp.snt.utwente.nl/pub/os/linux/gentoo'
-USE='acpi bluetooth cairo cgroups cjk consolekit egl emacs glamor guile i3 infinality introspection imagemagick ipv6 jack libinput libnotify policykit pulseaudio socks5 vaapi vim-syntax wayland xcb xkb xpm xv zsh-completion
+USE='acpi bluetooth cairo cgroups cjk consolekit egl emacs glamor guile i3 infinality introspection imagemagick ipv6 jack libinput libnotify policykit pulseaudio socks5 vaapi vim-syntax wayland xcb xkb xpm xv
 -accessibility -development -doc -gnome -joystick'
 EMERGE_DEFAULT_OPTS='--ask-enter-invalid --quiet-build=y --with-bdeps=y'
 CPU_FLAGS_X86='3dnow 3dnowext aes avx avx2 fma3 fma4 mmx mmxext padlock popcnt sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3 x87'

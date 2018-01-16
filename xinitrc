@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # vars
 export BROWSER=google-chrome-beta
 export GTK2_RC_FILES=$HOME/.gtkrc-2.0
@@ -28,14 +30,15 @@ xsetroot -cursor_name left_ptr -solid '#657b83'
 } &
 
 # services
-bgin 0browsertmp
+0browsertmp &
 #bgin blueman-applet
 bgin connman-gtk
 bgin dunst
 bgin emacs --daemon
 bgin uim-toolbar-gtk-systray
 bgin uim-xim
-eval $(keychain --eval --quick --quiet --agents ssh id_rsa) # cb6ebccf
+# keychain fails in xonsh (see: .xonshrc, right before xinit)
+#eval $(keychain --eval --quick --quiet --agents ssh id_rsa) # cb6ebccf
 
 # start wm
 exec ck-launch-session dbus-launch --exit-with-session stumpwm # cwm

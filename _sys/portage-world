@@ -13,8 +13,6 @@ app-misc/rlwrap
 app-misc/tmux
 app-office/libreoffice-bin
 app-portage/layman
-app-shells/funtoo-zsh-completions
-app-shells/zsh
 app-text/mupdf
 app-text/tree
 dev-embedded/dfu-programmer
@@ -37,7 +35,9 @@ dev-lisp/sbcl
 dev-lua/luarocks
 dev-python/docopt
 dev-python/pip
+dev-python/prompt_toolkit
 dev-python/virtualenv
+dev-python/xonsh
 dev-scheme/guile
 dev-scheme/racket
 games-util/steam-launcher

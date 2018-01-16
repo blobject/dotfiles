@@ -101,7 +101,7 @@
   (if (equal web-mode-content-type "javascript")
     (web-mode-set-content-type "jsx"))))
 
-(add-to-list 'auto-mode-alist '("\\.xonshrc" . python-mode))
+(add-to-list 'auto-mode-alist '("xonshrc" . python-mode))
 (add-to-list 'auto-mode-alist '("^/var/log/" . syslog-mode))
 (add-to-list 'auto-mode-alist '("\\.log$" . syslog-mode))
 (add-to-list 'auto-mode-alist '("\\..?css$" . web-mode))

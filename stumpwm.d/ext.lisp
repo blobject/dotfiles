@@ -166,7 +166,7 @@
        (setf *my/str-u* out)))
 
     (:t ; time
-     (let* ((a (format nil "date '+%a %b %d ~c %H:%M'" #\middle_dot))
+     (let* ((a (format nil "date '+%a %b %d . %H:%M'")) ;· #\middle_dot
             (out (my/out (my/chomp (my/call a)) :gg)))
        (setf *my/str-t* out)))
 
@@ -519,8 +519,12 @@
 (defun my/power-stop ()
   (mapcar #'my/acall
           '("alsactl --file $HOME/.config/asound.state store"
+            "for i in $(ps ax | grep -- '-zsh' | grep 'Ss+' | grep pts | awk '{print $1}'); do kill -9 $i; done"
+            "pkill -f connman-gtk"
+            "pkill -f dunst"
             "emacsclient -e '(kill-emacs)'"
-            "for i in $(ps ax | grep -- '-zsh' | grep 'Ss+' | grep pts | awk '{print $1}'); do kill -9 $i; done"))
+            "pkill -f uim-toolbar-gtk-systray"
+            "pkill -f uim-xim"))
   (my/call "0browsertmp"))
 
 (defcommand my/power-lock () ()

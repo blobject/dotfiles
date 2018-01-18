@@ -81,7 +81,7 @@ def _qmk_flash(args, stdin=None):
 
 xontrib load vox
 
-if $(tty) == '/dev/tty4\n' and 'DISPLAY' not in ${...}:
+if $(tty) == '/dev/tty1\n' and 'DISPLAY' not in ${...}:
     mv -f $HOME/.xlog $HOME/.xlog.old > /dev/null 2> /dev/null
     for i in $(keychain --eval --quick --quiet --agents ssh id_rsa).split():
         if '=' in i:

@@ -13,6 +13,7 @@ app-misc/rlwrap
 app-misc/tmux
 app-office/libreoffice-bin
 app-portage/layman
+app-shells/gentoo-bashcomp
 app-text/mupdf
 app-text/tree
 dev-embedded/dfu-programmer
@@ -73,7 +74,6 @@ net-irc/weechat
 net-misc/chrony
 net-misc/connman-gtk
 net-misc/keychain
-net-misc/ssh-askpass-fullscreen
 net-misc/teamviewer
 net-misc/whois
 net-p2p/rtorrent

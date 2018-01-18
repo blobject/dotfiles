@@ -166,7 +166,7 @@
        (setf *my/str-u* out)))
 
     (:t ; time
-     (let* ((a (format nil "date '+%a %b %d . %H:%M'")) ;· #\middle_dot
+     (let* ((a (format nil "date '+%a %b %d, %H:%M'")) ; #\middle_dot doesn't work
             (out (my/out (my/chomp (my/call a)) :gg)))
        (setf *my/str-t* out)))
 

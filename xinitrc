@@ -14,7 +14,7 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 export SUDO_ASKPASS=/usr/local/bin/0askpass #SSH_ASKPASS
 
 # settings
-sudo 0lum $(expr $(cat /sys/class/backlight/intel_backlight/max_brightness) '/' 2 '-' 32 '*' 6)
+sudo 0lum $(expr $(cat /sys/class/backlight/intel_backlight/max_brightness) '/' 2 '-' 32 '*' 8)
 setxkbmap -option ctrl:nocaps hsnt # intl
 xset  b off  m 4 4  r rate 250 35 \
   -r 121 -r 122 -r 123 -r 173 -r 172 -r 171 \

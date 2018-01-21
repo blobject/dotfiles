@@ -533,16 +533,19 @@
 
 (defcommand my/power-quit () ()
   "power menu: lock"
+  (message "quitting")
   (my/power-stop)
   (quit))
 
 (defcommand my/power-reboot () ()
   "power menu: lock"
+  (message "rebooting")
   (my/power-stop)
   (my/acall "sudo reboot"))
 
 (defcommand my/power-halt () ()
   "power menu: lock"
+  (message "halting")
   (my/power-stop)
   (my/acall "sudo halt"))
 

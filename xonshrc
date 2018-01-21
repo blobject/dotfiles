@@ -1,3 +1,5 @@
+import os
+
 for i in ['/usr/local/bin', '/usr/local/games', '/opt/bin', '/usr/sbin', '/sbin',
           $HOME + '/opt/bin', $HOME + '/.local/bin',
           $HOME + '/.gem/ruby/2.1.0/bin', $HOME + '/.cargo/bin',
@@ -10,6 +12,11 @@ for i in [$HOME + '/.guix-profile/share/info']:
 for i in ['/usr/share/man', '/usr/local/man',
           $HOME + '/opt/share/man', $HOME + '/.guix-profile/share/man']:
     if i not in $MANPATH: $MANPATH.insert(0, i)
+if 'XDG_RUNTIME_DIR' not in ${...}:
+    $XDG_RUNTIME_DIR = '/tmp/_' + $USER + '_runtime'
+    if not os.path.isdir($XDG_RUNTIME_DIR):
+        mkdir $XDG_RUNTIME_DIR
+        chmod 0700 $XDG_RUNTIME_DIR
 
 if $TERM == 'screen': $TERM = 'screen-256color'
 $PROMPT = '{env_name:{} }{branch_color}{curr_branch:{} }{WHITE}{cwd}{NO_COLOR} '
@@ -27,6 +34,23 @@ $PKG_CONFIG_PATH = '/usr/local/lib/pkgconfig'
 $TERMINAL = 'st'
 $VIRTUALENV_HOME = $HOME + '/env'
 
+def _c(args, stdin=None):
+    where = $HOME if not args else args[0]
+    limit = 256
+    count = len(os.listdir(where))
+    cd @(where) and \
+        (![l] if count <= limit else
+         print('skipping ls ({0} entries > {1})'.format(count, limit)))
+
+def _qmk_flash(args, stdin=None):
+    if not args:
+        print('no file given')
+    else:
+        sudo dfu-programmer atmega32u4 erase and \
+            sudo dfu-programmer atmega32u4 flash @(args[0]) and \
+            sudo dfu-programmer atmega32u4 reset
+
+
 aliases['0clock'] = 'sh -c \"echo "$(date +%s)"; echo "  UTC:       $(TZ=UTC date)"; echo "$(tput bold)* Here:      $(date)$(tput sgr0)"; echo "  London:    $(TZ=Europe/London date)"; echo "  Los Angls: $(TZ=America/Los_Ange    les date)"; echo "  New York:  $(TZ=America/New_York date)"; echo "  Riyadh:    $(TZ=Asia/Riyadh date)"; echo "  Seoul:     $(TZ=Asia/Seoul date)"\"'
 aliases['0fonts'] = "sh -c \"fc-list | sed 's/^.\+: //;s/:.\+$//;s/,.*$//' | sort -u | pr -2 -T\""
 aliases['0ip'] = 'wget -qO - https://ipinfo.io/ip'
@@ -34,6 +58,7 @@ aliases['0top-c'] = "sh -c \"ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time | 
 aliases['0top-d'] = "sh -c \"du -kx | rg -v '\./.+/' | sort -rn\""
 aliases['0top-m'] = "sh -c \"ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz | awk '{if($1>5000)print;}'\""
 aliases['0qmk-build'] = "sh -c \"docker run -e keymap=agaric -e subproject=rev4 -e keyboard=planck --rm -v $HOME/src/qmk_firmware:/qmk:rw edasque/qmk_firmware\""
+aliases['0qmk-flash'] = _qmk_flash
 #aliases['0steam'] = 'STEAM_RUNTIME=1 STEAM_RUNTIME_PREFER_HOST_LIBRARIES=1 steam'
 aliases['cp']     = 'cp -iv'
 aliases['diff']   = 'diff --color'
@@ -55,38 +80,24 @@ aliases['rm']     = 'rm -i'
 aliases['sbcl']   = 'rlwrap sbcl'
 aliases['tclsh']  = 'rlwrap tclsh'
 aliases['v']      = 'vim'
-
-def _c(args, stdin=None):
-    import os
-    where = $HOME if not args else args[0]
-    limit = 256
-    count = len(os.listdir(where))
-    cd @(where) and \
-        (![l] if count <= limit else
-         print('skipping ls ({0} entries > {1})'.format(count, limit)))
 aliases['c']      = _c
-aliases['..']     = 'c ..'
-aliases['...']    = 'c ...'
-aliases['....']   = 'c ....'
-aliases['.....']  = 'c .....'
-aliases['......'] = 'c ......'
-
-def _qmk_flash(args, stdin=None):
-    if not args:
-        print('no file given')
-    else:
-        sudo dfu-programmer atmega32u4 erase and \
-            sudo dfu-programmer atmega32u4 flash @(args[0]) and \
-            sudo dfu-programmer atmega32u4 reset
+aliases[',']      = 'c ..'
+aliases[',,']     = 'c ../..'
+aliases[',,,']    = 'c ../../..'
+aliases[',,,,']   = 'c ../../../..'
+aliases[',,,,,']  = 'c ../../../../..'
+aliases[',,,,,,'] = 'c ../../../../../..'
 
 xontrib load vox
 
+# autologin on tty1
 if $(tty) == '/dev/tty1\n' and 'DISPLAY' not in ${...}:
-    mv -f $HOME/.xlog $HOME/.xlog.old > /dev/null 2> /dev/null
+    # invoke keychain
     for i in $(keychain --eval --quick --quiet --agents ssh id_rsa).split():
         if '=' in i:
             s = i.split('=')
-            var = s[0]
-            val = s[-1].strip(';')
-            ${var} = val
+            ${s[0]} = s[-1].strip(';')
+
+    # start x
+    mv -f $HOME/.xlog $HOME/.xlog.old > /dev/null 2> /dev/null
     xinit > /dev/null 2> $HOME/.xlog

@@ -1,0 +1,79 @@
+set $alt Mod1
+set $ctl Control
+set $shf Shift
+set $win Mod4
+#output * bg /usr/share/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+input "2:7:SynPS/2_Synaptics_TouchPad" {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+}
+bindsym XF86MonBrightnessDown exec sudo 0lum -
+bindsym XF86MonBrightnessUp   exec sudo 0lum +
+bindsym $win+e      exec emacsclient -nc
+bindsym $win+t      exec st tmux
+bindsym $win+$alt+t exec st-alt
+bindsym $win+w      exec google-chrome-beta
+bindsym $win+$alt+w exec firefox-bin
+bindsym $win+$shf+Escape kill
+#bindsym $win+d exec $menu
+floating_modifier $win normal
+#bindsym $win+$shf+c reload
+bindsym $ctl+$alt+BackSpace exit
+bindsym $win+h focus left
+bindsym $win+j focus down
+bindsym $win+k focus up
+bindsym $win+l focus right
+bindsym $win+$shf+h move left
+bindsym $win+$shf+j move down
+bindsym $win+$shf+k move up
+bindsym $win+$shf+l move right
+bindsym $win+1 workspace 1
+bindsym $win+2 workspace 2
+bindsym $win+3 workspace 3
+bindsym $win+4 workspace 4
+bindsym $win+5 workspace 5
+bindsym $win+6 workspace 6
+bindsym $win+7 workspace 7
+bindsym $win+8 workspace 8
+bindsym $win+9 workspace 9
+bindsym $win+0 workspace 10
+bindsym $win+$alt+1 move container to workspace 1
+bindsym $win+$alt+2 move container to workspace 2
+bindsym $win+$alt+3 move container to workspace 3
+bindsym $win+$alt+4 move container to workspace 4
+bindsym $win+$alt+5 move container to workspace 5
+bindsym $win+$alt+6 move container to workspace 6
+bindsym $win+$alt+7 move container to workspace 7
+bindsym $win+$alt+8 move container to workspace 8
+bindsym $win+$alt+9 move container to workspace 9
+bindsym $win+$alt+0 move container to workspace 10
+bindsym $win+$alt+semicolon splith
+bindsym $win+semicolon splitv
+bindsym $win+comma layout stacking
+bindsym $win+period layout tabbed
+bindsym $win+$shf+semicolon layout toggle split
+bindsym $win+f fullscreen
+bindsym $win+slash floating toggle
+bindsym $win+apostrophe focus mode_toggle
+bindsym $win+equal focus parent
+bindsym $win+BackSpace scratchpad show
+bindsym $win+$alt+BackSpace move scratchpad
+mode "resize" {
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $win+r mode "resize"
+bar {
+    position top
+    colors {
+        statusline #ffffff
+        background #323232
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}

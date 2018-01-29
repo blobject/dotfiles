@@ -3,6 +3,7 @@
 # vars
 export BROWSER=google-chrome-beta
 export GTK2_RC_FILES=$HOME/.gtkrc-2.0
+#export _JAVA_AWT_WM_NONREPARENTING=1
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd -Dsun.java2d.xrender=true -Dswing.aatext=true'
 #export LIBGL_DRI3_DISABLE=1 # for steam
 export MOZ_DISABLE_PANGO=1

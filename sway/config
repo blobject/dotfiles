@@ -25,10 +25,10 @@ bindsym $win+h focus left
 bindsym $win+j focus down
 bindsym $win+k focus up
 bindsym $win+l focus right
-bindsym $win+$shf+h move left
-bindsym $win+$shf+j move down
-bindsym $win+$shf+k move up
-bindsym $win+$shf+l move right
+bindsym $win+$alt+h move left
+bindsym $win+$alt+j move down
+bindsym $win+$alt+k move up
+bindsym $win+$alt+l move right
 bindsym $win+1 workspace 1
 bindsym $win+2 workspace 2
 bindsym $win+3 workspace 3
@@ -51,9 +51,9 @@ bindsym $win+$alt+9 move container to workspace 9
 bindsym $win+$alt+0 move container to workspace 10
 bindsym $win+$alt+semicolon splith
 bindsym $win+semicolon splitv
-bindsym $win+comma layout stacking
-bindsym $win+period layout tabbed
-bindsym $win+$shf+semicolon layout toggle split
+bindsym $win+$alt+comma layout stacking
+bindsym $win+$alt+period layout tabbed
+bindsym $win+period layout toggle split
 bindsym $win+f fullscreen
 bindsym $win+slash floating toggle
 bindsym $win+apostrophe focus mode_toggle
@@ -69,11 +69,9 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $win+r mode "resize"
+font Iosevka 10
 bar {
+    font Iosevka semibold 11
+    height 20
     position top
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
 }

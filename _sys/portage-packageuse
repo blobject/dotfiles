@@ -13,7 +13,9 @@ dev-lang/gnu-smalltalk gtk
 dev-libs/boehm-gc threads
 dev-libs/libpcre2 pcre16
 dev-libs/libpcre pcre16
+dev-libs/sway -swaybg
 dev-libs/xmlsec nss
+dev-libs/weston lcms wayland-compositor xwayland
 dev-scheme/guile networking
 dev-scheme/racket futures jit
 mail-client/thunderbird-bin -crashreporter
@@ -23,7 +25,6 @@ media-fonts/fontawesome -otf
 media-fonts/source-pro -cjk
 media-libs/fontconfig-infinality -nyx
 media-libs/freetype harfbuzz infinality utils
-media-libs/glfw -wayland # fix mupdf opengl
 media-libs/libtxc_dxtn abi_x86_32
 media-libs/mesa gles2
 media-sound/audacity ladspa midi
@@ -31,6 +32,7 @@ media-sound/pulseaudio equalizer native-headset qt4
 media-video/vlc fontconfig
 net-analyzer/wireshark androiddump ciscodump libssh randpkt randpktdump sshdump -qt5
 net-irc/weechat -relay -spell
+net-libs/webkit-gtk -geolocation
 net-misc/connman iptables
 sci-libs/fftw threads
 sys-devel/llvm clang

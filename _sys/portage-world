@@ -7,7 +7,6 @@ app-editors/vim
 app-emulation/docker
 app-emulation/virtualbox-bin
 app-emulation/virtualbox-modules
-app-emulation/winetricks
 app-i18n/uim
 app-misc/rlwrap
 app-misc/tmux
@@ -32,6 +31,8 @@ dev-lang/tcl
 dev-lang/tk
 dev-libs/libedit
 dev-libs/libelf
+dev-libs/sway
+dev-libs/weston
 dev-lisp/sbcl
 dev-lua/luarocks
 dev-python/docopt
@@ -56,12 +57,15 @@ media-fonts/sil-gentium
 media-fonts/source-pro
 media-gfx/gimp
 media-gfx/imagemagick
-media-gfx/inkscape
 media-gfx/sxiv
 media-gfx/viewnior
+media-libs/glfw
 media-libs/libtxc_dxtn
 media-sound/alsa-utils
 media-sound/ardour
+media-sound/audacity
+media-sound/guitarix2
+media-sound/hydrogen
 media-sound/pavucontrol
 media-sound/qjackctl
 media-sound/spotify
@@ -70,6 +74,7 @@ net-analyzer/ngrep
 net-analyzer/nmap
 net-analyzer/wireshark
 net-ftp/lftp
+net-im/discord-bin
 net-irc/weechat
 net-misc/chrony
 net-misc/connman-gtk

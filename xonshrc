@@ -98,9 +98,9 @@ if $(tty) == '/dev/tty1\n' and 'DISPLAY' not in ${...}:
             s = i.split('=')
             ${s[0]} = s[-1].strip(';')
 
-    ## start x
-    #mv -f $HOME/.xlog $HOME/.xlog.old > /dev/null 2> /dev/null
-    #xinit > /dev/null 2> $HOME/.xlog
-    # start wayland
-    mv -f $HOME/.wlog $HOME/.wlog.old > /dev/null 2> /dev/null
-    0sway > /dev/null 2> $HOME/.wlog
+    # start x
+    mv -f $HOME/.xlog $HOME/.xlog.old > /dev/null 2> /dev/null
+    xinit > /dev/null 2> $HOME/.xlog
+    ## start wayland
+    #mv -f $HOME/.wlog $HOME/.wlog.old > /dev/null 2> /dev/null
+    #0sway > /dev/null 2> $HOME/.wlog

@@ -1,6 +1,7 @@
 import os
 
-for i in ['/usr/local/bin', '/usr/local/games', '/opt/bin', '/usr/sbin', '/sbin',
+for i in ['/usr/local/bin', '/usr/local/games', '/opt/bin', '/usr/sbin',
+          '/sbin', '/usr/games/bin',
           $HOME + '/opt/bin', $HOME + '/.local/bin',
           $HOME + '/.gem/ruby/2.1.0/bin', $HOME + '/.cargo/bin',
           $HOME + '/.guix-profile/bin', $HOME + '/.guix-profile/sbin']:
@@ -19,11 +20,13 @@ if 'XDG_RUNTIME_DIR' not in ${...}:
         chmod 0700 $XDG_RUNTIME_DIR
 
 if $TERM == 'screen': $TERM = 'screen-256color'
-$PROMPT = '{env_name:{} }{branch_color}{curr_branch:{} }{WHITE}{cwd}{NO_COLOR} '
+$PROMPT = '{env_name:{} }{branch_color}{curr_branch:{} }{BLACK}{cwd}{NO_COLOR} '
 
+$LANG = 'en_US.UTF-8'
 $EDITOR = 'emacsclient -nc'
 $PAGER = 'less'
 $VISUAL = 'emacsclient -nc'
+$TERMINAL = 'alacritty'
 $BASH_COMPLETIONS = '/usr/share/bash-completion/completions'
 $GUILE_AUTO_COMPILE = '0'
 $GUIX_LOCPATH = $HOME + '/.guix-profile/lib/locale'
@@ -31,7 +34,6 @@ $LESS = '-imRS'  # icase search,verbose,rawcolor,chop
 $LESSHISTFILE = '-'
 $LS_COLORS = eval($(dircolors -c $HOME/.config/dircolors).split()[-1])
 $PKG_CONFIG_PATH = '/usr/local/lib/pkgconfig'
-$TERMINAL = 'st'
 $VIRTUALENV_HOME = $HOME + '/env'
 
 def _c(args, stdin=None):
@@ -75,7 +77,7 @@ aliases['llt']    = 'll -t'
 aliases['lein']   = 'rlwrap lein'
 aliases['mv']     = 'mv -iv'
 aliases['pstree'] = 'pstree -hnp'
-aliases['rg']     = 'rg --colors match:fg:white --colors match:style:nobold --colors path:style:bold --colors line:fg:yellow'
+aliases['rg']     = 'rg --colors match:fg:black --colors match:style:nobold --colors path:style:bold --colors line:fg:yellow'
 aliases['rm']     = 'rm -i'
 aliases['sbcl']   = 'rlwrap sbcl'
 aliases['tclsh']  = 'rlwrap tclsh'

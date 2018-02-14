@@ -6,6 +6,8 @@
  '(aw-keys (quote (104 115 110 116 114 105 101 97 111)))
  '(backup-directory-alist (quote ((".*" . "~/bak/emacs/"))))
  '(blink-cursor-mode nil)
+ '(browse-url-browser-function (quote browse-url-generic))
+ '(browse-url-generic-program "google-chrome-beta")
  '(column-number-mode t)
  '(company-dabbrev-downcase nil)
  '(company-dabbrev-ignore-case nil)

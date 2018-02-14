@@ -12,7 +12,7 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
 bindsym XF86MonBrightnessDown exec sudo 0lum -
 bindsym XF86MonBrightnessUp   exec sudo 0lum +
 bindsym $win+e      exec emacsclient -nc
-bindsym $win+t      exec st tmux
+bindsym $win+t      exec alacritty -e tmux
 bindsym $win+$alt+t exec st-alt
 bindsym $win+w      exec google-chrome-beta
 bindsym $win+$alt+w exec firefox-bin

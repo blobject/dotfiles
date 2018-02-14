@@ -1,5 +1,5 @@
 export PATH="/usr/local/sbin:$PATH"
-PS1="\[\033[1;41;30m\]BASH\[\033[0;0;34m\] \w \[\033[0m\]"
+PS1="\[\033[1;41;37m\]BASH\[\033[0;0;34m\] \w \[\033[0m\]"
 HISTFILE="$HOME/.bashlog"
 alias ls='ls --color=auto'
 alias l='ls -A'

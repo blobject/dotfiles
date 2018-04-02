@@ -1,6 +1,0 @@
-static const char *colorname[NUMCOLS] = {
-	"#002b36",  /* after initialization */
-	"#073642",  /* during input */
-	"#586e75",  /* failed/cleared the input */
-};
-static const Bool failonclear = True;

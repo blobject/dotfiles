@@ -3,11 +3,14 @@
 (require 'dot-mode)
 
 (custom-set-variables
- '(aw-keys (quote (104 115 110 116 114 105 101 97 111)))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(backup-directory-alist (quote ((".*" . "~/bak/emacs/"))))
  '(blink-cursor-mode nil)
  '(browse-url-browser-function (quote browse-url-generic))
- '(browse-url-generic-program "google-chrome-beta")
+ '(browse-url-generic-program "icecat")
  '(column-number-mode t)
  '(company-dabbrev-downcase nil)
  '(company-dabbrev-ignore-case nil)
@@ -19,11 +22,15 @@
  '(create-lockfiles nil)
  '(css-indent-offset 2)
  '(custom-enabled-themes (quote (solarized-light)))
- '(custom-safe-themes (quote ("a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+ '(custom-safe-themes
+   (quote
+    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(default-tab-width 2 t)
  '(electric-indent-inhibit t t)
  '(electric-pair-mode t)
- '(face-font-family-alternatives (quote (("custom" "Source Code Pro" "NanumBarunGothic" "NSimSun" "Meiryo" "FreeMono"))))
+ '(face-font-family-alternatives
+   (quote
+    (("custom" "Source Code Pro" "NanumBarunGothic" "NSimSun" "Meiryo" "FreeMono"))))
  '(fringe-mode 0 nil (fringe))
  '(global-dot-mode t)
  '(global-hl-line-mode t)
@@ -38,13 +45,14 @@
  '(menu-bar-mode nil)
  '(mouse-wheel-progressive-speed nil)
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 5) ((control) . 10))))
- '(neo-show-hidden-files t)
- '(neo-smart-open t)
- '(neo-theme (quote ascii))
- '(neo-window-width 20)
  '(org-hide-leading-stars t)
- '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("melpa" . "https://melpa.org/packages/"))))
- '(package-selected-packages (quote (company-racer racer pixie-mode slime yaml-mode ess lua-mode csharp-mode swift-mode ace-window auctex avy company ivy org dot-mode ripgrep solarized-theme smart-mode-line-powerline-theme syslog-mode flycheck-clojure flycheck-rust go-mode rust-mode web-mode smart-mode-line rainbow-delimiters paredit neotree multiple-cursors markdown-mode magit iy-go-to-char hlinum haskell-mode geiser flycheck expand-region counsel clojure-mode cider browse-kill-ring)))
+ '(package-archives
+   (quote
+    (("gnu" . "http://elpa.gnu.org/packages/")
+     ("melpa" . "https://melpa.org/packages/"))))
+ '(package-selected-packages
+   (quote
+    (guix cider clojure-mode company-racer counsel dot-mode expand-region flycheck flycheck-clojure flycheck-rust geiser go-mode haskell-mode hlinum iy-go-to-char lua-mode magit markdown-mode multiple-cursors paredit racer rainbow-delimiters ripgrep rust-mode slime smart-mode-line smart-mode-line-powerline-theme solarized-theme web-mode auctex avy company ivy)))
  '(racer-cmd "~/.cargo/bin/racer")
  '(racer-rust-src-path "/usr/local/src/rust/src")
  '(read-quoted-char-radix 16)
@@ -67,17 +75,12 @@
  '(web-mode-markup-indent-offset 2))
 
 (custom-set-faces
- '(default ((t (:weight semi-bold :height 115 :family "custom"))))
- '(aw-background-face ((t (:foreground "#93a1a1"))))
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:weight semi-bold :height 108 :family "custom"))))
  '(linum-highlight-face ((t (:background "#eee8d5" :foreground "#002b36"))))
- '(org-level-1 ((t (:inherit variable-pitch :height 1.0 :family "custom"))))
- '(org-level-2 ((t (:inherit variable-pitch :height 1.0 :family "custom"))))
- '(org-level-3 ((t (:inherit variable-pitch :height 1.0 :family "custom"))))
- '(org-level-4 ((t (:inherit variable-pitch :height 1.0 :family "custom"))))
- '(org-level-5 ((t (:inherit variable-pitch :family "custom"))))
- '(org-level-6 ((t (:inherit variable-pitch :family "custom"))))
- '(org-level-7 ((t (:inherit variable-pitch :family "custom"))))
- '(org-level-8 ((t (:inherit variable-pitch :family "custom"))))
  '(sml/line-number ((t (:weight bold))))
  '(sml/minor-modes ((t (:inherit sml/global :height 0.9))))
  '(sml/modes ((t (:inherit sml/global :weight bold :height 0.9)))))
@@ -87,8 +90,8 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (add-hook 'after-init-hook 'global-flycheck-mode)
 (add-hook 'after-init-hook 'hlinum-activate)
-(add-hook 'after-init-hook 'sml/setup)
-(add-hook 'org-mode-hook (lambda () (visual-line-mode) (org-indent-mode)))
+;(add-hook 'after-init-hook 'sml/setup)
+;(add-hook 'org-mode-hook (lambda () (visual-line-mode) (org-indent-mode)))
 (add-hook 'prog-mode-hook 'linum-mode)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'flycheck-mode-hook 'flycheck-rust-setup)
@@ -103,6 +106,7 @@
   (if (equal web-mode-content-type "javascript")
     (web-mode-set-content-type "jsx"))))
 
+(add-to-list 'auto-mode-alist '("\\.pl$" . prolog-mode))
 (add-to-list 'auto-mode-alist '("xonshrc" . python-mode))
 (add-to-list 'auto-mode-alist '("^/var/log/" . syslog-mode))
 (add-to-list 'auto-mode-alist '("\\.log$" . syslog-mode))
@@ -126,13 +130,11 @@
 (global-set-key (kbd "C-o") 'my/open-next-line)
 (global-set-key (kbd "M-o") 'my/open-previous-line)
 (global-set-key (kbd "<C-return>") 'er/expand-region)
-(global-set-key (kbd "C-x [") 'neotree-toggle)
 (global-set-key (kbd "C-x /") 'my/toggle-selective-display)
 (global-set-key (kbd "C-x 2") 'my/vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'my/hsplit-last-buffer)
 (global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x o") 'ace-window)
-(global-set-key (kbd "C-x y") 'browse-kill-ring)
+;(global-set-key (kbd "C-x y") 'browse-kill-ring)
 (global-unset-key (kbd "C-x ]"))
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "M-C-\\"))
@@ -143,8 +145,8 @@
 (global-unset-key (kbd "<S-down-mouse-2>"))
 (global-unset-key (kbd "<S-down-mouse-3>"))
 
-(setq inferior-lisp-program "sbcl")
-(load (expand-file-name "~/.quicklisp/slime-helper.el"))
+;(setq inferior-lisp-program "sbcl")
+;(load (expand-file-name "~/.quicklisp/slime-helper.el"))
 
 (defadvice web-mode-highlight-part (around tweak-jsx activate)
   (if (equal web-mode-content-type "jsx")

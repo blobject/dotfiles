@@ -5,37 +5,89 @@ color font           "#eee8d5"
 color menubg         "#073642"
 color menufg         "#93a1a1"
 color selfont        "#002b36"
+color urgencyborder  "#2aa198"
+color groupborder    "#dc322f"
+color ungroupborder  "#b58900"
 fontname    "Iosevka:bold:pixelsize=14"
-gap         0 0 0 0
+gap         20 0 0 0
 moveamount  10
 snapdist    10
 sticky      yes
 
-command gimp gimp
-command kakaotalk kakaotalk
-command terminal "st -e tmux"
-command quit quit
+ignore lemonbar
+ignore stalonetray
 
-#unbind all
-bind 4-Tab  window-cycle
-bind 4M-Tab window-rcycle
-bind 4-h    moveleft
-bind 4-j    movebottom
-bind 4-k    movetop
-bind 4-l    moveright
-bind 4M-h   bigmoveleft
-bind 4M-j   bigmovebottom
-bind 4M-k   bigmovetop
-bind 4M-l   bigmoveright
-bind 4C-h   resizeleft
-bind 4C-j   resizebottom
-bind 4C-k   resizetop
-bind 4C-l   resizeright
-bind 4-g gimp
-bind 4-k kakaotalk
-bind 4M-q quit
-bind 4-t "st -e tmux"
-mousebind 4-1  window_move
-mousebind 4-2  window_raise
-mousebind 4S-2 window_lower
-mousebind 4-3  window_resize
+command terminal "bgin st -e tmux"
+command emacs "bgin emacsclient -nc"
+command browser "bgin icecat"
+command crawl "bgin st-crawl -e ssh cao"
+command pavucontrol "bgin pavucontrol"
+command gimp "bgin gimp"
+command inkscape "bgin inkscape"
+command vlc "bgin vlc"
+command libreoffice "bgin libreoffice"
+command wireshark "bgin wireshark"
+
+#unbind-key M-Return
+#unbind-key CM-Return
+#unbind-key C-slash
+#unbind-key SM-slash
+#unbind-key M-Up
+#unbind-key M-Down
+#unbind-key M-h
+#unbind-key M-j
+#unbind-key M-k
+#unbind-key M-l
+#unbind-key CM-a
+#unbind-key CM-f
+#unbind-key CM-m
+#unbind-key CM-x
+unbind-key all
+bind-key M-Tab  window-cycle
+bind-key MS-Tab window-rcycle
+bind-key 4-Tab  group-cycle
+bind-key 4S-Tab group-rcycle
+bind-key 4-1  group-toggle-1
+bind-key 4-2  group-toggle-2
+bind-key 4-3  group-toggle-3
+bind-key 4-4  group-toggle-4
+bind-key 4-5  group-toggle-5
+bind-key 4-6  group-toggle-6
+bind-key 4-7  group-toggle-7
+bind-key 4-8  group-toggle-8
+bind-key 4-9  group-toggle-9
+bind-key 4M-1 window-movetogroup-1
+bind-key 4M-2 window-movetogroup-2
+bind-key 4M-3 window-movetogroup-3
+bind-key 4M-4 window-movetogroup-4
+bind-key 4M-5 window-movetogroup-5
+bind-key 4M-6 window-movetogroup-6
+bind-key 4M-7 window-movetogroup-7
+bind-key 4M-8 window-movetogroup-8
+bind-key 4M-9 window-movetogroup-9
+bind-key 4-h          window-move-left-big
+bind-key 4-j          window-move-down-big
+bind-key 4-k          window-move-up-big
+bind-key 4-l          window-move-right-big
+bind-key 4M-h         window-resize-left-big
+bind-key 4M-j         window-resize-down-big
+bind-key 4M-k         window-resize-up-big
+bind-key 4M-l         window-resize-right-big
+bind-key 4-f          window-fullscreen
+bind-key 4-r          window-resize
+bind-key 4-comma      window-lower
+bind-key 4-period     window-raise
+bind-key 4-Return     menu-exec
+bind-key 4M-Return    menu-window
+bind-key CM-BackSpace quit
+bind-key CM-Delete    restart
+bind-mouse 4-1        window_move
+bind-mouse 4-2        window_raise
+bind-mouse 4S-2       window_lower
+bind-mouse 4-3        window_resize
+bind-key XF86MonBrightnessDown "sudo 0lum -"
+bind-key XF86MonBrightnessUp   "sudo 0lum +"
+bind-key 4-t "bgin st -e tmux"
+bind-key 4-w "bgin icecat"
+bind-key 4-e "bgin emacsclient -nc"
+bind-key 4-c "bgin st-crawl -e ssh cao"

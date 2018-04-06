@@ -35,9 +35,9 @@ xsetroot -cursor_name left_ptr -solid '#657b83'
 #bgin connman-gtk
 bgin dunst
 bgin emacs --daemon
-bgin stalonetray -bg '#eee8d5' --geometry 1x1-0+0 -i 20 --skip-taskbar --sticky
-#bgin uim-toolbar-gtk-systray
-#bgin uim-xim
+bgin stalonetray --background '#eee8d5' --geometry 1x1-0+0 --grow-gravity NE --icon-gravity NE --icon-size 20 --skip-taskbar --sticky
+bgin uim-toolbar-gtk-systray
+bgin uim-xim
 
 ## window manager
 exec dbus-launch --exit-with-session cwm

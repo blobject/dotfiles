@@ -6,13 +6,7 @@ agaric's configuration files for desktop usage.
 
 ![dotfiles-screenshot](/screenshot.png)
 
-featured in image (counter-clockwise from northwest):
-
-- lemonbar
-- emacs
-- vim
-- st (*2)
-- icecat
+featured in image (counter-clockwise from northwest): lemonbar, emacs, vlc, vim, st (*2), icecat, stalonetray
 
 ### major dependencies
 
@@ -27,3 +21,7 @@ featured in image (counter-clockwise from northwest):
 - bar: [lemonbar](https://github.com/LemonBoy/bar) (+ acpi, xdotool, iwgetid)
 - notification: [dunst](https://github.com/dunst-project/dunst)
 - browser: [icecat](https://www.gnu.org/software/gnuzilla/)
+
+### shell scripts
+
+see [scripts](https://github.com/agarick/scripts) for accompanying shell scripts.

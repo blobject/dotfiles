@@ -26,6 +26,7 @@ command gimp "bgin gimp"
 command inkscape "bgin inkscape"
 command vlc "bgin vlc"
 command libreoffice "bgin libreoffice"
+command gucharmap "bgin gucharmap"
 command wireshark "bgin wireshark"
 
 #unbind-key M-Return
@@ -79,15 +80,19 @@ bind-key 4-comma      window-lower
 bind-key 4-period     window-raise
 bind-key 4-Return     menu-exec
 bind-key 4M-Return    menu-window
-bind-key CM-BackSpace quit
-bind-key CM-Delete    restart
-bind-mouse 4-1        window_move
-bind-mouse 4-2        window_raise
-bind-mouse 4S-2       window_lower
-bind-mouse 4-3        window_resize
+bind-mouse 4-1  window_move
+bind-mouse 4-2  window_raise
+bind-mouse 4S-2 window_lower
+bind-mouse 4-3  window_resize
 bind-key XF86MonBrightnessDown "sudo 0lum -"
 bind-key XF86MonBrightnessUp   "sudo 0lum +"
-bind-key 4-t "bgin st -e tmux"
-bind-key 4-w "bgin icecat"
-bind-key 4-e "bgin emacsclient -nc"
-bind-key 4-c "bgin st-crawl -e ssh cao"
+bind-key XF86PowerOff          "slock"
+bind-key Print                 "0hot shot"
+bind-key S-Print               "0hot shot s"
+bind-key C-Print               "0hot shot w"
+bind-key CM-BackSpace          "0hot quit"
+bind-key CM-Delete             "0hot quit"
+bind-key 4-t                   "bgin st -e tmux"
+bind-key 4-w                   "bgin icecat"
+bind-key 4-e                   "bgin emacsclient -nc"
+bind-key 4-c                   "bgin st-crawl -e ssh cao"

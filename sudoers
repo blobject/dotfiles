@@ -1,3 +1,3 @@
 root ALL=(ALL) ALL
 %wheel ALL=(ALL) ALL
-b ALL=NOPASSWD: /home/b/bin/0lum, /run/current-system/profile/sbin/halt, /run/current-system/profile/sbin/reboot
+b ALL=NOPASSWD: /home/b/bin/0lum, /home/b/.guix-profile/bin/slock, /run/current-system/profile/sbin/halt, /run/current-system/profile/sbin/reboot

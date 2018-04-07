@@ -59,7 +59,7 @@
    (source
     (origin
      (method url-fetch)
-     (uri (list "https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.15.15.tar.xz"))
+     (uri '("https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.15.15.tar.xz"))
      (sha256 (base32 "1pys0gcc1x01scfqc1d25k64bqf264vfn3pybfcnmvkggvpyhmhb"))))
    ;(native-inputs
    ;  `(("kconfig" ,(local-file "/data/opt/kernel-4_15_7.config"))
@@ -71,8 +71,8 @@
 
 (use-modules (gnu))
 (use-system-modules nss)
-(use-service-modules dbus networking xorg)
-(use-package-modules certs samba xorg wm)
+(use-service-modules admin dbus mcron networking xorg)
+(use-package-modules certs samba xorg wicd wm)
 
 (define %%user "b")
 (define %%host "c")
@@ -91,7 +91,7 @@
 
  (firmware (append (list my-firmware) %base-firmware))
 
- (initrd-modules (append (list "shpchp") %base-initrd-modules))
+ (initrd-modules (append '("shpchp") %base-initrd-modules))
 
  (file-systems
   (cons* (file-system
@@ -135,18 +135,20 @@
          %base-packages))
 
  (services
-  (cons* (console-keymap-service
+  (cons* ;(bluetooth-service)
+         (console-keymap-service
           (string-append %%home "/cfg/hsnt.map.gz"))
          (dbus-service)
-         (ntp-service #:servers '("0.europe.pool.ntp.org"
-                                  "1.europe.pool.ntp.org"
-                                  "2.europe.pool.ntp.org"
-                                  "3.europe.pool.ntp.org"))
+         (ntp-service
+          #:servers '("0.europe.pool.ntp.org"
+                      "1.europe.pool.ntp.org"
+                      "2.europe.pool.ntp.org"
+                      "3.europe.pool.ntp.org"))
          (polkit-service)
          (slim-service
           #:startx (xorg-start-command
                     #:configuration-file (xorg-configuration-file
-                                          #:extra-config (list
+                                          #:extra-config '(
 "
 Section \"Device\"
   Identifier \"intel\"
@@ -169,10 +171,9 @@ EndSection
 ")))
           #:default-user %%user
           #:auto-login? #t)
-         (service connman-service-type
-                  (connman-configuration
-                   (disable-vpn? #t)))
-         (service wpa-supplicant-service-type)
+         (wicd-service)
+         (service mcron-service-type)
+         (service rottlog-service-type)
          %base-services))
 
  (name-service-switch %mdns-host-lookup-nss)

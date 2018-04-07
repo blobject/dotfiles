@@ -6,11 +6,11 @@ agaric's configuration files for desktop usage.
 
 ![dotfiles-screenshot](/screenshot.png)
 
-featured in image (counter-clockwise from northwest): lemonbar, emacs, vlc, vim, st (*2), icecat, stalonetray
+counter-clockwise from northwest: lemonbar, emacs, vlc, vim, st (\*2), cwm builtin menu, qutebrowser, stalonetray
 
 ### major dependencies
 
-- os: [GuixSD](https://www.gnu.org/software/guix/)
+- os: [guixsd](https://www.gnu.org/software/guix/)
 - graphical: [xorg](https://www.x.org/), [slim](https://sourceforge.net/projects/slim.berlios/)
 - font: [adobe source code pro](https://github.com/adobe-fonts/source-code-pro)
 - colors: [solarized](http://ethanschoonover.com/solarized)
@@ -20,7 +20,7 @@ featured in image (counter-clockwise from northwest): lemonbar, emacs, vlc, vim,
 - editors: [emacs](https://www.gnu.org/software/emacs/), [vim](https://www.vim.org/)
 - bar: [lemonbar](https://github.com/LemonBoy/bar) (+ acpi, xdotool, iwgetid)
 - notification: [dunst](https://github.com/dunst-project/dunst)
-- browser: [icecat](https://www.gnu.org/software/gnuzilla/)
+- browser: [qutebrowser](https://qutebrowser.org/), [icecat](https://www.gnu.org/software/gnuzilla/)
 
 ### shell scripts
 

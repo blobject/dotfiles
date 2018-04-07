@@ -20,6 +20,7 @@ export LESS=-imRS
 export LESSHISTFILE=-
 export XDG_RUNTIME_DIR="/tmp/runtime-$USER"
 
+[[ -d $XDG_RUNTIME_DIR ]] || mkdir -p $XDG_RUNTIME_DIR
 B_TMP="/tmp/_${USER}_tmp"
 ! pgrep -u "$USER" ssh-agent > /dev/null \
   && mkdir -p "$B_TMP" \

@@ -1,5 +1,5 @@
 # ~/.config/gtk-3.0/settings.ini
 [Settings]
 gtk-font-name = sans 10
-gtk-icon-theme-name = Moka
+gtk-icon-theme-name = breeze
 gtk-print-preview-command = mupdf %f

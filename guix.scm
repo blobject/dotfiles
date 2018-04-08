@@ -172,8 +172,8 @@ EndSection
           #:default-user %%user
           #:auto-login? #t)
          (wicd-service)
-         (service mcron-service-type)
-         (service rottlog-service-type)
+         ;(service mcron-service-type)
+         ;(service rottlog-service-type)
          %base-services))
 
  (name-service-switch %mdns-host-lookup-nss)

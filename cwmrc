@@ -47,10 +47,10 @@ command wireshark   "bgon wm wireshark"
 #unbind-key CM-m
 #unbind-key CM-x
 unbind-key all
-bind-key M-Tab  window-cycle
-bind-key MS-Tab window-rcycle
-bind-key 4-Tab  group-cycle
-bind-key 4S-Tab group-rcycle
+bind-key M-Tab     window-cycle
+bind-key MS-Tab    window-rcycle
+bind-key 4-Tab     group-cycle
+bind-key 4S-Tab    group-rcycle
 bind-key 4-1  group-toggle-1
 bind-key 4-2  group-toggle-2
 bind-key 4-3  group-toggle-3
@@ -69,6 +69,12 @@ bind-key 4M-6 window-movetogroup-6
 bind-key 4M-7 window-movetogroup-7
 bind-key 4M-8 window-movetogroup-8
 bind-key 4M-9 window-movetogroup-9
+bind-key 4-Return  menu-exec
+bind-key 4M-Return menu-window
+bind-key 4-comma   window-lower
+bind-key 4-period  window-raise
+bind-key 4-f       window-fullscreen
+bind-key 4-r       window-resize
 bind-key 4-h       window-move-left-big
 bind-key 4-j       window-move-down-big
 bind-key 4-k       window-move-up-big
@@ -77,12 +83,6 @@ bind-key 4M-h      window-resize-left-big
 bind-key 4M-j      window-resize-down-big
 bind-key 4M-k      window-resize-up-big
 bind-key 4M-l      window-resize-right-big
-bind-key 4-f       window-fullscreen
-bind-key 4-r       window-resize
-bind-key 4-comma   window-lower
-bind-key 4-period  window-raise
-bind-key 4-Return  menu-exec
-bind-key 4M-Return menu-window
 bind-key XF86AudioMute          "0hot vol x"
 bind-key XF86AudioLowerVolume   "0hot vol --"
 bind-key XF86AudioRaiseVolume   "0hot vol ++"
@@ -96,11 +96,12 @@ bind-key C-Print                "0hot shot w"
 bind-key XF86PowerOff           "slock"
 bind-key CM-BackSpace           "0hot quit"
 bind-key CM-Delete              "0hot quit"
-bind-key 4-c  "bgon wm st-crawl -e ssh cao"
-bind-key 4-e  "bgon wm emacsclient -nc"
-bind-key 4-t  "bgon wm st -e tmux"
-bind-key 4-w  "bgon wm qutebrowser"
-bind-key 4M-w "bgon wm icecat"
+bind-key 4M-Escape "bgon wm xkill"
+bind-key 4-c       "bgon wm st-crawl -e ssh cao"
+bind-key 4-e       "bgon wm emacsclient -nc"
+bind-key 4-t       "bgon wm st -e tmux"
+bind-key 4-w       "bgon wm qutebrowser"
+bind-key 4M-w      "bgon wm icecat"
 bind-mouse 4-1  window_move
 bind-mouse 4-2  window_raise
 bind-mouse 4S-2 window_lower

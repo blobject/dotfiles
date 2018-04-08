@@ -28,16 +28,24 @@ xsetroot -cursor_name left_ptr -solid '#657b83' &
 #  alsactl --file $HOME/.config/asound.state restore
 #} &
 
+## logs
+echo "" >"$HOME/log/0"
+echo "" >"$HOME/log/emacs"
+echo "" >"$HOME/log/net"
+echo "" >"$HOME/log/uim"
+echo "" >"$HOME/log/wm"
+
 ## services
-{ 0mon | lemonbar -d -f 'Iosevka:bold:pixelsize=13' -g x20 -n lemonbar -p -B '#eee8d5' -F '#93a1a1' & } &
-bgin 0browsertmp
-#bgin blueman-applet
-bgin dunst
-bgin emacs --daemon
-bgin stalonetray --background '#eee8d5' --geometry 1x1-0+0 --grow-gravity E --icon-gravity E --icon-size 20 --kludges force_icons_size --skip-taskbar --sticky
-bgin uim-toolbar-gtk-systray
-bgin uim-xim
-bgin wicd-client --no-animate --tray
+{ 0mon 2>>"$HOME/log/0" | \
+  lemonbar -d -f 'Iosevka:bold:pixelsize=13' -g x20 -n lemonbar -p -B '#eee8d5' -F '#93a1a1' >>"$HOME/log/wm" & } &
+bgon 0 0browsertmp
+#bgon blue blueman-applet
+bgon wm dunst
+bgon emacs emacs --daemon
+bgon wm stalonetray --background '#eee8d5' --geometry 1x1-0+0 --grow-gravity E --icon-gravity E --icon-size 20 --kludges force_icons_size --skip-taskbar --sticky
+bgon uim uim-toolbar-gtk-systray
+bgon uim uim-xim
+bgon net wicd-client --no-animate --tray
 
 ## window manager
 exec dbus-launch --exit-with-session cwm

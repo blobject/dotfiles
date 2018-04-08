@@ -17,20 +17,20 @@ sticky      yes
 ignore lemonbar
 ignore stalonetray
 
-command terminal "bgin st -e tmux"
-command emacs "bgin emacsclient -nc"
-command qutebrowser "bgin qutebrowser"
-command icecat "bgin icecat"
-command crawl "bgin st-crawl -e ssh cao"
-command pavucontrol "bgin pavucontrol"
-command gimp "bgin gimp"
-command inkscape "bgin inkscape"
-command vlc "bgin vlc"
-command qjackctl "bgin qjackctl"
-command guitarix "bgin guitarix"
-command libreoffice "bgin libreoffice"
-command gucharmap "bgin gucharmap"
-command wireshark "bgin wireshark"
+command terminal    "bgon wm st -e tmux"
+command emacs       "bgon wm emacsclient -nc"
+command qutebrowser "bgon wm qutebrowser"
+command icecat      "bgon wm icecat"
+command crawl       "bgon wm st-crawl -e ssh cao"
+command pavucontrol "bgon wm pavucontrol"
+command gimp        "bgon wm gimp"
+command inkscape    "bgon wm inkscape"
+command vlc         "bgon wm vlc"
+command qjackctl    "bgon wm qjackctl"
+command guitarix    "bgon wm guitarix"
+command libreoffice "bgon wm libreoffice"
+command gucharmap   "bgon wm gucharmap"
+command wireshark   "bgon wm wireshark"
 
 #unbind-key M-Return
 #unbind-key CM-Return
@@ -96,11 +96,11 @@ bind-key C-Print                "0hot shot w"
 bind-key XF86PowerOff           "slock"
 bind-key CM-BackSpace           "0hot quit"
 bind-key CM-Delete              "0hot quit"
-bind-key 4-c  "bgin st-crawl -e ssh cao"
-bind-key 4-e  "bgin emacsclient -nc"
-bind-key 4-t  "bgin st -e tmux"
-bind-key 4-w  "bgin qutebrowser"
-bind-key 4M-w "bgin icecat"
+bind-key 4-c  "bgon wm st-crawl -e ssh cao"
+bind-key 4-e  "bgon wm emacsclient -nc"
+bind-key 4-t  "bgon wm st -e tmux"
+bind-key 4-w  "bgon wm qutebrowser"
+bind-key 4M-w "bgon wm icecat"
 bind-mouse 4-1  window_move
 bind-mouse 4-2  window_raise
 bind-mouse 4S-2 window_lower

@@ -42,7 +42,7 @@ bgon 0 0browsertmp
 #bgon blue blueman-applet
 bgon wm dunst
 bgon emacs emacs --daemon
-bgon wm stalonetray --background '#eee8d5' --geometry 1x1-0+0 --grow-gravity E --icon-gravity E --icon-size 20 --kludges force_icons_size --skip-taskbar --sticky
+sleep 2 && bgon wm stalonetray --background '#eee8d5' --geometry 1x1-0+0 --grow-gravity E --icon-gravity E --icon-size 20 --kludges force_icons_size --skip-taskbar --sticky
 bgon uim uim-toolbar-gtk-systray
 bgon uim uim-xim
 bgon net wicd-client --no-animate --tray

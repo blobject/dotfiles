@@ -52,6 +52,7 @@ alias sbcl='rlwrap sbcl'
 alias tclsh='rlwrap tclsh'
 alias sudo='sudo '
 alias v='vim'
+alias vlc='0vlc'
 alias 0clock='echo "$(date +%s)"; echo "  UTC:       $(TZ=UTC date)"; echo "* Prague:    $(date)"; echo "  London:    $(TZ=Europe/London date)"; echo "  Los Angls: $(TZ=America/Los_Angeles date)"; echo "  New York:  $(TZ=America/New_York date)"; echo "  Riyadh:    $(TZ=Asia/Riyadh date)"; echo "  Seoul:     $(TZ=Asia/Seoul date)"'
 alias 0fonts="fc-list | sed 's/^.\+: //;s/:.\+$//;s/,.*$//' | sort -u | pr -2 -T"
 alias 0ip='wget -qO - https://ipinfo.io/ip'

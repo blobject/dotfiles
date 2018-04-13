@@ -1,6 +1,7 @@
 [user]
   email = agaric@protonmail.com
   name = agaric
+  signingkey = B1AA2B8DCACA4CDFE3632855B0AFC9485A0D7F29
 [core]
   autocrlf = input
   editor = vim

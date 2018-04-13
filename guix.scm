@@ -9,14 +9,14 @@
 (define-public my-firmware
   (package
    (name "my-firmware")
-   (version "a3be6d433f843d71edaa0f9a291297589d571ce4")
+   (version "7518922bd5b98b137af7aaf3c836f5a498e91609")
    (source
     (origin
      (method git-fetch)
      (uri (git-reference
            (url "git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git")
            (commit version)))
-     (sha256 (base32 "0x0qmz60qnkj45bby22zdpgqr6xf3v72gqd58a37zbfklmd37840"))))
+     (sha256 (base32 "1f1476pq7ihhr298x67y4l0i0sfhl1syysidf112mzcp8gz58qry"))))
    (build-system trivial-build-system)
    (arguments
     `(#:modules ((guix build utils))
@@ -55,12 +55,12 @@
   (package
    (inherit linux-libre)
    (name "my-linux")
-   (version "4.15.15")
+   (version "4.16.11")
    (source
     (origin
      (method url-fetch)
-     (uri '("https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.15.15.tar.xz"))
-     (sha256 (base32 "1pys0gcc1x01scfqc1d25k64bqf264vfn3pybfcnmvkggvpyhmhb"))))
+     (uri '("https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.16.11.tar.xz"))
+     (sha256 (base32 "088931hgi5acm8nz19nd09skmamr3hhfb958374j30br6f94pfkd"))))
    ;(native-inputs
    ;  `(("kconfig" ,(local-file "/data/opt/kernel-4_15_7.config"))
    ;    ,@(alist-delete "kconfig" (package-native-inputs linux-libre))))
@@ -69,10 +69,10 @@
    ;    ,@(package-inputs linux-libre)))
    ))
 
-(use-modules (gnu))
+(use-modules (gnu) (srfi srfi-1))
 (use-system-modules nss)
 (use-service-modules admin dbus mcron networking xorg)
-(use-package-modules certs samba xorg wicd wm)
+(use-package-modules certs samba xorg wm)
 
 (define %%user "b")
 (define %%host "c")
@@ -95,19 +95,16 @@
 
  (file-systems
   (cons* (file-system
-          (mount-point "/boot/efi")
-          (device "boot")
-          (title 'label)
-          (type "vfat"))
-         (file-system
+          (device (file-system-label "root"))
           (mount-point "/")
-          (device "root")
-          (title 'label)
           (type "ext4"))
          (file-system
+          (device (file-system-label "boot"))
+          (mount-point "/boot/efi")
+          (type "vfat"))
+         (file-system
+          (device (file-system-label "data"))
           (mount-point "/data")
-          (device "data")
-          (title 'label)
           (type "ext4"))
          %base-file-systems))
 
@@ -117,10 +114,7 @@
   (cons (user-account
          (name %%user)
          (group "users")
-         (supplementary-groups '("audio"
-                                 "netdev"
-                                 "video"
-                                 "wheel"))
+         (supplementary-groups '("audio" "netdev" "video" "wheel"))
          (home-directory %%home))
         %base-user-accounts))
 
@@ -136,8 +130,7 @@
 
  (services
   (cons* ;(bluetooth-service)
-         (console-keymap-service
-          (string-append %%home "/cfg/hsnt.map.gz"))
+         (console-keymap-service (string-append %%home "/cfg/hsnt.map.gz"))
          (dbus-service)
          (ntp-service
           #:servers '("0.europe.pool.ntp.org"
@@ -146,10 +139,13 @@
                       "3.europe.pool.ntp.org"))
          (polkit-service)
          (slim-service
-          #:startx (xorg-start-command
-                    #:configuration-file (xorg-configuration-file
-                                          #:extra-config '(
-"
+          #:default-user %%user
+          #:auto-login? #t
+          #:startx
+          (xorg-start-command
+           #:configuration-file
+           (xorg-configuration-file
+            #:extra-config '("
 Section \"Device\"
   Identifier \"intel\"
   # requires xf86-video-intel
@@ -158,7 +154,6 @@ Section \"Device\"
   Option \"TearFree\" \"true\"
   Option \"DRI\" \"3\"
 EndSection
-
 Section \"InputClass\"
   Identifier \"touchpad\"
   MatchProduct \"DLL0704:01 06CB:76AE Touchpad\"
@@ -167,14 +162,12 @@ Section \"InputClass\"
   Option \"ClickMethod\" \"clickfinger\"
   Option \"NaturalScrolling\" \"true\"
   Option \"Tapping\" \"true\"
-EndSection
-")))
-          #:default-user %%user
-          #:auto-login? #t)
+EndSection"))))
          (wicd-service)
          ;(service mcron-service-type)
          ;(service rottlog-service-type)
-         %base-services))
+         (remove (lambda (service)
+                   (eq? (service-kind service) console-font-service-type))
+                 %base-services)))
 
- (name-service-switch %mdns-host-lookup-nss)
- )
+ (name-service-switch %mdns-host-lookup-nss))

@@ -3,14 +3,10 @@
 (require 'dot-mode)
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(backup-directory-alist (quote ((".*" . "~/bak/emacs/"))))
  '(blink-cursor-mode nil)
  '(browse-url-browser-function (quote browse-url-generic))
- '(browse-url-generic-program "icecat")
+ '(browse-url-generic-program "qutebrowser")
  '(column-number-mode t)
  '(company-dabbrev-downcase nil)
  '(company-dabbrev-ignore-case nil)
@@ -22,15 +18,11 @@
  '(create-lockfiles nil)
  '(css-indent-offset 2)
  '(custom-enabled-themes (quote (solarized-light)))
- '(custom-safe-themes
-   (quote
-    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
+ '(custom-safe-themes (quote ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(default-tab-width 2 t)
  '(electric-indent-inhibit t t)
  '(electric-pair-mode t)
- '(face-font-family-alternatives
-   (quote
-    (("custom" "Source Code Pro" "NanumBarunGothic" "NSimSun" "Meiryo" "FreeMono"))))
+ '(face-font-family-alternatives (quote (("custom" "Source Code Pro" "NanumBarunGothic" "NSimSun" "Meiryo" "FreeMono"))))
  '(fringe-mode 0 nil (fringe))
  '(global-dot-mode t)
  '(global-hl-line-mode t)
@@ -46,13 +38,8 @@
  '(mouse-wheel-progressive-speed nil)
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 5) ((control) . 10))))
  '(org-hide-leading-stars t)
- '(package-archives
-   (quote
-    (("gnu" . "http://elpa.gnu.org/packages/")
-     ("melpa" . "https://melpa.org/packages/"))))
- '(package-selected-packages
-   (quote
-    (guix cider clojure-mode company-racer counsel dot-mode expand-region flycheck flycheck-clojure flycheck-rust geiser go-mode haskell-mode hlinum iy-go-to-char lua-mode magit markdown-mode multiple-cursors paredit racer rainbow-delimiters ripgrep rust-mode slime smart-mode-line smart-mode-line-powerline-theme solarized-theme web-mode auctex avy company ivy)))
+ '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("melpa" . "https://melpa.org/packages/"))))
+ '(package-selected-packages (quote (guix cider clojure-mode company-racer counsel dot-mode expand-region flycheck flycheck-clojure flycheck-rust geiser go-mode haskell-mode hlinum iy-go-to-char lua-mode magit markdown-mode multiple-cursors paredit racer rainbow-delimiters ripgrep rust-mode slime smart-mode-line smart-mode-line-powerline-theme solarized-theme web-mode auctex avy company ivy)))
  '(racer-cmd "~/.cargo/bin/racer")
  '(racer-rust-src-path "/usr/local/src/rust/src")
  '(read-quoted-char-radix 16)
@@ -75,12 +62,19 @@
  '(web-mode-markup-indent-offset 2))
 
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(default ((t (:weight semi-bold :height 108 :family "custom"))))
+ '(fixed-pitch-serif ((t (:weight semi-bold :family "FreeMono"))))
  '(linum-highlight-face ((t (:background "#eee8d5" :foreground "#002b36"))))
+ '(org-agenda-structure ((t (:background "#eee8d5" :foreground "#586e75" :inverse-video nil :box (:line-width 2 :color "#fdf6e3") :underline nil :slant normal :weight bold :height 1.0))))
+ '(org-document-title ((t (:foreground "#586e75" :weight bold :height 1.0))))
+ '(org-level-1 ((t (:inherit nil :foreground "#cb4b16" :height 1.0))))
+ '(org-level-2 ((t (:inherit nil :foreground "#859900" :height 1.0))))
+ '(org-level-3 ((t (:inherit nil :foreground "#268bd2" :height 1.0))))
+ '(org-level-4 ((t (:inherit nil :foreground "#b58900" :height 1.0))))
+ '(org-level-5 ((t (:inherit nil :foreground "#2aa198" :height 0.9))))
+ '(org-level-6 ((t (:inherit nil :foreground "#859900" :height 0.9))))
+ '(org-level-7 ((t (:inherit nil :foreground "#dc322f" :height 0.9))))
+ '(org-level-8 ((t (:inherit nil :foreground "#268bd2" :height 0.9))))
  '(sml/line-number ((t (:weight bold))))
  '(sml/minor-modes ((t (:inherit sml/global :height 0.9))))
  '(sml/modes ((t (:inherit sml/global :weight bold :height 0.9)))))
@@ -91,7 +85,7 @@
 (add-hook 'after-init-hook 'global-flycheck-mode)
 (add-hook 'after-init-hook 'hlinum-activate)
 ;(add-hook 'after-init-hook 'sml/setup)
-;(add-hook 'org-mode-hook (lambda () (visual-line-mode) (org-indent-mode)))
+(add-hook 'org-mode-hook (lambda () (visual-line-mode) (org-indent-mode)))
 (add-hook 'prog-mode-hook 'linum-mode)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'flycheck-mode-hook 'flycheck-rust-setup)

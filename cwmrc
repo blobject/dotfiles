@@ -10,7 +10,7 @@ color groupborder    "#dc322f"
 color ungroupborder  "#b58900"
 fontname    "Iosevka:bold:pixelsize=14"
 gap         20 0 0 0
-moveamount  10
+moveamount  5
 snapdist    10
 sticky      yes
 
@@ -35,7 +35,7 @@ command wireshark   "bgon wm wireshark"
 #unbind-key M-Return
 #unbind-key CM-Return
 #unbind-key C-slash
-#unbind-key SM-slash
+#unbind-key MS-slash
 #unbind-key M-Up
 #unbind-key M-Down
 #unbind-key M-h
@@ -47,10 +47,10 @@ command wireshark   "bgon wm wireshark"
 #unbind-key CM-m
 #unbind-key CM-x
 unbind-key all
-bind-key M-Tab     window-cycle
-bind-key MS-Tab    window-rcycle
-bind-key 4-Tab     group-cycle
-bind-key 4S-Tab    group-rcycle
+bind-key M-Tab  window-cycle
+bind-key MS-Tab window-rcycle
+bind-key 4-Tab  group-cycle
+bind-key 4S-Tab group-rcycle
 bind-key 4-1  group-toggle-1
 bind-key 4-2  group-toggle-2
 bind-key 4-3  group-toggle-3
@@ -83,13 +83,17 @@ bind-key 4M-h      window-resize-left-big
 bind-key 4M-j      window-resize-down-big
 bind-key 4M-k      window-resize-up-big
 bind-key 4M-l      window-resize-right-big
+bind-key 4S-h      window-vtile
+bind-key 4S-j      window-vmaximize
+bind-key 4S-k      window-htile
+bind-key 4S-l      window-hmaximize
 bind-key XF86AudioMute          "0hot vol x"
 bind-key XF86AudioLowerVolume   "0hot vol --"
 bind-key XF86AudioRaiseVolume   "0hot vol ++"
 bind-key S-XF86AudioLowerVolume "0hot vol -"
 bind-key S-XF86AudioRaiseVolume "0hot vol +"
-bind-key XF86MonBrightnessDown  "sudo 0lum -"
-bind-key XF86MonBrightnessUp    "sudo 0lum +"
+bind-key XF86MonBrightnessDown  "0hot lum -"
+bind-key XF86MonBrightnessUp    "0hot lum +"
 bind-key Print                  "0hot shot"
 bind-key S-Print                "0hot shot s"
 bind-key C-Print                "0hot shot w"
@@ -98,7 +102,7 @@ bind-key CM-BackSpace           "0hot quit"
 bind-key 4-backslash            "0hot kbd"
 bind-key 4M-Escape    "bgon wm xkill"
 bind-key XF86PowerOff "bgon wm slock"
-bind-key 4-c          "bgon wm st-crawl -e ssh cao"
+bind-key 4-c          "bgon wm st-crawl -e ssh cxc"
 bind-key 4-e          "bgon wm emacsclient -nc"
 bind-key 4-t          "bgon wm st -e tmux"
 bind-key 4-w          "bgon wm qutebrowser"

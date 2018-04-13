@@ -1,5 +1,8 @@
 #!/bin/sh
 
+## logs
+for f in 0 emacs net uim wm; do echo "" >"$HOME/log/$f"; done
+
 ## vars
 export PATH="$HOME/bin${PATH:+:}$PATH"
 export BROWSER=icecat
@@ -13,7 +16,8 @@ export XMODIFIERS='@im=uim'
 #export QT_QPA_PLATFORMTHEME=qt5ct
 
 ## settings
-sudo 0lum $(expr $(cat /sys/class/backlight/intel_backlight/max_brightness) '/' 2 '-' 32 '*' 8) &
+sudo 0lum $(expr $(cat /sys/class/backlight/intel_backlight/max_brightness) '/' 2 '-' 32 '*' 8) >"$HOME/log/0" &
+alsactl --file "$HOME/.config/asound.state" restore &
 xmodmap "$HOME/cfg/hsnt.xmodmap" & # opp: setxkbmap -option ctrl:nocaps
 xset  b off  m 4 4  r rate 250 35 \
   -r 121 -r 122 -r 123 -r 173 -r 172 -r 171 \
@@ -21,30 +25,16 @@ xset  b off  m 4 4  r rate 250 35 \
   fp+ "$HOME/.local/share/fonts/bitmap"  fp rehash &
 xsetroot -cursor_name left_ptr -solid '#657b83' &
 
-## note: let pulse restore however it wants, but restore alsa manually
-#{ while [ -z "$(pidof pulseaudio)" ]; do
-#  sleep 1
-#  done
-#  alsactl --file $HOME/.config/asound.state restore
-#} &
-
-## logs
-echo "" >"$HOME/log/0"
-echo "" >"$HOME/log/emacs"
-echo "" >"$HOME/log/net"
-echo "" >"$HOME/log/uim"
-echo "" >"$HOME/log/wm"
-
 ## services
 { 0mon 2>>"$HOME/log/0" | \
   lemonbar -d -f 'Iosevka:bold:pixelsize=13' -g x20 -n lemonbar -p -B '#eee8d5' -F '#93a1a1' >>"$HOME/log/wm" & } &
 bgon 0 0browsertmp
-#bgon blue blueman-applet
+#bgon net blueman-applet
 bgon wm dunst
 bgon emacs emacs --daemon
 sleep 2 && bgon wm stalonetray --background '#eee8d5' --geometry 1x1-0+0 --grow-gravity E --icon-gravity E --icon-size 20 --kludges force_icons_size --skip-taskbar --sticky
-bgon uim uim-toolbar-gtk-systray
-bgon uim uim-xim
+#bgon uim uim-toolbar-gtk-systray
+#bgon uim uim-xim
 bgon net wicd-client --no-animate --tray
 
 ## window manager

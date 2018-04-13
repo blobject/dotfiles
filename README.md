@@ -22,6 +22,6 @@ counter-clockwise from northwest: lemonbar, emacs, vlc, vim, st (\*2), cwm built
 - notification: [dunst](https://github.com/dunst-project/dunst)
 - browser: [qutebrowser](https://qutebrowser.org/), [icecat](https://www.gnu.org/software/gnuzilla/)
 
-### shell scripts
+### see also
 
 see [scripts](https://github.com/agarick/scripts) for accompanying shell scripts.

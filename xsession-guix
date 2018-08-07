@@ -17,12 +17,10 @@ export XMODIFIERS='@im=uim'
 
 ## settings
 sudo 0lum $(expr $(cat /sys/class/backlight/intel_backlight/max_brightness) '/' 2 '-' 32 '*' 8) >"$HOME/log/0" &
+0hot kbd base
 alsactl --file "$HOME/.config/asound.state" restore &
 xmodmap "$HOME/cfg/hsnt.xmodmap" & # opp: setxkbmap -option ctrl:nocaps
-xset  b off  m 4 4  r rate 250 35 \
-  -r 121 -r 122 -r 123 -r 173 -r 172 -r 171 \
-  -r 225 -r 232 -r 233 -r 107 -r 150 \
-  fp+ "$HOME/.local/share/fonts/bitmap"  fp rehash &
+xset fp+ "$HOME/.local/share/fonts/bitmap" fp rehash &
 xsetroot -cursor_name left_ptr -solid '#657b83' &
 
 ## services

@@ -7,7 +7,7 @@ export BROWSER=icecat
 #export _JAVA_AWT_WM_NONREPARENTING=1
 #export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd -Dsun.java2d.xrender=true -Dswing.aatext=true'
 #export MOZ_DISABLE_PANGO=1
-#export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_QPA_PLATFORMTHEME=qt5ct
 
 _LOG="$HOME/.xlog"
 [ -f $_LOG ] && cp $_LOG ${_LOG}.old

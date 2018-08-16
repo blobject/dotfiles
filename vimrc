@@ -10,7 +10,7 @@ set nohlsearch incsearch
 set showcmd showmatch
 set wrap
 
-"highlight LineNr          ctermfg=8 ctermbg=7
+highlight LineNr          ctermfg=8 ctermbg=7
 "highlight SpecialKey      ctermfg=10 ctermbg=0
 "highlight StatusLine      ctermfg=0  ctermbg=14
 highlight ExtraWhitespace ctermbg=1

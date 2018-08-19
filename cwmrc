@@ -17,19 +17,21 @@ sticky      yes
 ignore lemonbar
 ignore stalonetray
 
-command terminal    "bgon st -e tmux"
-command terminalt   "bgon st-alt -e tmux"
-command emacs       "bgon emacsclient -nc"
-command icecat      "bgon icecat"
-command crawl       "bgon st-alt -e ssh cxc"
-command aseprite    "bgon aseprite"
-command gimp        "bgon gimp"
-command inkscape    "bgon inkscape"
-command vlc         "bgon 0vlc"
-command libreoffice "bgon libreoffice"
-command godot       "bgon godot"
-command gucharmap   "bgon gucharmap"
-command wireshark   "bgon wireshark"
+command terminal     "bgon st -e tmux"
+command terminalt    "bgon st-alt -e tmux"
+command aseprite     "bgon aseprite"
+command crawl        "bgon st-alt -e ssh cxc"
+command emacs        "bgon emacsclient -nc"
+command gimp         "bgon gimp"
+command godot        "bgon godot"
+command gucharmap    "bgon gucharmap"
+command higan        "bgon higan"
+command icecat       "bgon icecat"
+command inkscape     "bgon inkscape"
+command libreoffice  "bgon libreoffice"
+command lxappearance "bgon lxappearance"
+command vlc          "bgon 0vlc"
+command wireshark    "bgon wireshark"
 
 #unbind-key M-Return
 #unbind-key CM-Return

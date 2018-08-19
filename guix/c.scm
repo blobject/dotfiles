@@ -254,12 +254,15 @@ Section \"InputClass\"
   MatchProduct \"Elan Touchpad\"
   MatchIsTouchpad \"1\"
   Driver \"cmt\"
+  Option \"XkbModel\" \"pc\"
+  Option \"XkbLayout\" \"us\"
   Option \"AccelerationProfile\" \"-1\"
   Option \"Australian Scrolling\" \"1\"
   Option \"Fling To Scroll Enabled\" \"0\"
   Option \"Pointer Sensitivity\" \"3\"
   Option \"Pressure Calibration Slope\" \"3.1416\"
   Option \"Scroll Sensitivity\" \"0\"
+  Option \"Scroll X Out Scale\" \"0.02\"
   Option \"Scroll Y Out Scale\" \"0.005\"
   Option \"Tap Drag Enable\" \"1\"
   Option \"Tap Minimum Pressure\" \"10\"
@@ -280,7 +283,7 @@ EndSection
  (kernel my-linux)
 
  ; see `filefrag -v /swap`
- (kernel-arguments (list "resume=UUID=f6c1927d-1570-4465-998c-172131891af3" "resume_offset=1454080"))
+ ;(kernel-arguments (list "resume=UUID=f6c1927d-1570-4465-998c-172131891af3" "resume_offset=1454080"))
 
  (firmware (append (list my-firmware) %base-firmware)) ; my-audio-firmware causes DMAR error
 

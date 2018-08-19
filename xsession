@@ -26,7 +26,7 @@ bgon emacs --daemon
 ## settings
 #sudo 0lum m 150 >/dev/null &
 sudo 0lum k 0 >/dev/null &
-0hot kbd hsnt-quiet &
+0hot kbd hsnt &
 #alsactl --file "$HOME/.config/asound.state" restore &
 #xset fp+ "$HOME/.local/share/fonts/bitmap" fp rehash &
 xsetroot -cursor_name left_ptr -solid '#657b83' &

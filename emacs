@@ -36,7 +36,6 @@
  '(menu-bar-mode nil)
  '(mouse-wheel-progressive-speed nil)
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 5) ((control) . 10))))
- '(org-hide-leading-stars t)
  '(package-archives (quote (("gnu" . "https://elpa.gnu.org/packages/") ("melpa" . "https://melpa.org/packages/"))))
  '(package-selected-packages (quote (goose-theme cider clojure-mode company-auctex company-ghc company-go company-lua company-racer company-shell company-web counsel dot-mode flycheck flycheck-clojure flycheck-ghcmod flycheck-golangci-lint flycheck-rust flycheck-tcl geiser go-mode guix haskell-mode hlinum iy-go-to-char lua-mode magit markdown-mode multiple-cursors racer rainbow-delimiters rust-mode slime smart-mode-line smart-mode-line-powerline-theme web-mode auctex avy company ivy)))
  '(read-quoted-char-radix 16)

@@ -1,0 +1,26 @@
+* dotfiles
+
+*** screenshot
+
+[[/screenshot.png]]
+
+counter-clockwise from northwest: lemonbar, emacs, vlc, vim, st (\*2), cwm builtin menu, icecat, stalonetray
+
+*** aesthetic choices
+
+- hardware: [[https://www.asus.com/us/Laptops/ASUS-Chromebook-Flip-C302CA/][asus chromebook flip c302]]
+- os: [[https://www.gnu.org/software/guix/][guixsd]]
+- graphical: [[https://www.x.org/][xorg]], [[https://sourceforge.net/projects/slim.berlios/][slim]]
+- font: [[https://github.com/adobe-fonts/source-code-pro][source code pro]], [[https://github.com/adobe-fonts/source-sans-pro][source sans pro]], [[https://be5invis.github.io/Iosevka/][iosevka]]
+- colorscheme: [[http://ethanschoonover.com/solarized][solarized]]
+- shell, scripting: [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]]
+- wm: [[https://github.com/chneukirchen/cwm][cwm]]
+- terminal: [[https://st.suckless.org/][st]], [[https://github.com/tmux/tmux/wiki][tmux]]
+- edit: [[https://www.gnu.org/software/emacs/][emacs]], [[https://www.vim.org/][vim]]
+- bar: [[https://github.com/LemonBoy/bar][lemonbar]]
+- notification: [[https://github.com/dunst-project/dunst][dunst]]
+- browser: [[https://www.gnu.org/software/gnuzilla/][icecat]]
+
+*** see also
+
+see [[https://github.com/agarick/scripts][scripts]] for accompanying shell scripts.

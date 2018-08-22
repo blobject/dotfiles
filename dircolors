@@ -1,6 +1,3 @@
-# Exact Solarized Light color theme for the color GNU ls utility.
-# Designed for dircolors (GNU coreutils) 5.97
-#
 # This simple theme was simultaneously designed for these terminal color schemes:
 # - Solarized dark
 # - Solarized light (best)
@@ -31,12 +28,6 @@
 #   for multimedia files which are usually accessed in a GUI folder browser anyway.
 #   And blue is kept for custom use of this scheme's user.
 # - See table below to see the assignments.
-
-
-# Installation instructions:
-# This file goes in the /etc directory, and must be world readable.
-# You can copy this file to .dir_colors in your $HOME directory to override
-# the system defaults.
 
 # COLOR needs one of these arguments: 'tty' colorizes output to ttys, but not
 # pipes. 'all' adds color characters to all output. 'none' shuts colorization

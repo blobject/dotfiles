@@ -3,10 +3,6 @@
 (require 'dot-mode)
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(backup-directory-alist (quote ((".*" . "~/bak/emacs/"))))
  '(blink-cursor-mode nil)
  '(browse-url-browser-function (quote browse-url-generic))
@@ -21,10 +17,8 @@
  '(counsel-mode t)
  '(create-lockfiles nil)
  '(css-indent-offset 2)
- '(custom-enabled-themes (quote (solarized-light)))
- '(custom-safe-themes
-   (quote
-    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+ '(custom-enabled-themes (quote (goose)))
+ '(custom-safe-themes (quote ("1dacaddeba04ac1d1a2c6c8100952283b63c4b5279f3d58fb76a4f5dd8936a2c" default)))
  '(default-tab-width 2 t)
  '(electric-indent-inhibit t t)
  '(electric-pair-mode t)
@@ -43,13 +37,8 @@
  '(mouse-wheel-progressive-speed nil)
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 5) ((control) . 10))))
  '(org-hide-leading-stars t)
- '(package-archives
-   (quote
-    (("gnu" . "https://elpa.gnu.org/packages/")
-     ("melpa" . "https://melpa.org/packages/"))))
- '(package-selected-packages
-   (quote
-    (cider clojure-mode company-auctex company-ghc company-go company-lua company-racer company-shell company-web counsel dot-mode flycheck flycheck-clojure flycheck-ghcmod flycheck-golangci-lint flycheck-rust flycheck-tcl geiser go-mode guix haskell-mode hlinum iy-go-to-char lua-mode magit markdown-mode multiple-cursors racer rainbow-delimiters rust-mode slime smart-mode-line smart-mode-line-powerline-theme solarized-theme web-mode auctex avy company ivy)))
+ '(package-archives (quote (("gnu" . "https://elpa.gnu.org/packages/") ("melpa" . "https://melpa.org/packages/"))))
+ '(package-selected-packages (quote (goose-theme cider clojure-mode company-auctex company-ghc company-go company-lua company-racer company-shell company-web counsel dot-mode flycheck flycheck-clojure flycheck-ghcmod flycheck-golangci-lint flycheck-rust flycheck-tcl geiser go-mode guix haskell-mode hlinum iy-go-to-char lua-mode magit markdown-mode multiple-cursors racer rainbow-delimiters rust-mode slime smart-mode-line smart-mode-line-powerline-theme web-mode auctex avy company ivy)))
  '(read-quoted-char-radix 16)
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
@@ -63,8 +52,6 @@
  '(tab-width 2)
  '(tool-bar-mode nil)
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify))
- '(vc-annotate-background-mode nil)
- '(vc-follow-symlinks nil)
  '(web-mode-code-indent-offset 2)
  '(web-mode-css-indent-offset 2)
  '(web-mode-markup-indent-offset 2))
@@ -73,10 +60,6 @@
  ;'(racer-rust-src-path "/usr/local/src/rust/src")
 
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(default ((t (:weight semi-bold :height 105 :family "Source Code Pro"))))
  '(fixed-pitch-serif ((t (:weight semi-bold :family "FreeMono"))))
  '(linum ((t (:weight normal))))

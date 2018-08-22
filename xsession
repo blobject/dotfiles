@@ -15,8 +15,8 @@ echo '' >$_LOG
 
 ## services
 { 0mon 2>>$_LOG | \
-  lemonbar -d -f 'Iosevka:pixelsize=13:style=bold' -g x20 -n lemonbar -p -B '#eee8d5' -F '#93a1a1' >>$_LOG & } &
-bgon stalonetray --background '#eee8d5' --geometry 1x1-0+0 --grow-gravity E --icon-gravity E --icon-size 20 --kludges force_icons_size --skip-taskbar --sticky
+  lemonbar -d -f 'Iosevka:pixelsize=13:style=bold' -g x20 -n lemonbar -p -B '#ebdbb2' -F '#928374' >>$_LOG & } &
+bgon stalonetray --background '#ebdbb2' --geometry 1x1-0+0 --grow-gravity E --icon-gravity E --icon-size 20 --kludges force_icons_size --skip-taskbar --sticky
 bgon 0browsertmp
 #bgon blueman-applet
 bgon sudo cmst
@@ -29,7 +29,7 @@ sudo 0lum k 0 >/dev/null &
 0hot kbd hsnt &
 #alsactl --file "$HOME/.config/asound.state" restore &
 #xset fp+ "$HOME/.local/share/fonts/bitmap" fp rehash &
-xsetroot -cursor_name left_ptr -solid '#657b83' &
+xsetroot -cursor_name left_ptr -solid '#665c54' &
 
 ## window manager
 exec dbus-launch --exit-with-session cwm

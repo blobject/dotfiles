@@ -60,17 +60,17 @@
    (description "blobby firmware")
    (license (license:non-copyleft "https://git.kernel.org/cgit/linux/kernel/git/firmware/linux-firmware.git/tree/LICENSE.iwlwifi_firmware?id=HEAD"))))
 
-(define-public my-audio-firmware
+(define-public my-skylake
   (package
-   (name "my-audio-firmware")
-   (version "278f9da5b888ae32b926c04794731a2ea241d892")
+   (name "my-skylake")
+   (version "1b607efdf126e80b60a6bf53d25c1b3153131225")
    (source
     (origin
      (method git-fetch)
      (uri (git-reference
-           (url "https://git.codentium.com/StephanvanSchaik/gentoo-chromebook-skylake.git")
+           (url "https://github.com/GalliumOS/galliumos-skylake.git")
            (commit version)))
-     (sha256 (base32 "1hi66ilkyy92p64ix3q3wp1ljk6kzq88z4b2f39vf5y1mnxlb7w4"))))
+     (sha256 (base32 "1hi66ilkyy92p64ix3q3wp1ljk6kzq88z4b2f39vf5y1mnxlb7w5"))))
    (build-system trivial-build-system)
    (arguments
     `(#:modules ((guix build utils))
@@ -285,7 +285,7 @@ EndSection
  ; see `filefrag -v /swap`
  ;(kernel-arguments (list "resume=UUID=f6c1927d-1570-4465-998c-172131891af3" "resume_offset=1454080"))
 
- (firmware (append (list my-firmware) %base-firmware)) ; my-audio-firmware causes DMAR error
+ (firmware (append (list my-firmware) %base-firmware)) ; my-skylake causes DMAR error
 
  (initrd-modules (append (list "mmc_block" "sdhci-pci") %base-initrd-modules))
 

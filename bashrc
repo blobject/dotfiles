@@ -1,7 +1,7 @@
 export SHELL
 [[ $- != *i* ]] && { [[ -n "$SSH_CLIENT" ]] && source /etc/profile; return; }
 
-[[ -n "$GUIX_ENVIRONMENT" ]] && PS1='[env] \w ' || PS1='\w '
+[[ -n "$GUIX_ENVIRONMENT" ]] && PS1='$?[env]\w ' || PS1='$?\w '
 
 HISTCONTROL=ignoreboth
 HISTFILE="$HOME/.bashlog"
@@ -28,7 +28,7 @@ B_TMP="/tmp/_${USER}_tmp"
   && mkdir -p "$B_TMP" \
   && ssh-agent | grep -v echo >"$B_TMP/ssh-agent"
 [[ -z "$SSH_AGENT_PID" ]] && eval "$(<$B_TMP/ssh-agent)"
-eval $(dircolors --sh "$HOME/.config/dircolors")
+eval $(dircolors --sh "$HOME/cfg/dircolors")
 stty -ixon # stop freezing in vim when ctrl-s
 trap 'echo -ne "\e]2;$BASH_COMMAND\a"' DEBUG # dynamic title
 
@@ -41,17 +41,16 @@ alias ll='ls -lh'
 alias lla='ll -a'
 alias lls='ll -S'
 alias llt='ll -t'
-alias am=alsamixer
+#alias am=alsamixer
 alias bc='rlwrap bc'
 alias diff='diff --color'
 alias dmesg='dmesg --color=always'
 alias e='emacsclient -nc'
 alias g=git
 alias guile='rlwrap guile'
-alias lein='rlwrap lein'
+#alias lein='rlwrap lein'
 alias pstree='pstree -hnp'
-alias rg='rg --colors match:fg:black --colors match:style:nobold --colors path:style:bold --colors line:fg:yellow'
-alias sbcl='rlwrap sbcl'
+#alias sbcl='rlwrap sbcl'
 alias tclsh='rlwrap tclsh'
 alias sudo='sudo '
 alias v=vim

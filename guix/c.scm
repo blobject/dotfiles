@@ -96,12 +96,12 @@
   (package
    (inherit linux-libre)
    (name "my-linux")
-   (version "4.18.1")
+   (version "4.18.4")
    (source
     (origin
      (method url-fetch)
-     (uri (list "https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.18.1.tar.xz"))
-     (sha256 (base32 "0hps1h8rs1cc8385m69754vwbjmwasr7bfv9f9nsv8fmx73aspvj"))))
+     (uri (list "https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.18.4.tar.xz"))
+     (sha256 (base32 "0hm8id6nv3j2g7l1fzkl4vr9wfx43s8hdspg1yc4fz6vbdxwinqj"))))
    (native-inputs
     `(("kconfig" ,my-linux-config)
       ,@(alist-delete "kconfig" (package-native-inputs linux-libre))))

@@ -1,13 +1,22 @@
 borderwidth 4
-color activeborder   "#928374"
-color inactiveborder "#ebdbb2"
-color font           "#fbf1c7"
-color menubg         "#3c3836"
-color menufg         "#928374"
-color selfont        "#282828"
-color urgencyborder  "#af3a03"
-color groupborder    "#8f3f71"
-color ungroupborder  "#b57614"
+# darkest
+color activeborder   "#3a393f"
+# same as bar
+color inactiveborder "#a3a3a9"
+# fg
+color font           "#bbbbc3"
+# darkest
+color menubg         "#3a393f"
+# mid light
+color menufg         "#95959d"
+# darkest
+color selfont        "#16161d"
+# red
+color urgencyborder  "#a92636"
+# blue
+color groupborder    "#4051b0"
+# yellow
+color ungroupborder  "#8b6b02"
 fontname    "Iosevka:pixelsize=14:style=semibold"
 gap         20 0 0 0
 moveamount  5

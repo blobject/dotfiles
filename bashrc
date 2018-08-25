@@ -23,7 +23,7 @@ export XDG_DATA_DIRS="$HOME/.guix-profile/share/glib-2.0/schemas${XDG_DATA_DIRS:
 export XDG_RUNTIME_DIR="/tmp/runtime-$USER"
 
 [[ -d $XDG_RUNTIME_DIR ]] || mkdir -p $XDG_RUNTIME_DIR
-B_TMP="/tmp/_${USER}_tmp"
+B_TMP="/dev/shm/_${USER}_tmp"
 ! pgrep -u "$USER" ssh-agent >/dev/null \
   && mkdir -p "$B_TMP" \
   && ssh-agent | grep -v echo >"$B_TMP/ssh-agent"

@@ -22,8 +22,8 @@ bgon dunst
 bgon emacs --daemon
 
 ## settings
-#sudo 0lum m 150 >/dev/null &
-sudo 0lum k 0 >/dev/null &
+0hot bt off &
+0hot lum kbd 0 &
 0hot kbd hsnt &
 #alsactl --file "$HOME/.config/asound.state" restore &
 #xset fp+ "$HOME/.fonts/bitmap" fp rehash &

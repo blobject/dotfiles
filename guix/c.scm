@@ -320,7 +320,7 @@ EndSection
  (sudoers-file (plain-file "sudoers"
                            "root ALL=(ALL) ALL
 %wheel ALL=(ALL) ALL
-b ALL=NOPASSWD: /home/b/bin/0lum, /home/b/bin/0pow, /run/current-system/profile/bin/cmst, /run/current-system/profile/bin/connmanctl, /run/current-system/profile/sbin/halt, /run/current-system/profile/sbin/reboot
+b ALL=NOPASSWD: /home/b/bin/0hoot, /home/b/.guix-profile/sbin/rfkill, /run/current-system/profile/bin/cmst, /run/current-system/profile/bin/connmanctl, /run/current-system/profile/sbin/halt, /run/current-system/profile/sbin/reboot
 ")) ; newline!
 
  (setuid-programs

@@ -14,8 +14,8 @@ ramble_timer=300
 hide_on_start=false
 
 [window]
-xpos=303
-ypos=638
+xpos=320
+ypos=680
 scalex=40
 scaley=40
 transparent=false

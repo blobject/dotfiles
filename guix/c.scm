@@ -48,17 +48,38 @@
                     (find-files source "skl.*\\.bin$"))
           (for-each (lambda (file)
                       (copy-file file (string-append intel-dir (basename file))))
-                    (find-files source "dsp_fw_rel.*"))
+                    (find-files source (string-append
+                                        "dsp_fw_rel.*"
+                                        "|ibt-hw-37\\.8\\..*")))
           (for-each (lambda (file)
                       (copy-file file (string-append fw-dir (basename file))))
                     (find-files source (string-append
                                         "LICENSE\\.i915$"
-                                        "|LICENCE\\.iwlwifi")))
+                                        "|LICENCE\\.iwlwifi_.*"
+                                        "|LICENCE\\.ibt_.*")))
           #t))))
    (home-page "https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi")
    (synopsis "blobby firmware")
    (description "blobby firmware")
    (license (license:non-copyleft "https://git.kernel.org/cgit/linux/kernel/git/firmware/linux-firmware.git/tree/LICENSE.iwlwifi_firmware?id=HEAD"))))
+
+;(define-public my-regdb
+;  (package
+;   (name "my-regdb")
+;   (version "2018.05.31")
+;   (source
+;    (origin
+;     (method url-fetch)
+;     (uri (list "https://www.kernel.org/pub/software/network/wireless-regdb/wireless-regdb-2018.05.31.tar.xz"))
+;     (sha256 (base32 "0yxydxkmcb6iryrbazdk8lqqibig102kq323gw3p64vpjwxvrpz1"))))
+;   (build-system gnu-build-system)
+;   (arguments
+;    `(#:phases
+;      ))
+;   (home-page "https://wireless.wiki.kernel.org/en/developers/regulatory/wireless-regdb")
+;   (synopsis "linux wireless regulatory database")
+;   (description "linux wireless regulatory database")
+;   (license license:isc)))
 
 (define-public my-skylake
   (package
@@ -78,7 +99,7 @@
       (begin
         (use-modules (guix build utils))
         (let* ((source (assoc-ref %build-inputs "source"))
-	       (fw-dir (string-append %output "/lib/firmware/")))
+               (fw-dir (string-append %output "/lib/firmware/")))
           (mkdir-p fw-dir)
           (for-each (lambda (file)
                       (copy-file file (string-append fw-dir (basename file))))
@@ -214,7 +235,7 @@
 
 (use-modules (gnu) (srfi srfi-1) (my packages))
 (use-system-modules nss)
-(use-service-modules admin cups dbus mcron networking xorg)
+(use-service-modules admin cups dbus desktop mcron networking xorg)
 (use-package-modules certs connman cups suckless video wm)
 
 (define %%user "b")
@@ -320,7 +341,7 @@ EndSection
  (sudoers-file (plain-file "sudoers"
                            "root ALL=(ALL) ALL
 %wheel ALL=(ALL) ALL
-b ALL=NOPASSWD: /home/b/bin/0hoot, /home/b/.guix-profile/sbin/rfkill, /run/current-system/profile/bin/cmst, /run/current-system/profile/bin/connmanctl, /run/current-system/profile/sbin/halt, /run/current-system/profile/sbin/reboot
+b ALL=NOPASSWD: /home/b/bin/0hoot, /home/b/.guix-profile/sbin/rfkill, /home/b/.guix-profile/bin/bluetoothctl, /run/current-system/profile/bin/cmst, /run/current-system/profile/bin/connmanctl, /run/current-system/profile/sbin/halt, /run/current-system/profile/sbin/reboot
 ")) ; newline!
 
  (setuid-programs
@@ -338,7 +359,7 @@ b ALL=NOPASSWD: /home/b/bin/0hoot, /home/b/.guix-profile/sbin/rfkill, /run/curre
          %base-packages))
 
  (services
-  (cons* ;(bluetooth-service)
+  (cons* (bluetooth-service)
          (console-keymap-service (string-append %%home "/cfg/hsnt.map.gz"))
          (dbus-service)
          ;(dbus-service #:services (list connman))

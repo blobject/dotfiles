@@ -1,6 +1,6 @@
 [Settings]
-gtk-icon-theme-name=breeze
-gtk-font-name=sans 10
+gtk-icon-theme-name=Arc
+gtk-font-name=Sans 10
 gtk-cursor-theme-size=0
 gtk-toolbar-style=GTK_TOOLBAR_BOTH
 gtk-toolbar-icon-size=GTK_ICON_SIZE_SMALL_TOOLBAR

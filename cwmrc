@@ -11,7 +11,7 @@ color ungroupborder  "#8b6b02" # yellow
 fontname    "Iosevka:pixelsize=14:style=semibold"
 gap         20 0 0 0
 moveamount  5
-snapdist    10
+snapdist    5
 sticky      yes
 
 ignore lemonbar
@@ -29,12 +29,14 @@ command gimp         "bgon gimp"
 command godot        "bgon godot"
 command gpick        "bgon gpick"
 command gucharmap    "bgon gucharmap"
+command guitarix     "bgon guitarix"
 command higan        "bgon higan"
 command icecat       "bgon icecat"
 command inkscape     "bgon inkscape"
 command libreoffice  "bgon libreoffice"
 command lxappearance "bgon lxappearance"
 command pavucontrol  "bgon pavucontrol"
+command qjackctl     "bgon qjackctl"
 command vlc          "bgon 0vlc"
 command wireshark    "bgon wireshark"
 command xournal      "bgon xournal"
@@ -63,20 +65,10 @@ bind-key 4-1  group-toggle-1
 bind-key 4-2  group-toggle-2
 bind-key 4-3  group-toggle-3
 bind-key 4-4  group-toggle-4
-bind-key 4-5  group-toggle-5
-bind-key 4-6  group-toggle-6
-bind-key 4-7  group-toggle-7
-bind-key 4-8  group-toggle-8
-bind-key 4-9  group-toggle-9
 bind-key 4M-1 window-movetogroup-1
 bind-key 4M-2 window-movetogroup-2
 bind-key 4M-3 window-movetogroup-3
 bind-key 4M-4 window-movetogroup-4
-bind-key 4M-5 window-movetogroup-5
-bind-key 4M-6 window-movetogroup-6
-bind-key 4M-7 window-movetogroup-7
-bind-key 4M-8 window-movetogroup-8
-bind-key 4M-9 window-movetogroup-9
 bind-key 4-Return  menu-exec
 bind-key 4M-Return menu-window
 bind-key 4-comma   window-lower
@@ -115,12 +107,15 @@ bind-key S-XF86MonBrightnessUp   "0hot lum kbd +"
 bind-key 4-F11                   "0hot shot"
 bind-key 4S-F11                  "0hot shot s"
 bind-key 4C-F11                  "0hot shot w"
+bind-key 4-F5                    "0hot rat"
 bind-key 4-backslash             "0hot kbd"
+bind-key 4M-backslash            "0hot kbd alt"
 bind-key XF86PowerOff            "0hot off"
 bind-key XF86Tools               "0hot off"
 bind-key CM-BackSpace            "0hot off"
 bind-key 4-b                     "0hot bt"
-bind-key 4S-b                    "0hot ear"
+bind-key 4M-b                    "0hot ear jbl"
+bind-key 4C-b                    "0hot ear sennheiser"
 bind-key 4MS-q "bgon xkill"
 bind-key 4-e   "bgon emacsclient -nc"
 bind-key 4-t   "bgon st -e tmux"

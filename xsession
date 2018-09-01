@@ -9,29 +9,28 @@ export BROWSER=icecat
 #export MOZ_DISABLE_PANGO=1
 #export QT_QPA_PLATFORMTHEME=qt5ct
 
-_LOG="$HOME/.xlog"
-[ -f $_LOG ] && cp $_LOG ${_LOG}.old
-echo '' >$_LOG
+B_LOG="$HOME/.xlog"
+[ -f $B_LOG ] && cp $B_LOG ${B_LOG}.old
+echo '' >$B_LOG
 
 ## services
-{ 0mon 2>>$_LOG | \
-  lemonbar -d -f 'Iosevka:pixelsize=13:style=bold' -g x20 -n lemonbar -p -B '#bbbbc3' -F '#5a595f' >>$_LOG & } &
+{ 0mon 2>>$B_LOG | \
+  lemonbar -d -f 'Iosevka:pixelsize=13:style=bold' -g x20 -n lemonbar -p -B '#bbbbc3' -F '#5a595f' >>$B_LOG & } &
 bgon 0browsertmp
-bgon sudo cmst
 bgon dunst
 bgon emacs --daemon
+bgon stalonetray --background '#bbbbc3' --geometry 1x1-0+0 --grow-gravity E --icon-gravity E --icon-size 20 --kludges force_icons_size --skip-taskbar --sticky
 
 ## settings
-0hot bt off &
-0hot lum kbd 0 &
-0hot kbd hsnt &
-#alsactl --file "$HOME/.config/asound.state" restore &
-#xset fp+ "$HOME/.fonts/bitmap" fp rehash &
-xset s off dpms 900 900 900 &
-xsetroot -cursor_name left_ptr -solid '#5a595f' &
+xsetroot -cursor_name left_ptr -solid '#5a595f'
+xset s off dpms 900 900 900 #fp+ "$HOME/.fonts/bitmap" fp rehash
+#alsactl --file "$HOME/.config/asound.state" restore
+0hot bt off
+0hot lum kbd 0
+0hot kbd hsnt
 
 # last for timing purposes
-bgon stalonetray --background '#bbbbc3' --geometry 1x1-0+0 --grow-gravity E --icon-gravity E --icon-size 20 --kludges force_icons_size --skip-taskbar --sticky
+bgon sudo cmst
 
 ## window manager
 exec dbus-launch --exit-with-session cwm

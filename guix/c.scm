@@ -117,12 +117,12 @@
   (package
    (inherit linux-libre)
    (name "my-linux")
-   (version "4.18.4")
+   (version "4.18.10")
    (source
     (origin
      (method url-fetch)
-     (uri (list "https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.18.4.tar.xz"))
-     (sha256 (base32 "0hm8id6nv3j2g7l1fzkl4vr9wfx43s8hdspg1yc4fz6vbdxwinqj"))))
+     (uri (list "https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.18.10.tar.xz"))
+     (sha256 (base32 "1pli16s1vprmrq4cdii93k8rqrxy20a7vs7jf77fgdfaiizlyq0h"))))
    (native-inputs
     `(("kconfig" ,my-linux-config)
       ,@(alist-delete "kconfig" (package-native-inputs linux-libre))))
@@ -341,7 +341,7 @@ EndSection
  (sudoers-file (plain-file "sudoers"
                            "root ALL=(ALL) ALL
 %wheel ALL=(ALL) ALL
-b ALL=NOPASSWD: /home/b/bin/0hoot, /home/b/.guix-profile/sbin/rfkill, /home/b/.guix-profile/bin/bluetoothctl, /run/current-system/profile/bin/cmst, /run/current-system/profile/bin/connmanctl, /run/current-system/profile/sbin/halt, /run/current-system/profile/sbin/reboot
+b ALL=NOPASSWD: /home/b/bin/0hoot, /home/b/.guix-profile/sbin/rfkill, /home/b/.guix-profile/bin/bluetoothctl, /run/current-system/profile/bin/cmst, /run/current-system/profile/bin/connmanctl, /run/current-system/profile/bin/herd, /run/current-system/profile/sbin/halt, /run/current-system/profile/sbin/reboot
 ")) ; newline!
 
  (setuid-programs

@@ -1,29 +1,30 @@
 export SHELL
 [[ $- != *i* ]] && { [[ -n "$SSH_CLIENT" ]] && source /etc/profile; return; }
 
-[[ -n "$GUIX_ENVIRONMENT" ]] && PS1='$?[env]\w ' || PS1='$?\w '
+#PS1='\e[31m$?\e[0m\e[37m\t\e[0m\e[47;30m\w\e[0m '
+PS1='$? \t \w '
+[[ -n "$GUIX_ENVIRONMENT" ]] && PS1="[env] $PS1"
 
 HISTCONTROL=ignoreboth
 HISTFILE="$HOME/.bashlog"
 HISTFILESIZE=8192
 HISTSIZE=8192
 
-export PATH="$HOME/bin:$HOME/.guix-profile/sbin${PATH:+:}$PATH"
-export CMAKE_PREFIX_PATH="$HOME/.guix-profile${CMAKE_PREFIX_PATH:+:}$CMAKE_PREFIX_PATH"
-export CPATH="$HOME/.guix-profile/include${CPATH:+:}$CPATH"
-export GHC_PACKAGE_PATH="$HOME/.guix-profile/lib/ghc-8.0.2/package.conf.d${GHC_PACKAGE_PATH:+:}$GHC_PACKAGE_PATH"
-export GIT_EXEC_PATH="$HOME/.guix-profile/libexec/git-core"
-export GIT_SSL_CAINFO="$HOME/.guix-profile/etc/ssl/certs/ca-certificates.crt"
-export LIBRARY_PATH="$HOME/.guix-profile/lib:$HOME/.guix-profile/lib64${LIBRARY_PATH:+:}$LIBRARY_PATH"
-export PKG_CONFIG_PATH="$HOME/.guix-profile/lib/pkgconfig${PKG_CONFIG_PATH:+:}$PKG_CONFIG_PATH"
-export PYTHONPATH="$HOME/.guix-profile/lib/python3.6/site-packages${PYTHONPATH:+:}$PYTHONPATH"
+B_PROF="$HOME/.guix-profile"
+B_TMP="/dev/shm/_${USER}_tmp"
+
+export PATH="$HOME/bin:$B_PROF/sbin${PATH:+:}$PATH"
+export CMAKE_PREFIX_PATH="$B_PROF${CMAKE_PREFIX_PATH:+:}$CMAKE_PREFIX_PATH"
+#export CURLOPT_CAPATH="$B_PROF/etc/ssl/certs${CURLOPT_CAPATH:+:}$CURLOPT_CAPATH"
+export GIT_EXEC_PATH="$B_PROF/libexec/git-core"
+export GIT_SSL_CAINFO="$B_PROF/etc/ssl/certs/ca-certificates.crt"
+export PKG_CONFIG_PATH="$B_PROF/lib/pkgconfig${PKG_CONFIG_PATH:+:}$PKG_CONFIG_PATH"
 export LESS=-imRS
 export LESSHISTFILE=-
-export XDG_DATA_DIRS="$HOME/.guix-profile/share/glib-2.0/schemas${XDG_DATA_DIRS:+:}$XDG_DATA_DIRS"
+export XDG_DATA_DIRS="$B_PROF/share/glib-2.0/schemas${XDG_DATA_DIRS:+:}$XDG_DATA_DIRS"
 export XDG_RUNTIME_DIR="/tmp/runtime-$USER"
 
 [[ -d $XDG_RUNTIME_DIR ]] || mkdir -p $XDG_RUNTIME_DIR
-B_TMP="/dev/shm/_${USER}_tmp"
 ! pgrep -u "$USER" ssh-agent >/dev/null \
   && mkdir -p "$B_TMP" \
   && ssh-agent | grep -v echo >"$B_TMP/ssh-agent"
@@ -42,24 +43,25 @@ alias lla='ll -a'
 alias lls='ll -S'
 alias llt='ll -t'
 #alias am=alsamixer
-alias bc='rlwrap bc'
+alias bc='rlwrap -ci bc'
 alias diff='diff --color'
 alias dmesg='dmesg --color=always'
 alias e='emacsclient -nc'
 alias g=git
-alias guile='rlwrap guile'
-#alias lein='rlwrap lein'
+alias guile='rlwrap -ci guile'
+alias lein='rlwrap -ci lein'
 alias pstree='pstree -hnp'
-#alias sbcl='rlwrap sbcl'
-alias tclsh='rlwrap tclsh'
+#alias sbcl='rlwrap -ci sbcl'
+alias tclsh='rlwrap -ci tclsh'
 alias sudo='sudo '
 alias v=vim
 alias vlc=0vlc
 alias 0clock='echo "$(date +%s)"; echo "  UTC:       $(TZ=UTC date)"; echo "* Prague:    $(date)"; echo "  London:    $(TZ=Europe/London date)"; echo "  Los Angls: $(TZ=America/Los_Angeles date)"; echo "  New York:  $(TZ=America/New_York date)"; echo "  Riyadh:    $(TZ=Asia/Riyadh date)"; echo "  Seoul:     $(TZ=Asia/Seoul date)"'
 alias 0fonts="fc-list | sed 's/^.\+: //;s/:.\+$//;s/,.*$//' | sort -u | pr -2 -T"
 alias 0ip='wget -qO - https://ipinfo.io/ip'
+alias 0proxy='ssh -CND 8815 agaric.net'
 alias 0top-c="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time | sed '/^ 0.0 /d'"
-alias 0top-d="du -kx | rg -v '\./.+/' | sort -rn"
+alias 0top-d="du -kx | ag -v '\./.+/' | sort -rn"
 alias 0top-m="ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz | awk '{if (\$1>5000) print;}'"
 alias 0qmk-build='docker run -e keymap=agaric -e subproject=rev4 -e keyboard=planck --rm -v $HOME/src/qmk_firmware:/qmk:rw edasque/qmk_firmware'
 

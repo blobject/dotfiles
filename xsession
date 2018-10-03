@@ -16,7 +16,6 @@ echo '' >$B_LOG
 ## services
 { 0mon 2>>$B_LOG | \
   lemonbar -d -f 'Iosevka:pixelsize=13:style=bold' -g x20 -n lemonbar -p -B '#bbbbc3' -F '#5a595f' >>$B_LOG & } &
-bgon 0browsertmp
 bgon dunst
 bgon emacs --daemon
 bgon stalonetray --background '#bbbbc3' --geometry 1x1-0+0 --grow-gravity E --icon-gravity E --icon-size 20 --kludges force_icons_size --skip-taskbar --sticky

@@ -96,10 +96,8 @@ bind-key 4S-n      window-snap-down-right
 bind-key 4S-u      window-snap-up-right
 bind-key 4S-y      window-snap-up-left
 #bind-key XF86AudioMute           "0hot vol x"
-#bind-key XF86AudioLowerVolume    "0hot vol --"
-#bind-key XF86AudioRaiseVolume    "0hot vol ++"
-#bind-key S-XF86AudioLowerVolume  "0hot vol -"
-#bind-key S-XF86AudioRaiseVolume  "0hot vol +"
+bind-key XF86AudioLowerVolume    "0hot ear auto -"
+bind-key XF86AudioRaiseVolume    "0hot ear auto +"
 bind-key XF86MonBrightnessDown   "0hot lum mon -"
 bind-key XF86MonBrightnessUp     "0hot lum mon +"
 bind-key S-XF86MonBrightnessDown "0hot lum kbd -"

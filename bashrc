@@ -33,6 +33,8 @@ eval $(dircolors --sh "$HOME/cfg/dircolors")
 stty -ixon # stop freezing in vim when ctrl-s
 trap 'echo -ne "\e]2;$BASH_COMMAND\a"' DEBUG # dynamic title
 
+#. $HOME/.opam/opam-init/init.sh >/dev/null 2>/dev/null
+
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias rm='rm -i'

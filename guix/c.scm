@@ -341,7 +341,7 @@ EndSection
  (sudoers-file (plain-file "sudoers"
                            "root ALL=(ALL) ALL
 %wheel ALL=(ALL) ALL
-b ALL=NOPASSWD: /home/b/bin/0hoot, /home/b/.guix-profile/sbin/rfkill, /home/b/.guix-profile/bin/bluetoothctl, /run/current-system/profile/bin/cmst, /run/current-system/profile/bin/connmanctl, /run/current-system/profile/bin/herd, /run/current-system/profile/sbin/halt, /run/current-system/profile/sbin/reboot
+b ALL=NOPASSWD: /home/b/bin/0hoot, /home/b/.guix-profile/bin/bluetoothctl, /run/current-system/profile/bin/cmst, /run/current-system/profile/bin/connmanctl
 ")) ; newline!
 
  (setuid-programs

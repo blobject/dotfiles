@@ -20,7 +20,7 @@ ignore stalonetray
 command terminal     "bgon st -e tmux"
 command terminalt    "bgon st-alt -e tmux"
 command aseprite     "bgon aseprite"
-command cataclysm    "bgon 0cdda"
+command cataclysm    "bgon cataclysm-tiles"
 command crawl        "bgon st-alt -e ssh cxc"
 command emacs        "bgon emacsclient -nc"
 command florence     "bgon 0florence"
@@ -64,37 +64,36 @@ bind-key 4S-Tab group-rcycle
 bind-key 4-1  group-toggle-1
 bind-key 4-2  group-toggle-2
 bind-key 4-3  group-toggle-3
-bind-key 4-4  group-toggle-4
 bind-key 4M-1 window-movetogroup-1
 bind-key 4M-2 window-movetogroup-2
 bind-key 4M-3 window-movetogroup-3
-bind-key 4M-4 window-movetogroup-4
 bind-key 4-Return  menu-exec
+bind-key 4S-Return menu-cmd
 bind-key 4M-Return menu-window
 bind-key 4-comma   window-lower
 bind-key 4-period  window-raise
 bind-key 4-f       window-fullscreen
 bind-key 4-r       window-resize
-bind-key 4-h       window-move-left-big
-bind-key 4-j       window-move-down-big
-bind-key 4-k       window-move-up-big
-bind-key 4-l       window-move-right-big
+bind-key 4M-h      window-move-left-big
+bind-key 4M-j      window-move-down-big
+bind-key 4M-k      window-move-up-big
+bind-key 4M-l      window-move-right-big
 bind-key 4C-h      window-vtile
 bind-key 4C-j      window-vmaximize
 bind-key 4C-k      window-htile
 bind-key 4C-l      window-hmaximize
-bind-key 4M-h      window-resize-left-big
-bind-key 4M-j      window-resize-down-big
-bind-key 4M-k      window-resize-up-big
-bind-key 4M-l      window-resize-right-big
-bind-key 4S-h      window-snap-left
-bind-key 4S-j      window-snap-down
-bind-key 4S-k      window-snap-up
-bind-key 4S-l      window-snap-right
-bind-key 4S-b      window-snap-down-left
-bind-key 4S-n      window-snap-down-right
-bind-key 4S-u      window-snap-up-right
-bind-key 4S-y      window-snap-up-left
+bind-key 4S-h      window-resize-left-big
+bind-key 4S-j      window-resize-down-big
+bind-key 4S-k      window-resize-up-big
+bind-key 4S-l      window-resize-right-big
+bind-key 4MS-h     window-snap-left
+bind-key 4MS-j     window-snap-down
+bind-key 4MS-k     window-snap-up
+bind-key 4MS-l     window-snap-right
+bind-key 4MS-b     window-snap-down-left
+bind-key 4MS-n     window-snap-down-right
+bind-key 4MS-u     window-snap-up-right
+bind-key 4MS-y     window-snap-up-left
 #bind-key XF86AudioMute           "0hot vol x"
 bind-key XF86AudioLowerVolume    "0hot ear auto -"
 bind-key XF86AudioRaiseVolume    "0hot ear auto +"
@@ -106,8 +105,8 @@ bind-key 4-F11                   "0hot shot"
 bind-key 4S-F11                  "0hot shot s"
 bind-key 4C-F11                  "0hot shot w"
 bind-key 4-F5                    "0hot rat"
-bind-key 4-backslash             "0hot kbd"
-bind-key 4M-backslash            "0hot kbd alt"
+bind-key 4-backslash             "0hot kbd alt"
+bind-key 4M-backslash            "0hot kbd"
 bind-key XF86PowerOff            "0hot off"
 bind-key XF86Tools               "0hot off"
 bind-key CM-BackSpace            "0hot off"

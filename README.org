@@ -22,7 +22,7 @@ counter-clockwise from northwest:
 - graphical: [[https://www.x.org/][xorg]], [[https://sourceforge.net/projects/slim.berlios/][slim]]
 - wm: [[https://github.com/chneukirchen/cwm][cwm]]
 - font: [[https://github.com/adobe-fonts/source-code-pro][source code pro]], [[https://github.com/adobe-fonts/source-sans-pro][source sans pro]], [[https://be5invis.github.io/Iosevka/][iosevka]]
-- color: [[https://github.com/agarick/semant][semant]]
+- color: [[https://github.com/agarick/semant][semant]] /(WIP)/
 - shell, scripting: [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]]
 - terminal: [[https://st.suckless.org/][st]], [[https://github.com/tmux/tmux/wiki][tmux]]
 - edit: [[https://www.gnu.org/software/emacs/][emacs]], [[https://www.vim.org/][vim]]

@@ -13,7 +13,7 @@ HISTSIZE=8192
 B_PROF="$HOME/.guix-profile"
 B_TMP="/dev/shm/_${USER}_tmp"
 
-export PATH="$HOME/bin:$B_PROF/sbin${PATH:+:}$PATH"
+export PATH="$HOME/bin:$HOME/.opam/system/bin:$B_PROF/sbin${PATH:+:}$PATH"
 export CMAKE_PREFIX_PATH="$B_PROF${CMAKE_PREFIX_PATH:+:}$CMAKE_PREFIX_PATH"
 #export CURLOPT_CAPATH="$B_PROF/etc/ssl/certs${CURLOPT_CAPATH:+:}$CURLOPT_CAPATH"
 export GIT_EXEC_PATH="$B_PROF/libexec/git-core"
@@ -26,9 +26,10 @@ export XDG_RUNTIME_DIR="/tmp/runtime-$USER"
 
 [[ -d $XDG_RUNTIME_DIR ]] || mkdir -p $XDG_RUNTIME_DIR
 ! pgrep -u "$USER" ssh-agent >/dev/null \
-  && mkdir -p "$B_TMP" \
-  && ssh-agent | grep -v echo >"$B_TMP/ssh-agent"
-[[ -z "$SSH_AGENT_PID" ]] && eval "$(<$B_TMP/ssh-agent)"
+  && ssh-agent | grep -v echo >"$HOME/.ssh/agent"
+[[ -z "$SSH_AGENT_PID" ]] && eval $(cat "$HOME/.ssh/agent")
+! pgrep -u "$USER" gpg-agent >/dev/null \
+  && eval $(gpg-agent --daemon)
 eval $(dircolors --sh "$HOME/cfg/dircolors")
 stty -ixon # stop freezing in vim when ctrl-s
 trap 'echo -ne "\e]2;$BASH_COMMAND\a"' DEBUG # dynamic title
@@ -52,6 +53,7 @@ alias e='emacsclient -nc'
 alias g=git
 alias guile='rlwrap -ci guile'
 alias lein='rlwrap -ci lein'
+alias ocaml='rlwrap -ci ocaml'
 alias pstree='pstree -hnp'
 #alias sbcl='rlwrap -ci sbcl'
 alias tclsh='rlwrap -ci tclsh'

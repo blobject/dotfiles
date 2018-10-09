@@ -9,7 +9,7 @@ export BROWSER=icecat
 #export MOZ_DISABLE_PANGO=1
 #export QT_QPA_PLATFORMTHEME=qt5ct
 
-B_LOG="$HOME/.xlog"
+export B_LOG="$HOME/.xlog"
 [ -f $B_LOG ] && cp $B_LOG ${B_LOG}.old
 echo '' >$B_LOG
 

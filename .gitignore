@@ -1,3 +1,4 @@
-gnupg/
-ssh/
-hsnt*
+/gnupg/
+/ssh/
+/authinfo.gpg
+/hsnt*

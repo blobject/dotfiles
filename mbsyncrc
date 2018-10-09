@@ -1,0 +1,97 @@
+IMAPAccount alocybe
+Host imap.gmail.com
+User alocybe@gmail.com
+PassCmd "0m alocybe"
+AuthMechs LOGIN
+SSLType IMAPS
+CertificateFile ~/.guix-profile/etc/ssl/certs/ca-certificates.crt
+
+IMAPStore alocybe-remote
+Account alocybe
+
+MaildirStore alocybe-local
+Subfolders verbatim
+Path /data/mail/alocybe/
+Inbox /data/mail/alocybe/inbox
+
+Channel alocybe-inbox
+Master :alocybe-remote:
+Slave :alocybe-local:
+Patterns "INBOX"
+
+Channel alocybe-sent
+Master :alocybe-remote:"[Gmail]/Sent Mail"
+Slave :alocybe-local:sent
+
+Channel alocybe-drafts
+Master :alocybe-remote:"[Gmail]/Drafts"
+Slave :alocybe-local:drafts
+
+Channel alocybe-spam
+Master :alocybe-remote:"[Gmail]/Spam"
+Slave :alocybe-local:spam
+
+Channel alocybe-trash
+Master :alocybe-remote:"[Gmail]/Trash"
+Slave :alocybe-local:trash
+
+Create Both
+Expunge None
+SyncState *
+
+Group alocybe
+Channel alocybe-inbox
+Channel alocybe-sent
+Channel alocybe-drafts
+Channel alocybe-spam
+Channel alocybe-trash
+
+###
+
+IMAPAccount binzter
+Host imap.gmail.com
+User binzter@gmail.com
+PassCmd "0m binzter"
+AuthMechs LOGIN
+SSLType IMAPS
+CertificateFile ~/.guix-profile/etc/ssl/certs/ca-certificates.crt
+
+IMAPStore binzter-remote
+Account binzter
+
+MaildirStore binzter-local
+Subfolders verbatim
+Path /data/mail/binzter/
+Inbox /data/mail/binzter/inbox
+
+Channel binzter-inbox
+Master :binzter-remote:
+Slave :binzter-local:
+Patterns "INBOX"
+
+Channel binzter-sent
+Master :binzter-remote:"[Gmail]/Sent Mail"
+Slave :binzter-local:sent
+
+Channel binzter-drafts
+Master :binzter-remote:"[Gmail]/Drafts"
+Slave :binzter-local:drafts
+
+Channel binzter-spam
+Master :binzter-remote:"[Gmail]/Spam"
+Slave :binzter-local:spam
+
+Channel binzter-trash
+Master :binzter-remote:"[Gmail]/Trash"
+Slave :binzter-local:trash
+
+Create Both
+Expunge None
+SyncState *
+
+Group binzter
+Channel binzter-inbox
+Channel binzter-sent
+Channel binzter-drafts
+Channel binzter-spam
+Channel binzter-trash

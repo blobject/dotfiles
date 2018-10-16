@@ -20,6 +20,7 @@ ignore stalonetray
 command terminal     "bgon st -e tmux"
 command terminalt    "bgon st-alt -e tmux"
 command aseprite     "bgon aseprite"
+command blender      "bgon blender"
 command cataclysm    "bgon cataclysm-tiles"
 command crawl        "bgon st-alt -e ssh cxc"
 command emacs        "bgon emacsclient -nc"

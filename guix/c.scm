@@ -138,8 +138,8 @@
     (origin
      (method git-fetch)
      (uri (git-reference
-	   (url "https://github.com/hugegreenbug/libevdevc.git")
-	   (commit version)))
+            (url "https://github.com/hugegreenbug/libevdevc.git")
+            (commit version)))
      (sha256 (base32 "0jnjyzh5ncdal6f125q4i5k6s7pd6ca3yha92d5prqfganlr3apd"))))
    (build-system gnu-build-system)
    (arguments
@@ -151,10 +151,10 @@
                        (("/bin/echo") (which "echo")))
                      (substitute* "include/module.mk"
                        (("\\$\\(DESTDIR\\)/usr/")
-			(string-append (assoc-ref outputs "out") "/")))
+                        (string-append (assoc-ref outputs "out") "/")))
                      (substitute* "src/module.mk"
                        (("\\$\\(DESTDIR\\)")
-			(string-append (assoc-ref outputs "out") "/"))))))))
+                        (string-append (assoc-ref outputs "out") "/"))))))))
    (home-page "https://github.com/hugegreenbug/libevdevc")
    (synopsis "chromiumos libevdev for linux")
    (description "chromiumos libevdev for linux")
@@ -168,8 +168,8 @@
     (origin
      (method git-fetch)
      (uri (git-reference
-	   (url "https://github.com/hugegreenbug/libgestures.git")
-	   (commit version)))
+            (url "https://github.com/hugegreenbug/libgestures.git")
+            (commit version)))
      (sha256 (base32 "03wg0jqh9ilsr9vvqmakg4dxf3x295ap2sbq7gax128vgylb79i7"))))
    (build-system gnu-build-system)
    (native-inputs
@@ -200,8 +200,8 @@
     (origin
      (method git-fetch)
      (uri (git-reference
-	   (url "https://github.com/hugegreenbug/xf86-input-cmt.git")
-	   (commit version)))
+            (url "https://github.com/hugegreenbug/xf86-input-cmt.git")
+            (commit version)))
      (sha256 (base32 "162y8v87b9xvv1zk6vj0flx8kpg91n0k9rckjf279imvyy7hz6nw"))))
    (build-system gnu-build-system)
    (native-inputs
@@ -214,8 +214,8 @@
    (arguments
     `(#:configure-flags
       (list (string-append "--with-sdkdir="
-			   %output
-			   "/include/xorg"))
+                           %output
+                           "/include/xorg"))
       #:phases (modify-phases %standard-phases
       (add-after 'unpack 'fix-deps
         (lambda* (#:key inputs #:allow-other-keys)
@@ -235,8 +235,8 @@
 
 (use-modules (gnu) (srfi srfi-1) (my packages))
 (use-system-modules nss)
-(use-service-modules admin cups dbus desktop mcron networking xorg)
-(use-package-modules certs connman cups suckless video wm)
+(use-service-modules admin cups dbus desktop mcron networking sysctl xorg)
+(use-package-modules certs connman cups libusb suckless video wm)
 
 (define %%user "b")
 (define %%host "c")
@@ -351,7 +351,7 @@ b ALL=NOPASSWD: /home/b/bin/0hoot, /home/b/.guix-profile/bin/bluetoothctl, /run/
  (packages
   (cons* my-cmt
          cmst
-         cups
+         ;cups
          cwm
          libvdpau-va-gl
          nss-certs
@@ -362,7 +362,6 @@ b ALL=NOPASSWD: /home/b/bin/0hoot, /home/b/.guix-profile/bin/bluetoothctl, /run/
   (cons* (bluetooth-service)
          (console-keymap-service (string-append %%home "/cfg/hsnt.map.gz"))
          (dbus-service)
-         ;(dbus-service #:services (list connman))
          (ntp-service
           #:servers (list "0.europe.pool.ntp.org"
                           "1.europe.pool.ntp.org"
@@ -379,13 +378,20 @@ b ALL=NOPASSWD: /home/b/bin/0hoot, /home/b/.guix-profile/bin/bluetoothctl, /run/
               #:modules my-xorg-modules
               #:extra-config (list my-xorg-config))))
          (service connman-service-type)
-         (service cups-service-type
-                  (cups-configuration
-                    (web-interface? #t)
-                    (default-paper-size "A4")))
-         ;(service mcron-service-type)
-         ;(service rottlog-service-type)
+         ;(service cups-service-type
+         ;         (cups-configuration
+         ;           (web-interface? #t)
+         ;           (default-paper-size "A4")))
+         (service mcron-service-type)
+         (service rottlog-service-type (rottlog-configuration))
+         (service sysctl-service-type
+           (sysctl-configuration
+             (settings '(("vm.swappiness" . "10")
+                         ("vm.vfs_cache_pressure" . "50")
+                         ("vm.dirty_background_ratio" . "5")
+                         ("vm.dirty_ratio" . "50")))))
          (service wpa-supplicant-service-type)
+         (simple-service 'mtp udev-service-type (list libmtp))
          (remove (lambda (service)
                    (eq? (service-kind service) console-font-service-type))
                  %base-services)))

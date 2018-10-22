@@ -263,6 +263,8 @@ Section \"Device\"
   Identifier \"intel\"
   Driver \"intel\"
   Option \"DRI\" \"3\"
+  #Option \"AccelMethod\" \"sna\"
+  #Option \"TearFree\" \"true\"
 EndSection
 Section \"InputClass\"
   Identifier \"keyboard\"

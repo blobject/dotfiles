@@ -1,0 +1,41 @@
+pcm_type.jack {
+	lib "/home/b/.guix-profile/lib/alsa-lib/libasound_module_pcm_jack.so"
+}
+
+pcm.sennheiser {
+	type plug
+	slave {
+		pcm {
+			type bluetooth
+			device 00:1B:66:8C:6C:44
+			profile "auto"
+		}
+	}
+	hint {
+		show on
+		description "Sennheiser CX 6.00BT"
+	}
+}
+
+pcm.jbl {
+	type plug
+	slave {
+		pcm {
+			type bluetooth
+			device 00:12:6F:EE:F0:F7
+			profile "auto"
+		}
+	}
+	hint {
+		show on
+		description "JBL Clip 2"
+	}
+}
+
+ctl.jbl {
+	type bluetooth
+}
+
+ctl.sennheiser {
+	type bluetooth
+}

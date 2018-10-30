@@ -16,5 +16,3 @@ highlight LineNr          ctermfg=7
 "highlight StatusLine      ctermfg=0  ctermbg=14
 highlight ExtraWhitespace ctermbg=1
 match ExtraWhitespace /\s\+$/
-
-set tabstop=8 softtabstop=0 shiftwidth=8 noexpandtab smarttab

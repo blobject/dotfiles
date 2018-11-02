@@ -10,8 +10,12 @@ export BROWSER=icecat
 #export QT_QPA_PLATFORMTHEME=qt5ct
 
 export B_LOG="$HOME/.xlog"
-[ -f $B_LOG ] && cp $B_LOG ${B_LOG}.old
+[[ -f $B_LOG ]] && cp $B_LOG ${B_LOG}.old
 echo '' >$B_LOG
+
+export B_TMP="/dev/shm/_${USER}_tmp"
+[[ -d $B_TMP ]] || mkdir $B_TMP
+echo off >$B_TMP/wake
 
 ## services
 { 0mon 2>>$B_LOG | \

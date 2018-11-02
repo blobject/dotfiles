@@ -41,7 +41,7 @@
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 5) ((control) . 10))))
  '(nnfolder-directory "/data/mail/gnus/mail/archive")
  '(package-archives (quote (("gnu" . "https://elpa.gnu.org/packages/") ("melpa" . "https://melpa.org/packages/"))))
- '(package-selected-packages (quote (cider clojure-mode company-auctex company-ghc company-go company-lua company-racer company-shell company-web counsel dot-mode flycheck flycheck-clojure flycheck-ghcmod flycheck-golangci-lint flycheck-rust flycheck-tcl geiser go-mode guix haskell-mode hlinum iy-go-to-char lua-mode magit markdown-mode multiple-cursors racer rainbow-delimiters rust-mode slime smart-mode-line smart-mode-line-powerline-theme web-mode auctex avy company ivy)))
+ '(package-selected-packages (quote (csharp-mode cider clojure-mode company-auctex company-ghc company-go company-lua company-racer company-shell company-web counsel dot-mode flycheck flycheck-clojure flycheck-ghcmod flycheck-golangci-lint flycheck-rust flycheck-tcl geiser go-mode guix haskell-mode hlinum iy-go-to-char lua-mode magit markdown-mode multiple-cursors racer rainbow-delimiters rust-mode slime smart-mode-line smart-mode-line-powerline-theme web-mode auctex avy company ivy)))
  '(read-quoted-char-radix 16)
  '(scroll-bar-mode nil)
  '(send-mail-function (quote mailclient-send-it))

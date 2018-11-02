@@ -14,7 +14,6 @@ HISTFILESIZE=8192
 HISTSIZE=8192
 
 B_PROF="$HOME/.guix-profile"
-B_TMP="/dev/shm/_${USER}_tmp"
 
 export PATH="$HOME/bin:$HOME/.opam/system/bin:$B_PROF/sbin${PATH:+:}$PATH"
 export CMAKE_PREFIX_PATH="$B_PROF${CMAKE_PREFIX_PATH:+:}$CMAKE_PREFIX_PATH"
@@ -56,13 +55,14 @@ alias e='emacsclient -nc'
 alias g=git
 alias guile='rlwrap -ci guile'
 alias lein='rlwrap -ci lein'
+alias mpv='0wake mpv'
 alias ocaml='rlwrap -ci ocaml'
 alias pstree='pstree -hnp'
 #alias sbcl='rlwrap -ci sbcl'
 alias tclsh='rlwrap -ci tclsh'
 alias sudo='sudo '
 alias v=vim
-alias vlc=0vlc
+alias vlc='0wake vlc'
 alias 0clock='echo "$(date +%s)"; echo "  UTC:       $(TZ=UTC date)"; echo "* Prague:    $(date)"; echo "  London:    $(TZ=Europe/London date)"; echo "  Los Angls: $(TZ=America/Los_Angeles date)"; echo "  New York:  $(TZ=America/New_York date)"; echo "  Riyadh:    $(TZ=Asia/Riyadh date)"; echo "  Seoul:     $(TZ=Asia/Seoul date)"'
 alias 0fonts="fc-list | sed 's/^.\+: //;s/:.\+$//;s/,.*$//' | sort -u | pr -2 -T"
 alias 0ip='wget -qO - https://ipinfo.io/ip'
@@ -84,7 +84,7 @@ alias ,,,,='c ../../../..'
 alias ,,,,,='c ../../../../..'
 
 0qmk-flash()
-{ [ -n "$1" ] \
+{ [[ -n "$1" ]] \
   && { sudo dfu-programmer atmega32u4 erase \
   && sudo dfu-programmer atmega32u4 flash "$1" \
   && sudo dfu-programmer atmega32u4 reset; } \

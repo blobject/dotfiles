@@ -117,12 +117,12 @@
   (package
    (inherit linux-libre)
    (name "my-linux")
-   (version "4.19")
+   (version "4.19.1")
    (source
     (origin
      (method url-fetch)
-     (uri (list "https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.19.tar.xz"))
-     (sha256 (base32 "18a92z17alh5kkvjv7l9z8wk5jgdb6raawdfkpwx9bi8amjzas0c"))))
+     (uri (list "https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.19.1.tar.xz"))
+     (sha256 (base32 "0ac8w310p83z11ksmyad7by7cmacwg4vq68pzxchc88bbk33gmk4"))))
    (native-inputs
     `(("kconfig" ,my-linux-config)
       ,@(alist-delete "kconfig" (package-native-inputs linux-libre))))
@@ -311,6 +311,7 @@ EndSection
  (firmware (append (list my-firmware) %base-firmware)) ; my-skylake causes DMAR error
 
  (initrd-modules (append (list "mmc_block" "sdhci-pci") %base-initrd-modules))
+ ; see (default-initrd-modules ...) @ guix/gnu/system/linux-initrd.scm
 
  (file-systems
   (cons* (file-system

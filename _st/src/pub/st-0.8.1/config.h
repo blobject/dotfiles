@@ -55,7 +55,7 @@ static unsigned int rows = 24;
 static unsigned int mouseshape = XC_xterm;
 static unsigned int mousefg = 0;
 static unsigned int mousebg = 15;
-static unsigned int defaultattr = 259;
+static unsigned int defaultattr = 5;
 static MouseShortcut mshortcuts[] = {
 	/* button               mask            string */
 	{ Button4,              XK_ANY_MOD,     "\031" },

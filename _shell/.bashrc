@@ -32,7 +32,7 @@ export XDG_RUNTIME_DIR="/tmp/runtime-$USER"
 [[ -z "$SSH_AGENT_PID" ]] && eval $(cat "$HOME/.ssh/agent")
 ! pgrep -u "$USER" gpg-agent >/dev/null \
   && eval $(gpg-agent --daemon)
-eval $(dircolors --sh "$HOME/cfg/dircolors")
+eval $(dircolors --sh "$HOME/cfg/misc/dircolors")
 stty -ixon # stop freezing in vim when ctrl-s
 trap 'echo -ne "\e]2;$BASH_COMMAND\a"' DEBUG # dynamic title
 
@@ -55,7 +55,7 @@ alias e='emacsclient -nc'
 alias g=git
 alias guile='rlwrap -ci guile'
 alias lein='rlwrap -ci lein'
-alias mpv='0wake mpv'
+#alias mpv='0wake mpv'
 alias ocaml='rlwrap -ci ocaml'
 alias pstree='pstree -hnp'
 #alias sbcl='rlwrap -ci sbcl'

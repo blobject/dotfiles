@@ -10,9 +10,9 @@ set nohlsearch incsearch
 set showcmd showmatch
 set wrap
 
+highlight Error           ctermfg=0
+highlight ErrorMsg        ctermfg=0
 highlight LineNr          ctermfg=7
-"highlight LineNr          ctermfg=8 ctermbg=7
-"highlight SpecialKey      ctermfg=10 ctermbg=0
-"highlight StatusLine      ctermfg=0  ctermbg=14
+"highlight SpecialKey      ctermbg=0 ctermfg=10
 highlight ExtraWhitespace ctermbg=1
 match ExtraWhitespace /\s\+$/

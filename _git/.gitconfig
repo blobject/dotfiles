@@ -1,7 +1,7 @@
 [user]
   email = agaric@protonmail.com
   name = agaric
-  signingkey = B1AA2B8DCACA4CDFE3632855B0AFC9485A0D7F29
+  signingkey = 7CE1B930FCA3AB168E900C3336F8E00498CAB9F2
 [core]
   autocrlf = input
   editor = vim
@@ -15,6 +15,7 @@
   nr = name-rev
   rb = rebase
   rl = reflog
+  rs = reset
   s  = status --branch --short
   st = status --branch
 [log]

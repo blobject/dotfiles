@@ -41,6 +41,7 @@ static const char *colorname[] = {
   /* DefaultXX */
   "#ffffff",
   "#16161d", // eigengrau
+  "#000000",
   "#a3a3a9",
   "#7e7e83",
   "#414143",
@@ -53,8 +54,8 @@ static unsigned int cursorshape = 2;
 static unsigned int cols = 80;
 static unsigned int rows = 24;
 static unsigned int mouseshape = XC_xterm;
-static unsigned int mousefg = 0;
-static unsigned int mousebg = 15;
+static unsigned int mousefg = 258;
+static unsigned int mousebg = 256;
 static unsigned int defaultattr = 5;
 static MouseShortcut mshortcuts[] = {
 	/* button               mask            string */

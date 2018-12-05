@@ -117,12 +117,12 @@
   (package
    (inherit linux-libre)
    (name "my-linux")
-   (version "4.19.1")
+   (version "4.19.6")
    (source
     (origin
      (method url-fetch)
-     (uri (list "https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.19.1.tar.xz"))
-     (sha256 (base32 "0ac8w310p83z11ksmyad7by7cmacwg4vq68pzxchc88bbk33gmk4"))))
+     (uri (list "https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.19.6.tar.xz"))
+     (sha256 (base32 "1hq9iyx2k6ff6yxsgkd4xvk5al3jw5nxk49zq72w04b2nsz62kk4"))))
    (native-inputs
     `(("kconfig" ,my-linux-config)
       ,@(alist-delete "kconfig" (package-native-inputs linux-libre))))
@@ -291,6 +291,18 @@ Section \"InputClass\"
   Option \"Tap Minimum Pressure\" \"10\"
   Option \"Two Finger Scroll Distance Thresh\" \"0\"
   Option \"Zero Finger Click Enable\" \"0\"
+EndSection
+Section \"InputClass\"
+  Identifier \"dualshock-touchpad\"
+  Driver \"libinput\"
+  MatchProduct \"Sony Interactive Entertainment Wireless Controller Touchpad\"
+  Option \"Mode\" \"Relative\"
+EndSection
+Section \"InputClass\"
+  Identifier \"dualshock-gyro\"
+  Driver \"joystick\"
+  MatchProduct \"Sony Interactive Entertainment Wireless Controller Motion Sensors\"
+  #Option \"Ignore\" \"True\"
 EndSection
 ")
 

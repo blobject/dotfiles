@@ -16,6 +16,8 @@ HISTSIZE=8192
 B_PROF="$HOME/.guix-profile"
 
 export PATH="$HOME/bin:$HOME/.opam/system/bin:$B_PROF/sbin${PATH:+:}$PATH"
+#export C_INCLUDE_PATH="$HOME/.guix-profile/include${C_INCLUDE_PATH:+:}$C_INCLUDE_PATH"
+#export CPLUS_INCLUDE_PATH="$HOME/.guix-profile/include${CPLUS_INCLUDE_PATH:+:}$CPLUS_INCLUDE_PATH"
 export CMAKE_PREFIX_PATH="$B_PROF${CMAKE_PREFIX_PATH:+:}$CMAKE_PREFIX_PATH"
 #export CURLOPT_CAPATH="$B_PROF/etc/ssl/certs${CURLOPT_CAPATH:+:}$CURLOPT_CAPATH"
 export GIT_EXEC_PATH="$B_PROF/libexec/git-core"

@@ -1,11 +1,11 @@
 export SHELL
 [[ $- != *i* ]] && { [[ -n "$SSH_CLIENT" ]] && source /etc/profile; return; }
 
-B_CR='\[\033[0;31m\]'
+B_CR='\[\033[46;30m\]'
 B_CL='\[\033[0;37m\]'
-B_CV='\[\033[47;30m\]'
+B_CV='\[\033[0;31m\]'
 B_C0='\[\033[0m\]'
-PS1="$B_CR$? $B_CL\t $B_CV\w$B_C0 "
+PS1="$B_CR $? $B_CL \t $B_CV\w$B_C0 "
 [[ -n "$GUIX_ENVIRONMENT" ]] && PS1="[env] $PS1"
 
 HISTCONTROL=ignoreboth
@@ -22,9 +22,14 @@ export CMAKE_PREFIX_PATH="$B_PROF${CMAKE_PREFIX_PATH:+:}$CMAKE_PREFIX_PATH"
 #export CURLOPT_CAPATH="$B_PROF/etc/ssl/certs${CURLOPT_CAPATH:+:}$CURLOPT_CAPATH"
 export GIT_EXEC_PATH="$B_PROF/libexec/git-core"
 export GIT_SSL_CAINFO="$B_PROF/etc/ssl/certs/ca-certificates.crt"
+#export GUIX_LOCPATH="$HOME/.guix-profile/lib/locale${GUIX_LOCPATH:+:}$GUIX_LOCPATH"
 export PKG_CONFIG_PATH="$B_PROF/lib/pkgconfig${PKG_CONFIG_PATH:+:}$PKG_CONFIG_PATH"
 export LESS=-imRS
 export LESSHISTFILE=-
+export PYTHONPATH="$HOME/.guix-profile/lib/python3.7/site-packages${PYTHONPATH:+:}$PYTHONPATH"
+export SSL_CERT_DIR="$HOME/.guix-profile/etc/ssl/certs"
+export SSL_CERT_FILE="$HOME/.guix-profile/etc/ssl/certs/ca-certificates.crt"
+export TERMINFO_DIRS="$HOME/.guix-profile/share/terminfo${TERMINFO_DIRS:+:}$TERMINFO_DIRS"
 export XDG_DATA_DIRS="$B_PROF/share/glib-2.0/schemas${XDG_DATA_DIRS:+:}$XDG_DATA_DIRS"
 export XDG_RUNTIME_DIR="/tmp/runtime-$USER"
 
@@ -57,14 +62,12 @@ alias e='emacsclient -nc'
 alias g=git
 alias guile='rlwrap -ci guile'
 alias lein='rlwrap -ci lein'
-#alias mpv='0wake mpv'
 alias ocaml='rlwrap -ci ocaml'
 alias pstree='pstree -hnp'
 #alias sbcl='rlwrap -ci sbcl'
 alias tclsh='rlwrap -ci tclsh'
 alias sudo='sudo '
 alias v=vim
-alias vlc='0wake vlc'
 alias 0clock='echo "$(date +%s)"; echo "  UTC:       $(TZ=UTC date)"; echo "* Prague:    $(date)"; echo "  London:    $(TZ=Europe/London date)"; echo "  Los Angls: $(TZ=America/Los_Angeles date)"; echo "  New York:  $(TZ=America/New_York date)"; echo "  Riyadh:    $(TZ=Asia/Riyadh date)"; echo "  Seoul:     $(TZ=Asia/Seoul date)"'
 alias 0fonts="fc-list | sed 's/^.\+: //;s/:.\+$//;s/,.*$//' | sort -u | pr -2 -T"
 alias 0ip='wget -qO - https://ipinfo.io/ip'

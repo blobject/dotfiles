@@ -1,0 +1,44 @@
+[options]
+allow_bold = true
+audible_bell = false
+bold_is_bright = true
+clickable_url = true
+dynamic_title = true
+font = Fantasque Sans Mono Bold 20.5
+fullscreen = true
+icon_name = terminal
+mouse_autohide = true
+scroll_on_output = false
+scroll_on_keystroke = true
+scrollback_lines = 99999
+search_wrap = true
+urgent_on_bell = true
+hyperlinks = true
+cursor_blink = off
+cursor_shape = box
+filter_unmatched_urls = true
+modify_other_keys = false
+size_hints = true
+scrollbar = off
+
+[colors]
+cursor = #a0a0a0
+cursor_foreground = #a0a0a0
+foreground = #c3c3c3
+foreground_bold = #ffffff
+background = #171717
+color1 =  #c36161
+color2 =  #61c361
+color3 =  #c3c361
+color4 =  #6161c3
+color5 =  #c361c3
+color6 =  #61c3c3
+color7 =  #c3c3c3
+color8 =  #616161
+color9 =  #c36192
+color10 = #92c361
+color11 = #c39261
+color12 = #6192c3
+color13 = #9261c3
+color14 = #61c392
+color15 = #ffffff

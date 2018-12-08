@@ -10,7 +10,7 @@ counter-clockwise from northwest:
 [[https://www.gnu.org/software/emacs/][emacs]],
 [[https://mpv.io/][mpv]],
 [[https://www.vim.org/][vim]],
-[[https://st.suckless.org/][st]] (*2),
+[[https://github.com/thestinger/termite][termite]] (*2),
 [[https://github.com/chneukirchen/cwm][cwm]] builtin menu,
 [[https://www.gnu.org/software/gnuzilla/][icecat]],
 [[http://stalonetray.sourceforge.net/][stalonetray]]
@@ -26,7 +26,7 @@ counter-clockwise from northwest:
 | type | [[https://github.com/adobe-fonts/source-code-pro][source code pro]]; [[https://github.com/adobe-fonts/source-sans-pro][source sans pro]]; [[https://be5invis.github.io/Iosevka/][iosevka]] |
 | color | [[https://github.com/agarick/cemant][cemant]] |
 | shell/script | [[https://www.gnu.org/software/bash/][bash]]; [[https://www.tcl.tk/][tcl]] |
-| terminal | [[https://st.suckless.org/][st]] + [[https://github.com/tmux/tmux/wiki][tmux]] |
+| terminal | [[https://github.com/thestinger/termite][termite]] |
 | edit | [[https://www.gnu.org/software/emacs/][emacs]], [[https://www.vim.org/][vim]] |
 | bar | [[https://github.com/LemonBoy/bar][lemonbar]] |
 | notification | [[https://github.com/dunst-project/dunst][dunst]] |

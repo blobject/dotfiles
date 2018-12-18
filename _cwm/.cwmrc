@@ -74,26 +74,26 @@ bind-key 4-comma   window-lower
 bind-key 4-period  window-raise
 bind-key 4-f       window-fullscreen
 bind-key 4-r       window-resize
-bind-key 4M-h      window-move-left-big
-bind-key 4M-j      window-move-down-big
-bind-key 4M-k      window-move-up-big
-bind-key 4M-l      window-move-right-big
-bind-key 4C-h      window-vtile
-bind-key 4C-j      window-vmaximize
-bind-key 4C-k      window-htile
-bind-key 4C-l      window-hmaximize
-bind-key 4S-h      window-resize-left-big
-bind-key 4S-j      window-resize-down-big
-bind-key 4S-k      window-resize-up-big
-bind-key 4S-l      window-resize-right-big
-bind-key 4MS-h     window-snap-left
-bind-key 4MS-j     window-snap-down
-bind-key 4MS-k     window-snap-up
-bind-key 4MS-l     window-snap-right
-bind-key 4MS-b     window-snap-down-left
-bind-key 4MS-n     window-snap-down-right
-bind-key 4MS-u     window-snap-up-right
-bind-key 4MS-y     window-snap-up-left
+bind-key 4-h      window-move-left-big
+bind-key 4-j      window-move-down-big
+bind-key 4-k      window-move-up-big
+bind-key 4-l      window-move-right-big
+bind-key 4C-h     window-vtile
+bind-key 4C-j     window-vmaximize
+bind-key 4C-k     window-htile
+bind-key 4C-l     window-hmaximize
+bind-key 4S-h     window-resize-left-big
+bind-key 4S-j     window-resize-down-big
+bind-key 4S-k     window-resize-up-big
+bind-key 4S-l     window-resize-right-big
+bind-key 4M-h     window-snap-left
+bind-key 4M-j     window-snap-down
+bind-key 4M-k     window-snap-up
+bind-key 4M-l     window-snap-right
+bind-key 4M-b     window-snap-down-left
+bind-key 4M-n     window-snap-down-right
+bind-key 4M-u     window-snap-up-right
+bind-key 4M-y     window-snap-up-left
 #bind-key XF86AudioMute           "0hot vol x"
 bind-key XF86AudioLowerVolume    "0hot ear auto -"
 bind-key XF86AudioRaiseVolume    "0hot ear auto +"

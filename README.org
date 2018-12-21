@@ -19,7 +19,8 @@ counter-clockwise from northwest:
 
 | class | instance(s) |
 |-------|-------------|
-| hardware | [[https://www.asus.com/us/Laptops/ASUS-Chromebook-Flip-C302CA/][asus chromebook flip c302]] |
+| machine | [[https://www.asus.com/us/Laptops/ASUS-Chromebook-Flip-C302CA/][asus chromebook flip c302]] |
+| keyboard | [[http://www.mokodirect.com/product/moko-universal-foldable-keyboard-ultra-thin-portable-wireless-bluetooth-keyboard-for-ipad-iphone-compatible-with-ios-android-and-windows-tablet-devices-gray/][moko foldable keyboard]] |
 | os | [[https://www.gnu.org/software/guix/][guixsd]] |
 | display | [[https://www.x.org/][xorg]] |
 | wm | [[https://github.com/chneukirchen/cwm][cwm]] |

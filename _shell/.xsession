@@ -29,8 +29,8 @@ xsetroot -cursor_name left_ptr -solid '#5a595f'
 xset s off dpms 900 900 900 #fp+ "$HOME/.fonts/bitmap" fp rehash
 #alsactl --file "$HOME/.config/asound.state" restore
 0hot bt off
-0hot lum kbd 0
-0hot kbd hsnt
+0hot lum kbl 0
+0hot lay hsnt
 
 # last for timing purposes
 bgon sudo cmst

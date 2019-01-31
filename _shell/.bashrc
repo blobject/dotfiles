@@ -1,11 +1,7 @@
 export SHELL
 [[ $- != *i* ]] && { [[ -n "$SSH_CLIENT" ]] && source /etc/profile; return; }
 
-B_CR='\[\033[46;30m\]'
-B_CL='\[\033[0;37m\]'
-B_CV='\[\033[0;31m\]'
-B_C0='\[\033[0m\]'
-PS1="$B_CR $? $B_CL \t $B_CV\w$B_C0 "
+PS1="\[\033[46;30m\] $? \[\033[0;37m\] \t \[\033[0;31m\]\w\[\033[0m\] "
 [[ -n "$GUIX_ENVIRONMENT" ]] && PS1="[env] $PS1"
 
 HISTCONTROL=ignoreboth

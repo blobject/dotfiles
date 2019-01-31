@@ -2,6 +2,7 @@ syntax on
 filetype plugin indent on
 
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab
+set backspace=eol,indent,start
 set backup backupdir=$HOME/bak/vim
 set ignorecase smartcase
 set autoindent smartindent

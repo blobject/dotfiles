@@ -117,12 +117,12 @@
   (package
    (inherit linux-libre)
    (name "my-linux")
-   (version "4.20.5")
+   (version "5.0.4")
    (source
     (origin
      (method url-fetch)
-     (uri (list "https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.20.5.tar.xz"))
-     (sha256 (base32 "057200c6wki2k29sp93gnmsq3pxjq5hs9pd2ncr66yll9abrd3gz"))))
+     (uri (list "https://www.kernel.org/pub/linux/kernel/v5.x/linux-5.0.4.tar.xz"))
+     (sha256 (base32 "0s7appc167gxamy08ky2n9y49avgqmscmq555m2jfvj9bjh3m1cg"))))
    (native-inputs
     `(("kconfig" ,my-linux-config)
       ,@(alist-delete "kconfig" (package-native-inputs linux-libre))))
@@ -245,8 +245,7 @@
 (define my-xorg-modules
   (cons my-cmt
         (fold delete %default-xorg-modules
-              '("xf86-input-evdev"
-                "xf86-input-keyboard"
+              '("xf86-input-keyboard"
                 "xf86-input-mouse"
                 "xf86-input-synaptics"
                 "xf86-video-ati"
@@ -305,6 +304,13 @@ Section \"InputClass\"
   #Option \"Ignore\" \"True\"
 EndSection
 ")
+;Section \"InputClass\"
+;  Identifier \"propoint\"
+;  MatchIsPointer \"on\"
+;  MatchDevicePath \"/dev/input/\"
+;  Driver \"evdev\"
+;  Option \"VertScrollDelta\" \"0\"
+;EndSection
 
 (operating-system
  (host-name %%host)

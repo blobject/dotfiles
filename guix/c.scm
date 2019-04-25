@@ -1,12 +1,12 @@
 (define-module (my packages)
   #:use-module (gnu packages pkg-config)
-  ; my-linux
+  ; %%linux
   #:use-module (gnu packages compression)
   #:use-module (gnu packages linux)
-  ; my-libgestures
+  ; %%libgestures
   #:use-module (gnu packages glib)
   #:use-module (gnu packages serialization)
-  ; my-cmt
+  ; %%cmt
   #:use-module (gnu packages xorg)
 
   #:use-module ((guix licenses) #:prefix license:)
@@ -16,7 +16,7 @@
   #:use-module (guix git-download)
   #:use-module (guix packages))
 
-(define-public my-firmware
+(define-public %%firmware
   (package
    (name "my-firmware")
    (version "7b5835fd37630d18ac0c755329172f6a17c1af29")
@@ -63,7 +63,7 @@
    (description "blobby firmware")
    (license (license:non-copyleft "https://git.kernel.org/cgit/linux/kernel/git/firmware/linux-firmware.git/tree/LICENSE.iwlwifi_firmware?id=HEAD"))))
 
-;(define-public my-regdb
+;(define-public %%regdb
 ;  (package
 ;   (name "my-regdb")
 ;   (version "2018.05.31")
@@ -81,7 +81,7 @@
 ;   (description "linux wireless regulatory database")
 ;   (license license:isc)))
 
-(define-public my-skylake
+(define-public %%skylake
   (package
    (name "my-skylake")
    (version "1b607efdf126e80b60a6bf53d25c1b3153131225")
@@ -110,27 +110,27 @@
    (description "support for linux on skylake-based chromebooks")
    (license (license:non-copyleft ""))))
 
-(define my-linux-config
+(define %%linux-config
   (string-append (dirname (current-filename)) "/c.kconfig"))
 
-(define-public my-linux
+(define-public %%linux
   (package
    (inherit linux-libre)
    (name "my-linux")
-   (version "5.0.4")
+   (version "5.0.7")
    (source
     (origin
      (method url-fetch)
-     (uri (list "https://www.kernel.org/pub/linux/kernel/v5.x/linux-5.0.4.tar.xz"))
-     (sha256 (base32 "0s7appc167gxamy08ky2n9y49avgqmscmq555m2jfvj9bjh3m1cg"))))
+     (uri '("https://www.kernel.org/pub/linux/kernel/v5.x/linux-5.0.7.tar.xz"))
+     (sha256 (base32 "1v2lxwamnfm879a9qi9fwp5zyvlzjw9qa0aizidjbiwz5dk7gq8n"))))
    (native-inputs
-    `(("kconfig" ,my-linux-config)
+    `(("kconfig" ,%%linux-config)
       ,@(alist-delete "kconfig" (package-native-inputs linux-libre))))
    (inputs
     `(("lz4" ,lz4)
       ,@(package-inputs linux-libre)))))
 
-(define-public my-libevdevc
+(define-public %%libevdevc
   (package
    (name "my-libevdevc")
    (version "05f67cb94888f3d9f97b5557caf4081543e8ba0e")
@@ -160,7 +160,7 @@
    (description "chromiumos libevdev for linux")
    (license license:bsd-3)))
 
-(define-public my-libgestures
+(define-public %%libgestures
   (package
    (name "my-libgestures")
    (version "7a91f7cba9f0c5b6abde2f2b887bb7c6b70a6245")
@@ -192,7 +192,7 @@
    (description "chromiumos libgestures for linux")
    (license license:bsd-3)))
 
-(define-public my-cmt
+(define-public %%cmt
   (package
    (name "my-cmt")
    (version "711bbcd2dfd67ccdf635ff41d177f1ed1f755bd4")
@@ -207,8 +207,8 @@
    (native-inputs
     `(("pkg-config" ,pkg-config)))
    (inputs
-    `(("libevdevc" ,my-libevdevc)
-      ("libgestures" ,my-libgestures)
+    `(("libevdevc" ,%%libevdevc)
+      ("libgestures" ,%%libgestures)
       ("xorg-server" ,xorg-server)
       ("xorgproto" ,xorgproto)))
    (arguments
@@ -235,29 +235,14 @@
 
 (use-modules (gnu) (srfi srfi-1) (my packages))
 (use-system-modules nss)
-(use-service-modules admin cups dbus desktop mcron networking sysctl xorg)
-(use-package-modules certs connman cups libusb suckless video wm)
+(use-service-modules admin base cups dbus desktop mcron networking sysctl xorg)
+(use-package-modules avahi certs connman cups freedesktop libusb polkit suckless video wm)
 
 (define %%user "b")
 (define %%host "c")
 (define %%home (string-append "/home/" %%user))
 
-(define my-xorg-modules
-  (cons my-cmt
-        (fold delete %default-xorg-modules
-              '("xf86-input-keyboard"
-                "xf86-input-mouse"
-                "xf86-input-synaptics"
-                "xf86-video-ati"
-                "xf86-video-cirrus"
-                "xf86-video-fbdev"
-                "xf86-video-mach64"
-                "xf86-video-nouveau"
-                "xf86-video-nv"
-                "xf86-video-sis"
-                "xf86-video-vesa"))))
-
-(define my-xorg-config "
+(define %%xorg-config "
 Section \"Device\"
   Identifier \"intel\"
   Driver \"intel\"
@@ -321,14 +306,14 @@ EndSection
               (bootloader grub-efi-bootloader)
               (target "/boot/efi")))
 
- (kernel my-linux)
+ (kernel %%linux)
 
  ; see `filefrag -v /swap`
  ;(kernel-arguments (list "resume=UUID=f6c1927d-1570-4465-998c-172131891af3" "resume_offset=1454080"))
 
- (firmware (append (list my-firmware) %base-firmware)) ; my-skylake causes DMAR error
+ (firmware (append (list %%firmware) %base-firmware)) ; my-skylake causes DMAR error
 
- (initrd-modules (append (list "mmc_block" "sdhci-pci") %base-initrd-modules))
+ (initrd-modules (append '("mmc_block" "sdhci-pci") %base-initrd-modules))
  ; see (default-initrd-modules ...) @ guix/gnu/system/linux-initrd.scm
 
  (file-systems
@@ -346,14 +331,14 @@ EndSection
           (type "ext4"))
          %base-file-systems))
 
- (swap-devices (list "/swap"))
+ (swap-devices '("/swap"))
 
  (users
   (cons (user-account
          (name %%user)
          (group "users")
          (supplementary-groups
-           (list "audio" "kvm" "lp" "netdev" "video" "wheel"))
+          '("audio" "kvm" "lp" "netdev" "video" "wheel"))
          (home-directory %%home))
         %base-user-accounts))
 
@@ -370,7 +355,7 @@ b ALL=NOPASSWD: /home/b/bin/0hoot, /home/b/.guix-profile/bin/bluetoothctl, /run/
          %setuid-programs))
 
  (packages
-  (cons* my-cmt
+  (cons* %%cmt
          cmst
          ;cups
          cwm
@@ -381,30 +366,46 @@ b ALL=NOPASSWD: /home/b/bin/0hoot, /home/b/.guix-profile/bin/bluetoothctl, /run/
 
  (services
   (cons* (bluetooth-service)
-         (console-keymap-service (string-append %%home "/cfg/hsnt.map.gz"))
+         (console-keymap-service
+           (string-append %%home "/cfg/hsnt.map.gz"))
+         ;(dbus-service
+         ;  #:services (list avahi connman polkit))
          (dbus-service)
-         (ntp-service
-          #:servers (list "0.europe.pool.ntp.org"
-                          "1.europe.pool.ntp.org"
-                          "2.europe.pool.ntp.org"
-                          "3.europe.pool.ntp.org"))
          (polkit-service)
-         (slim-service
-          #:default-user %%user
-          #:auto-login? #t
-          #:startx
-          (xorg-start-command
-            #:configuration-file
-            (xorg-configuration-file
-              #:modules my-xorg-modules
-              #:extra-config (list my-xorg-config))))
          (service connman-service-type)
          ;(service cups-service-type
          ;         (cups-configuration
          ;           (web-interface? #t)
          ;           (default-paper-size "A4")))
          (service mcron-service-type)
+         (service ntp-service-type
+                  (ntp-configuration
+                   (servers '("0.europe.pool.ntp.org"
+                              "1.europe.pool.ntp.org"
+                              "2.europe.pool.ntp.org"
+                              "3.europe.pool.ntp.org"))))
          (service rottlog-service-type (rottlog-configuration))
+         (service slim-service-type
+                  (slim-configuration
+                    (default-user %%user)
+                    (auto-login? #t)
+                    (xorg-configuration
+                      (xorg-configuration
+                        (modules
+                          (cons %%cmt
+                                (fold delete %default-xorg-modules
+                                      '("xf86-input-keyboard"
+                                        "xf86-input-mouse"
+                                        "xf86-input-synaptics"
+                                        "xf86-video-ati"
+                                        "xf86-video-cirrus"
+                                        "xf86-video-fbdev"
+                                        "xf86-video-mach64"
+                                        "xf86-video-nouveau"
+                                        "xf86-video-nv"
+                                        "xf86-video-sis"
+                                        "xf86-video-vesa"))))
+                        (extra-config (list %%xorg-config))))))
          (service sysctl-service-type
            (sysctl-configuration
              (settings '(("vm.swappiness" . "10")

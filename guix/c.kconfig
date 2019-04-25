@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 5.0.4 Kernel Configuration
+# Linux/x86 5.0.7 Kernel Configuration
 #
 
 #
@@ -1526,6 +1526,7 @@ CONFIG_NET_CORE=y
 # CONFIG_MACVLAN is not set
 # CONFIG_VXLAN is not set
 # CONFIG_GENEVE is not set
+# CONFIG_GTP is not set
 # CONFIG_MACSEC is not set
 CONFIG_NETCONSOLE=y
 # CONFIG_NETCONSOLE_DYNAMIC is not set
@@ -3103,7 +3104,7 @@ CONFIG_HID_GENERIC=m
 # CONFIG_HID_ACRUX is not set
 CONFIG_HID_APPLE=m
 # CONFIG_HID_APPLEIR is not set
-# CONFIG_HID_ASUS is not set
+CONFIG_HID_ASUS=y
 # CONFIG_HID_AUREAL is not set
 # CONFIG_HID_BELKIN is not set
 # CONFIG_HID_BETOP_FF is not set
@@ -3140,7 +3141,13 @@ CONFIG_HID_APPLE=m
 # CONFIG_HID_LCPOWER is not set
 # CONFIG_HID_LED is not set
 # CONFIG_HID_LENOVO is not set
-# CONFIG_HID_LOGITECH is not set
+CONFIG_HID_LOGITECH=y
+CONFIG_HID_LOGITECH_DJ=y
+CONFIG_HID_LOGITECH_HIDPP=y
+CONFIG_LOGITECH_FF=y
+CONFIG_LOGIRUMBLEPAD2_FF=y
+# CONFIG_LOGIG940_FF is not set
+CONFIG_LOGIWHEELS_FF=y
 # CONFIG_HID_MAGICMOUSE is not set
 # CONFIG_HID_MAYFLASH is not set
 # CONFIG_HID_REDRAGON is not set
@@ -3166,7 +3173,7 @@ CONFIG_SONY_FF=y
 # CONFIG_HID_STEAM is not set
 # CONFIG_HID_STEELSERIES is not set
 # CONFIG_HID_SUNPLUS is not set
-# CONFIG_HID_RMI is not set
+CONFIG_HID_RMI=y
 # CONFIG_HID_GREENASIA is not set
 # CONFIG_HID_SMARTJOYPLUS is not set
 # CONFIG_HID_TIVO is not set

@@ -1,7 +1,10 @@
 export SHELL
 [[ $- != *i* ]] && { [[ -n "$SSH_CLIENT" ]] && source /etc/profile; return; }
 
-PS1="\[\033[46;30m\] $? \[\033[0;37m\] \t \[\033[0;31m\]\w\[\033[0m\] "
+0gitbr()
+{ git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1 /'; }
+
+PS1="\[\033[46;30m\] $? \[\033[0;37m\] \t \[\033[0;33m\]\$(0gitbr)\[\033[0;31m\]\w\[\033[0m\] "
 [[ -n "$GUIX_ENVIRONMENT" ]] && PS1="[env] $PS1"
 
 HISTCONTROL=ignoreboth

@@ -81,10 +81,10 @@ bind-key 4C-h     window-vtile
 bind-key 4C-j     window-vmaximize
 bind-key 4C-k     window-htile
 bind-key 4C-l     window-hmaximize
-bind-key 4S-h     window-resize-left-big
-bind-key 4S-j     window-resize-down-big
-bind-key 4S-k     window-resize-up-big
-bind-key 4S-l     window-resize-right-big
+bind-key 4S-h     window-resize-left
+bind-key 4S-j     window-resize-down
+bind-key 4S-k     window-resize-up
+bind-key 4S-l     window-resize-right
 bind-key 4M-h     window-snap-left
 bind-key 4M-j     window-snap-down
 bind-key 4M-k     window-snap-up

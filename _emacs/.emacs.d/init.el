@@ -136,10 +136,10 @@
  ;'(racer-rust-src-path "/usr/local/src/rust/src")
 
 (custom-set-faces
- '(default ((t (:weight semi-bold :height 105 :family "Source Code Pro"))))
+ '(default ((t (:weight semi-bold :height 125 :family "Source Code Pro"))))
  '(fixed-pitch-serif ((t (:weight semi-bold :family "FreeMono"))))
- '(linum ((t (:height 100))))
- '(linum-highlight-face ((t (:height 100))))
+ '(linum ((t (:height 125))))
+ '(linum-highlight-face ((t (:height 125))))
  '(org-agenda-structure ((t (:inverse-video nil :underline nil :slant normal :weight bold :height 1.0))))
  '(org-document-title ((t (:weight bold :height 1.0))))
  '(org-level-1 ((t (:inherit nil :foreground "#3a393f" :height 1.0))))

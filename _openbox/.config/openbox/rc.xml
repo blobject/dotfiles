@@ -1,0 +1,533 @@
+<?xml version="1.0"?>
+<openbox_config xmlns="http://openbox.org/3.4/rc" xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <resistance>
+    <strength>0</strength>
+    <screen_edge_strength>50</screen_edge_strength>
+  </resistance>
+
+  <focus>
+    <focusNew>yes</focusNew>
+    <focusLast>yes</focusLast>
+    <followMouse>no</followMouse>
+    <underMouse>no</underMouse>
+    <raiseOnFocus>no</raiseOnFocus>
+  </focus>
+
+  <placement>
+    <policy>Smart</policy>
+    <center>no</center>
+    <monitor>Active</monitor>
+    <primaryMonitor>1</primaryMonitor>
+  </placement>
+
+  <theme>
+    <name>0theme</name>
+    <titleLayout></titleLayout>
+    <animateIconify>no</animateIconify>
+    <font place="ActiveWindow">
+      <name>sans</name>
+      <size>1</size>
+    </font>
+    <font place="ActiveOnScreenDisplay">
+      <name>monospace</name>
+      <size>9</size>
+      <weight>Bold</weight>
+    </font>
+    <font place="InactiveOnScreenDisplay">
+      <name>monospace</name>
+      <size>9</size>
+      <weight>Bold</weight>
+    </font>
+  </theme>
+
+  <desktops>
+    <number>4</number>
+    <firstdesk>1</firstdesk>
+    <popupTime>500</popupTime>
+    <names>
+      <name>1</name>
+      <name>2</name>
+      <name>3</name>
+      <name>4</name>
+    </names>
+  </desktops>
+
+  <resize>
+    <drawContents>yes</drawContents>
+    <popupShow>Never</popupShow>
+    <popupPosition>Center</popupPosition>
+  </resize>
+
+  <margins>
+    <top>24</top>
+    <bottom>0</bottom>
+    <left>0</left>
+    <right>0</right>
+  </margins>
+
+  <dock>
+    <position>TopRight</position>
+    <noStrut>no</noStrut>
+    <stacking>Above</stacking>
+    <direction>Horizontal</direction>
+    <autoHide>no</autoHide>
+  </dock>
+
+  <keyboard>
+    <keybind key="W-H">
+      <action name="MoveRelative">
+        <x>-10</x>
+      </action>
+    </keybind>
+    <keybind key="W-J">
+      <action name="MoveRelative">
+        <y>10</y>
+      </action>
+    </keybind>
+    <keybind key="W-K">
+      <action name="MoveRelative">
+        <y>-10</y>
+      </action>
+    </keybind>
+    <keybind key="W-L">
+      <action name="MoveRelative">
+        <x>10</x>
+      </action>
+    </keybind>
+    <keybind key="W-Y">
+      <action name="MoveRelative">
+        <x>-10</x>
+        <y>-10</y>
+      </action>
+    </keybind>
+    <keybind key="W-U">
+      <action name="MoveRelative">
+        <x>10</x>
+        <y>-10</y>
+      </action>
+    </keybind>
+    <keybind key="W-B">
+      <action name="MoveRelative">
+        <x>-10</x>
+        <y>10</y>
+      </action>
+    </keybind>
+    <keybind key="W-N">
+      <action name="MoveRelative">
+        <x>10</x>
+        <y>10</y>
+      </action>
+    </keybind>
+    <keybind key="W-C-H">
+      <action name="ResizeRelative">
+        <right>-10</right>
+      </action>
+    </keybind>
+    <keybind key="W-C-J">
+      <action name="ResizeRelative">
+        <bottom>10</bottom>
+      </action>
+    </keybind>
+    <keybind key="W-C-K">
+      <action name="ResizeRelative">
+        <bottom>-10</bottom>
+      </action>
+    </keybind>
+    <keybind key="W-C-L">
+      <action name="ResizeRelative">
+        <right>10</right>
+      </action>
+    </keybind>
+    <keybind key="W-C-Y">
+      <action name="ResizeRelative">
+        <bottom>-10</bottom>
+        <right>-10</right>
+      </action>
+    </keybind>
+    <keybind key="W-C-N">
+      <action name="ResizeRelative">
+        <bottom>10</bottom>
+        <right>10</right>
+      </action>
+    </keybind>
+    <keybind key="W-S-H">
+      <action name="UnmaximizeFull"/>
+      <action name="Maximize">
+        <direction>vertical</direction>
+      </action>
+      <action name="MoveResizeTo">
+        <width>1080</width>
+        <x>0</x>
+        <y>0</y>
+      </action>
+    </keybind>
+    <keybind key="W-S-J">
+      <action name="UnmaximizeFull"/>
+      <action name="Maximize">
+        <direction>horizontal</direction>
+      </action>
+      <action name="MoveResizeTo">
+        <height>710</height>
+        <x>0</x>
+        <y>710</y>
+      </action>
+      <action name="MoveToEdge">
+        <direction>south</direction>
+      </action>
+    </keybind>
+    <keybind key="W-S-K">
+      <action name="UnmaximizeFull"/>
+      <action name="Maximize">
+        <direction>horizontal</direction>
+      </action>
+      <action name="MoveResizeTo">
+        <height>710</height>
+        <x>0</x>
+        <y>0</y>
+      </action>
+    </keybind>
+    <keybind key="W-S-L">
+      <action name="UnmaximizeFull"/>
+      <action name="Maximize">
+        <direction>vertical</direction>
+      </action>
+      <action name="MoveResizeTo">
+        <width>1080</width>
+        <x>1080</x>
+        <y>0</y>
+      </action>
+      <action name="MoveToEdge">
+        <direction>east</direction>
+      </action>
+    </keybind>
+    <keybind key="W-S-Y">
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo">
+        <width>1080</width>
+        <height>710</height>
+        <x>0</x>
+        <y>0</y>
+      </action>
+    </keybind>
+    <keybind key="W-S-U">
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo">
+        <width>1080</width>
+        <height>710</height>
+        <x>1080</x>
+        <y>0</y>
+      </action>
+      <action name="MoveToEdge">
+        <direction>east</direction>
+      </action>
+    </keybind>
+    <keybind key="W-S-B">
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo">
+        <width>1080</width>
+        <height>710</height>
+        <x>0</x>
+        <y>710</y>
+      </action>
+      <action name="MoveToEdge">
+        <direction>west</direction>
+      </action>
+    </keybind>
+    <keybind key="W-S-N">
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo">
+        <width>1080</width>
+        <height>710</height>
+        <x>1080</x>
+        <y>710</y>
+      </action>
+      <action name="MoveToEdge">
+        <direction>south</direction>
+      </action>
+      <action name="MoveToEdge">
+        <direction>east</direction>
+      </action>
+    </keybind>
+    <keybind key="A-Tab">
+      <action name="NextWindow">
+        <dialog>no</dialog>
+        <raise>yes</raise>
+      </action>
+    </keybind>
+    <keybind key="A-S-Tab">
+      <action name="PreviousWindow">
+        <dialog>no</dialog>
+        <raise>yes</raise>
+      </action>
+    </keybind>
+    <keybind key="W-A-H">
+      <action name="MoveToEdge">
+        <direction>west</direction>
+      </action>
+    </keybind>
+    <keybind key="W-A-J">
+      <action name="MoveToEdge">
+        <direction>south</direction>
+      </action>
+    </keybind>
+    <keybind key="W-A-K">
+      <action name="MoveToEdge">
+        <direction>north</direction>
+      </action>
+    </keybind>
+    <keybind key="W-A-L">
+      <action name="MoveToEdge">
+        <direction>east</direction>
+      </action>
+    </keybind>
+    <keybind key="W-A-Y">
+      <action name="MoveToEdge">
+        <direction>north</direction>
+      </action>
+      <action name="MoveToEdge">
+        <direction>west</direction>
+      </action>
+    </keybind>
+    <keybind key="W-A-U">
+      <action name="MoveToEdge">
+        <direction>north</direction>
+      </action>
+      <action name="MoveToEdge">
+        <direction>east</direction>
+      </action>
+    </keybind>
+    <keybind key="W-A-B">
+      <action name="MoveToEdge">
+        <direction>south</direction>
+      </action>
+      <action name="MoveToEdge">
+        <direction>west</direction>
+      </action>
+    </keybind>
+    <keybind key="W-A-N">
+      <action name="MoveToEdge">
+        <direction>south</direction>
+      </action>
+      <action name="MoveToEdge">
+        <direction>east</direction>
+      </action>
+    </keybind>
+    <keybind key="W-C">
+      <action name="MoveResizeTo">
+        <x>center</x>
+        <y>center</y>
+      </action>
+    </keybind>
+    <keybind key="W-1">
+      <action name="GoToDesktop">
+        <to>1</to>
+      </action>
+    </keybind>
+    <keybind key="W-2">
+      <action name="GoToDesktop">
+        <to>2</to>
+      </action>
+    </keybind>
+    <keybind key="W-3">
+      <action name="GoToDesktop">
+        <to>3</to>
+      </action>
+    </keybind>
+    <keybind key="W-4">
+      <action name="GoToDesktop">
+        <to>4</to>
+      </action>
+    </keybind>
+    <keybind key="W-A-1">
+      <action name="SendToDesktop">
+        <to>1</to>
+        <follow>no</follow>
+      </action>
+    </keybind>
+    <keybind key="W-A-2">
+      <action name="SendToDesktop">
+        <to>2</to>
+        <follow>no</follow>
+      </action>
+    </keybind>
+    <keybind key="W-A-3">
+      <action name="SendToDesktop">
+        <to>3</to>
+        <follow>no</follow>
+      </action>
+    </keybind>
+    <keybind key="W-A-4">
+      <action name="SendToDesktop">
+        <to>4</to>
+        <follow>no</follow>
+      </action>
+    </keybind>
+    <keybind key="W-S-Escape">
+      <action name="Close"/>
+    </keybind>
+    <keybind key="W-S-R">
+      <action name="Reconfigure"/>
+    </keybind>
+    <keybind key="W-D">
+      <action name="ToggleShowDesktop"/>
+    </keybind>
+    <keybind key="W-F">
+      <action name="ToggleFullscreen"/>
+    </keybind>
+    <keybind key="W-M">
+      <action name="ToggleMaximize"/>
+    </keybind>
+    <keybind key="XF86MonBrightnessDown">
+      <action name="Execute">
+        <command>xbacklight -dec 2</command>
+      </action>
+    </keybind>
+    <keybind key="XF86MonBrightnessUp">
+      <action name="Execute">
+        <command>xbacklight -inc 2</command>
+      </action>
+    </keybind>
+    <keybind key="XF86AudioMute">
+      <action name="Execute">
+        <command>0volume toggle</command>
+      </action>
+    </keybind>
+    <keybind key="XF86AudioLowerVolume">
+      <action name="Execute">
+        <command>0volume decrease 2</command>
+      </action>
+    </keybind>
+    <keybind key="XF86AudioRaiseVolume">
+      <action name="Execute">
+        <command>0volume increase 2</command>
+      </action>
+    </keybind>
+    <keybind key="XF86AudioMicMute">
+      <action name="Execute">
+        <command>0volume mictoggle</command>
+      </action>
+    </keybind>
+    <keybind key="W-Print">
+      <action name="Execute">
+        <command>sh -c 'maim $HOME/got/screenshot-$(date +%s).png'</command>
+      </action>
+    </keybind>
+    <keybind key="W-C-Print">
+      <action name="Execute">
+        <command>sh -c 'maim -i $(xdotool getactivewindow) $HOME/got/screenshot-$(date +%s).png'</command>
+      </action>
+    </keybind>
+    <keybind key="W-S-Print">
+      <action name="Execute">
+        <command>sh -c 'maim -s $HOME/got/screenshot-$(date +%s).png 2>/dev/null'</command>
+      </action>
+    </keybind>
+    <keybind key="W-Return">
+      <action name="Execute">
+        <command>xfce4-appfinder</command>
+      </action>
+    </keybind>
+    <keybind key="W-E">
+      <action name="Execute">
+        <command>emacs</command>
+      </action>
+    </keybind>
+    <keybind key="W-T">
+      <action name="Execute">
+        <command>xfce4-terminal</command>
+      </action>
+    </keybind>
+    <keybind key="W-W">
+      <action name="Execute">
+        <command>chromium</command>
+      </action>
+    </keybind>
+    <keybind key="W-A-W">
+      <action name="Execute">
+        <command>chromium --user-data-dir=/home/b/p/chromium_proxy --proxy-server=socks5://127.0.0.1:8815 --host-resolver-rules='MAP * 0.0.0.0 , EXCLUDE 127.0.0.1'</command>
+      </action>
+    </keybind>
+    <keybind key="W-S-W">
+      <action name="Execute">
+        <command>tor-browser</command>
+      </action>
+    </keybind>
+  </keyboard>
+
+  <mouse>
+    <context name="Titlebar Top Bottom Left Right TLCorner TRCorner BLCorner BRCorner Client">
+      <mousebind action="Press" button="Left">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind action="Press" button="Middle">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind action="Press" button="Right">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+    </context>
+    <context name="Top Bottom Left Right TLCorner TRCorner BLCorner BRCorner">
+      <mousebind action="Drag" button="Left">
+        <action name="Resize"/>
+      </mousebind>
+      <mousebind action="Drag" button="Middle">
+        <action name="Resize"/>
+      </mousebind>
+      <mousebind action="Drag" button="Right">
+        <action name="Resize"/>
+      </mousebind>
+    </context>
+    <context name="Titlebar">
+      <mousebind action="Drag" button="Left">
+        <action name="Move"/>
+      </mousebind>
+      <mousebind action="Drag" button="Middle">
+        <action name="Move"/>
+      </mousebind>
+      <mousebind action="Drag" button="Right">
+        <action name="Move"/>
+      </mousebind>
+    </context>
+    <context name="Frame">
+      <mousebind action="Drag" button="A-Left">
+        <action name="Move"/>
+      </mousebind>
+      <mousebind action="Drag" button="A-Middle">
+        <action name="Move"/>
+      </mousebind>
+      <mousebind action="Drag" button="A-Right">
+        <action name="Move"/>
+      </mousebind>
+      <mousebind action="Drag" button="W-Left">
+        <action name="Resize"/>
+      </mousebind>
+      <mousebind action="Drag" button="W-Middle">
+        <action name="Resize"/>
+      </mousebind>
+      <mousebind action="Drag" button="W-Right">
+        <action name="Resize"/>
+      </mousebind>
+    </context>
+  </mouse>
+
+  <applications>
+    <application class="*">
+      <focus>yes</focus>
+    </application>
+    <application class="Xfce4-appfinder">
+      <layer>above</layer>
+      <position force="yes">
+        <x>center</x>
+        <y>center</y>
+      </position>
+      <size>
+        <width>40%</width>
+        <height>50%</height>
+      </size>
+    </application>
+  </applications>
+</openbox_config>

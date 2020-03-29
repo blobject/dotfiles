@@ -1,1 +1,1 @@
-/home/b/src/cemant/cemant-theme.el
+/home/b/opt/cemant/cemant-theme.el

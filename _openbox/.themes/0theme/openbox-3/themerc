@@ -1,0 +1,34 @@
+border.width: 4
+padding.width: 0
+window.handle.width: 0
+window.client.padding.width: 0
+window.client.padding.height: 0
+
+osd.bg: flat solid
+osd.bg.color: #95959d
+osd.border.width: 2
+osd.border.color: #4051b0
+osd.hilight.bg.color: #3a393f
+osd.unhilight.bg: flat border
+osd.unhilight.bg.color: #d0d0d8
+
+window.active.border.color: #3a393f
+window.active.client.color: #3a393f
+window.active.grip.bg: parentrelative
+window.active.handle.bg: flat solid
+window.active.handle.bg.color: #3a393f
+window.active.label.bg: parentrelative
+window.active.title.bg: flat border
+window.active.title.bg.color: #3a393f
+window.active.title.bg.border.color: #3a393f
+
+window.inactive.border.color: #a3a3a9
+window.inactive.client.color: #a3a3a9
+window.inactive.grip.bg: parentrelative
+window.inactive.handle.bg: flat solid
+window.inactive.handle.bg.color: #a3a3a9
+window.inactive.label.bg: parentrelative
+window.inactive.title.bg: flat solid
+window.inactive.title.bg.color: #a3a3a9
+window.inactive.title.bg.border.color: #a3a3a9
+

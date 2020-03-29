@@ -1,91 +1,74 @@
-export SHELL
-[[ $- != *i* ]] && { [[ -n "$SSH_CLIENT" ]] && source /etc/profile; return; }
+[[ $- != *i* ]] && return
 
+## settings
+stty -ixon
+
+## functions
 0gitbr()
 { git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1 /'; }
 
+## variables
 PS1="\[\033[46;30m\] $? \[\033[0;37m\] \t \[\033[0;33m\]\$(0gitbr)\[\033[0;31m\]\w\[\033[0m\] "
-[[ -n "$GUIX_ENVIRONMENT" ]] && PS1="[env] $PS1"
-
 HISTCONTROL=ignoreboth
 HISTFILE="$HOME/.bashlog"
 HISTFILESIZE=8192
 HISTSIZE=8192
+PS1="\[\033]0;\u@\h:\w\007\]\[\033[0;37m\]\t \[\033[0;33m\]\$(0gitbr)\[\033[0;31m\]\w\[\033[0m\] "
+export PATH="$HOME/bin:${PATH:+:}$PATH"
+export SSH_AUTH_SOCK="$HOME/.ssh/agent"
 
-B_PROF="$HOME/.guix-profile"
+## services
+if ! pgrep -u $USER ssh-agent >/dev/null; then
+  rm -f "$SSH_AUTH_SOCK"
+fi
+if [[ ! -S "$SSH_AUTH_SOCK" ]]; then
+  eval $(ssh-agent -a "$SSH_AUTH_SOCK" 2>/dev/null)
+fi
 
-export PATH="$HOME/bin:$HOME/.opam/system/bin:$B_PROF/sbin${PATH:+:}$PATH"
-#export C_INCLUDE_PATH="$HOME/.guix-profile/include${C_INCLUDE_PATH:+:}$C_INCLUDE_PATH"
-#export CPLUS_INCLUDE_PATH="$HOME/.guix-profile/include${CPLUS_INCLUDE_PATH:+:}$CPLUS_INCLUDE_PATH"
-export CMAKE_PREFIX_PATH="$B_PROF${CMAKE_PREFIX_PATH:+:}$CMAKE_PREFIX_PATH"
-#export CURLOPT_CAPATH="$B_PROF/etc/ssl/certs${CURLOPT_CAPATH:+:}$CURLOPT_CAPATH"
-export GIT_EXEC_PATH="$B_PROF/libexec/git-core"
-export GIT_SSL_CAINFO="$B_PROF/etc/ssl/certs/ca-certificates.crt"
-#export GUIX_LOCPATH="$HOME/.guix-profile/lib/locale${GUIX_LOCPATH:+:}$GUIX_LOCPATH"
-export PKG_CONFIG_PATH="$B_PROF/lib/pkgconfig${PKG_CONFIG_PATH:+:}$PKG_CONFIG_PATH"
-export LESS=-imRS
-export LESSHISTFILE=-
-export PYTHONPATH="$HOME/.guix-profile/lib/python3.7/site-packages${PYTHONPATH:+:}$PYTHONPATH"
-export SSL_CERT_DIR="$HOME/.guix-profile/etc/ssl/certs"
-export SSL_CERT_FILE="$HOME/.guix-profile/etc/ssl/certs/ca-certificates.crt"
-export TERMINFO_DIRS="$HOME/.guix-profile/share/terminfo${TERMINFO_DIRS:+:}$TERMINFO_DIRS"
-export XDG_DATA_DIRS="$B_PROF/share/glib-2.0/schemas${XDG_DATA_DIRS:+:}$XDG_DATA_DIRS"
-export XDG_RUNTIME_DIR="/tmp/runtime-$USER"
-
-[[ -d $XDG_RUNTIME_DIR ]] || mkdir -p $XDG_RUNTIME_DIR
-! pgrep -u "$USER" ssh-agent >/dev/null \
-  && ssh-agent | grep -v echo >"$HOME/.ssh/agent"
-[[ -z "$SSH_AGENT_PID" ]] && eval $(cat "$HOME/.ssh/agent")
-! pgrep -u "$USER" gpg-agent >/dev/null \
-  && eval $(gpg-agent --daemon)
-eval $(dircolors --sh "$HOME/cfg/misc/dircolors")
-stty -ixon # stop freezing in vim when ctrl-s
-trap 'echo -ne "\e]2;$BASH_COMMAND\a"' DEBUG # dynamic title
-
-#. $HOME/.opam/opam-init/init.sh >/dev/null 2>/dev/null
-
-alias cp='cp -iv'
-alias mv='mv -iv'
-alias rm='rm -i'
-alias ls='ls --color=auto --time-style=long-iso'
-alias l='ls -A'
-alias ll='ls -lh'
-alias lla='ll -a'
-alias lls='ll -S'
-alias llt='ll -t'
-#alias am=alsamixer
-alias bc='rlwrap -ci bc'
-alias diff='diff --color'
-alias dmesg='dmesg --color=always'
-alias e='emacsclient -nc'
-alias g=git
-alias guile='rlwrap -ci guile'
-alias lein='rlwrap -ci lein'
-alias ocaml='rlwrap -ci ocaml'
-alias pstree='pstree -hnp'
-#alias sbcl='rlwrap -ci sbcl'
-alias tclsh='rlwrap -ci tclsh'
-alias sudo='sudo '
-alias v=vim
+## aliases
 alias 0clock='echo "$(date +%s)"; echo "  UTC:       $(TZ=UTC date)"; echo "* Prague:    $(date)"; echo "  London:    $(TZ=Europe/London date)"; echo "  Los Angls: $(TZ=America/Los_Angeles date)"; echo "  New York:  $(TZ=America/New_York date)"; echo "  Riyadh:    $(TZ=Asia/Riyadh date)"; echo "  Seoul:     $(TZ=Asia/Seoul date)"'
 alias 0fonts="fc-list | sed 's/^.\+: //;s/:.\+$//;s/,.*$//' | sort -u | pr -2 -T"
 alias 0ip='wget -qO - https://ipinfo.io/ip'
 alias 0proxy='ssh -CND 8815 188.166.105.125' # agaric.net
+alias 0qmk-build='docker run -e keymap=agaric -e subproject=rev4 -e keyboard=planck --rm -v $HOME/src/qmk_firmware:/qmk:rw edasque/qmk_firmware'
+alias 0sshadd='ssh-add $HOME/.ssh/id_rsa'
 alias 0top-c="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time | sed '/^ 0.0 /d'"
 alias 0top-d="du -kx | ag -v '\./.+/' | sort -rn"
 alias 0top-m="ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz | awk '{if (\$1>5000) print;}'"
-alias 0qmk-build='docker run -e keymap=agaric -e subproject=rev4 -e keyboard=planck --rm -v $HOME/src/qmk_firmware:/qmk:rw edasque/qmk_firmware'
-
-c() { cd "$@" && \
-  { local lim=256 count=$(ls --color=n | wc -l);
-    [[ $count -gt $lim ]] \
-      && echo "skipping ls ($count entries > $lim)" \
-      || l; }; }
+alias asdf='xmodmap $HOME/cfg/hsnt/hsnt.xmodmap'
+alias hsnt='setxkbmap us'
+alias cp='cp -iv'
+alias g='git'
+alias guile='rlwrap -ci guile'
+alias ls='ls --color=auto --time-style=long-iso'
+alias l='ls -AF'
+alias ll='ls -lh'
+alias lla='ll -a'
+alias lls='ll -S'
+alias llt='ll -t'
+alias mv='mv -iv'
+alias rm='rm -i'
+alias pstree='pstree -hnp'
+alias sudo='sudo '
+alias tclsh='rlwrap -ci tclsh'
+alias v='vim'
 alias ,='c ..'
 alias ,,='c ../..'
 alias ,,,='c ../../..'
 alias ,,,,='c ../../../..'
-alias ,,,,,='c ../../../../..'
+
+## more functions
+c()
+{ cd "$@" && \
+  { local lim=256 count=$(ls --color=n | wc -l);
+    [[ $count -gt $lim ]] \
+      && echo "skipping ls ($count entries > $lim)" \
+      || l; }; }
+
+0ftp()
+{ local phone='192.168.2.3'
+  [[ -z "$1" ]] && echo 'provide ftp password' \
+    || sudo lftp -u b,$1 -p 21000 ftp://$phone; }
 
 0qmk-flash()
 { [[ -n "$1" ]] \
@@ -93,3 +76,4 @@ alias ,,,,,='c ../../../../..'
   && sudo dfu-programmer atmega32u4 flash "$1" \
   && sudo dfu-programmer atmega32u4 reset; } \
   || echo 'no file given'; }
+

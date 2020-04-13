@@ -1,5 +1,5 @@
 ## settings
-hsetroot -solid '#5a595f'
+bgs -z $HOME/cfg/back.jpg
 xrdb -merge $HOME/.xresources
 xset r rate 300 30
 

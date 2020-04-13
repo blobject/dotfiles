@@ -158,8 +158,9 @@
       </action>
       <action name="MoveResizeTo">
         <width>1080</width>
-        <x>0</x>
-        <y>0</y>
+      </action>
+      <action name="MoveToEdge">
+        <direction>west</direction>
       </action>
     </keybind>
     <keybind key="W-S-J">
@@ -169,8 +170,6 @@
       </action>
       <action name="MoveResizeTo">
         <height>710</height>
-        <x>0</x>
-        <y>710</y>
       </action>
       <action name="MoveToEdge">
         <direction>south</direction>
@@ -183,8 +182,12 @@
       </action>
       <action name="MoveResizeTo">
         <height>710</height>
-        <x>0</x>
-        <y>0</y>
+      </action>
+      <action name="MoveToEdge">
+        <direction>north</direction>
+      </action>
+      <action name="MoveToEdge">
+        <direction>west</direction>
       </action>
     </keybind>
     <keybind key="W-S-L">
@@ -194,8 +197,9 @@
       </action>
       <action name="MoveResizeTo">
         <width>1080</width>
-        <x>1080</x>
-        <y>0</y>
+      </action>
+      <action name="MoveToEdge">
+        <direction>north</direction>
       </action>
       <action name="MoveToEdge">
         <direction>east</direction>
@@ -206,8 +210,12 @@
       <action name="MoveResizeTo">
         <width>1080</width>
         <height>710</height>
-        <x>0</x>
-        <y>0</y>
+      </action>
+      <action name="MoveToEdge">
+        <direction>north</direction>
+      </action>
+      <action name="MoveToEdge">
+        <direction>west</direction>
       </action>
     </keybind>
     <keybind key="W-S-U">
@@ -215,8 +223,9 @@
       <action name="MoveResizeTo">
         <width>1080</width>
         <height>710</height>
-        <x>1080</x>
-        <y>0</y>
+      </action>
+      <action name="MoveToEdge">
+        <direction>north</direction>
       </action>
       <action name="MoveToEdge">
         <direction>east</direction>
@@ -227,8 +236,9 @@
       <action name="MoveResizeTo">
         <width>1080</width>
         <height>710</height>
-        <x>0</x>
-        <y>710</y>
+      </action>
+      <action name="MoveToEdge">
+        <direction>south</direction>
       </action>
       <action name="MoveToEdge">
         <direction>west</direction>
@@ -239,14 +249,21 @@
       <action name="MoveResizeTo">
         <width>1080</width>
         <height>710</height>
-        <x>1080</x>
-        <y>710</y>
       </action>
       <action name="MoveToEdge">
         <direction>south</direction>
       </action>
       <action name="MoveToEdge">
         <direction>east</direction>
+      </action>
+    </keybind>
+    <keybind key="W-S-T">
+      <action name="UnmaximizeFull"/>
+      <action name="Maximize">
+        <direction>vertical</direction>
+      </action>
+      <action name="MoveResizeTo">
+        <width>720</width>
       </action>
     </keybind>
     <keybind key="A-Tab">

@@ -13,6 +13,9 @@ osd.unhilight.bg: flat border
 osd.unhilight.bg.color: #d0d0d8
 
 window.active.border.color: #3a393f
+window.active.button.*.bg: flat solid
+window.active.button.*.bg.color: #a3a3a9
+window.active.button.*.image.color: #3a393f
 window.active.client.color: #3a393f
 window.active.grip.bg: parentrelative
 window.active.handle.bg: flat solid

@@ -1,3 +1,4 @@
 gtk-theme-name="Adwaita"
 gtk-icon-theme-name="Papirus-Light"
 gtk-cursor-theme-name="Vanilla-DMZ"
+gtk-cursor-theme-size=32

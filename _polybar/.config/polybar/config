@@ -64,7 +64,7 @@ label = %percentage:2%%c
 
 [module/temperature]
 type = internal/temperature
-thermal-zone = 3
+thermal-zone = 7
 interval = 2.0
 warn-temperature = 60
 label = %temperature-c%

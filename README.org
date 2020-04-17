@@ -11,25 +11,26 @@ counter-clockwise from northwest:
 [[https://docs.xfce.org/apps/terminal/start][xfce4-terminal]],
 [[https://www.vim.org/][vim]],
 another xfce4-terminal,
-[[https://www.mozilla.org/en-US/firefox/new/][firefox]]
+[[https://www.chromium.org/Home][chromium]],
+[[https://github.com/dunst-project/dunst][dunst]]
 
 *** aesthetic choices
 
 | class | instance(s) |
 |-------|-------------|
 | machine | [[https://consumer.huawei.com/en/laptops/matebook-13/][huawei matebook 13]] |
-| kernel | [[https://www.kernel.org/][custom 5.5.13]] |
+| kernel | [[https://www.kernel.org/][custom 5.6.5]] |
 | os | [[https://voidlinux.org/][void linux]] |
 | display | [[https://www.x.org/][xorg]] |
 | wm | [[http://openbox.org/wiki/Main_Page][openbox]] |
 | type | [[https://en.wikipedia.org/wiki/Roboto][roboto {,mono,slab}]] |
 | color | [[https://github.com/agarick/cemant][cemant]] |
-| shell/script | [[https://www.gnu.org/software/bash/][bash]]; [[https://www.tcl.tk/][tcl]] |
+| shell/[[https://github.com/agarick/scripts][script]] | [[https://www.gnu.org/software/bash/][bash]]; [[https://www.tcl.tk/][tcl]] |
 | terminal | [[https://docs.xfce.org/apps/terminal/start][xfce4-terminal]] |
 | edit | [[https://www.gnu.org/software/emacs/][emacs]], [[https://www.vim.org/][vim]] |
 | bar | [[https://polybar.github.io/][polybar]] |
 | notification | [[https://github.com/dunst-project/dunst][dunst]] |
-| browser | [[https://www.mozilla.org/en-US/firefox/new/][firefox]] |
+| browser | [[https://www.chromium.org/Home][chromium]] |
 
 *** see also
 

@@ -6,6 +6,7 @@ set backspace=eol,indent,start
 set backup backupdir=$HOME/bak/vim
 set ignorecase smartcase
 set autoindent smartindent
+set mouse=a
 set number ruler
 set nohlsearch incsearch
 set showcmd showmatch

@@ -74,6 +74,74 @@
     <autoHide>no</autoHide>
   </dock>
 
+  <mouse>
+    <context name="Titlebar Top Bottom Left Right TLCorner TRCorner BLCorner BRCorner Client">
+      <mousebind action="Press" button="Left">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind action="Press" button="Middle">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind action="Press" button="Right">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+    </context>
+    <context name="Top Bottom Left Right TLCorner TRCorner BLCorner BRCorner">
+      <mousebind action="Drag" button="Left">
+        <action name="Resize"/>
+      </mousebind>
+      <mousebind action="Drag" button="Middle">
+        <action name="Resize"/>
+      </mousebind>
+      <mousebind action="Drag" button="Right">
+        <action name="Resize"/>
+      </mousebind>
+    </context>
+    <context name="Titlebar">
+      <mousebind action="Drag" button="Left">
+        <action name="Move"/>
+      </mousebind>
+      <mousebind action="Drag" button="Middle">
+        <action name="Move"/>
+      </mousebind>
+      <mousebind action="Drag" button="Right">
+        <action name="Move"/>
+      </mousebind>
+      <mousebind action="DoubleClick" button="Left">
+        <action name="ToggleMaximize"/>
+      </mousebind>
+      <mousebind action="DoubleClick" button="Middle">
+        <action name="ToggleMaximize"/>
+      </mousebind>
+      <mousebind action="DoubleClick" button="Right">
+        <action name="ToggleMaximize"/>
+      </mousebind>
+    </context>
+    <context name="Frame">
+      <mousebind action="Drag" button="A-Left">
+        <action name="Move"/>
+      </mousebind>
+      <mousebind action="Drag" button="A-Middle">
+        <action name="Move"/>
+      </mousebind>
+      <mousebind action="Drag" button="A-Right">
+        <action name="Move"/>
+      </mousebind>
+      <mousebind action="Drag" button="W-Left">
+        <action name="Resize"/>
+      </mousebind>
+      <mousebind action="Drag" button="W-Middle">
+        <action name="Resize"/>
+      </mousebind>
+      <mousebind action="Drag" button="W-Right">
+        <action name="Resize"/>
+      </mousebind>
+    </context>
+  </mouse>
+
   <keyboard>
     <keybind key="W-H">
       <action name="MoveRelative">
@@ -397,12 +465,12 @@
     </keybind>
     <keybind key="XF86MonBrightnessDown">
       <action name="Execute">
-        <command>xbacklight -dec 2</command>
+        <command>xbacklight -dec 5</command>
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
-        <command>xbacklight -inc 2</command>
+        <command>xbacklight -inc 5</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMute">
@@ -465,71 +533,7 @@
         <command>chromium --user-data-dir=/home/b/p/chromium_proxy --proxy-server=socks5://127.0.0.1:8815 --host-resolver-rules='MAP * 0.0.0.0 , EXCLUDE 127.0.0.1'</command>
       </action>
     </keybind>
-    <keybind key="W-S-W">
-      <action name="Execute">
-        <command>tor-browser</command>
-      </action>
-    </keybind>
   </keyboard>
-
-  <mouse>
-    <context name="Titlebar Top Bottom Left Right TLCorner TRCorner BLCorner BRCorner Client">
-      <mousebind action="Press" button="Left">
-        <action name="Focus"/>
-        <action name="Raise"/>
-      </mousebind>
-      <mousebind action="Press" button="Middle">
-        <action name="Focus"/>
-        <action name="Raise"/>
-      </mousebind>
-      <mousebind action="Press" button="Right">
-        <action name="Focus"/>
-        <action name="Raise"/>
-      </mousebind>
-    </context>
-    <context name="Top Bottom Left Right TLCorner TRCorner BLCorner BRCorner">
-      <mousebind action="Drag" button="Left">
-        <action name="Resize"/>
-      </mousebind>
-      <mousebind action="Drag" button="Middle">
-        <action name="Resize"/>
-      </mousebind>
-      <mousebind action="Drag" button="Right">
-        <action name="Resize"/>
-      </mousebind>
-    </context>
-    <context name="Titlebar">
-      <mousebind action="Drag" button="Left">
-        <action name="Move"/>
-      </mousebind>
-      <mousebind action="Drag" button="Middle">
-        <action name="Move"/>
-      </mousebind>
-      <mousebind action="Drag" button="Right">
-        <action name="Move"/>
-      </mousebind>
-    </context>
-    <context name="Frame">
-      <mousebind action="Drag" button="A-Left">
-        <action name="Move"/>
-      </mousebind>
-      <mousebind action="Drag" button="A-Middle">
-        <action name="Move"/>
-      </mousebind>
-      <mousebind action="Drag" button="A-Right">
-        <action name="Move"/>
-      </mousebind>
-      <mousebind action="Drag" button="W-Left">
-        <action name="Resize"/>
-      </mousebind>
-      <mousebind action="Drag" button="W-Middle">
-        <action name="Resize"/>
-      </mousebind>
-      <mousebind action="Drag" button="W-Right">
-        <action name="Resize"/>
-      </mousebind>
-    </context>
-  </mouse>
 
   <applications>
     <application class="*">

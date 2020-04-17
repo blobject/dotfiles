@@ -12,26 +12,26 @@ osd.hilight.bg.color: #3a393f
 osd.unhilight.bg: flat border
 osd.unhilight.bg.color: #d0d0d8
 
-window.active.border.color: #3a393f
+window.active.border.color: #4051b0
 window.active.button.*.bg: flat solid
-window.active.button.*.bg.color: #a3a3a9
-window.active.button.*.image.color: #3a393f
-window.active.client.color: #3a393f
+window.active.button.*.bg.color: #4051b0
+window.active.button.*.image.color: #4051b0
+window.active.client.color: #4051b0
 window.active.grip.bg: parentrelative
 window.active.handle.bg: flat solid
-window.active.handle.bg.color: #3a393f
+window.active.handle.bg.color: #4051b0
 window.active.label.bg: parentrelative
 window.active.title.bg: flat border
-window.active.title.bg.color: #3a393f
-window.active.title.bg.border.color: #3a393f
+window.active.title.bg.color: #4051b0
+window.active.title.bg.border.color: #4051b0
 
-window.inactive.border.color: #a3a3a9
-window.inactive.client.color: #a3a3a9
+window.inactive.border.color: #3a393f
+window.inactive.client.color: #3a393f
 window.inactive.grip.bg: parentrelative
 window.inactive.handle.bg: flat solid
-window.inactive.handle.bg.color: #a3a3a9
+window.inactive.handle.bg.color: #3a393f
 window.inactive.label.bg: parentrelative
 window.inactive.title.bg: flat solid
-window.inactive.title.bg.color: #a3a3a9
-window.inactive.title.bg.border.color: #a3a3a9
+window.inactive.title.bg.color: #3a393f
+window.inactive.title.bg.border.color: #3a393f
 

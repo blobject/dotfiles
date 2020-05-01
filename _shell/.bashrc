@@ -35,8 +35,8 @@ alias 0sshadd='ssh-add $HOME/.ssh/id_rsa'
 alias 0top-c="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time | sed '/^ 0.0 /d'"
 alias 0top-d="du -kx | ag -v '\./.+/' | sort -rn"
 alias 0top-m="ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz | awk '{if (\$1>5000) print;}'"
-alias asdf='xmodmap $HOME/cfg/hsnt/hsnt.xmodmap'
-alias hsnt='setxkbmap us'
+alias asdf='xmodmap $HOME/cfg/hsnt/hsnt.xmodmap;xset r rate 300 30'
+alias hsnt='setxkbmap us;xset r rate 300 30'
 alias cp='cp -iv'
 alias g='git'
 alias guile='rlwrap -ci guile'

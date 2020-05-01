@@ -8,6 +8,7 @@ set ignorecase smartcase
 set autoindent smartindent
 set mouse=a
 set number ruler
+set paste
 set nohlsearch incsearch
 set showcmd showmatch
 set wrap

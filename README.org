@@ -14,11 +14,13 @@ another xfce4-terminal,
 [[https://www.chromium.org/Home][chromium]],
 [[https://github.com/dunst-project/dunst][dunst]]
 
-*** aesthetic choices
+*** selection
 
 | class | instance(s) |
 |-------|-------------|
 | machine | [[https://consumer.huawei.com/en/laptops/matebook-13/][huawei matebook 13]] |
+| opt. keyboard | [[https://www.apple.com/shop/product/MLA22LL/A/magic-keyboard-us-english][apple magic keyboard]] |
+| opt. mouse | [[https://www.logitech.com/en-us/product/m590-silent-wireless-mouse][logitech m590]] |
 | kernel | [[https://www.kernel.org/][custom 5.6.5]] |
 | os | [[https://voidlinux.org/][void linux]] |
 | display | [[https://www.x.org/][xorg]] |

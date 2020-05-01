@@ -346,6 +346,18 @@
         <raise>yes</raise>
       </action>
     </keybind>
+    <keybind key="W-Tab">
+      <action name="NextWindow">
+        <dialog>no</dialog>
+        <raise>yes</raise>
+      </action>
+    </keybind>
+    <keybind key="W-S-Tab">
+      <action name="PreviousWindow">
+        <dialog>no</dialog>
+        <raise>yes</raise>
+      </action>
+    </keybind>
     <keybind key="W-A-H">
       <action name="MoveToEdge">
         <direction>west</direction>

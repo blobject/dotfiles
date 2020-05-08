@@ -23,9 +23,9 @@ radius = 0.0
 padding = 1
 dpi-x = 120
 dpi-y = 120
-font-0 = Roboto Mono:size=10:style=bold;3
-font-1 = NanumGothicCoding:size=10:style=bold;4
-font-2 = FreeMono:size=10:style=bold;3
+font-0 = Roboto Mono:size=11:style=bold;2
+font-1 = NanumGothicCoding:size=11:style=bold;3
+font-2 = FreeMono:size=11:style=bold;2
 modules-left = ewmh xwindow
 modules-right = powermenu cpu temperature memory filesystem wlan backlight pulseaudio battery date
 tray-position = right
@@ -49,7 +49,7 @@ format = <label-state>
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:100:...%
+label = %title:0:95:...%
 label-foreground = ${colors.dark}
 label-empty = x
 label-empty-foreground = ${colors.foreground-alt}
@@ -112,7 +112,7 @@ format = <label>
 [module/temperature]
 type = internal/temperature
 thermal-zone = 0
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon7/temp1_input
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input
 interval = 2.0
 warn-temperature = 60
 label = %temperature-c%

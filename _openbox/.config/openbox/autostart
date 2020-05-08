@@ -1,12 +1,4 @@
-## settings
-bgs -z $HOME/cfg/back.jpg
-xrdb -merge $HOME/.xresources
-xset r rate 300 30
-
-## cron
 0snooze &
-
-## applications
 polybar 0bar &
 blueman-tray &
 connman-gtk &

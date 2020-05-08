@@ -2,7 +2,7 @@
 ColorForeground=#3a3a39393f3f
 ColorBackground=#bbbbbbbbc3c3
 ColorPalette=rgb(187,187,195);rgb(169,38,54);rgb(67,126,0);rgb(139,107,2);rgb(64,81,176);rgb(154,30,152);rgb(0,127,104);rgb(90,89,95);rgb(149,149,157);rgb(199,64,50);rgb(35,146,14);rgb(148,124,39);rgb(28,117,175);rgb(130,40,192);rgb(74,135,152);rgb(58,57,63)
-FontName=Monospace Bold 11
+FontName=Monospace Bold 13
 MiscAlwaysShowTabs=FALSE
 MiscBell=FALSE
 MiscBellUrgent=TRUE

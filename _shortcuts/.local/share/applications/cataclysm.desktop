@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Cataclysm
+Name[en_US]=Cataclysm
+Comment=Cataclysm: Dark Days Ahead
+Exec=/usr/bin/cataclysm-tiles
+Categories=Game;
+Encoding=UTF-8
+StartupNotify=true
+Terminal=false

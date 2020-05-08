@@ -540,6 +540,11 @@
         <command>chromium</command>
       </action>
     </keybind>
+    <keybind key="W-Z">
+      <action name="Execute">
+        <command>xzoom</command>
+      </action>
+    </keybind>
     <keybind key="W-A-W">
       <action name="Execute">
         <command>chromium --user-data-dir=/home/b/p/chromium_proxy --proxy-server=socks5://127.0.0.1:8815 --host-resolver-rules='MAP * 0.0.0.0 , EXCLUDE 127.0.0.1'</command>

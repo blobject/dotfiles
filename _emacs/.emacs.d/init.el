@@ -124,10 +124,10 @@
  '(face-font-family-alternatives '(("custom" "Roboto Mono" "NanumGothicCoding" "Source Han Sans" "FreeMono")))
 
 (custom-set-faces
- '(default ((t (:weight bold :height 120 :family "Roboto Mono"))))
+ '(default ((t (:weight bold :height 130 :family "Roboto Mono"))))
  '(fixed-pitch-serif ((t (:weight semi-bold :family "FreeMono"))))
- '(linum ((t (:height 120))))
- '(linum-highlight-face ((t (:height 120))))
+ '(linum ((t (:height 130))))
+ '(linum-highlight-face ((t (:height 130))))
  '(org-agenda-structure ((t (:inverse-video nil :underline nil :slant normal :weight bold :height 1.0))))
  '(org-document-title ((t (:weight bold :height 1.0))))
  '(org-level-1 ((t (:inherit nil :foreground "#3a393f" :height 1.0))))

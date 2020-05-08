@@ -18,10 +18,10 @@ another xfce4-terminal,
 
 | class | instance(s) |
 |-------|-------------|
-| machine | [[https://consumer.huawei.com/en/laptops/matebook-13/][huawei matebook 13]] |
-| opt. keyboard | [[https://www.apple.com/shop/product/MLA22LL/A/magic-keyboard-us-english][apple magic keyboard]] |
-| opt. mouse | [[https://www.logitech.com/en-us/product/m590-silent-wireless-mouse][logitech m590]] |
-| kernel | [[https://www.kernel.org/][custom 5.6.10]] |
+| machine | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]] |
+| opt. keyboard | [[https://www.apple.com/shop/product/MLA22LL/A/magic-keyboard-us-english][magic keyboard]] |
+| opt. mouse | [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]] |
+| kernel | [[https://www.kernel.org/][custom 5.4.39 lts]] |
 | os | [[https://voidlinux.org/][void linux]] |
 | display | [[https://www.x.org/][xorg]] |
 | wm | [[http://openbox.org/wiki/Main_Page][openbox]] |
@@ -30,8 +30,9 @@ another xfce4-terminal,
 | shell/[[https://github.com/agarick/scripts][script]] | [[https://www.gnu.org/software/bash/][bash]]; [[https://www.tcl.tk/][tcl]] |
 | terminal | [[https://docs.xfce.org/apps/terminal/start][xfce4-terminal]] |
 | edit | [[https://www.gnu.org/software/emacs/][emacs]], [[https://www.vim.org/][vim]] |
-| bar | [[https://polybar.github.io/][polybar]] |
+| cron | [[https://github.com/leahneukirchen/snooze][snooze]] |
 | notification | [[https://github.com/dunst-project/dunst][dunst]] |
+| bar | [[https://polybar.github.io/][polybar]] |
 | browser | [[https://www.chromium.org/Home][chromium]] |
 
 *** see also

@@ -14,7 +14,7 @@ HISTFILE="$HOME/.bashlog"
 HISTFILESIZE=32768
 HISTSIZE=32768
 PS1="\[\033]0;\u@\h:\w\007\]\[\033[0;37m\]\t \[\033[0;33m\]\$(0gitbr)\[\033[0;31m\]\w\[\033[0m\] "
-export PATH="$HOME/bin:/opt/intel/bin${PATH:+:}$PATH"
+export PATH="$HOME/bin${PATH:+:}$PATH"
 export SSH_AUTH_SOCK="$HOME/.ssh/agent"
 
 ## services

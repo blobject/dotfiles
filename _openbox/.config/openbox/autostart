@@ -1,5 +1,5 @@
 0snooze &
-polybar 0bar &
+GTK_THEME=0polybar polybar 0bar &
 blueman-tray &
 connman-gtk &
 dunst &

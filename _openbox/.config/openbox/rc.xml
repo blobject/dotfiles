@@ -22,7 +22,7 @@
   </placement>
 
   <theme>
-    <name>0theme</name>
+    <name>0openbox</name>
     <titleLayout></titleLayout>
     <animateIconify>no</animateIconify>
     <font place="ActiveWindow">
@@ -346,18 +346,6 @@
         <raise>yes</raise>
       </action>
     </keybind>
-    <keybind key="W-Tab">
-      <action name="NextWindow">
-        <dialog>no</dialog>
-        <raise>yes</raise>
-      </action>
-    </keybind>
-    <keybind key="W-S-Tab">
-      <action name="PreviousWindow">
-        <dialog>no</dialog>
-        <raise>yes</raise>
-      </action>
-    </keybind>
     <keybind key="W-A-H">
       <action name="MoveToEdge">
         <direction>west</direction>
@@ -532,7 +520,7 @@
     </keybind>
     <keybind key="W-T">
       <action name="Execute">
-        <command>xfce4-terminal</command>
+        <command>kitty</command>
       </action>
     </keybind>
     <keybind key="W-W">

@@ -121,13 +121,13 @@
  '(web-mode-code-indent-offset 2)
  '(web-mode-css-indent-offset 2)
  '(web-mode-markup-indent-offset 2))
- '(face-font-family-alternatives '(("custom" "Roboto Mono" "NanumGothicCoding" "Source Han Sans" "FreeMono")))
+ '(face-font-family-alternatives '(("custom" "SF Mono" "NanumGothicCoding" "Source Han Sans" "FreeMono")))
 
 (custom-set-faces
- '(default ((t (:weight bold :height 130 :family "Roboto Mono"))))
- '(fixed-pitch-serif ((t (:weight semi-bold :family "FreeMono"))))
- '(linum ((t (:height 130))))
- '(linum-highlight-face ((t (:height 130))))
+ '(default ((t (:weight bold :height 128 :family "SF Mono"))))
+ '(fixed-pitch-serif ((t (:weight bold :family "FreeMono"))))
+ '(linum ((t (:height 128))))
+ '(linum-highlight-face ((t (:height 128))))
  '(org-agenda-structure ((t (:inverse-video nil :underline nil :slant normal :weight bold :height 1.0))))
  '(org-document-title ((t (:weight bold :height 1.0))))
  '(org-level-1 ((t (:inherit nil :foreground "#3a393f" :height 1.0))))

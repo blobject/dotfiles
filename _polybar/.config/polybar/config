@@ -1,12 +1,10 @@
 [colors]
-background = #bbbbc3
-background-alt = #fff
-foreground = #5a595f
-foreground-alt = #95959d
-primary = #4051b0
-secondary = #437e00
+background = #16161d
+foreground = #bbbbc3
+foreground-alt = #5a595f
+primary = #007f68
 alert = #c74032
-dark = #3a393f
+strong = #d7d7e0
 
 [bar/0bar]
 monitor =
@@ -23,9 +21,9 @@ radius = 0.0
 padding = 1
 dpi-x = 120
 dpi-y = 120
-font-0 = Roboto Mono:size=11:style=bold;2
+font-0 = Roboto Mono:size=11:style=bold;3
 font-1 = NanumGothicCoding:size=11:style=bold;3
-font-2 = FreeMono:size=11:style=bold;2
+font-2 = FreeMono:size=11:style=bold;3
 modules-left = ewmh xwindow
 modules-right = powermenu cpu temperature memory filesystem wlan backlight pulseaudio battery date
 tray-position = right
@@ -40,7 +38,7 @@ type = internal/xworkspaces
 enable-click = false
 enable-scroll = false
 label-active = %name%
-label-active-foreground = ${colors.dark}
+label-active-foreground = ${colors.foreground}
 label-urgent = %name%
 label-urgent-foreground = ${colors.alert}
 label-empty = %name%
@@ -49,8 +47,8 @@ format = <label-state>
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:95:...%
-label-foreground = ${colors.dark}
+label = %title:0:80:...%
+label-foreground = ${colors.strong}
 label-empty = x
 label-empty-foreground = ${colors.foreground-alt}
 format = <label>
@@ -170,8 +168,8 @@ adapter = ADP1
 poll-interval = 8.0
 ;full-at = 98
 time-format = %R
-label-charging = %percentage%%+%{F#95959d}(%time%)%consumption%%{F-}
-label-discharging = %percentage%%!%{F#95959d}(%time%)%consumption%%{F-}
+label-charging = %percentage%%+%{F#5a595f}(%time%)%consumption%%{F-}
+label-discharging = %percentage%%!%{F#5a595f}(%time%)%consumption%%{F-}
 label-full = full
 label-charging-foreground = ${colors.foreground}
 label-discharging-foreground = ${colors.foreground}
@@ -185,7 +183,7 @@ type = internal/date
 interval = 8.0
 date = %a%d%b
 time = %H:%M
-label = %{F#5a595f}%date% %{F#3a393f}%time%%{F-}
+label = %{F#95959d}%date% %{F#d7d7e0}%time%%{F-}
 format = <label>
 
 [settings]

@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Zoom
-Comment=Zoom Video Conference
+Comment=Video Conference
 Exec=/home/b/bin/zoom %U
 Icon=Zoom.png
 Terminal=false

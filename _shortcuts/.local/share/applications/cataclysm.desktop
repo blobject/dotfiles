@@ -2,7 +2,7 @@
 Type=Application
 Name=Cataclysm
 Name[en_US]=Cataclysm
-Comment=Cataclysm: Dark Days Ahead
+Comment=Dark Days Ahead
 Exec=/usr/bin/cataclysm-tiles
 Categories=Game;
 Encoding=UTF-8

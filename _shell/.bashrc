@@ -8,12 +8,11 @@ stty -ixon
 { git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1 /'; }
 
 ## variables
-PS1="\[\033[46;30m\] $? \[\033[0;37m\] \t \[\033[0;33m\]\$(0gitbr)\[\033[0;31m\]\w\[\033[0m\] "
 HISTCONTROL=ignoreboth
 HISTFILE="$HOME/.bashlog"
 HISTFILESIZE=32768
 HISTSIZE=32768
-PS1="\[\033]0;\u@\h:\w\007\]\[\033[0;37m\]\t \[\033[0;33m\]\$(0gitbr)\[\033[0;31m\]\w\[\033[0m\] "
+PS1="\[\033]0;\u@\h:\w\007\]\[\033[01;37m\]\t \[\033[0;33m\]\$(0gitbr)\[\033[01;31m\]\w\[\033[0m\] "
 export PATH="$HOME/bin${PATH:+:}$PATH"
 export SSH_AUTH_SOCK="$HOME/.ssh/agent"
 

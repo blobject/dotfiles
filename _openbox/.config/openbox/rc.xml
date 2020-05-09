@@ -122,22 +122,22 @@
     </context>
     <context name="Frame">
       <mousebind action="Drag" button="A-Left">
-        <action name="Move"/>
+        <action name="Resize"/>
       </mousebind>
       <mousebind action="Drag" button="A-Middle">
-        <action name="Move"/>
+        <action name="Resize"/>
       </mousebind>
       <mousebind action="Drag" button="A-Right">
-        <action name="Move"/>
+        <action name="Resize"/>
       </mousebind>
       <mousebind action="Drag" button="W-Left">
-        <action name="Resize"/>
+        <action name="Move"/>
       </mousebind>
       <mousebind action="Drag" button="W-Middle">
-        <action name="Resize"/>
+        <action name="Move"/>
       </mousebind>
       <mousebind action="Drag" button="W-Right">
-        <action name="Resize"/>
+        <action name="Move"/>
       </mousebind>
     </context>
   </mouse>

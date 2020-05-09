@@ -12,7 +12,7 @@ HISTCONTROL=ignoreboth
 HISTFILE="$HOME/.bashlog"
 HISTFILESIZE=32768
 HISTSIZE=32768
-PS1="\[\033]0;\u@\h:\w\007\]\[\033[01;37m\]\t \[\033[0;33m\]\$(0gitbr)\[\033[01;31m\]\w\[\033[0m\] "
+PS1="\[\033]0;\u@\h:\w\007\]\[\033[1;37m\]\t \[\033[0;33m\]\$(0gitbr)\[\033[1;31m\]\w\[\033[0m\] "
 export PATH="$HOME/bin${PATH:+:}$PATH"
 export SSH_AUTH_SOCK="$HOME/.ssh/agent"
 
@@ -34,7 +34,7 @@ alias 0sshadd='ssh-add $HOME/.ssh/id_rsa'
 alias 0top-c="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time | sed '/^ 0.0 /d'"
 alias 0top-d="du -kx | ag -v '\./.+/' | sort -rn"
 alias 0top-m="ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz | awk '{if (\$1>5000) print;}'"
-alias asdf='xmodmap $HOME/cfg/hsnt/hsnt.xmodmap;xset r rate 300 30'
+alias asdf='xmodmap $HOME/cfg/unstowed/hsnt/hsnt.xmodmap;xset r rate 300 30'
 alias hsnt='setxkbmap us;xset r rate 300 30'
 alias cp='cp -iv'
 alias g='git'
@@ -48,6 +48,7 @@ alias llt='ll -t'
 alias mv='mv -iv'
 alias rm='rm -i'
 alias pstree='pstree -hnp'
+alias ssh='kitty +kitten ssh'
 alias sudo='sudo '
 alias tclsh='rlwrap -ci tclsh'
 alias v='vim'

@@ -12,8 +12,8 @@ export GUILE_AUTO_COMPILE=0
 #export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd -Dsun.java2d.xrender=true -Dswing.aatext=true'
 
 ## settings
-bgs $HOME/cfg/back.jpg
-xmodmap $HOME/cfg/hsnt/hsnt.xmodmap
+bgs $HOME/cfg/unstowed/back.jpg
+xmodmap $HOME/cfg/unstowed/hsnt/hsnt.xmodmap
 xrdb -merge $HOME/.xresources
 xset r rate 300 30
 

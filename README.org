@@ -2,7 +2,7 @@
 
 *** screenshot
 
-[[/screenshot.png]]
+[[/unstowed/screenshot.png]]
 
 counter-clockwise from northwest:
 [[https://polybar.github.io/][polybar]],
@@ -20,11 +20,11 @@ counter-clockwise from northwest:
 | opt. keyboard | [[https://www.apple.com/shop/product/MLA22LL/A/magic-keyboard-us-english][magic keyboard]] |
 | opt. pointer | [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]] |
 | opt. monitor | [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]] |
-| kernel | [[https://www.kernel.org/][custom 5.4.39 lts]] |
+| kernel | [[https://www.kernel.org/][custom 5.4.41 lts]] |
 | distro | [[https://voidlinux.org/][void linux]] |
 | display | [[https://www.x.org/][xorg]] |
 | wm | [[http://openbox.org/wiki/Main_Page][openbox]] |
-| type | [[https://en.wikipedia.org/wiki/Roboto][roboto {,mono,slab}]], [[https://developer.apple.com/fonts/][sf mono]] |
+| type | [[https://developer.apple.com/fonts/][sf {mono, pro}]] |
 | color | [[https://github.com/agarick/cemant][cemant]] |
 | shell/[[https://github.com/agarick/scripts][script]] | [[https://www.gnu.org/software/bash/][bash]]; [[https://www.tcl.tk/][tcl]] |
 | terminal | [[https://sw.kovidgoyal.net/kitty/][kitty]] |

@@ -1,10 +1,10 @@
 [global]
     alignment = center
-    browser = firefox
+    browser = chromium
     class = Dunst
     dmenu = /usr/bin/dmenu -p dunst:
     follow = keyboard
-    font = Roboto Mono Bold 10
+    font = Roboto Mono Bold 12
     #force_xinerama = true
     format = "<b>%s</b>: %b\n"
     frame_width = 4
@@ -13,7 +13,7 @@
     hide_duplicate_count = false
     history_length = 32
     horizontal_padding = 0
-    icon_path = /usr/share/icons/Faience/status/16/:/usr/share/icons/Faience/devices/16/
+    icon_path = /usr/share/icons/Papirus/16x16/status/:/usr/share/icons/Papirus/16x16/devices/
     icon_position = off
     idle_threshold = 120
     ignore_newline = no

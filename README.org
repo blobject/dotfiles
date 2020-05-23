@@ -5,12 +5,12 @@
 [[/unstowed/screenshot.png]]
 
 counter-clockwise from northwest:
-[[https://polybar.github.io/][polybar]],
-[[https://www.gnu.org/software/emacs/][emacs]],
+polybar,
+emacs,
 [[https://mpv.io/][mpv]],
-2 * [[https://sw.kovidgoyal.net/kitty/][kitty]],
-[[https://www.chromium.org/Home][chromium]],
-[[https://github.com/dunst-project/dunst][dunst]]
+2 * kitty,
+[[https://www.mozilla.org/en-US/firefox/new/][firefox]],
+dunst
 
 *** selection
 
@@ -20,7 +20,7 @@ counter-clockwise from northwest:
 | opt. keyboard | [[https://www.apple.com/shop/product/MLA22LL/A/magic-keyboard-us-english][magic keyboard]] |
 | opt. pointer | [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]] |
 | opt. monitor | [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]] |
-| kernel | [[https://www.kernel.org/][custom 5.4.41 lts]] |
+| kernel | [[https://www.kernel.org/][custom 5.4.42 lts]] |
 | distro | [[https://voidlinux.org/][void linux]] |
 | display | [[https://www.x.org/][xorg]] |
 | wm | [[http://openbox.org/wiki/Main_Page][openbox]] |

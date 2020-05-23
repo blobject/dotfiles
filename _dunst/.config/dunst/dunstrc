@@ -1,6 +1,6 @@
 [global]
     alignment = center
-    browser = chromium
+    browser = firefox
     class = Dunst
     dmenu = /usr/bin/dmenu -p dunst:
     follow = keyboard

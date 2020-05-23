@@ -44,7 +44,7 @@
   <desktops>
     <number>4</number>
     <firstdesk>1</firstdesk>
-    <popupTime>500</popupTime>
+    <popupTime>0</popupTime>
     <names>
       <name>1</name>
       <name>2</name>
@@ -225,7 +225,7 @@
         <direction>vertical</direction>
       </action>
       <action name="MoveResizeTo">
-        <width>1080</width>
+        <width>50%</width>
       </action>
       <action name="MoveToEdge">
         <direction>west</direction>
@@ -237,7 +237,7 @@
         <direction>horizontal</direction>
       </action>
       <action name="MoveResizeTo">
-        <height>710</height>
+        <height>50%</height>
       </action>
       <action name="MoveToEdge">
         <direction>south</direction>
@@ -249,7 +249,7 @@
         <direction>horizontal</direction>
       </action>
       <action name="MoveResizeTo">
-        <height>710</height>
+        <height>50%</height>
       </action>
       <action name="MoveToEdge">
         <direction>north</direction>
@@ -264,7 +264,7 @@
         <direction>vertical</direction>
       </action>
       <action name="MoveResizeTo">
-        <width>1080</width>
+        <width>50%</width>
       </action>
       <action name="MoveToEdge">
         <direction>north</direction>
@@ -276,8 +276,8 @@
     <keybind key="W-S-Y">
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
-        <width>1080</width>
-        <height>710</height>
+        <width>50%</width>
+        <height>50%</height>
       </action>
       <action name="MoveToEdge">
         <direction>north</direction>
@@ -289,8 +289,8 @@
     <keybind key="W-S-U">
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
-        <width>1080</width>
-        <height>710</height>
+        <width>50%</width>
+        <height>50%</height>
       </action>
       <action name="MoveToEdge">
         <direction>north</direction>
@@ -302,8 +302,8 @@
     <keybind key="W-S-B">
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
-        <width>1080</width>
-        <height>710</height>
+        <width>50%</width>
+        <height>50%</height>
       </action>
       <action name="MoveToEdge">
         <direction>south</direction>
@@ -315,8 +315,8 @@
     <keybind key="W-S-N">
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
-        <width>1080</width>
-        <height>710</height>
+        <width>50%</width>
+        <height>50%</height>
       </action>
       <action name="MoveToEdge">
         <direction>south</direction>
@@ -325,13 +325,13 @@
         <direction>east</direction>
       </action>
     </keybind>
-    <keybind key="W-S-T">
+    <keybind key="W-S-3">
       <action name="UnmaximizeFull"/>
       <action name="Maximize">
         <direction>vertical</direction>
       </action>
       <action name="MoveResizeTo">
-        <width>720</width>
+        <width>33%</width>
       </action>
     </keybind>
     <keybind key="A-Tab">
@@ -525,7 +525,7 @@
     </keybind>
     <keybind key="W-W">
       <action name="Execute">
-        <command>chromium</command>
+        <command>firefox</command>
       </action>
     </keybind>
     <keybind key="W-Z">
@@ -535,7 +535,7 @@
     </keybind>
     <keybind key="W-A-W">
       <action name="Execute">
-        <command>chromium --user-data-dir=/home/b/p/chromium_proxy --proxy-server=socks5://127.0.0.1:8815 --host-resolver-rules='MAP * 0.0.0.0 , EXCLUDE 127.0.0.1'</command>
+        <command>firefox --private-window --profile /home/b/p/firefox_proxy</command>
       </action>
     </keybind>
   </keyboard>
@@ -546,7 +546,7 @@
     </application>
     <application class="Xfce4-appfinder">
       <layer>above</layer>
-      <position force="yes">
+      <position force="no">
         <x>center</x>
         <y>center</y>
       </position>

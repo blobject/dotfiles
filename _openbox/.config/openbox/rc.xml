@@ -475,22 +475,22 @@
     </keybind>
     <keybind key="XF86AudioMute">
       <action name="Execute">
-        <command>0volume toggle</command>
+        <command>0vol toggle</command>
       </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
       <action name="Execute">
-        <command>0volume decrease 2</command>
+        <command>0vol decrease 2</command>
       </action>
     </keybind>
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
-        <command>0volume increase 2</command>
+        <command>0vol increase 2</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMicMute">
       <action name="Execute">
-        <command>0volume mictoggle</command>
+        <command>0vol mictoggle</command>
       </action>
     </keybind>
     <keybind key="W-Print">

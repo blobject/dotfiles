@@ -20,10 +20,9 @@ dunst
 | opt. keyboard | [[https://www.apple.com/shop/product/MLA22LL/A/magic-keyboard-us-english][magic keyboard]] |
 | opt. pointer | [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]] |
 | opt. monitor | [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]] |
-| kernel | [[https://www.kernel.org/][custom 5.4.42 lts]] |
-| distro | [[https://voidlinux.org/][void linux]] |
-| display | [[https://www.x.org/][xorg]] |
-| wm | [[http://openbox.org/wiki/Main_Page][openbox]] |
+| kernel | [[/unstowed/kernel.config][custom]] [[https://www.kernel.org/][5.6.16]] |
+| distro | [[https://voidlinux.org/][void]] |
+| wm | [[http://openbox.org/wiki/Main_Page][openbox]] on [[https://www.x.org/][xorg]] |
 | type | [[https://developer.apple.com/fonts/][sf {mono, pro}]] |
 | color | [[https://github.com/agarick/cemant][cemant]] |
 | shell/[[https://github.com/agarick/scripts][script]] | [[https://www.gnu.org/software/bash/][bash]]; [[https://www.tcl.tk/][tcl]] |

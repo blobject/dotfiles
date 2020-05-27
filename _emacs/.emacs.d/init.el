@@ -106,7 +106,7 @@
  '(mouse-wheel-progressive-speed nil)
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 5) ((control) . 10))))
  '(package-archives (quote (("gnu" . "https://elpa.gnu.org/packages/") ("melpa" . "https://melpa.org/packages/"))))
- '(package-selected-packages (quote (dot-mode expand-region iy-go-to-char multiple-cursors paredit rainbow-delimiters web-mode hlinum)))
+ '(package-selected-packages (quote (rust-mode dot-mode expand-region iy-go-to-char multiple-cursors paredit rainbow-delimiters web-mode hlinum)))
  '(python-indent 2)
  '(read-quoted-char-radix 16)
  '(scroll-bar-mode nil)
@@ -126,8 +126,6 @@
 (custom-set-faces
  '(default ((t (:weight bold :height 128 :family "SF Mono"))))
  '(fixed-pitch-serif ((t (:weight bold :family "FreeMono"))))
- '(linum ((t (:height 128))))
- '(linum-highlight-face ((t (:height 128))))
  '(org-agenda-structure ((t (:inverse-video nil :underline nil :slant normal :weight bold :height 1.0))))
  '(org-document-title ((t (:weight bold :height 1.0))))
  '(org-level-1 ((t (:inherit nil :foreground "#3a393f" :height 1.0))))

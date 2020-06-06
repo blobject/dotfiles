@@ -28,6 +28,8 @@ fi
 alias 0clock='echo "$(date +%s)"; echo "  UTC:       $(TZ=UTC date)"; echo "* Prague:    $(date)"; echo "  London:    $(TZ=Europe/London date)"; echo "  Los Angls: $(TZ=America/Los_Angeles date)"; echo "  New York:  $(TZ=America/New_York date)"; echo "  Riyadh:    $(TZ=Asia/Riyadh date)"; echo "  Seoul:     $(TZ=Asia/Seoul date)"'
 alias 0fonts="fc-list | sed 's/^.\+: //;s/:.\+$//;s/,.*$//' | sort -u | pr -2 -T"
 alias 0ip='wget -qO - https://ipinfo.io/ip'
+alias 0mixon='pactl load-module module-loopback'
+alias 0mixoff='pactl unload-module module-loopback'
 alias 0proxy='ssh -CND 8815 188.166.105.125' # agaric.net
 alias 0qmk-build='docker run -e keymap=agaric -e subproject=rev4 -e keyboard=planck --rm -v $HOME/src/qmk_firmware:/qmk:rw edasque/qmk_firmware'
 alias 0sshadd='ssh-add $HOME/.ssh/id_rsa'

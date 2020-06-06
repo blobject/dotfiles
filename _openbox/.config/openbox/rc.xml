@@ -508,6 +508,11 @@
         <command>sh -c 'maim -s $HOME/got/screenshot-$(date +%s).png 2>/dev/null'</command>
       </action>
     </keybind>
+    <keybind key="XF86Eject">
+      <action name="Execute">
+        <command>xfce4-appfinder</command>
+      </action>
+    </keybind>
     <keybind key="W-Return">
       <action name="Execute">
         <command>xfce4-appfinder</command>
@@ -516,6 +521,11 @@
     <keybind key="W-E">
       <action name="Execute">
         <command>emacs</command>
+      </action>
+    </keybind>
+    <keybind key="W-P">
+      <action name="Execute">
+        <command>pavucontrol</command>
       </action>
     </keybind>
     <keybind key="W-T">

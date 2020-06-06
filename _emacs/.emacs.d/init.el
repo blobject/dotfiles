@@ -77,7 +77,7 @@
  '(backup-directory-alist (quote ((".*" . "~/bak/emacs/"))))
  '(blink-cursor-mode nil)
  '(browse-url-browser-function (quote browse-url-generic))
- '(browse-url-generic-program "icecat")
+ '(browse-url-generic-program "firefox")
  '(c-basic-offset 2)
  '(c-default-style (quote ((c-mode . "bsd") (c++-mode . "bsd") (java-mode . "java") (awk-mode . "awk") (other . "gnu"))))
  '(column-number-mode t)

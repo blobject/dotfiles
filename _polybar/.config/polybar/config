@@ -3,6 +3,7 @@ background = #16161d
 foreground = #bbbbc3
 foreground-alt = #5a595f
 primary = #007f68
+secondary = #947c27
 alert = #c74032
 strong = #d7d7e0
 
@@ -24,14 +25,61 @@ dpi-y = 120
 font-0 = Roboto Mono:size=11:style=bold;3
 font-1 = NanumGothicCoding:size=11:style=bold;3
 font-2 = FreeMono:size=11:style=bold;3
-modules-left = ewmh xwindow
-modules-right = powermenu cpu temperature memory filesystem wlan backlight pulseaudio battery date
+modules-left = powermenu ewmh xwindow
+modules-right = cpu temperature memory filesystem wlan backlight pulseaudio battery date
 tray-position = right
 tray-padding = 1
 tray-background = ${colors.background}
 cursor-click = pointer
 cursor-scroll = ns-resize
 separator = "  "
+
+[module/powermenu]
+type = custom/menu
+expand-right = true
+format-spacing = 0
+label-open = pow
+label-open-foreground = ${colors.primary}
+label-close = cancel
+label-close-foreground = ${colors.primary}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+menu-0-0 = logout
+menu-0-0-exec = menu-open-1
+menu-0-0-foreground = ${colors.secondary}
+menu-0-1 = sleep
+menu-0-1-exec = menu-open-2
+menu-0-1-foreground = ${colors.secondary}
+menu-0-2 = reboot
+menu-0-2-exec = menu-open-3
+menu-0-2-foreground = ${colors.secondary}
+menu-0-3 = shutdown
+menu-0-3-exec = menu-open-4
+menu-0-3-foreground = ${colors.secondary}
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-0-foreground = ${colors.secondary}
+menu-1-1 = logout
+menu-1-1-exec = "0bye logout"
+menu-1-1-foreground = ${colors.alert}
+menu-2-0 = sleep
+menu-2-0-exec = "0bye sleep"
+menu-2-0-foreground = ${colors.alert}
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+menu-2-1-foreground = ${colors.secondary}
+menu-3-0 = reboot
+menu-3-0-exec = "0bye reboot"
+menu-3-0-foreground = ${colors.alert}
+menu-3-1 = cancel
+menu-3-1-exec = menu-open-0
+menu-3-1-foreground = ${colors.secondary}
+menu-4-0 = shutdown
+menu-4-0-exec = "0bye shutdown"
+menu-4-0-foreground = ${colors.alert}
+menu-4-1 = cancel
+menu-4-1-exec = menu-open-0
+menu-4-1-foreground = ${colors.secondary}
 
 [module/ewmh]
 type = internal/xworkspaces
@@ -47,58 +95,11 @@ format = <label-state>
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:90:...%
+label = %title:0:80:...%
 label-foreground = ${colors.strong}
 label-empty = x
 label-empty-foreground = ${colors.foreground-alt}
 format = <label>
-
-[module/powermenu]
-type = custom/menu
-expand-right = false
-format-spacing = 0
-label-open = pow
-label-open-foreground = ${colors.primary}
-label-close = cancel
-label-close-foreground = ${colors.primary}
-label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
-menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
-menu-0-0-foreground = ${colors.foreground}
-menu-0-1 = shutdown
-menu-0-1-exec = menu-open-2
-menu-0-1-foreground = ${colors.foreground}
-menu-0-2 = sleep
-menu-0-2-exec = menu-open-3
-menu-0-2-foreground = ${colors.foreground}
-menu-0-3 = logout
-menu-0-3-exec = menu-open-4
-menu-0-3-foreground = ${colors.foreground}
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-0-foreground = ${colors.foreground}
-menu-1-1 = reboot
-menu-1-1-exec = "0bye reboot"
-menu-1-1-foreground = ${colors.alert}
-menu-2-0 = cancel
-menu-2-0-exec = menu-open-0
-menu-2-0-foreground = ${colors.foreground}
-menu-2-1 = shutdown
-menu-2-1-exec = "0bye shutdown"
-menu-2-1-foreground = ${colors.alert}
-menu-3-0 = cancel
-menu-3-0-exec = menu-open-0
-menu-3-0-foreground = ${colors.foreground}
-menu-3-1 = sleep
-menu-3-1-exec = "0bye sleep"
-menu-3-1-foreground = ${colors.alert}
-menu-4-0 = logout
-menu-4-0-exec = "0bye logout"
-menu-4-0-foreground = ${colors.alert}
-menu-4-1 = cancel
-menu-4-1-exec = menu-open-0
-menu-4-1-foreground = ${colors.foreground}
 
 [module/cpu]
 type = internal/cpu
@@ -110,7 +111,7 @@ format = <label>
 [module/temperature]
 type = internal/temperature
 thermal-zone = 0
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input
 interval = 2.0
 warn-temperature = 60
 label = %temperature-c%

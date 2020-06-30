@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Putty
+Comment=Free Telnet/SSH Client
+Exec=/usr/bin/putty
+Categories=Networking;
+Encoding=UTF-8
+StartupNotify=true
+Terminal=false

@@ -123,7 +123,7 @@
      ("melpa" . "https://melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (markdown-mode rust-mode dot-mode expand-region iy-go-to-char multiple-cursors paredit rainbow-delimiters web-mode hlinum)))
+    (elixir-mode haskell-mode markdown-mode rust-mode dot-mode expand-region iy-go-to-char multiple-cursors paredit rainbow-delimiters web-mode hlinum)))
  '(python-indent 2)
  '(read-quoted-char-radix 16)
  '(scroll-bar-mode nil)

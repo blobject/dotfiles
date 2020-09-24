@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=0gtk
+Type=X-GNOME-Metatheme
+Comment=
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=0gtk
+MetacityTheme=0gtk
+IconTheme=Papirus
+CursorTheme=Vanilla-DMZ

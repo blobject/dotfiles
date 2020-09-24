@@ -1,6 +1,7 @@
 ## vars
 export PATH="$HOME/bin:${PATH:+:}$PATH"
 export GUILE_AUTO_COMPILE=0
+export QT_QPA_PLATFORMTHEME=qt5ct
 #export XDG_MENU_PREFIX=''
 #export XDG_CONFIG_HOME="$HOME/.config"
 #export XDG_CONFIG_DIRS=/etc/xdg
@@ -12,11 +13,8 @@ export GUILE_AUTO_COMPILE=0
 #export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd -Dsun.java2d.xrender=true -Dswing.aatext=true'
 
 ## settings
-bgs $HOME/cfg/unstowed/back.jpg
+xwallpaper --daemon --center $HOME/cfg/unstowed/back.jpg
 xmodmap $HOME/cfg/unstowed/hsnt/hsnt.xmodmap
 xrdb -merge $HOME/.xresources
 xset r rate 300 30
 
-## services
-0temper &
-#start-pulseaudio-x11 &

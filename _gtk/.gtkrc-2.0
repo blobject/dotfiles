@@ -1,4 +1,1 @@
-gtk-theme-name="Adwaita"
-gtk-icon-theme-name="Papirus-Light"
-gtk-cursor-theme-name="Vanilla-DMZ"
-gtk-cursor-theme-size=32
+.themes/0gtk/gtk-2.0/gtkrc

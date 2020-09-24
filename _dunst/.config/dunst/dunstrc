@@ -45,17 +45,17 @@
     history = mod4+shift+space
     context = mod4+ctrl+space
 [urgency_low]
-    background = "#95959d"
+    background = "#bbbbc3"
     foreground = "#5a595f"
     timeout = 3
     #icon = /path/to/icon
 [urgency_normal]
-    background = "#95959d"
+    background = "#bbbbc3"
     foreground = "#16161d"
     timeout = 8
     #icon = /path/to/icon
 [urgency_critical]
-    background = "#95959d"
+    background = "#bbbbc3"
     foreground = "#16161d"
     frame_color = "#a92636"
     timeout = 0

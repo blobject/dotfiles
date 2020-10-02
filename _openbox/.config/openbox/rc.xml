@@ -2,8 +2,8 @@
 <openbox_config xmlns="http://openbox.org/3.4/rc" xmlns:xi="http://www.w3.org/2001/XInclude">
 
   <resistance>
-    <strength>0</strength>
-    <screen_edge_strength>50</screen_edge_strength>
+    <strength>32</strength>
+    <screen_edge_strength>32</screen_edge_strength>
   </resistance>
 
   <focus>
@@ -27,29 +27,29 @@
     <animateIconify>no</animateIconify>
     <font place="ActiveWindow">
       <name>sans</name>
-      <size>1</size>
+      <size>10</size>
+      <weight>bold</weight>
     </font>
     <font place="ActiveOnScreenDisplay">
       <name>monospace</name>
-      <size>9</size>
-      <weight>Bold</weight>
+      <size>10</size>
+      <weight>bold</weight>
     </font>
     <font place="InactiveOnScreenDisplay">
       <name>monospace</name>
-      <size>9</size>
-      <weight>Bold</weight>
+      <size>10</size>
+      <weight>bold</weight>
     </font>
   </theme>
 
   <desktops>
-    <number>4</number>
+    <number>3</number>
     <firstdesk>1</firstdesk>
     <popupTime>0</popupTime>
     <names>
       <name>1</name>
       <name>2</name>
       <name>3</name>
-      <name>4</name>
     </names>
   </desktops>
 
@@ -143,83 +143,39 @@
   </mouse>
 
   <keyboard>
-    <keybind key="W-H">
-      <action name="MoveRelative">
-        <x>-10</x>
-      </action>
-    </keybind>
-    <keybind key="W-J">
-      <action name="MoveRelative">
-        <y>10</y>
-      </action>
-    </keybind>
-    <keybind key="W-K">
-      <action name="MoveRelative">
-        <y>-10</y>
-      </action>
-    </keybind>
-    <keybind key="W-L">
-      <action name="MoveRelative">
-        <x>10</x>
-      </action>
-    </keybind>
-    <keybind key="W-Y">
-      <action name="MoveRelative">
-        <x>-10</x>
-        <y>-10</y>
-      </action>
-    </keybind>
-    <keybind key="W-U">
-      <action name="MoveRelative">
-        <x>10</x>
-        <y>-10</y>
-      </action>
-    </keybind>
-    <keybind key="W-B">
-      <action name="MoveRelative">
-        <x>-10</x>
-        <y>10</y>
-      </action>
-    </keybind>
-    <keybind key="W-N">
-      <action name="MoveRelative">
-        <x>10</x>
-        <y>10</y>
-      </action>
-    </keybind>
-    <keybind key="W-C-H">
+    <keybind key="W-C-h">
       <action name="ResizeRelative">
         <right>-10</right>
       </action>
     </keybind>
-    <keybind key="W-C-J">
+    <keybind key="W-C-j">
       <action name="ResizeRelative">
         <bottom>10</bottom>
       </action>
     </keybind>
-    <keybind key="W-C-K">
+    <keybind key="W-C-k">
       <action name="ResizeRelative">
         <bottom>-10</bottom>
       </action>
     </keybind>
-    <keybind key="W-C-L">
+    <keybind key="W-C-l">
       <action name="ResizeRelative">
         <right>10</right>
       </action>
     </keybind>
-    <keybind key="W-C-Y">
+    <keybind key="W-C-y">
       <action name="ResizeRelative">
         <bottom>-10</bottom>
         <right>-10</right>
       </action>
     </keybind>
-    <keybind key="W-C-N">
+    <keybind key="W-C-n">
       <action name="ResizeRelative">
         <bottom>10</bottom>
         <right>10</right>
       </action>
     </keybind>
-    <keybind key="W-S-H">
+    <keybind key="W-S-h">
       <action name="UnmaximizeFull"/>
       <action name="Maximize">
         <direction>vertical</direction>
@@ -231,7 +187,7 @@
         <direction>west</direction>
       </action>
     </keybind>
-    <keybind key="W-S-J">
+    <keybind key="W-S-j">
       <action name="UnmaximizeFull"/>
       <action name="Maximize">
         <direction>horizontal</direction>
@@ -243,7 +199,7 @@
         <direction>south</direction>
       </action>
     </keybind>
-    <keybind key="W-S-K">
+    <keybind key="W-S-k">
       <action name="UnmaximizeFull"/>
       <action name="Maximize">
         <direction>horizontal</direction>
@@ -258,7 +214,7 @@
         <direction>west</direction>
       </action>
     </keybind>
-    <keybind key="W-S-L">
+    <keybind key="W-S-l">
       <action name="UnmaximizeFull"/>
       <action name="Maximize">
         <direction>vertical</direction>
@@ -273,7 +229,7 @@
         <direction>east</direction>
       </action>
     </keybind>
-    <keybind key="W-S-Y">
+    <keybind key="W-S-y">
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
         <width>50%</width>
@@ -286,7 +242,7 @@
         <direction>west</direction>
       </action>
     </keybind>
-    <keybind key="W-S-U">
+    <keybind key="W-S-u">
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
         <width>50%</width>
@@ -299,7 +255,7 @@
         <direction>east</direction>
       </action>
     </keybind>
-    <keybind key="W-S-B">
+    <keybind key="W-S-b">
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
         <width>50%</width>
@@ -312,7 +268,7 @@
         <direction>west</direction>
       </action>
     </keybind>
-    <keybind key="W-S-N">
+    <keybind key="W-S-n">
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
         <width>50%</width>
@@ -334,39 +290,27 @@
         <width>33%</width>
       </action>
     </keybind>
-    <keybind key="A-Tab">
-      <action name="NextWindow">
-        <dialog>no</dialog>
-        <raise>yes</raise>
-      </action>
-    </keybind>
-    <keybind key="A-S-Tab">
-      <action name="PreviousWindow">
-        <dialog>no</dialog>
-        <raise>yes</raise>
-      </action>
-    </keybind>
-    <keybind key="W-A-H">
+    <keybind key="W-h">
       <action name="MoveToEdge">
         <direction>west</direction>
       </action>
     </keybind>
-    <keybind key="W-A-J">
+    <keybind key="W-j">
       <action name="MoveToEdge">
         <direction>south</direction>
       </action>
     </keybind>
-    <keybind key="W-A-K">
+    <keybind key="W-k">
       <action name="MoveToEdge">
         <direction>north</direction>
       </action>
     </keybind>
-    <keybind key="W-A-L">
+    <keybind key="W-l">
       <action name="MoveToEdge">
         <direction>east</direction>
       </action>
     </keybind>
-    <keybind key="W-A-Y">
+    <keybind key="W-y">
       <action name="MoveToEdge">
         <direction>north</direction>
       </action>
@@ -374,7 +318,7 @@
         <direction>west</direction>
       </action>
     </keybind>
-    <keybind key="W-A-U">
+    <keybind key="W-u">
       <action name="MoveToEdge">
         <direction>north</direction>
       </action>
@@ -382,7 +326,7 @@
         <direction>east</direction>
       </action>
     </keybind>
-    <keybind key="W-A-B">
+    <keybind key="W-b">
       <action name="MoveToEdge">
         <direction>south</direction>
       </action>
@@ -390,7 +334,7 @@
         <direction>west</direction>
       </action>
     </keybind>
-    <keybind key="W-A-N">
+    <keybind key="W-n">
       <action name="MoveToEdge">
         <direction>south</direction>
       </action>
@@ -398,7 +342,7 @@
         <direction>east</direction>
       </action>
     </keybind>
-    <keybind key="W-C">
+    <keybind key="W-c">
       <action name="MoveResizeTo">
         <x>center</x>
         <y>center</y>
@@ -448,19 +392,31 @@
         <follow>no</follow>
       </action>
     </keybind>
+    <keybind key="A-Tab">
+      <action name="NextWindow">
+        <dialog>no</dialog>
+        <raise>yes</raise>
+      </action>
+    </keybind>
+    <keybind key="A-S-Tab">
+      <action name="PreviousWindow">
+        <dialog>no</dialog>
+        <raise>yes</raise>
+      </action>
+    </keybind>
     <keybind key="W-S-Escape">
       <action name="Close"/>
     </keybind>
-    <keybind key="W-S-R">
+    <keybind key="W-S-r">
       <action name="Reconfigure"/>
     </keybind>
-    <keybind key="W-D">
+    <keybind key="W-semicolon">
       <action name="ToggleShowDesktop"/>
     </keybind>
-    <keybind key="W-F">
+    <keybind key="W-f">
       <action name="ToggleFullscreen"/>
     </keybind>
-    <keybind key="W-M">
+    <keybind key="W-m">
       <action name="ToggleMaximize"/>
     </keybind>
     <keybind key="XF86MonBrightnessDown">
@@ -513,24 +469,19 @@
         <command>0vol fly mictoggle</command>
       </action>
     </keybind>
-    <keybind key="W-Print">
+    <keybind key="Print">
       <action name="Execute">
-        <command>sh -c 'maim $HOME/got/screenshot-$(date +%s).png'</command>
+        <command>sh -c 'f=screenshot-$(date +%s).png; maim $HOME/got/$f; notify-send maim $f'</command>
       </action>
     </keybind>
-    <keybind key="W-C-Print">
+    <keybind key="C-Print">
       <action name="Execute">
-        <command>sh -c 'maim -i $(xdotool getactivewindow) $HOME/got/screenshot-$(date +%s).png'</command>
+        <command>sh -c 'f=windowshot-$(date +%s).png; maim -i $(printf %d $(xdo id)) $HOME/got/$f; notify-send maim $f'</command>
       </action>
     </keybind>
-    <keybind key="W-S-Print">
+    <keybind key="S-Print">
       <action name="Execute">
-        <command>sh -c 'maim -s $HOME/got/screenshot-$(date +%s).png 2>/dev/null'</command>
-      </action>
-    </keybind>
-    <keybind key="XF86Eject">
-      <action name="Execute">
-        <command>xfce4-appfinder</command>
+        <command>sh -c 'f=selectshot-$(date +%s).png; maim -s $HOME/got/$f; notify-send maim $f'</command>
       </action>
     </keybind>
     <keybind key="W-Return">
@@ -538,40 +489,41 @@
         <command>xfce4-appfinder</command>
       </action>
     </keybind>
-    <keybind key="W-E">
+    <keybind key="W-e">
       <action name="Execute">
         <command>emacs</command>
       </action>
     </keybind>
-    <keybind key="W-P">
+    <keybind key="W-p">
       <action name="Execute">
         <command>pavucontrol</command>
       </action>
     </keybind>
-    <keybind key="W-T">
+    <keybind key="W-t">
       <action name="Execute">
         <command>kitty</command>
       </action>
     </keybind>
-    <keybind key="W-W">
+    <keybind key="W-w">
       <action name="Execute">
         <command>firefox</command>
       </action>
     </keybind>
-    <keybind key="W-Z">
+    <keybind key="W-z">
       <action name="Execute">
         <command>xzoom</command>
       </action>
     </keybind>
-    <keybind key="W-A-W">
+    <keybind key="W-A-w">
       <action name="Execute">
-        <command>firefox --private-window --profile /home/b/p/firefox_proxy</command>
+        <command>sh -c 'firefox --private-window --profile $HOME/p/firefox_proxy'</command>
       </action>
     </keybind>
   </keyboard>
 
   <applications>
     <application class="*">
+      <decor>no</decor>
       <focus>yes</focus>
     </application>
     <application class="Xfce4-appfinder">
@@ -584,6 +536,9 @@
         <width>40%</width>
         <height>50%</height>
       </size>
+    </application>
+    <application class="Polybar">
+      <layer>below</layer>
     </application>
   </applications>
 </openbox_config>

@@ -7,25 +7,25 @@
     font = Roboto Mono Bold 12
     #force_xinerama = true
     format = "<b>%s</b>: %b\n"
-    frame_width = 4
-    frame_color = "#007f68"
-    geometry = "384x25-50+70"
+    frame_width = 0
+    frame_color = "#000000"
+    geometry = "0x32-32+54"
     hide_duplicate_count = false
     history_length = 32
-    horizontal_padding = 0
-    icon_path = /usr/share/icons/Papirus/16x16/status/:/usr/share/icons/Papirus/16x16/devices/
+    horizontal_padding = 16
+    icon_path = /usr/share/icons/Papirus/32x32/status/:/usr/share/icons/Papirus/32x32/devices/
     icon_position = off
     idle_threshold = 120
     ignore_newline = no
     indicate_hidden = yes
-    line_height = 0
+    line_height = 1
     markup = full
     max_icon_size = 32
     monitor = 0
     notification_height = 0
-    padding = 8
-    separator_height = 4
-    separator_color = frame
+    padding = 16
+    separator_height = 8
+    separator_color = "#d7d7e0"
     show_age_threshold = 60
     show_indicators = yes
     shrink = no
@@ -40,24 +40,23 @@
 [experimental]
     per_monitor_dpi = false
 [shortcuts]
-    close = mod4+space
-    close_all = mod4+mod1+space
-    history = mod4+shift+space
-    context = mod4+ctrl+space
+    close = mod4+BackSpace
+    close_all = mod4+mod1+BackSpace
+    history = mod4+shift+BackSpace
+    context = mod4+ctrl+BackSpace
 [urgency_low]
-    background = "#bbbbc3"
-    foreground = "#5a595f"
+    background = "#007f68"
+    foreground = "#d7d7e0"
     timeout = 3
     #icon = /path/to/icon
 [urgency_normal]
-    background = "#bbbbc3"
-    foreground = "#16161d"
+    background = "#007f68"
+    foreground = "#d7d7e0"
     timeout = 8
     #icon = /path/to/icon
 [urgency_critical]
-    background = "#bbbbc3"
-    foreground = "#16161d"
-    frame_color = "#a92636"
+    background = "#a92636"
+    foreground = "#d7d7e0"
     timeout = 0
     #icon = /path/to/icon
 #[espeak]

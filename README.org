@@ -19,7 +19,7 @@ dunst
 | opt. keyboard | [[https://www.apple.com/shop/product/MLA22LL/A/magic-keyboard-us-english][magic keyboard]] |
 | opt. pointer | [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]] |
 | opt. monitor | [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]] |
-| kernel | [[/unstowed/kernel.config][custom]] [[https://www.kernel.org/][5.8.11]] |
+| kernel | [[/unstowed/kernel.config][custom]] [[https://www.kernel.org/][5.8.13]] |
 | distro | [[https://voidlinux.org/][void]] |
 | wm | [[http://openbox.org/wiki/Main_Page][openbox]] |
 | type | [[https://developer.apple.com/fonts/][sf {mono, pro}]] |

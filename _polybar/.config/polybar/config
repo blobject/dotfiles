@@ -48,7 +48,7 @@ cursor-scroll = ns-resize
 type = custom/menu
 expand-right = true
 format-spacing = 0
-label-open = pow
+label-open = bye
 label-open-foreground = ${colors.primary}
 label-close = cancel
 label-close-foreground = ${colors.primary}
@@ -93,10 +93,13 @@ menu-4-1-foreground = ${colors.warn}
 
 [module/ewmh]
 type = internal/xworkspaces
+pin-workspaces = false
 enable-click = false
 enable-scroll = false
 label-active = %name%
 label-active-foreground = ${colors.foreground}
+#label-occupied = %name%
+#label-occupied-foreground = #95959d
 label-urgent = %name%
 label-urgent-foreground = ${colors.alert}
 label-empty = %name%

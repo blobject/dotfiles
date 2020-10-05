@@ -9,10 +9,9 @@ stty -ixon
 
 ## variables
 HISTCONTROL=ignoreboth
-HISTFILE="$HOME/.bashlog"
 HISTFILESIZE=32768
 HISTSIZE=32768
-PS1="\[\033]0;\u@\h:\w\007\]\[\033[1;37m\]\t \[\033[0;33m\]\$(0gitbr)\[\033[1;31m\]\w\[\033[0m\] "
+PS1='\[\033[1;37m\]\t \[\033[0;33m\]'"\$(0gitbr)"'\[\033[1;31m\]\w\[\033[0m\] '
 export PATH="$HOME/bin${PATH:+:}$PATH"
 export SSH_AUTH_SOCK="$HOME/.ssh/agent"
 
@@ -79,3 +78,5 @@ c()
   && sudo dfu-programmer atmega32u4 reset; } \
   || echo 'no file given'; }
 
+## set title
+trap 'echo -ne "\033]0;($(echo $PWD | sed s,$HOME,~,)) $BASH_COMMAND\007"' DEBUG

@@ -4,6 +4,7 @@ Name=Cataclysm
 Name[en_US]=Cataclysm
 Comment=Dark Days Ahead
 Exec=/usr/bin/cataclysm-tiles
+Icon=cataclysm-dda.svg
 Categories=Game;
 Encoding=UTF-8
 StartupNotify=true

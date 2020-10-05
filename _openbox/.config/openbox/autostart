@@ -4,5 +4,6 @@ polybar 0bar &
 blueman-tray &
 connman-gtk &
 dunst &
+picom &
 #start-pulseaudio-x11 &
 volctl &

@@ -404,6 +404,14 @@
         <raise>yes</raise>
       </action>
     </keybind>
+    <keybind key="W-comma">
+      <action name="Focus"/>
+      <action name="Lower"/>
+    </keybind>
+    <keybind key="W-period">
+      <action name="Focus"/>
+      <action name="Raise"/>
+    </keybind>
     <keybind key="W-S-Escape">
       <action name="Close"/>
     </keybind>
@@ -421,32 +429,32 @@
     </keybind>
     <keybind key="XF86MonBrightnessDown">
       <action name="Execute">
-        <command>xbacklight -dec 5</command>
+        <command>sh -c 'xbacklight -dec 5; dunstify -r 99990 -u normal -t 2000 -i redshift-status-off "$(printf %.0f $(xbacklight -get))"'</command>
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
-        <command>xbacklight -inc 5</command>
+        <command>sh -c 'xbacklight -inc 5; dunstify -r 99990 -u normal -t 2000 -i redshift-status-on "$(printf %.0f $(xbacklight -get))"'</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMute">
       <action name="Execute">
-        <command>0vol builtin toggle</command>
+        <command>0vol laptop toggle</command>
       </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
       <action name="Execute">
-        <command>0vol builtin decrease 2</command>
+        <command>0vol laptop decrease 2</command>
       </action>
     </keybind>
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
-        <command>0vol builtin increase 2</command>
+        <command>0vol laptop increase 2</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMicMute">
       <action name="Execute">
-        <command>0vol builtin mictoggle</command>
+        <command>0vol laptop mictoggle</command>
       </action>
     </keybind>
     <keybind key="C-XF86AudioMute">
@@ -464,24 +472,19 @@
         <command>0vol fly increase 2</command>
       </action>
     </keybind>
-    <keybind key="C-XF86AudioMicMute">
-      <action name="Execute">
-        <command>0vol fly mictoggle</command>
-      </action>
-    </keybind>
     <keybind key="Print">
       <action name="Execute">
-        <command>sh -c 'f=screenshot-$(date +%s).png; maim $HOME/got/$f; notify-send maim $f'</command>
+        <command>sh -c 'f=screenshot-$(date +%s).png; maim $HOME/got/$f; dunstify -u normal -i image-x-generic $f'</command>
       </action>
     </keybind>
     <keybind key="C-Print">
       <action name="Execute">
-        <command>sh -c 'f=windowshot-$(date +%s).png; maim -i $(printf %d $(xdo id)) $HOME/got/$f; notify-send maim $f'</command>
+        <command>sh -c 'f=windowshot-$(date +%s).png; maim -i $(printf %d $(xdo id)) $HOME/got/$f; dunstify -u normal -i image-x-generic $f'</command>
       </action>
     </keybind>
     <keybind key="S-Print">
       <action name="Execute">
-        <command>sh -c 'f=selectshot-$(date +%s).png; maim -s $HOME/got/$f; notify-send maim $f'</command>
+        <command>sh -c 'f=selectshot-$(date +%s).png; maim -s $HOME/got/$f; dunstify -u normal -i image-x-generic $f'</command>
       </action>
     </keybind>
     <keybind key="W-Return">

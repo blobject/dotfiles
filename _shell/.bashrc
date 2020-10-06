@@ -14,6 +14,7 @@ HISTSIZE=32768
 PS1='\[\033[1;37m\]\t \[\033[0;33m\]'"\$(0gitbr)"'\[\033[1;31m\]\w\[\033[0m\] '
 export PATH="$HOME/bin${PATH:+:}$PATH"
 export SSH_AUTH_SOCK="$HOME/.ssh/agent"
+eval $(dircolors --sh)
 
 ## services
 if ! pgrep -u $USER ssh-agent >/dev/null; then
@@ -49,7 +50,6 @@ alias llt='ll -t'
 alias mv='mv -iv'
 alias rm='rm -i'
 alias pstree='pstree -hnp'
-alias ssh='kitty +kitten ssh'
 alias sudo='sudo '
 alias tclsh='rlwrap -ci tclsh'
 alias v='vim'

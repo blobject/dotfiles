@@ -3,7 +3,7 @@
 
   <resistance>
     <strength>32</strength>
-    <screen_edge_strength>32</screen_edge_strength>
+    <screen_edge_strength>256</screen_edge_strength>
   </resistance>
 
   <focus>
@@ -55,8 +55,8 @@
 
   <resize>
     <drawContents>yes</drawContents>
-    <popupShow>Never</popupShow>
-    <popupPosition>Center</popupPosition>
+    <popupShow>Always</popupShow>
+    <popupPosition>Top</popupPosition>
   </resize>
 
   <margins>
@@ -504,7 +504,7 @@
     </keybind>
     <keybind key="W-t">
       <action name="Execute">
-        <command>kitty</command>
+        <command>xterm</command>
       </action>
     </keybind>
     <keybind key="W-w">
@@ -519,7 +519,7 @@
     </keybind>
     <keybind key="W-A-w">
       <action name="Execute">
-        <command>sh -c 'firefox --private-window --profile $HOME/p/firefox_proxy'</command>
+        <command>sh -c 'firefox --private-window --profile $HOME/p/firefox_proxy 2>/dev/null'</command>
       </action>
     </keybind>
   </keyboard>

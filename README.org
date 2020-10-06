@@ -25,7 +25,7 @@ dunst
 | type | [[https://developer.apple.com/fonts/][sf {mono, pro text}]] |
 | color | [[https://github.com/agarick/cemant][cemant]] |
 | shell/[[https://github.com/agarick/scripts][script]] | [[https://www.gnu.org/software/bash/][bash]]; [[https://www.tcl.tk/][tcl]] |
-| terminal | [[https://sw.kovidgoyal.net/kitty/][kitty]] |
+| terminal | [[https://invisible-island.net/xterm/][xterm]] |
 | edit | [[https://www.gnu.org/software/emacs/][emacs]], [[https://www.vim.org/][vim]] |
 | cron | [[https://github.com/leahneukirchen/snooze][snooze]] |
 | notification | [[https://github.com/dunst-project/dunst][dunst]] |

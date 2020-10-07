@@ -42,8 +42,8 @@
     per_monitor_dpi = false
 [shortcuts]
     close = mod4+BackSpace
-    close_all = mod4+mod1+BackSpace
-    history = mod4+shift+BackSpace
+    close_all = mod4+shift+BackSpace
+    history = mod4+mod1+BackSpace
     context = mod4+ctrl+BackSpace
 [urgency_low]
     background = "#000000"

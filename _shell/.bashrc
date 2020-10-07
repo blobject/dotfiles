@@ -9,8 +9,8 @@ stty -ixon
 
 ## variables
 HISTCONTROL=ignoreboth
-HISTFILESIZE=32768
-HISTSIZE=32768
+HISTFILESIZE=65536
+HISTSIZE=65536
 PS1='\[\033[1;37m\]\t \[\033[0;33m\]'"\$(0gitbr)"'\[\033[1;31m\]\w\[\033[0m\] '
 export PATH="$HOME/bin${PATH:+:}$PATH"
 export SSH_AUTH_SOCK="$HOME/.ssh/agent"

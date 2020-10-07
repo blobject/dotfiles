@@ -16,21 +16,17 @@ dunst
 | class | instance(s) |
 |-------|-------------|
 | machine | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]] |
-| opt. keyboard | [[https://www.apple.com/shop/product/MLA22LL/A/magic-keyboard-us-english][magic keyboard]] |
-| opt. pointer | [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]] |
-| opt. monitor | [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]] |
-| kernel | [[/unstowed/kernel.config][linux 5.8.13]] |
+| opt. peripherals | [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]], [[https://olkb.com/collections/planck][planck]], [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]] |
+| kernel | [[https://www.kernel.org/][linux]] [[/unstowed/kernel.config][5.8.13]] |
 | distro | [[https://voidlinux.org/][void]] |
 | wm | [[http://openbox.org/wiki/Main_Page][openbox]] |
-| type | [[https://developer.apple.com/fonts/][sf {mono, pro text}]] |
 | color | [[https://github.com/agarick/cemant][cemant]] |
-| shell/[[https://github.com/agarick/scripts][script]] | [[https://www.gnu.org/software/bash/][bash]]; [[https://www.tcl.tk/][tcl]] |
-| terminal | [[https://invisible-island.net/xterm/][xterm]] |
+| shell/[[https://github.com/agarick/scripts][script]] | [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
+| terminal | [[https://invisible-island.net/xterm/][xterm]], [[https://developer.apple.com/fonts/][sf mono]] |
 | edit | [[https://www.gnu.org/software/emacs/][emacs]], [[https://www.vim.org/][vim]] |
 | cron | [[https://github.com/leahneukirchen/snooze][snooze]] |
-| notification | [[https://github.com/dunst-project/dunst][dunst]] |
-| bar | [[https://polybar.github.io/][polybar]] |
-| compositor | [[https://github.com/yshui/picom][picom]] |
+| notification | [[https://github.com/dunst-project/dunst][dunst]], sf mono, [[https://github.com/KDE/breeze-icons][breeze]] |
+| bar | [[https://polybar.github.io/][polybar]], [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://github.com/PapirusDevelopmentTeam/papirus-icon-theme][papirus]] |
 
 *** see also
 

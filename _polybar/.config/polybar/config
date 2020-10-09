@@ -17,7 +17,7 @@ b = #a04611
 bb = #dd6e2e
 
 [bar/0bar]
-monitor =
+monitor = ${env:MONITOR:eDP1}
 override-redirect = false
 bottom = false
 fixed-center = true
@@ -29,11 +29,11 @@ background = ${colors.background}
 foreground = ${colors.foreground-alt}
 radius = 0.0
 padding = 1
-dpi-x = 120
-dpi-y = 120
-font-0 = Roboto Mono:size=11:style=bold;3
-font-1 = NanumGothicCoding:size=11:style=bold;3
-font-2 = FreeMono:size=11:style=bold;3
+dpi-x = 200
+dpi-y = 200
+font-0 = Roboto Mono:size=7:style=bold;3
+font-1 = NanumGothicCoding:size=7:style=bold;3
+font-2 = FreeMono:size=7:style=bold;3
 modules-left = powermenu ewmh xwindow
 modules-right = cpu temperature memory filesystem wlan backlight pulseaudio battery date
 separator = "  "

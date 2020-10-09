@@ -23,23 +23,23 @@
 
   <theme>
     <name>0openbox</name>
-    <titleLayout></titleLayout>
     <animateIconify>no</animateIconify>
     <font place="ActiveWindow">
       <name>sans</name>
-      <size>10</size>
+      <size>7</size>
       <weight>bold</weight>
     </font>
     <font place="ActiveOnScreenDisplay">
-      <name>monospace</name>
-      <size>10</size>
+      <name>Roboto Mono</name>
+      <size>7</size>
       <weight>bold</weight>
     </font>
     <font place="InactiveOnScreenDisplay">
-      <name>monospace</name>
-      <size>10</size>
+      <name>Roboto Mono</name>
+      <size>7</size>
       <weight>bold</weight>
     </font>
+    <titleLayout></titleLayout>
   </theme>
 
   <desktops>
@@ -60,7 +60,7 @@
   </resize>
 
   <margins>
-    <top>22</top>
+    <top>0</top>
     <bottom>0</bottom>
     <left>0</left>
     <right>0</right>
@@ -166,6 +166,18 @@
     <keybind key="W-C-y">
       <action name="ResizeRelative">
         <bottom>-10</bottom>
+        <right>-10</right>
+      </action>
+    </keybind>
+    <keybind key="W-C-u">
+      <action name="ResizeRelative">
+        <bottom>-10</bottom>
+        <right>10</right>
+      </action>
+    </keybind>
+    <keybind key="W-C-b">
+      <action name="ResizeRelative">
+        <bottom>10</bottom>
         <right>-10</right>
       </action>
     </keybind>
@@ -429,12 +441,12 @@
     </keybind>
     <keybind key="XF86MonBrightnessDown">
       <action name="Execute">
-        <command>sh -c 'xbacklight -dec 5; dunstify -r 99990 -u normal -t 2000 -i redshift-status-off "$(printf %.0f $(xbacklight -get))"'</command>
+        <command>sh -c 'xbacklight -dec 5; dunstify -r 99990 -u low -t 2000 -i display-brightness-off-symbolic "$(printf %.0f $(xbacklight -get))"'</command>
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
-        <command>sh -c 'xbacklight -inc 5; dunstify -r 99990 -u normal -t 2000 -i redshift-status-on "$(printf %.0f $(xbacklight -get))"'</command>
+        <command>sh -c 'xbacklight -inc 5; dunstify -r 99990 -u low -t 2000 -i display-brightness-high-symbolic "$(printf %.0f $(xbacklight -get))"'</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMute">
@@ -474,17 +486,17 @@
     </keybind>
     <keybind key="Print">
       <action name="Execute">
-        <command>sh -c 'f=screenshot-$(date +%s).png; maim $HOME/got/$f; dunstify -u normal -i image-x-generic $f'</command>
+        <command>sh -c 'f=screenshot-$(date +%s).png; maim $HOME/got/$f; dunstify -u normal -i orientation-landscape-symbolic $f'</command>
       </action>
     </keybind>
     <keybind key="C-Print">
       <action name="Execute">
-        <command>sh -c 'f=windowshot-$(date +%s).png; maim -i $(printf %d $(xdo id)) $HOME/got/$f; dunstify -u normal -i image-x-generic $f'</command>
+        <command>sh -c 'f=windowshot-$(date +%s).png; maim -i $(printf %d $(xdo id)) $HOME/got/$f; dunstify -u normal -i orientation-landscape-symbolic $f'</command>
       </action>
     </keybind>
     <keybind key="S-Print">
       <action name="Execute">
-        <command>sh -c 'f=selectshot-$(date +%s).png; maim -s $HOME/got/$f; dunstify -u normal -i image-x-generic $f'</command>
+        <command>sh -c 'f=selectshot-$(date +%s).png; maim -s $HOME/got/$f; dunstify -u normal -i orientation-landscape-symbolic $f'</command>
       </action>
     </keybind>
     <keybind key="W-Return">
@@ -509,7 +521,7 @@
     </keybind>
     <keybind key="W-w">
       <action name="Execute">
-        <command>firefox</command>
+        <command>qutebrowser --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag ignore-gpu-blocklist</command>
       </action>
     </keybind>
     <keybind key="W-z">

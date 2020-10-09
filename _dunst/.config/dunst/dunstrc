@@ -4,7 +4,7 @@
     class = Dunst
     dmenu = /usr/bin/dmenu -p dunst:
     follow = keyboard
-    font = Roboto Mono Bold 12
+    font = Roboto Mono Bold 9
     #force_xinerama = true
     format = "%s"
     frame_width = 6
@@ -13,7 +13,8 @@
     hide_duplicate_count = false
     history_length = 64
     horizontal_padding = 24
-    icon_path = /usr/share/icons/breeze-dark/mimetypes/22/:/usr/share/icons/breeze-dark/status/22/
+    #icon_path = /usr/share/icons/breeze-dark/mimetypes/22/:/usr/share/icons/breeze-dark/status/22/
+    icon_path = /usr/share/icons/Papirus-Dark/symbolic/status/
     icon_position = left
     idle_threshold = 120
     ignore_newline = no

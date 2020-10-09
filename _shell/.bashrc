@@ -13,6 +13,7 @@ HISTFILESIZE=65536
 HISTSIZE=65536
 PS1='\[\033[1;37m\]\t \[\033[0;33m\]'"\$(0gitbr)"'\[\033[1;31m\]\w\[\033[0m\] '
 export PATH="$HOME/bin${PATH:+:}$PATH"
+export LESS=-iRS
 export SSH_AUTH_SOCK="$HOME/.ssh/agent"
 eval $(dircolors --sh)
 
@@ -25,17 +26,16 @@ if [[ ! -S "$SSH_AUTH_SOCK" ]]; then
 fi
 
 ## aliases
-alias 0clock='echo "$(date +%s)"; echo "  UTC:       $(TZ=UTC date)"; echo "* Prague:    $(date)"; echo "  London:    $(TZ=Europe/London date)"; echo "  Los Angls: $(TZ=America/Los_Angeles date)"; echo "  New York:  $(TZ=America/New_York date)"; echo "  Riyadh:    $(TZ=Asia/Riyadh date)"; echo "  Seoul:     $(TZ=Asia/Seoul date)"'
+alias 0clock='echo "$(date +%s) $(TZ=UTC date)"; echo "Prague:    $(date)"; echo "Reykjavik: $(TZ=Atlantic/Reykjavik date)"; echo "Riyadh:    $(TZ=Asia/Riyadh date)"; echo "Seoul:     $(TZ=Asia/Seoul date)"'
 alias 0fonts="fc-list | sed 's/^.\+: //;s/:.\+$//;s/,.*$//' | sort -u | pr -2 -T"
 alias 0ip='wget -qO - https://ipinfo.io/ip'
 alias 0mixon='pactl load-module module-loopback'
 alias 0mixoff='pactl unload-module module-loopback'
 alias 0proxy='ssh -CND 8815 188.166.105.125' # agaric.net
-alias 0qmk-build='docker run -e keymap=agaric -e subproject=rev4 -e keyboard=planck --rm -v $HOME/src/qmk_firmware:/qmk:rw edasque/qmk_firmware'
 alias 0sshadd='ssh-add $HOME/.ssh/id_rsa'
-alias 0top-c="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time | sed '/^ 0.0 /d'"
-alias 0top-d="du -kx | ag -v '\./.+/' | sort -rn"
-alias 0top-m="ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz | awk '{if (\$1>5000) print;}'"
+alias 0topc="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time | sed '/^ 0.0 /d'"
+alias 0topd="du -kx | ag -v '\./.+/' | sort -rn"
+alias 0topm="ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz | awk '{if (\$1>5000) print;}'"
 alias asdf='xmodmap $HOME/cfg/unstowed/hsnt/hsnt.xmodmap;xset r rate 300 30'
 alias hsnt='setxkbmap us;xset r rate 300 30'
 alias cp='cp -iv'
@@ -53,6 +53,9 @@ alias pstree='pstree -hnp'
 alias sudo='sudo '
 alias tclsh='rlwrap -ci tclsh'
 alias v='vim'
+alias xi='xbps-install'
+alias xq='xbps-query'
+alias xr='xbps-remove'
 alias ,='c ..'
 alias ,,='c ../..'
 alias ,,,='c ../../..'

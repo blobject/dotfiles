@@ -145,7 +145,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:weight bold :height 128 :family "SF Mono"))))
+ '(default ((t (:weight bold :height 90 :family "SF Mono"))))
  '(fixed-pitch-serif ((t (:weight bold :family "FreeMono"))))
  '(org-agenda-structure ((t (:inverse-video nil :underline nil :slant normal :weight bold :height 1.0))))
  '(org-document-title ((t (:weight bold :height 1.0))))

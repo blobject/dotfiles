@@ -5,12 +5,12 @@ window.client.padding.width: 0
 window.client.padding.height: 0
 
 osd.bg: flat solid
-osd.bg.color: #95959d
-osd.border.width: 4
-osd.border.color: #4051b0
-osd.hilight.bg.color: #3a393f
+osd.bg.color: #000000
+osd.border.width: 3
+osd.border.color: #000000
+osd.hilight.bg.color: #4051b0
 osd.unhilight.bg: flat border
-osd.unhilight.bg.color: #d0d0d8
+osd.unhilight.bg.color: #3a393f
 
 window.active.border.color: #4051b0
 window.active.button.*.bg: flat solid

@@ -516,7 +516,7 @@
     </keybind>
     <keybind key="W-t">
       <action name="Execute">
-        <command>xterm</command>
+        <command>alacritty</command>
       </action>
     </keybind>
     <keybind key="W-w">

@@ -6,9 +6,9 @@
 
 counter-clockwise from northwest:
 polybar,
-xterm ([[https://github.com/dylanaraps/neofetch][neofetch]]),
+alacritty ([[https://github.com/dylanaraps/neofetch][neofetch]]),
 emacs,
-xterm ([[https://github.com/naelstrof/maim][maim]]),
+alacritty ([[https://github.com/naelstrof/maim][maim]]),
 dunst
 
 *** selection
@@ -22,7 +22,7 @@ dunst
 | wm | [[http://openbox.org/wiki/Main_Page][openbox]] |
 | color | [[https://github.com/agarick/cemant][cemant]] |
 | shell/[[https://github.com/agarick/scripts][script]] | [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
-| terminal | [[https://invisible-island.net/xterm/][xterm]], [[https://developer.apple.com/fonts/][sf mono]] |
+| terminal | [[https://github.com/alacritty/alacritty][alacritty]], [[https://developer.apple.com/fonts/][sf mono]] |
 | edit | [[https://www.gnu.org/software/emacs/][emacs]], [[https://www.vim.org/][vim]] |
 | www | [[https://qutebrowser.org/][qutebrowser]] |
 | cron | [[https://github.com/leahneukirchen/snooze][snooze]] |

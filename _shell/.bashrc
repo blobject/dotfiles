@@ -53,13 +53,13 @@ alias pstree='pstree -hnp'
 alias sudo='sudo '
 alias tclsh='rlwrap -ci tclsh'
 alias v='vim'
-alias xi='xbps-install'
-alias xq='xbps-query'
-alias xr='xbps-remove'
 alias ,='c ..'
 alias ,,='c ../..'
 alias ,,,='c ../../..'
 alias ,,,,='c ../../../..'
+
+source /usr/share/bash-completion/completions/git
+__git_complete g __git_main
 
 ## more functions
 c()

@@ -7,9 +7,9 @@ window:
   #position:
   #  x: 0
   #  y: 0
-  padding:
-    x: 1
-    y: 1
+  #padding:
+  #  x: 0
+  #  y: 0
   dynamic_padding: true
   #decorations: full
   #startup_mode: Windowed
@@ -20,7 +20,7 @@ window:
   #gtk_theme_variant: None
 scrolling:
   history: 16384
-  #multiplier: 3
+  multiplier: 1
 font:
   normal:
     family: monospace
@@ -119,7 +119,7 @@ cursor:
 #    - --login
 #working_directory: None
 #winpty_backend: false
-#alt_send_esc: true
+alt_send_esc: false
 mouse:
   #double_click: { threshold: 300 }
   #triple_click: { threshold: 300 }

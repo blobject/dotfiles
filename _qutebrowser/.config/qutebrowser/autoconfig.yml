@@ -118,7 +118,7 @@ settings:
   colors.tabs.indicator.error:
     global: '#ff0000'
   colors.tabs.indicator.start:
-    global: '#bbbb00'
+    global: '#ddbb00'
   colors.tabs.indicator.stop:
     global: '#00bb00'
   colors.tabs.indicator.system:
@@ -162,6 +162,10 @@ settings:
     global: utf-8
   content.desktop_capture:
     global: ask
+  content.fullscreen.overlay_timeout:
+    global: 2000
+  content.fullscreen.window:
+    global: false
   content.geolocation:
     global: false
   content.headers.accept_language:
@@ -175,6 +179,7 @@ settings:
     global: Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko)
       {qt_key}/{qt_version} {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version}
   content.media_capture:
+    https://cuni-cz.zoom.us: true
     https://us04web.zoom.us: true
   content.notifications:
     https://mail.google.com: true
@@ -191,6 +196,10 @@ settings:
     https://mail.google.com?extsrc=mailto&url=%25s: true
   downloads.location.directory:
     global: /home/b/got/
+  downloads.position:
+    global: bottom
+  downloads.remove_finished:
+    global: -1
   editor.command:
     global:
     - emacs
@@ -255,6 +264,8 @@ settings:
     global: false
   history_gap_interval:
     global: 30
+  input.partial_timeout:
+    global: 8000
   keyhint.delay:
     global: 500
   keyhint.radius:
@@ -295,10 +306,10 @@ settings:
     global: 64
   tabs.indicator.padding:
     global:
-      bottom: 8
+      bottom: 6
       left: 0
       right: 1
-      top: 0
+      top: 2
   tabs.indicator.width:
     global: 3
   tabs.last_close:

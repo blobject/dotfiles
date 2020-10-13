@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=LXAppearance
-Comment=LXDE Theme Switcher
-Exec=/usr/bin/lxappearance
-Categories=Gtk;Themes;
-Encoding=UTF-8
-StartupNotify=true
-Terminal=false

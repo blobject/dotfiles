@@ -9,10 +9,8 @@ settings:
   aliases:
     global:
       q: close
-      qa: quit
       w: session-save
       wq: quit --save
-      wqa: quit --save
   auto_save.interval:
     global: 30000
   auto_save.session:
@@ -22,9 +20,14 @@ settings:
   bindings.commands:
     global:
       normal:
-        <Shift+Return>: config-cycle statusbar.show in-mode always ;; config-cycle
+        <Control+Return>: config-cycle statusbar.show in-mode always ;; config-cycle
           tabs.show always switching
+        <Ctrl+v>: null
+        <Shift-Return>: enter-mode passthrough
         '`': buffer
+        gh: tab-move -
+        gl: tab-move +
+        gr: null
   bindings.key_mappings:
     global:
       <Ctrl+6>: <Ctrl+^>
@@ -64,7 +67,7 @@ settings:
   colors.completion.match.fg:
     global: white
   colors.completion.odd.bg:
-    global: '#4a494f'
+    global: '#313035'
   colors.completion.scrollbar.bg:
     global: '#16161d'
   colors.completion.scrollbar.fg:
@@ -74,9 +77,9 @@ settings:
   colors.messages.info.fg:
     global: white
   colors.prompts.bg:
-    global: '#4051b0'
+    global: black
   colors.prompts.border:
-    global: 1px solid navy
+    global: 1px solid grey
   colors.prompts.fg:
     global: white
   colors.prompts.selected.bg:
@@ -128,13 +131,21 @@ settings:
   colors.tabs.odd.fg:
     global: '#bbbbc3'
   colors.tabs.pinned.even.bg:
-    global: black
+    global: '#95959d'
   colors.tabs.pinned.even.fg:
-    global: '#bbbbc3'
-  colors.tabs.pinned.odd.bg:
     global: black
+  colors.tabs.pinned.odd.bg:
+    global: '#95959d'
   colors.tabs.pinned.odd.fg:
-    global: '#bbbbc3'
+    global: black
+  colors.tabs.pinned.selected.even.bg:
+    global: '#4051b0'
+  colors.tabs.pinned.selected.even.fg:
+    global: white
+  colors.tabs.pinned.selected.odd.bg:
+    global: '#4051b0'
+  colors.tabs.pinned.selected.odd.fg:
+    global: white
   colors.tabs.selected.even.bg:
     global: '#4051b0'
   colors.tabs.selected.even.fg:
@@ -212,21 +223,23 @@ settings:
   fonts.downloads:
     global: default_size default_family
   fonts.hints:
-    global: bold 9pt default_family
+    global: 700 9pt default_family
   fonts.keyhint:
-    global: default_size default_family
+    global: 500 default_size default_family
   fonts.messages.error:
-    global: bold default_size default_family
+    global: 700 default_size default_family
   fonts.messages.info:
     global: default_size default_family
+  fonts.messages.warning:
+    global: 500 default_size default_family
   fonts.prompts:
     global: default_size default_family
   fonts.statusbar:
-    global: 6.5pt default_family
+    global: 500 6.5pt default_family
   fonts.tabs.selected:
-    global: bold 7pt default_family
+    global: 700 7pt default_family
   fonts.tabs.unselected:
-    global: 7pt default_family
+    global: 500 7pt default_family
   fonts.web.family.cursive:
     global: serif
   fonts.web.family.fantasy:
@@ -277,6 +290,11 @@ settings:
   prompt.radius:
     global: 0
   qt.args:
+    global:
+    - --enable-gpu-rasterization
+    - enable-native-gpu-memory-buffers
+    - ignore-gpu-blocklist
+  qt.force_platform:
     global: null
   qt.highdpi:
     global: false
@@ -313,13 +331,17 @@ settings:
   tabs.indicator.width:
     global: 3
   tabs.last_close:
-    global: ignore
+    global: blank
   tabs.max_width:
     global: -1
   tabs.min_width:
     global: 128
   tabs.mode_on_change:
     global: normal
+  tabs.mousewheel_switching:
+    global: false
+  tabs.new_position.related:
+    global: next
   tabs.new_position.unrelated:
     global: next
   tabs.padding:
@@ -335,7 +357,7 @@ settings:
   tabs.position:
     global: top
   tabs.select_on_remove:
-    global: last-used
+    global: next
   tabs.show:
     global: always
   tabs.show_switching_delay:

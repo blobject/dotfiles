@@ -1,4 +1,5 @@
-Xcursor.size: 32
+*multiClickTime: 300
+Xcursor.size: 64
 Xft.dpi: 200
 
 XTerm.termName: xterm-256color

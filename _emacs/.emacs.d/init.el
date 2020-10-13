@@ -138,14 +138,14 @@
  '(web-mode-code-indent-offset 2)
  '(web-mode-css-indent-offset 2)
  '(web-mode-markup-indent-offset 2))
- '(face-font-family-alternatives '(("custom" "SF Mono" "NanumGothicCoding" "Source Han Sans" "FreeMono")))
+ '(face-font-family-alternatives '(("custom" "Roboto Mono" "NanumGothicCoding" "Source Han Sans" "FreeMono")))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:weight bold :height 90 :family "SF Mono"))))
+ '(default ((t (:weight bold :height 90 :family "Roboto Mono"))))
  '(fixed-pitch-serif ((t (:weight bold :family "FreeMono"))))
  '(org-agenda-structure ((t (:inverse-video nil :underline nil :slant normal :weight bold :height 1.0))))
  '(org-document-title ((t (:weight bold :height 1.0))))

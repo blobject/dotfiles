@@ -75,6 +75,7 @@
   </dock>
 
   <mouse>
+	  <doubleClickTime>300</doubleClickTime>
     <context name="Titlebar Top Bottom Left Right TLCorner TRCorner BLCorner BRCorner Client">
       <mousebind action="Press" button="Left">
         <action name="Focus"/>
@@ -293,13 +294,22 @@
         <direction>east</direction>
       </action>
     </keybind>
-    <keybind key="W-S-3">
+    <keybind key="W-S-1">
       <action name="UnmaximizeFull"/>
       <action name="Maximize">
         <direction>vertical</direction>
       </action>
       <action name="MoveResizeTo">
-        <width>33%</width>
+        <width>38%</width>
+      </action>
+    </keybind>
+    <keybind key="W-S-2">
+      <action name="UnmaximizeFull"/>
+      <action name="Maximize">
+        <direction>vertical</direction>
+      </action>
+      <action name="MoveResizeTo">
+        <width>62%</width>
       </action>
     </keybind>
     <keybind key="W-h">
@@ -441,12 +451,12 @@
     </keybind>
     <keybind key="XF86MonBrightnessDown">
       <action name="Execute">
-        <command>sh -c 'xbacklight -dec 5; dunstify -r 99990 -u low -t 2000 -i display-brightness-off-symbolic "$(printf %.0f $(xbacklight -get))"'</command>
+        <command>sh -c 'xbacklight -dec 5; dunstify -r 99990 -u low -t 2000 -i redshift-status-off "$(printf %.0f $(xbacklight -get))"'</command>
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
-        <command>sh -c 'xbacklight -inc 5; dunstify -r 99990 -u low -t 2000 -i display-brightness-high-symbolic "$(printf %.0f $(xbacklight -get))"'</command>
+        <command>sh -c 'xbacklight -inc 5; dunstify -r 99990 -u low -t 2000 -i redshift-status-on "$(printf %.0f $(xbacklight -get))"'</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMute">
@@ -469,34 +479,49 @@
         <command>0vol laptop mictoggle</command>
       </action>
     </keybind>
-    <keybind key="C-XF86AudioMute">
+    <keybind key="S-XF86AudioMute">
       <action name="Execute">
         <command>0vol fly toggle</command>
       </action>
     </keybind>
-    <keybind key="C-XF86AudioLowerVolume">
+    <keybind key="S-XF86AudioLowerVolume">
       <action name="Execute">
         <command>0vol fly decrease 2</command>
       </action>
     </keybind>
-    <keybind key="C-XF86AudioRaiseVolume">
+    <keybind key="S-XF86AudioRaiseVolume">
       <action name="Execute">
         <command>0vol fly increase 2</command>
       </action>
     </keybind>
+    <keybind key="C-XF86AudioMute">
+      <action name="Execute">
+        <command>0vol cx toggle</command>
+      </action>
+    </keybind>
+    <keybind key="C-XF86AudioLowerVolume">
+      <action name="Execute">
+        <command>0vol cx decrease 2</command>
+      </action>
+    </keybind>
+    <keybind key="C-XF86AudioRaiseVolume">
+      <action name="Execute">
+        <command>0vol cx increase 2</command>
+      </action>
+    </keybind>
     <keybind key="Print">
       <action name="Execute">
-        <command>sh -c 'f=screenshot-$(date +%s).png; maim $HOME/got/$f; dunstify -u normal -i orientation-landscape-symbolic $f'</command>
+        <command>sh -c 'f=screenshot-$(date +%s).png; maim $HOME/got/$f; dunstify -u normal -i image-x-generic $f'</command>
       </action>
     </keybind>
     <keybind key="C-Print">
       <action name="Execute">
-        <command>sh -c 'f=windowshot-$(date +%s).png; maim -i $(printf %d $(xdo id)) $HOME/got/$f; dunstify -u normal -i orientation-landscape-symbolic $f'</command>
+        <command>sh -c 'f=windowshot-$(date +%s).png; maim -i $(printf %d $(xdo id)) $HOME/got/$f; dunstify -u normal -i image-x-generic $f'</command>
       </action>
     </keybind>
     <keybind key="S-Print">
       <action name="Execute">
-        <command>sh -c 'f=selectshot-$(date +%s).png; maim -s $HOME/got/$f; dunstify -u normal -i orientation-landscape-symbolic $f'</command>
+        <command>sh -c 'f=selectshot-$(date +%s).png; maim -s $HOME/got/$f; dunstify -u normal -i image-x-generic $f'</command>
       </action>
     </keybind>
     <keybind key="W-Return">
@@ -521,7 +546,7 @@
     </keybind>
     <keybind key="W-w">
       <action name="Execute">
-        <command>qutebrowser --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag ignore-gpu-blocklist</command>
+        <command>qutebrowser</command>
       </action>
     </keybind>
     <keybind key="W-z">

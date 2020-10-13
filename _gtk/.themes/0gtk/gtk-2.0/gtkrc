@@ -1,5 +1,5 @@
-gtk-theme-name="Adwaita"
-gtk-cursor-theme-name="Vanilla-DMZ"
-gtk-cursor-theme-size=32
 gtk-font-name="Sans 9"
+gtk-cursor-theme-name="Breeze_Amber"
+gtk-cursor-theme-size=64
 gtk-icon-theme-name="Papirus"
+gtk-theme-name="Adwaita"

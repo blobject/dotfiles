@@ -20,14 +20,14 @@ settings:
   bindings.commands:
     global:
       normal:
-        <Control+Return>: config-cycle statusbar.show in-mode always ;; config-cycle
-          tabs.show always switching
         <Ctrl+v>: null
-        <Shift-Return>: enter-mode passthrough
         '`': buffer
         gh: tab-move -
         gl: tab-move +
         gr: null
+        xb: config-cycle statusbar.show in-mode always ;; config-cycle tabs.show always
+          switching
+        xx: enter-mode passthrough
   bindings.key_mappings:
     global:
       <Ctrl+6>: <Ctrl+^>

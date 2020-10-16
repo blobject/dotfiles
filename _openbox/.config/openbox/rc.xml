@@ -461,67 +461,57 @@
     </keybind>
     <keybind key="XF86AudioMute">
       <action name="Execute">
-        <command>0vol laptop toggle</command>
+        <command>0vol toggle</command>
       </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
       <action name="Execute">
-        <command>0vol laptop decrease 2</command>
+        <command>0vol decrease 2</command>
       </action>
     </keybind>
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
-        <command>0vol laptop increase 2</command>
+        <command>0vol increase 2</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMicMute">
       <action name="Execute">
-        <command>0vol laptop mictoggle</command>
-      </action>
-    </keybind>
-    <keybind key="S-XF86AudioMute">
-      <action name="Execute">
-        <command>0vol fly toggle</command>
-      </action>
-    </keybind>
-    <keybind key="S-XF86AudioLowerVolume">
-      <action name="Execute">
-        <command>0vol fly decrease 2</command>
-      </action>
-    </keybind>
-    <keybind key="S-XF86AudioRaiseVolume">
-      <action name="Execute">
-        <command>0vol fly increase 2</command>
+        <command>0vol mic toggle</command>
       </action>
     </keybind>
     <keybind key="C-XF86AudioMute">
       <action name="Execute">
-        <command>0vol cx toggle</command>
+        <command>0vol b toggle</command>
       </action>
     </keybind>
     <keybind key="C-XF86AudioLowerVolume">
       <action name="Execute">
-        <command>0vol cx decrease 2</command>
+        <command>0vol b decrease 2</command>
       </action>
     </keybind>
     <keybind key="C-XF86AudioRaiseVolume">
       <action name="Execute">
-        <command>0vol cx increase 2</command>
+        <command>0vol b increase 2</command>
+      </action>
+    </keybind>
+    <keybind key="C-XF86AudioMicMute">
+      <action name="Execute">
+        <command>0vol b mic toggle</command>
       </action>
     </keybind>
     <keybind key="Print">
       <action name="Execute">
-        <command>sh -c 'f=screenshot-$(date +%s).png; maim $HOME/got/$f; dunstify -u normal -i image-x-generic $f'</command>
+        <command>0shot screen</command>
       </action>
     </keybind>
     <keybind key="C-Print">
       <action name="Execute">
-        <command>sh -c 'f=windowshot-$(date +%s).png; maim -i $(printf %d $(xdo id)) $HOME/got/$f; dunstify -u normal -i image-x-generic $f'</command>
+        <command>0shot window</command>
       </action>
     </keybind>
     <keybind key="S-Print">
       <action name="Execute">
-        <command>sh -c 'f=selectshot-$(date +%s).png; maim -s $HOME/got/$f; dunstify -u normal -i image-x-generic $f'</command>
+        <command>0shot select</command>
       </action>
     </keybind>
     <keybind key="W-Return">

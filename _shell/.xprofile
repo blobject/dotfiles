@@ -16,7 +16,7 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 #export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd -Dsun.java2d.xrender=true -Dswing.aatext=true'
 
 ## settings
-setxkbmap -option ctrl:swapcaps
+cat /sys/bus/usb/devices/*/product | grep -q '^Planck$' || setxkbmap -option ctrl:swapcaps
 xmodmap $HOME/cfg/unstowed/hsnt/hsnt.xmodmap
 xrdb -merge $HOME/.xresources
 xset r rate 300 30 s 0 0 dpms 1200 1200 1200

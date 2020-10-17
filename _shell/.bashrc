@@ -36,8 +36,8 @@ alias 0sshadd='ssh-add $HOME/.ssh/id_rsa'
 alias 0topc="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time | sed '/^ 0.0 /d'"
 alias 0topd="du -kx | ag -v '\./.+/' | sort -rn"
 alias 0topm="ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz | awk '{if (\$1>5000) print;}'"
-alias asdf='cat /sys/bus/usb/devices/*/product | grep -q "^The Planck Keyboard$" || setxkbmap -option ctrl:swapcaps; xmodmap $HOME/cfg/unstowed/hsnt/hsnt.xmodmap; xset r rate 300 30'
-alias hsnt='cat /sys/bus/usb/devices/*/product | grep -q "^The Planck Keyboard$" && setxkbmap us || setxkbmap -option ctrl:swapcaps us; xset r rate 300 30'
+alias asdf='cat /sys/bus/usb/devices/*/product | grep -q "^Planck$" || setxkbmap -option ctrl:swapcaps; xmodmap $HOME/cfg/unstowed/hsnt/hsnt.xmodmap; xset r rate 300 30'
+alias hsnt='cat /sys/bus/usb/devices/*/product | grep -q "^Planck$" && setxkbmap -option us || setxkbmap -option ctrl:swapcaps us; xset r rate 300 30'
 alias cp='cp -iv'
 alias g='git'
 alias guile='rlwrap -ci guile'

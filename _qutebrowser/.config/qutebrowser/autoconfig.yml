@@ -20,6 +20,8 @@ settings:
   bindings.commands:
     global:
       normal:
+        <Ctrl+Shift+q>: quit --save
+        <Ctrl+q>: null
         <Ctrl+v>: null
         '`': buffer
         gh: tab-move -
@@ -189,7 +191,13 @@ settings:
   content.headers.user_agent:
     global: Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko)
       {qt_key}/{qt_version} {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version}
-  content.media_capture:
+  content.media.audio_capture:
+    https://cuni-cz.zoom.us: true
+    https://us04web.zoom.us: true
+  content.media.audio_video_capture:
+    https://cuni-cz.zoom.us: true
+    https://us04web.zoom.us: true
+  content.media.video_capture:
     https://cuni-cz.zoom.us: true
     https://us04web.zoom.us: true
   content.notifications:

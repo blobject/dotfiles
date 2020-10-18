@@ -20,15 +20,15 @@ dunst
 | kernel | [[https://www.kernel.org/][linux]] [[/unstowed/kernel.config][5.9.1]] |
 | distro | [[https://voidlinux.org/][void]] |
 | wm | [[http://openbox.org/wiki/Main_Page][openbox]] |
-| shell/[[https://github.com/agarick/scripts][script]] | [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
+| shell/[[https://github.com/blobject/scripts][script]] | [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
 | terminal | [[https://github.com/alacritty/alacritty][alacritty]] |
 | edit | [[https://www.gnu.org/software/emacs/][emacs]], [[https://www.vim.org/][vim]] |
 | www | [[https://qutebrowser.org/][qutebrowser]] |
 | cron | [[https://github.com/leahneukirchen/snooze][snooze]] |
 | notification | [[https://github.com/dunst-project/dunst][dunst]] |
 | bar | [[https://polybar.github.io/][polybar]] |
-| look | 2160x1440, 200dpi, font size 9, [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://github.com/agarick/cemant][cemant]], [[https://github.com/PapirusDevelopmentTeam/papirus-icon-theme][papirus]], [[https://github.com/KDE/breeze][breeze]] |
+| look | 2160x1440, 200dpi, font size 9, [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://github.com/blobject/cemant][cemant]], [[https://github.com/PapirusDevelopmentTeam/papirus-icon-theme][papirus]], [[https://fontawesome.com/][font awesome]], [[https://github.com/KDE/breeze][breeze]] |
 
 *** see also
 
-see [[https://github.com/agarick/scripts][scripts]] for accompanying shell scripts.
+see [[https://github.com/blobject/scripts][scripts]] for accompanying shell scripts.

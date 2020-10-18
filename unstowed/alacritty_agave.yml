@@ -1,0 +1,55 @@
+colors:
+  primary:
+    #background: '#b9bdc5' # default
+    #foreground: '#36383f'
+    background: '#282a36' # ascii
+    foreground: '#c7c7c7'
+    #background: '#1427b1' # term
+    #foreground: '#fefdc5'
+    #background: '#eeeeee' # lit
+    #foreground: '#444444'
+    #background: '#f0f7da' # unicode
+    #foreground: '#234d20'
+    #background: '#ffffff' # black on white
+    #foreground: '#000000'
+  normal:
+    black:   '#16161d'
+    red:     '#a32c2d'
+    green:   '#4b7d08'
+    yellow:  '#866c12'
+    blue:    '#3c56aa'
+    magenta: '#91328c'
+    cyan:    '#237e6f'
+    white:   '#92959d'
+  bright:
+    black:   '#575a61'
+    red:     '#be4641'
+    green:   '#72a336'
+    yellow:  '#af913a'
+    blue:    '#566cc3'
+    magenta: '#aa4aa4'
+    cyan:    '#4ea494'
+    white:   '#d2d6de'
+draw_bold_text_with_bright_colors: true
+font:
+  normal:
+    family: Agave
+    style: Regular
+  bold:
+    family: Agave
+    style: Bold
+  italic:
+    family: Consolas
+    style: Italic
+  bold_italic:
+    family: Consolas
+    style: Bold Italic
+  size: 5.5
+scrolling:
+  history: 64
+window:
+  dimensions:
+    columns: 80
+    lines: 24
+  dynamic_padding: true
+  title: agave test

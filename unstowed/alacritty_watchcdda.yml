@@ -2,8 +2,8 @@ env:
   TERM: xterm-color
 window:
   dimensions:
-    columns: 130
-    lines: 53
+    columns: 129
+    lines: 52
   dynamic_padding: false
   title: watchcdda
 scrolling:
@@ -25,23 +25,23 @@ font:
 draw_bold_text_with_bright_colors: true
 colors:
   primary:
-    background: '#16161d'
-    foreground: '#bbbbc3'
+    background: '#36383f'
+    foreground: '#b9bdc5'
   normal:
     black:   '#16161d'
-    red:     '#a92636'
-    green:   '#437e00'
-    yellow:  '#8b6b02'
-    blue:    '#4051b0'
-    magenta: '#9a1e98'
-    cyan:    '#007f68'
-    white:   '#95959d'
+    red:     '#a32c2d'
+    green:   '#4b7d08'
+    yellow:  '#866c12'
+    blue:    '#3c56aa'
+    magenta: '#91328c'
+    cyan:    '#237e6f'
+    white:   '#92959d'
   bright:
-    black:   '#5a595f'
-    red:     '#c74032'
-    green:   '#23920e'
-    yellow:  '#947c27'
-    blue:    '#1c75af'
-    magenta: '#8228c0'
-    cyan:    '#4a8798'
-    white:   '#d7d7e0'
+    black:   '#575a61'
+    red:     '#be4641'
+    green:   '#72a336'
+    yellow:  '#af913a'
+    blue:    '#566cc3'
+    magenta: '#aa4aa4'
+    cyan:    '#4ea494'
+    white:   '#d2d6de'

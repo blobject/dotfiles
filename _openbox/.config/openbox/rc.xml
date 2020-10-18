@@ -39,6 +39,7 @@
       <size>7</size>
       <weight>bold</weight>
     </font>
+    <!--<keepBorder>yes</keepBorder>-->
     <titleLayout></titleLayout>
   </theme>
 
@@ -76,7 +77,7 @@
 
   <mouse>
 	  <doubleClickTime>300</doubleClickTime>
-    <context name="Titlebar Top Bottom Left Right TLCorner TRCorner BLCorner BRCorner Client">
+    <context name="Top Bottom Left Right TLCorner TRCorner BLCorner BRCorner Client">
       <mousebind action="Press" button="Left">
         <action name="Focus"/>
         <action name="Raise"/>
@@ -99,26 +100,6 @@
       </mousebind>
       <mousebind action="Drag" button="Right">
         <action name="Resize"/>
-      </mousebind>
-    </context>
-    <context name="Titlebar">
-      <mousebind action="Drag" button="Left">
-        <action name="Move"/>
-      </mousebind>
-      <mousebind action="Drag" button="Middle">
-        <action name="Move"/>
-      </mousebind>
-      <mousebind action="Drag" button="Right">
-        <action name="Move"/>
-      </mousebind>
-      <mousebind action="DoubleClick" button="Left">
-        <action name="ToggleMaximize"/>
-      </mousebind>
-      <mousebind action="DoubleClick" button="Middle">
-        <action name="ToggleMaximize"/>
-      </mousebind>
-      <mousebind action="DoubleClick" button="Right">
-        <action name="ToggleMaximize"/>
       </mousebind>
     </context>
     <context name="Frame">
@@ -443,6 +424,9 @@
     <keybind key="W-semicolon">
       <action name="ToggleShowDesktop"/>
     </keybind>
+    <keybind key="W-slash">
+      <action name="ToggleAlwaysOnTop"/>
+    </keybind>
     <keybind key="W-f">
       <action name="ToggleFullscreen"/>
     </keybind>
@@ -451,52 +435,52 @@
     </keybind>
     <keybind key="XF86MonBrightnessDown">
       <action name="Execute">
-        <command>sh -c 'xbacklight -dec 5; dunstify -r 99990 -u low -t 2000 -i redshift-status-off "$(printf %.0f $(xbacklight -get))"'</command>
+        <command>0lum -5</command>
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
-        <command>sh -c 'xbacklight -inc 5; dunstify -r 99990 -u low -t 2000 -i redshift-status-on "$(printf %.0f $(xbacklight -get))"'</command>
+        <command>0lum +5</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMute">
       <action name="Execute">
-        <command>0vol toggle</command>
+        <command>0vol x</command>
       </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
       <action name="Execute">
-        <command>0vol decrease 2</command>
+        <command>0vol -2</command>
       </action>
     </keybind>
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
-        <command>0vol increase 2</command>
+        <command>0vol +2</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMicMute">
       <action name="Execute">
-        <command>0vol mic toggle</command>
+        <command>0vol mic x</command>
       </action>
     </keybind>
     <keybind key="C-XF86AudioMute">
       <action name="Execute">
-        <command>0vol b toggle</command>
+        <command>0vol bt x</command>
       </action>
     </keybind>
     <keybind key="C-XF86AudioLowerVolume">
       <action name="Execute">
-        <command>0vol b decrease 2</command>
+        <command>0vol bt -2</command>
       </action>
     </keybind>
     <keybind key="C-XF86AudioRaiseVolume">
       <action name="Execute">
-        <command>0vol b increase 2</command>
+        <command>0vol bt +2</command>
       </action>
     </keybind>
     <keybind key="C-XF86AudioMicMute">
       <action name="Execute">
-        <command>0vol b mic toggle</command>
+        <command>0vol bt mic x</command>
       </action>
     </keybind>
     <keybind key="Print">
@@ -539,14 +523,19 @@
         <command>qutebrowser</command>
       </action>
     </keybind>
-    <keybind key="W-z">
+    <keybind key="W-S-w">
       <action name="Execute">
-        <command>xzoom</command>
+        <command>firefox</command>
       </action>
     </keybind>
     <keybind key="W-A-w">
       <action name="Execute">
         <command>sh -c 'firefox --private-window --profile $HOME/p/firefox_proxy 2>/dev/null'</command>
+      </action>
+    </keybind>
+    <keybind key="W-z">
+      <action name="Execute">
+        <command>xzoom</command>
       </action>
     </keybind>
   </keyboard>

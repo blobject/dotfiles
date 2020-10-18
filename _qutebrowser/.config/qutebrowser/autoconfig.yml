@@ -20,10 +20,14 @@ settings:
   bindings.commands:
     global:
       normal:
+        <Ctrl+Shift+Tab>: tab-prev
         <Ctrl+Shift+q>: quit --save
+        <Ctrl+Tab>: tab-next
         <Ctrl+q>: null
         <Ctrl+v>: null
+        D: tab-close -n
         '`': buffer
+        co: null
         gh: tab-move -
         gl: tab-move +
         gr: null
@@ -48,20 +52,20 @@ settings:
   colors.completion.category.border.top:
     global: '#16161d'
   colors.completion.category.fg:
-    global: '#bbbbc3'
+    global: '#b9bdc5'
   colors.completion.even.bg:
-    global: '#3a393f'
+    global: '#36383f'
   colors.completion.fg:
     global:
-    - '#bbbbc3'
-    - '#bbbbc3'
-    - '#95959d'
+    - '#b9bdc5'
+    - '#b9bdc5'
+    - '#92959d'
   colors.completion.item.selected.bg:
-    global: '#4051b0'
+    global: '#3c56aa'
   colors.completion.item.selected.border.bottom:
-    global: '#4051b0'
+    global: '#3c56aa'
   colors.completion.item.selected.border.top:
-    global: '#4051b0'
+    global: '#3c56aa'
   colors.completion.item.selected.fg:
     global: white
   colors.completion.item.selected.match.fg:
@@ -69,13 +73,22 @@ settings:
   colors.completion.match.fg:
     global: white
   colors.completion.odd.bg:
-    global: '#313035'
+    global: '#2e3137'
   colors.completion.scrollbar.bg:
-    global: '#16161d'
+    global: '#36383f'
   colors.completion.scrollbar.fg:
-    global: '#bbbbc3'
+    global: '#866c12'
   colors.contextmenu.disabled.bg:
     global: null
+  colors.hints.bg:
+    global: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(255, 247, 133, 0.66),
+      stop:1 rgba(255, 197, 66, 0.66))
+  colors.hints.fg:
+    global: black
+  colors.keyhint.bg:
+    global: rgba(0, 0, 0, 75%)
+  colors.keyhint.fg:
+    global: '#FFFFFF'
   colors.messages.info.fg:
     global: white
   colors.prompts.bg:
@@ -91,17 +104,17 @@ settings:
   colors.statusbar.caret.fg:
     global: white
   colors.statusbar.insert.bg:
-    global: '#4051b0'
+    global: '#3c56aa'
   colors.statusbar.insert.fg:
     global: white
   colors.statusbar.normal.bg:
-    global: '#3a393f'
+    global: '#36383f'
   colors.statusbar.normal.fg:
     global: white
   colors.statusbar.passthrough.bg:
     global: black
   colors.statusbar.passthrough.fg:
-    global: '#95959d'
+    global: '#92959d'
   colors.statusbar.private.bg:
     global: '#666666'
   colors.statusbar.private.fg:
@@ -109,17 +122,17 @@ settings:
   colors.statusbar.url.hover.fg:
     global: lime
   colors.statusbar.url.success.http.fg:
-    global: '#bbbbc3'
+    global: '#b9bdc5'
   colors.statusbar.url.success.https.fg:
     global: white
   colors.statusbar.url.warn.fg:
     global: yellow
   colors.tabs.bar.bg:
-    global: '#3a393f'
+    global: '#36383f'
   colors.tabs.even.bg:
-    global: '#3a393f'
+    global: '#36383f'
   colors.tabs.even.fg:
-    global: '#bbbbc3'
+    global: '#b9bdc5'
   colors.tabs.indicator.error:
     global: '#ff0000'
   colors.tabs.indicator.start:
@@ -129,31 +142,31 @@ settings:
   colors.tabs.indicator.system:
     global: rgb
   colors.tabs.odd.bg:
-    global: '#3a393f'
+    global: '#36383f'
   colors.tabs.odd.fg:
-    global: '#bbbbc3'
+    global: '#b9bdc5'
   colors.tabs.pinned.even.bg:
-    global: '#95959d'
+    global: '#92959d'
   colors.tabs.pinned.even.fg:
     global: black
   colors.tabs.pinned.odd.bg:
-    global: '#95959d'
+    global: '#92959d'
   colors.tabs.pinned.odd.fg:
     global: black
   colors.tabs.pinned.selected.even.bg:
-    global: '#4051b0'
+    global: '#3c56aa'
   colors.tabs.pinned.selected.even.fg:
     global: white
   colors.tabs.pinned.selected.odd.bg:
-    global: '#4051b0'
+    global: '#3c56aa'
   colors.tabs.pinned.selected.odd.fg:
     global: white
   colors.tabs.selected.even.bg:
-    global: '#4051b0'
+    global: '#3c56aa'
   colors.tabs.selected.even.fg:
     global: white
   colors.tabs.selected.odd.bg:
-    global: '#4051b0'
+    global: '#3c56aa'
   colors.tabs.selected.odd.fg:
     global: white
   completion.scrollbar.padding:
@@ -365,7 +378,7 @@ settings:
   tabs.position:
     global: top
   tabs.select_on_remove:
-    global: next
+    global: last-used
   tabs.show:
     global: always
   tabs.show_switching_delay:

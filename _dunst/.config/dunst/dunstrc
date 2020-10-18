@@ -8,7 +8,7 @@
     #force_xinerama = true
     format = "%s"
     frame_width = 6
-    frame_color = "#d7d7e0"
+    frame_color = "#d2d6de"
     geometry = "0x0-32+54"
     hide_duplicate_count = false
     history_length = 64
@@ -26,7 +26,7 @@
     notification_height = 0
     padding = 16
     separator_height = 8
-    separator_color = "#bbbbc3"
+    separator_color = "#b9bdc5"
     show_age_threshold = 60
     show_indicators = yes
     shrink = no
@@ -47,17 +47,17 @@
     context = mod4+ctrl+BackSpace
 [urgency_low]
     background = "#000000"
-    foreground = "#d7d7e0"
+    foreground = "#d2d6de"
     timeout = 3
     #icon = /path/to/icon
 [urgency_normal]
     background = "#000000"
-    foreground = "#d7d7e0"
+    foreground = "#d2d6de"
     timeout = 8
     #icon = /path/to/icon
 [urgency_critical]
-    background = "#a92636"
-    foreground = "#d7d7e0"
+    background = "#a32c2d"
+    foreground = "#d2d6de"
     timeout = 0
     #icon = /path/to/icon
 #[espeak]

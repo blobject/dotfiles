@@ -20,24 +20,24 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; mode-line
 
-(let ((c-w "#bbbbc3")
-      (c-l "#95959d")
-      (c-r "#a92636")
-      (c-y "#8b6b02")
-      (c-m "#9a1e98"))
+(let ((c-k  "#16161d")
+      (c-d  "#575a61")
+      (c-ll "#d2d6de")
+      (c-r  "#a32c2d")
+      (c-y  "#af913a"))
 
-  (defface my/l-face
-    `((t (:background ,c-l :foreground ,c-w)))
+  (defface my/r-face
+    `((t (:background ,c-d :foreground ,c-ll)))
     "mode-line custom light grey"
     :group 'faces)
 
-  (defface my/r-face
-    `((t (:background ,c-r :foreground ,c-w)))
+  (defface my/w-face
+    `((t (:background ,c-r :foreground ,c-ll)))
     "mode-line custom red"
     :group 'faces)
 
-  (defface my/y-face
-    `((t (:background ,c-y :foreground ,c-w)))
+  (defface my/ro-face
+    `((t (:background ,c-y :foreground ,c-k)))
     "mode-line custom yellow"
     :group 'faces))
 
@@ -45,10 +45,10 @@
   (quote
     (:eval (if (buffer-modified-p)
              (if buffer-read-only
-               (propertize "+" (quote face) (quote my/y-face))
-               (propertize "+" (quote face) (quote my/r-face)))
+               (propertize "+" (quote face) (quote my/ro-face))
+               (propertize "+" (quote face) (quote my/w-face)))
              (propertize (if buffer-read-only "^" "-")
-                         (quote face) (quote my/l-face))))))
+                         (quote face) (quote my/r-face))))))
 
 (defun my/mode-line-fill (face reserve)
   "Return empty space using face, leaving reserve space on the right."
@@ -61,12 +61,15 @@
   (list mode-line-front-space
         "%b "
         my/buffer-status
-        " %m"
-        (\` (vc-mode vc-mode))
+        " %m "
         ;(\` (flycheck-mode flycheck-mode-line))
-        (my/mode-line-fill (quote mode-line-inactive) 15)
+        (my/mode-line-fill (quote mode-line-inactive) 20)
+        ;(\` (vc-mode vc-mode))
+        (setcdr (assq 'vc-mode mode-line-format)
+                '((:eval (replace-regexp-in-string "^ Git-" "" vc-mode))))
+        " "
         mode-line-mule-info
-        "%c:%l "
+        "%l:%c "
         mode-line-percent-position
         mode-line-end-spaces))
 
@@ -78,26 +81,24 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(backup-directory-alist (quote ((".*" . "~/bak/emacs/"))))
+ '(backup-directory-alist '((".*" . "~/bak/emacs/")))
  '(blink-cursor-mode nil)
- '(browse-url-browser-function (quote browse-url-generic))
+ '(browse-url-browser-function 'browse-url-generic)
  '(browse-url-generic-program "firefox")
  '(c-basic-offset 2)
  '(c-default-style
-   (quote
-    ((c-mode . "bsd")
+   '((c-mode . "bsd")
      (c++-mode . "bsd")
      (java-mode . "java")
      (awk-mode . "awk")
-     (other . "gnu"))))
+     (other . "gnu")))
  '(column-number-mode t)
- '(compilation-message-face (quote default))
+ '(compilation-message-face 'default)
  '(create-lockfiles nil)
  '(css-indent-offset 2)
- '(custom-enabled-themes (quote (cemant)))
+ '(custom-enabled-themes '(cemant))
  '(custom-safe-themes
-   (quote
-    ("5053246e1a33c5337fee519167a80fea394aac892ed422a5a1bdd63fae31b950" default)))
+   '("e9bfdc2f98764ad45af79a3877222aa99a6d302b7937b2e61abd2801723a3254" default))
  '(default-tab-width 2 t)
  '(electric-indent-inhibit t t)
  '(electric-pair-mode t)
@@ -112,18 +113,16 @@
  '(initial-scratch-message "")
  '(isearch-lazy-highlight nil)
  '(js-indent-level 2)
- '(linum-format (quote my/linum))
+ '(linum-format 'my/linum)
  '(menu-bar-mode nil)
  '(mode-line-format my/mode-line)
  '(mouse-wheel-progressive-speed nil)
- '(mouse-wheel-scroll-amount (quote (1 ((shift) . 5) ((control) . 10))))
+ '(mouse-wheel-scroll-amount '(1 ((shift) . 5) ((control) . 10)))
  '(package-archives
-   (quote
-    (("gnu" . "https://elpa.gnu.org/packages/")
-     ("melpa" . "https://melpa.org/packages/"))))
+   '(("gnu" . "https://elpa.gnu.org/packages/")
+     ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   (quote
-    (elixir-mode haskell-mode markdown-mode rust-mode dot-mode expand-region iy-go-to-char multiple-cursors paredit rainbow-delimiters web-mode hlinum)))
+   '(elixir-mode haskell-mode markdown-mode rust-mode dot-mode expand-region iy-go-to-char multiple-cursors paredit rainbow-delimiters web-mode hlinum))
  '(python-indent 2)
  '(read-quoted-char-radix 16)
  '(scroll-bar-mode nil)
@@ -134,7 +133,7 @@
  '(tab-stop-list (number-sequence 2 100 2))
  '(tab-width 2)
  '(tool-bar-mode nil)
- '(uniquify-buffer-name-style (quote post-forward) nil (uniquify))
+ '(uniquify-buffer-name-style 'post-forward nil (uniquify))
  '(web-mode-code-indent-offset 2)
  '(web-mode-css-indent-offset 2)
  '(web-mode-markup-indent-offset 2))
@@ -149,14 +148,14 @@
  '(fixed-pitch-serif ((t (:weight bold :family "FreeMono"))))
  '(org-agenda-structure ((t (:inverse-video nil :underline nil :slant normal :weight bold :height 1.0))))
  '(org-document-title ((t (:weight bold :height 1.0))))
- '(org-level-1 ((t (:inherit nil :foreground "#3a393f" :height 1.0))))
- '(org-level-2 ((t (:inherit nil :foreground "#4051b0" :height 1.0))))
- '(org-level-3 ((t (:inherit nil :foreground "#007f68" :height 1.0))))
- '(org-level-4 ((t (:inherit nil :foreground "#437e00" :height 1.0))))
- '(org-level-5 ((t (:inherit nil :foreground "#8b6b02" :height 0.9))))
- '(org-level-6 ((t (:inherit nil :foreground "#a92636" :height 0.9))))
- '(org-level-7 ((t (:inherit nil :foreground "#9a1e98" :height 0.9))))
- '(org-level-8 ((t (:inherit nil :foreground "#5a595f" :height 0.9))))
+ '(org-level-1 ((t (:inherit nil :foreground "#36383f" :height 1.0))))
+ '(org-level-2 ((t (:inherit nil :foreground "#3c56aa" :height 1.0))))
+ '(org-level-3 ((t (:inherit nil :foreground "#237e6f" :height 1.0))))
+ '(org-level-4 ((t (:inherit nil :foreground "#4b7d08" :height 1.0))))
+ '(org-level-5 ((t (:inherit nil :foreground "#866c12" :height 0.9))))
+ '(org-level-6 ((t (:inherit nil :foreground "#af913a" :height 0.9))))
+ '(org-level-7 ((t (:inherit nil :foreground "#91328c" :height 0.9))))
+ '(org-level-8 ((t (:inherit nil :foreground "#575a61" :height 0.9))))
  '(sml/line-number ((t (:weight bold))))
  '(sml/minor-modes ((t (:inherit sml/global :height 0.9))))
  '(sml/modes ((t (:inherit sml/global :weight bold :height 0.9))))

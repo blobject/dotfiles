@@ -1,0 +1,47 @@
+env:
+  TERM: xterm-color
+window:
+  dimensions:
+    columns: 130
+    lines: 53
+  dynamic_padding: false
+  title: watchcdda
+scrolling:
+  history: 64
+font:
+  normal:
+    family: Agave
+    style: Regular
+  bold:
+    family: Agave
+    style: Bold
+  italic:
+    family: Consolas
+    style: Italic
+  bold_italic:
+    family: Consolas
+    style: Bold Italic
+  size: 9.0
+draw_bold_text_with_bright_colors: true
+colors:
+  primary:
+    background: '#16161d'
+    foreground: '#bbbbc3'
+  normal:
+    black:   '#16161d'
+    red:     '#a92636'
+    green:   '#437e00'
+    yellow:  '#8b6b02'
+    blue:    '#4051b0'
+    magenta: '#9a1e98'
+    cyan:    '#007f68'
+    white:   '#95959d'
+  bright:
+    black:   '#5a595f'
+    red:     '#c74032'
+    green:   '#23920e'
+    yellow:  '#947c27'
+    blue:    '#1c75af'
+    magenta: '#8228c0'
+    cyan:    '#4a8798'
+    white:   '#d7d7e0'

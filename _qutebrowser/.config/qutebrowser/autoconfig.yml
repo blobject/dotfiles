@@ -77,7 +77,7 @@ settings:
   colors.completion.scrollbar.bg:
     global: '#36383f'
   colors.completion.scrollbar.fg:
-    global: '#866c12'
+    global: '#916814'
   colors.contextmenu.disabled.bg:
     global: null
   colors.hints.bg:

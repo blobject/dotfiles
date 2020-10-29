@@ -98,7 +98,7 @@
  '(css-indent-offset 2)
  '(custom-enabled-themes '(cemant))
  '(custom-safe-themes
-   '("e9bfdc2f98764ad45af79a3877222aa99a6d302b7937b2e61abd2801723a3254" default))
+   '("4babf503ea536b0673ac31227fd805ec46d3a0771079ff01e3d0e460323b7a4c" default))
  '(default-tab-width 2 t)
  '(electric-indent-inhibit t t)
  '(electric-pair-mode t)

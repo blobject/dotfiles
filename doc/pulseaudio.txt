@@ -1,0 +1,2 @@
+- disable exit-idle-time in pulse/daemon.conf
+  - regardless of device sleep on idle, power saving, etc.

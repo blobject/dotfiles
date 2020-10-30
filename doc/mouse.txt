@@ -1,0 +1,2 @@
+- sudo v /var/lib/bluetooth/*/*/info
+  - remove [IdentityResolvingKey]\nKey=

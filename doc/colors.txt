@@ -1,0 +1,8 @@
+- .alacritty.yml
+- cfg/unstowed/alacritty_*.yml
+- .emacs.d/init.el
+- .config/dunst/dunstrc
+- .config/polybar/config
+- .themes/0openbox/...
+- .xresources
+- qutebrowser settings

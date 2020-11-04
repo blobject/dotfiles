@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Sam
+Comment=plan9port sam
+Exec=sam %U
+Icon=text-editor
+Categories=TextEditor;
+Encoding=UTF-8
+StartupNotify=true
+Terminal=false

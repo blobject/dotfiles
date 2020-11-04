@@ -2,8 +2,8 @@
 Type=Application
 Name=Putty
 Comment=Free Telnet/SSH Client
-Exec=/usr/bin/putty
-Icon=putty.svg
+Exec=putty
+Icon=putty
 Categories=Networking;
 Encoding=UTF-8
 StartupNotify=true

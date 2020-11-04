@@ -12,7 +12,7 @@ HISTCONTROL=ignoreboth
 HISTFILESIZE=65536
 HISTSIZE=65536
 PS1='\[\033[1;37m\]\t \[\033[0;33m\]'"\$(0gitbr)"'\[\033[1;31m\]\w\[\033[0m\] '
-export PATH="$HOME/bin:$HOME/.local/bin${PATH:+:}$PATH"
+export MANPATH=$MANPATH${MANPATH:+:}/usr/lib/plan9/man
 export LESS=-iRS
 export SSH_AUTH_SOCK="$HOME/.ssh/agent"
 eval $(dircolors --sh)
@@ -40,6 +40,7 @@ alias asdf='cat /sys/bus/usb/devices/*/product | grep -q "^Planck$" || setxkbmap
 alias hsnt='cat /sys/bus/usb/devices/*/product | grep -q "^Planck$" && setxkbmap -option us || setxkbmap -option ctrl:swapcaps us; xset r rate 300 30'
 alias bc='bc -l'
 alias cp='cp -iv'
+alias fd='fd --hidden --no-ignore'
 alias g='git'
 alias guile='rlwrap -ci guile'
 alias ls='ls --color=auto --time-style=long-iso'

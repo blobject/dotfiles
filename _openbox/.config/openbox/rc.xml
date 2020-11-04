@@ -540,6 +540,13 @@
       <decor>no</decor>
       <focus>yes</focus>
     </application>
+    <application class="albert">
+      <layer>above</layer>
+      <position force="yes">
+        <x>center</x>
+        <y>20%</y>
+      </position>
+    </application>
     <application class="Polybar">
       <layer>below</layer>
     </application>

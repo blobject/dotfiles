@@ -1,5 +1,5 @@
 ## vars
-export PATH="$HOME/bin:${PATH:+:}$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin${PATH:+:}$PATH"
 export BROWSER=qutebrowser
 export EDITOR=emacs
 export GUILE_AUTO_COMPILE=0

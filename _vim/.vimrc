@@ -13,9 +13,6 @@ set nohlsearch incsearch
 set showcmd showmatch
 set wrap
 
-"highlight Error           ctermfg=0
-"highlight ErrorMsg        ctermfg=0
-highlight LineNr ctermfg=7
-"highlight SpecialKey      ctermbg=0 ctermfg=10
+colorscheme cemant
 highlight ExtraWhitespace ctermbg=1
 match ExtraWhitespace /\s\+$/

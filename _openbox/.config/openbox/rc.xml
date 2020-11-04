@@ -277,18 +277,12 @@
     </keybind>
     <keybind key="W-S-1">
       <action name="UnmaximizeFull"/>
-      <action name="Maximize">
-        <direction>vertical</direction>
-      </action>
       <action name="MoveResizeTo">
         <width>38%</width>
       </action>
     </keybind>
     <keybind key="W-S-2">
       <action name="UnmaximizeFull"/>
-      <action name="Maximize">
-        <direction>vertical</direction>
-      </action>
       <action name="MoveResizeTo">
         <width>62%</width>
       </action>
@@ -539,13 +533,6 @@
     <application class="*">
       <decor>no</decor>
       <focus>yes</focus>
-    </application>
-    <application class="albert">
-      <layer>above</layer>
-      <position force="yes">
-        <x>center</x>
-        <y>20%</y>
-      </position>
     </application>
     <application class="Polybar">
       <layer>below</layer>

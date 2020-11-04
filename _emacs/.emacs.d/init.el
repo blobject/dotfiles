@@ -20,35 +20,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; mode-line
 
-(let ((c-k  "#16161d")
-      (c-d  "#575a61")
-      (c-ll "#d2d6de")
-      (c-r  "#a32c2d")
-      (c-y  "#af913a"))
-
-  (defface my/r-face
-    `((t (:background ,c-d :foreground ,c-ll)))
-    "mode-line custom light grey"
-    :group 'faces)
-
-  (defface my/w-face
-    `((t (:background ,c-r :foreground ,c-ll)))
-    "mode-line custom red"
-    :group 'faces)
-
-  (defface my/ro-face
-    `((t (:background ,c-y :foreground ,c-k)))
-    "mode-line custom yellow"
-    :group 'faces))
-
 (defvar my/buffer-status
   (quote
-    (:eval (if (buffer-modified-p)
-             (if buffer-read-only
-               (propertize "+" (quote face) (quote my/ro-face))
-               (propertize "+" (quote face) (quote my/w-face)))
-             (propertize (if buffer-read-only "^" "-")
-                         (quote face) (quote my/r-face))))))
+    (:eval (if (buffer-modified-p) "x" (if buffer-read-only "r" " ")))))
 
 (defun my/mode-line-fill (face reserve)
   "Return empty space using face, leaving reserve space on the right."
@@ -58,20 +32,14 @@
                                     ,reserve)))))
 
 (defvar my/mode-line
-  (list mode-line-front-space
-        "%b "
-        my/buffer-status
-        " %m "
-        ;(\` (flycheck-mode flycheck-mode-line))
-        (my/mode-line-fill (quote mode-line-inactive) 20)
-        ;(\` (vc-mode vc-mode))
+  (list my/buffer-status
+        " %b %l:%c"
         (setcdr (assq 'vc-mode mode-line-format)
-                '((:eval (replace-regexp-in-string "^ Git-" "" vc-mode))))
-        " "
-        mode-line-mule-info
-        "%l:%c "
-        mode-line-percent-position
-        mode-line-end-spaces))
+                '((:eval (replace-regexp-in-string "^ Git[-:]" " " vc-mode))))
+        " %m"
+        ;(\` (flycheck-mode flycheck-mode-line))
+        ;(\` (vc-mode vc-mode))
+        ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; M-x customize
@@ -98,7 +66,7 @@
  '(css-indent-offset 2)
  '(custom-enabled-themes '(cemant))
  '(custom-safe-themes
-   '("4babf503ea536b0673ac31227fd805ec46d3a0771079ff01e3d0e460323b7a4c" default))
+   '("2881d10dfeb0c0b8ae374d0fd40a7fce940807c9ae8114394ef181729a04410b" default))
  '(default-tab-width 2 t)
  '(electric-indent-inhibit t t)
  '(electric-pair-mode t)
@@ -144,8 +112,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:weight bold :height 90 :family "Roboto Mono"))))
- '(fixed-pitch-serif ((t (:weight bold :family "FreeMono"))))
+ '(default ((t (:family "monospace" :height 85 :weight bold))))
+ '(fixed-pitch-serif ((t (:family "FreeMono" :weight bold))))
  '(org-agenda-structure ((t (:inverse-video nil :underline nil :slant normal :weight bold :height 1.0))))
  '(org-document-title ((t (:weight bold :height 1.0))))
  '(org-level-1 ((t (:inherit nil :foreground "#36383f" :height 1.0))))

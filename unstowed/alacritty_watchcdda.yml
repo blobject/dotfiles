@@ -21,7 +21,7 @@ font:
   bold_italic:
     family: Agave
     style: Bold Italic
-  size: 8.5
+  size: 9.0
 draw_bold_text_with_bright_colors: true
 colors:
   primary:

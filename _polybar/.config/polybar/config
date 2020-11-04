@@ -2,13 +2,12 @@
 screenchange-reload = true
 
 [colors]
-background = #000000
-foreground = #b9bdc5
-foreground-alt = #575a61
-primary = #916814
-secondary = #ba8d3b
-alert = #cf554d
-strong = #d2d6de
+bg = #000000
+fg = #575a61
+em = #d2d6de
+one = #cf554d
+two = #667ad3
+o = #92959d
 c = #7883c9
 cc = #545aa7
 m = #66b5c9
@@ -28,8 +27,8 @@ width = 100%
 height = 22
 offset-x = 0
 offset-y = 0
-background = ${colors.background}
-foreground = ${colors.foreground-alt}
+background = ${colors.bg}
+foreground = ${colors.fg}
 radius = 0.0
 padding = 0
 dpi-x = 200
@@ -40,12 +39,12 @@ font-2 = "Font Awesome 5 Free:style=Solid:size=6;3"
 font-3 = "NanumGothicCoding:size=7:style=bold;3"
 font-4 = "Source Han Sans:size=7:style=bold;3"
 modules-left = ewmh xwindow
-modules-right = cpu temperature memory filesystem network backlight pulseaudio battery date
+modules-right = date cpu temperature memory filesystem network backlight pulseaudio battery
 separator =
 wm-name = c
 tray-position = right
 tray-padding = 1
-tray-background = ${colors.background}
+tray-background = ${colors.bg}
 cursor-click = pointer
 cursor-scroll = ns-resize
 
@@ -55,21 +54,27 @@ pin-workspaces = false
 enable-click = false
 enable-scroll = false
 label-active = %name%
-label-active-foreground = ${colors.foreground}
+label-active-foreground = ${colors.o}
 label-occupied = %name%
-label-occupied-foreground = ${colors.secondary}
+label-occupied-foreground = ${colors.two}
 label-urgent = %name%
-label-urgent-foreground = ${colors.alert}
+label-urgent-foreground = ${colors.one}
 label-empty = %name%
-label-empty-foreground = ${colors.foreground-alt}
-format = " <label-state> "
+format = "<label-state> "
 
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:100:…%
-label-foreground = ${colors.strong}
+label-foreground = ${colors.em}
 label-empty = x
-label-empty-foreground = ${colors.foreground-alt}
+format = "<label> "
+
+[module/date]
+type = internal/date
+interval = 8.0
+date = %a%d%b
+time = %H:%M
+label = %{F#92959d}%time%%{F-} %date%
 format = "<label> "
 
 [module/cpu]
@@ -88,7 +93,7 @@ warn-temperature = 60
 label = %temperature-c%
 label-foreground = ${colors.cc}
 label-warn = %temperature-c%
-label-warn-foreground = ${colors.alert}
+label-warn-foreground = ${colors.one}
 format = "<label> "
 format-warn = "<label-warn> "
 
@@ -132,7 +137,6 @@ interval = 4.0
 label-volume = %percentage%%
 label-volume-foreground = ${colors.v}
 label-muted = " muted "
-label-muted-foreground = ${colors.foreground-alt}
 format-volume = " <label-volume> "
 
 [module/battery]
@@ -151,12 +155,4 @@ label-full-foreground = ${colors.b}
 format-charging = " <label-charging> "
 format-discharging = " <label-discharging> "
 format-full = " <label-full> "
-
-[module/date]
-type = internal/date
-interval = 8.0
-date = %a%d%b
-time = %H:%M
-label = %{F#95959d}%date% %{F#d7d7e0}%time%%{F-}
-format = "<label>  "
 

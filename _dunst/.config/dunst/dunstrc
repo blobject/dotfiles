@@ -46,12 +46,12 @@
     history = mod4+mod1+BackSpace
     context = mod4+ctrl+BackSpace
 [urgency_low]
-    background = "#000000"
+    background = "#16161d"
     foreground = "#d2d6de"
     timeout = 3
     #icon = /path/to/icon
 [urgency_normal]
-    background = "#000000"
+    background = "#16161d"
     foreground = "#d2d6de"
     timeout = 8
     #icon = /path/to/icon

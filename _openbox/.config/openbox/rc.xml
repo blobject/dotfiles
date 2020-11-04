@@ -498,11 +498,6 @@
         <command>0shot select</command>
       </action>
     </keybind>
-    <keybind key="W-Return">
-      <action name="Execute">
-        <command>xfce4-appfinder</command>
-      </action>
-    </keybind>
     <keybind key="W-e">
       <action name="Execute">
         <command>emacs</command>
@@ -544,17 +539,6 @@
     <application class="*">
       <decor>no</decor>
       <focus>yes</focus>
-    </application>
-    <application class="Xfce4-appfinder">
-      <layer>above</layer>
-      <position force="no">
-        <x>center</x>
-        <y>center</y>
-      </position>
-      <size>
-        <width>800</width>
-        <height>50%</height>
-      </size>
     </application>
     <application class="Polybar">
       <layer>below</layer>

@@ -4,9 +4,9 @@
     class = Dunst
     dmenu = /usr/bin/dmenu -p dunst:
     follow = keyboard
-    font = Roboto Mono Bold 9
+    font = Roboto Mono 9
     #force_xinerama = true
-    format = "%s"
+    format = "<b>%s</b> %b"
     frame_width = 6
     frame_color = "#d2d6de"
     geometry = "0x0-32+54"
@@ -41,10 +41,10 @@
 [experimental]
     per_monitor_dpi = false
 [shortcuts]
-    close = mod4+BackSpace
-    close_all = mod4+shift+BackSpace
-    history = mod4+mod1+BackSpace
-    context = mod4+ctrl+BackSpace
+    close = mod4+space
+    close_all = mod4+shift+space
+    history = mod4+mod1+space
+    context = mod4+ctrl+space
 [urgency_low]
     background = "#16161d"
     foreground = "#d2d6de"

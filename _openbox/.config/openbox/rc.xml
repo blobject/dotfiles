@@ -277,12 +277,18 @@
     </keybind>
     <keybind key="W-S-1">
       <action name="UnmaximizeFull"/>
+      <action name="Maximize">
+        <direction>vertical</direction>
+      </action>
       <action name="MoveResizeTo">
         <width>38%</width>
       </action>
     </keybind>
     <keybind key="W-S-2">
       <action name="UnmaximizeFull"/>
+      <action name="Maximize">
+        <direction>vertical</direction>
+      </action>
       <action name="MoveResizeTo">
         <width>62%</width>
       </action>
@@ -402,20 +408,18 @@
       </action>
     </keybind>
     <keybind key="W-comma">
-      <action name="Focus"/>
       <action name="Lower"/>
     </keybind>
     <keybind key="W-period">
-      <action name="Focus"/>
       <action name="Raise"/>
     </keybind>
-    <keybind key="W-S-Escape">
+    <keybind key="W-S-BackSpace">
       <action name="Close"/>
     </keybind>
     <keybind key="W-S-r">
       <action name="Reconfigure"/>
     </keybind>
-    <keybind key="W-semicolon">
+    <keybind key="W-BackSpace">
       <action name="ToggleShowDesktop"/>
     </keybind>
     <keybind key="W-slash">

@@ -20,17 +20,26 @@ settings:
   bindings.commands:
     global:
       normal:
+        <Ctrl+Shift+Backspace>: close
         <Ctrl+Shift+Tab>: tab-prev
+        <Ctrl+Shift+m>: bookmark-add
         <Ctrl+Shift+q>: quit --save
+        <Ctrl+Shift+w>: null
         <Ctrl+Tab>: tab-next
+        <Ctrl+l>: tab-close -n
+        <Ctrl+m>: quickmark-save
         <Ctrl+q>: null
         <Ctrl+v>: null
-        D: tab-close -n
+        D: null
+        M: null
+        ZQ: null
         '`': buffer
         co: null
+        d: null
         gh: tab-move -
         gl: tab-move +
         gr: null
+        m: null
         xb: config-cycle statusbar.show in-mode always ;; config-cycle tabs.show always
           switching
         xx: enter-mode passthrough
@@ -216,9 +225,6 @@ settings:
   content.notifications:
     https://mail.google.com: true
     https://us04web.zoom.us: true
-    https://www.facebook.com: false
-    https://www.infoworld.com: false
-    https://www.reddit.com: false
     https://www.youtube.com: true
   content.pdfjs:
     global: true
@@ -325,6 +331,10 @@ settings:
     global: process-per-site
   scrolling.bar:
     global: overlay
+  session.lazy_restore:
+    global: true
+  spellcheck.languages:
+    global: null
   statusbar.padding:
     global:
       bottom: 0
@@ -339,6 +349,8 @@ settings:
     global: true
   tabs.close_mouse_button:
     global: middle
+  tabs.close_mouse_button_on_bar:
+    global: new-tab
   tabs.favicons.show:
     global: always
   tabs.focus_stack_size:
@@ -356,7 +368,7 @@ settings:
   tabs.max_width:
     global: -1
   tabs.min_width:
-    global: 128
+    global: 160
   tabs.mode_on_change:
     global: normal
   tabs.mousewheel_switching:
@@ -383,8 +395,10 @@ settings:
     global: always
   tabs.show_switching_delay:
     global: 800
+  tabs.title.alignment:
+    global: left
   tabs.title.format:
-    global: '{audio}{current_title}'
+    global: '{index}: {audio}{current_title}'
   tabs.title.format_pinned:
     global: '{index}'
   tabs.undo_stack_size:

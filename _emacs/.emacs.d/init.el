@@ -22,7 +22,7 @@
 
 (defvar my/buffer-status
   (quote
-    (:eval (if (buffer-modified-p) "x" (if buffer-read-only "r" " ")))))
+    (:eval (if (buffer-modified-p) "X" (if buffer-read-only "R" " ")))))
 
 (defun my/mode-line-fill (face reserve)
   "Return empty space using face, leaving reserve space on the right."
@@ -33,10 +33,10 @@
 
 (defvar my/mode-line
   (list my/buffer-status
-        " %b %l:%c"
+        " %b  %l:%c"
         (setcdr (assq 'vc-mode mode-line-format)
-                '((:eval (replace-regexp-in-string "^ Git[-:]" " " vc-mode))))
-        " %m"
+                '((:eval (replace-regexp-in-string "^ Git[-:]" "  " vc-mode))))
+        "  %m"
         ;(\` (flycheck-mode flycheck-mode-line))
         ;(\` (vc-mode vc-mode))
         ))
@@ -66,7 +66,7 @@
  '(css-indent-offset 2)
  '(custom-enabled-themes '(cemant))
  '(custom-safe-themes
-   '("2881d10dfeb0c0b8ae374d0fd40a7fce940807c9ae8114394ef181729a04410b" default))
+   '("cc6f87ac0b7b4e4758e9fe6dacea6f077691868c34f61e70020fafaf61e28f67" default))
  '(default-tab-width 2 t)
  '(electric-indent-inhibit t t)
  '(electric-pair-mode t)

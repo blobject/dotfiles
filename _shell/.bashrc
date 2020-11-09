@@ -37,6 +37,7 @@ alias 0topc="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time | sed '/^ 0.0 /d'"
 alias 0topd="du -kx | ag -v '\./.+/' | sort -rn"
 alias 0topm="ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz | awk '{if (\$1>5000) print;}'"
 alias asdf='0key hsnt'
+alias asdfb='0key hsnt; 0key bow'
 alias hsnt='0key qwerty'
 alias bc='bc -l'
 alias cp='cp -iv'

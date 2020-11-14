@@ -46,7 +46,7 @@ dunst
 | =W-S-= *num* | =1= / =2= | *vertically maximise* window and *horizontally 38%* / *62%* |
 | =A-tab= | =_= / =-S-= | *focus next* window / *previous* |
 | =W-, / W-.= | | *raise* window / *lower* |
-| =W-;= | | toggle *show-desktop* |
+| =W-bksp= | | toggle *show-desktop* |
 | =W-/= | | toggle window *always-on-top* |
 | =W-f= | | toggle window *fullscreen* |
 | =W-m= | | toggle window *maximise* |

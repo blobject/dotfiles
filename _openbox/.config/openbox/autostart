@@ -5,5 +5,5 @@ albert &
 blueman-tray &
 connman-gtk &
 dunst &
-xautolock -detectsleep -locker 'sudo zzz' -time 30 &
+xautolock -detectsleep -locker 'sudo zzz' -time 45 &
 xwallpaper --daemon --center $HOME/cfg/unstowed/back.jpg &

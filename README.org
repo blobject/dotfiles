@@ -28,36 +28,54 @@ dunst
 | notification | [[https://github.com/dunst-project/dunst][dunst]] |
 | bar | [[https://polybar.github.io/][polybar]] |
 | launch | [[https://albertlauncher.github.io/][albert]] |
-| look | 2160x1440, 200dpi, font size 9, [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://github.com/blobject/cemant][cemant]], [[https://github.com/PapirusDevelopmentTeam/papirus-icon-theme][papirus]], [[https://fontawesome.com/][font awesome]], [[https://github.com/KDE/breeze][breeze]], wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3840x2160][link]] |
+| look | 2160x1440, 200dpi, font size 9, [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://github.com/blobject/agave][agave]], [[https://github.com/blobject/cemant][cemant]], [[https://github.com/PapirusDevelopmentTeam/papirus-icon-theme][papirus]], [[https://fontawesome.com/][font awesome]], [[https://github.com/KDE/breeze][breeze]], wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3840x2160][link]] |
 
-*** bindings
+*** keybinding
 
-| key template | key more | do |
-|--------------|----------|----|
+| key template | key more | do, /openbox/ |
+|--------------|----------|---------------|
+
+| | | /GENERAL, MOVE, RESIZE/ |
+|-|-|-------------------------|
 | =W-S-r= | | *reconfigure* openbox |
-| =L,M,R= | =_= *click* / =A-= *drag* / =W-= *drag* | *focus + raise* window / *resize* / *move* |
+| =L,M,R= | =_= *click* / =W-= *drag* / =A-= *drag* | *focus + raise* window / *move* / *resize* |
+| =W-S-bksp= | | *close* window |
 | =W-= *num* | =1= / =2= / =3= / =4= | *focus nth* desktop |
 | =W-A-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |
-| =W-S-bksp= | | *close* window |
 | =W-c= | | *move* window to *center* |
 | =W-= *dir* | =h= / =j= / =k= / =l= / =y= / =u= / =b= / =n= | *move* window to *edge west* / *s* / *n* / *e* / *nw* / *ne* / *sw* / *se* |
 | =W-C-= *dir* | =h= / =j= / =k= / =l= / =y= / =u= / =b= / =n= | *resize* window (10px) *horizontally -* / *vertically +* / *v-* / *h+* / *h-v-* / *h+v-* / *h-v+* / *h+v+* |
+
+| | | /TILE/ |
+|-|-|--------|
 | =W-S-= *dir* | =h= / =j= / =k= / =l= / =y= / =u= / =b= / =n= | let window *fill west* / *s* / *n* / *e* / *nw* / *ne* / *sw* / *se* |
 | =W-S-= *num* | =1= / =2= | *vertically maximise* window and *horizontally 38%* / *62%* |
+
+| | | /FOCUS/ |
+|-|-|---------|
 | =A-tab= | =_= / =-S-= | *focus next* window / *previous* |
-| =W-, / W-.= | | *raise* window / *lower* |
+| =W-comma= | =W-period= | *lower* window / *raise* |
 | =W-bksp= | | toggle *show-desktop* |
-| =W-/= | | toggle window *always-on-top* |
+| =W-slash= | | toggle window *always-on-top* |
 | =W-f= | | toggle window *fullscreen* |
 | =W-m= | | toggle window *maximise* |
-| =W-space= | =_= / =-S-= / =-A-= / =-C-= | *close* notification / *close all* / *history* / *context* |
+
+| | | /APP/ |
+|-|-|-------|
 | =print= | =_= / =C-= / =S-= | *take picture* of *screen* / *window* / *selection* |
-| =W-enter= | | launch *launcher* |
+| =W-a= | | launch *audio control* |
 | =W-e= | | launch *editor* |
-| =W-p= | | launch *audio control* |
 | =W-t= | | launch *terminal* |
 | =W-w= | | launch *www* |
 | =W-z= | | launch *magnifier* |
+
+| key template | key more | do, /dunst/ |
+|--------------|----------|-------------|
+| =W-space= | =_= / =-S-= / =-A-= / =-C-= | *close* notification / *close all* / *history* / *context* |
+
+| key | - | do, /albert/ |
+|-----|---|--------------|
+| =W-enter= | | launch *launcher* |
 
 *** see also
 

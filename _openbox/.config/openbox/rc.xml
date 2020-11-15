@@ -25,18 +25,18 @@
     <name>0openbox</name>
     <animateIconify>no</animateIconify>
     <font place="ActiveWindow">
-      <name>sans</name>
-      <size>7</size>
+      <name>Agave</name>
+      <size>8</size>
       <weight>bold</weight>
     </font>
     <font place="ActiveOnScreenDisplay">
-      <name>Roboto Mono</name>
-      <size>7</size>
+      <name>Agave</name>
+      <size>8</size>
       <weight>bold</weight>
     </font>
     <font place="InactiveOnScreenDisplay">
-      <name>Roboto Mono</name>
-      <size>7</size>
+      <name>Agave</name>
+      <size>8</size>
       <weight>bold</weight>
     </font>
     <!--<keepBorder>yes</keepBorder>-->
@@ -125,6 +125,121 @@
   </mouse>
 
   <keyboard>
+    <!-- general -->
+    <keybind key="W-S-r">
+      <action name="Reconfigure"/>
+    </keybind>
+    <keybind key="W-S-BackSpace">
+      <action name="Close"/>
+    </keybind>
+
+    <!-- desktop -->
+    <keybind key="W-1">
+      <action name="GoToDesktop">
+        <to>1</to>
+      </action>
+    </keybind>
+    <keybind key="W-2">
+      <action name="GoToDesktop">
+        <to>2</to>
+      </action>
+    </keybind>
+    <keybind key="W-3">
+      <action name="GoToDesktop">
+        <to>3</to>
+      </action>
+    </keybind>
+    <keybind key="W-4">
+      <action name="GoToDesktop">
+        <to>4</to>
+      </action>
+    </keybind>
+    <keybind key="W-A-1">
+      <action name="SendToDesktop">
+        <to>1</to>
+        <follow>no</follow>
+      </action>
+    </keybind>
+    <keybind key="W-A-2">
+      <action name="SendToDesktop">
+        <to>2</to>
+        <follow>no</follow>
+      </action>
+    </keybind>
+    <keybind key="W-A-3">
+      <action name="SendToDesktop">
+        <to>3</to>
+        <follow>no</follow>
+      </action>
+    </keybind>
+    <keybind key="W-A-4">
+      <action name="SendToDesktop">
+        <to>4</to>
+        <follow>no</follow>
+      </action>
+    </keybind>
+
+    <!-- move window -->
+    <keybind key="W-c">
+      <action name="MoveResizeTo">
+        <x>center</x>
+        <y>center</y>
+      </action>
+    </keybind>
+    <keybind key="W-h">
+      <action name="MoveToEdge">
+        <direction>west</direction>
+      </action>
+    </keybind>
+    <keybind key="W-j">
+      <action name="MoveToEdge">
+        <direction>south</direction>
+      </action>
+    </keybind>
+    <keybind key="W-k">
+      <action name="MoveToEdge">
+        <direction>north</direction>
+      </action>
+    </keybind>
+    <keybind key="W-l">
+      <action name="MoveToEdge">
+        <direction>east</direction>
+      </action>
+    </keybind>
+    <keybind key="W-y">
+      <action name="MoveToEdge">
+        <direction>north</direction>
+      </action>
+      <action name="MoveToEdge">
+        <direction>west</direction>
+      </action>
+    </keybind>
+    <keybind key="W-u">
+      <action name="MoveToEdge">
+        <direction>north</direction>
+      </action>
+      <action name="MoveToEdge">
+        <direction>east</direction>
+      </action>
+    </keybind>
+    <keybind key="W-b">
+      <action name="MoveToEdge">
+        <direction>south</direction>
+      </action>
+      <action name="MoveToEdge">
+        <direction>west</direction>
+      </action>
+    </keybind>
+    <keybind key="W-n">
+      <action name="MoveToEdge">
+        <direction>south</direction>
+      </action>
+      <action name="MoveToEdge">
+        <direction>east</direction>
+      </action>
+    </keybind>
+
+    <!-- resize window -->
     <keybind key="W-C-h">
       <action name="ResizeRelative">
         <right>-10</right>
@@ -169,6 +284,8 @@
         <right>10</right>
       </action>
     </keybind>
+
+    <!-- tile window -->
     <keybind key="W-S-h">
       <action name="UnmaximizeFull"/>
       <action name="Maximize">
@@ -293,108 +410,8 @@
         <width>62%</width>
       </action>
     </keybind>
-    <keybind key="W-h">
-      <action name="MoveToEdge">
-        <direction>west</direction>
-      </action>
-    </keybind>
-    <keybind key="W-j">
-      <action name="MoveToEdge">
-        <direction>south</direction>
-      </action>
-    </keybind>
-    <keybind key="W-k">
-      <action name="MoveToEdge">
-        <direction>north</direction>
-      </action>
-    </keybind>
-    <keybind key="W-l">
-      <action name="MoveToEdge">
-        <direction>east</direction>
-      </action>
-    </keybind>
-    <keybind key="W-y">
-      <action name="MoveToEdge">
-        <direction>north</direction>
-      </action>
-      <action name="MoveToEdge">
-        <direction>west</direction>
-      </action>
-    </keybind>
-    <keybind key="W-u">
-      <action name="MoveToEdge">
-        <direction>north</direction>
-      </action>
-      <action name="MoveToEdge">
-        <direction>east</direction>
-      </action>
-    </keybind>
-    <keybind key="W-b">
-      <action name="MoveToEdge">
-        <direction>south</direction>
-      </action>
-      <action name="MoveToEdge">
-        <direction>west</direction>
-      </action>
-    </keybind>
-    <keybind key="W-n">
-      <action name="MoveToEdge">
-        <direction>south</direction>
-      </action>
-      <action name="MoveToEdge">
-        <direction>east</direction>
-      </action>
-    </keybind>
-    <keybind key="W-c">
-      <action name="MoveResizeTo">
-        <x>center</x>
-        <y>center</y>
-      </action>
-    </keybind>
-    <keybind key="W-1">
-      <action name="GoToDesktop">
-        <to>1</to>
-      </action>
-    </keybind>
-    <keybind key="W-2">
-      <action name="GoToDesktop">
-        <to>2</to>
-      </action>
-    </keybind>
-    <keybind key="W-3">
-      <action name="GoToDesktop">
-        <to>3</to>
-      </action>
-    </keybind>
-    <keybind key="W-4">
-      <action name="GoToDesktop">
-        <to>4</to>
-      </action>
-    </keybind>
-    <keybind key="W-A-1">
-      <action name="SendToDesktop">
-        <to>1</to>
-        <follow>no</follow>
-      </action>
-    </keybind>
-    <keybind key="W-A-2">
-      <action name="SendToDesktop">
-        <to>2</to>
-        <follow>no</follow>
-      </action>
-    </keybind>
-    <keybind key="W-A-3">
-      <action name="SendToDesktop">
-        <to>3</to>
-        <follow>no</follow>
-      </action>
-    </keybind>
-    <keybind key="W-A-4">
-      <action name="SendToDesktop">
-        <to>4</to>
-        <follow>no</follow>
-      </action>
-    </keybind>
+
+    <!-- focus window -->
     <keybind key="A-Tab">
       <action name="NextWindow">
         <dialog>no</dialog>
@@ -413,12 +430,6 @@
     <keybind key="W-period">
       <action name="Raise"/>
     </keybind>
-    <keybind key="W-S-BackSpace">
-      <action name="Close"/>
-    </keybind>
-    <keybind key="W-S-r">
-      <action name="Reconfigure"/>
-    </keybind>
     <keybind key="W-BackSpace">
       <action name="ToggleShowDesktop"/>
     </keybind>
@@ -431,6 +442,8 @@
     <keybind key="W-m">
       <action name="ToggleMaximize"/>
     </keybind>
+
+    <!-- media -->
     <keybind key="XF86MonBrightnessDown">
       <action name="Execute">
         <command>0lum -5</command>
@@ -496,14 +509,16 @@
         <command>0shot select</command>
       </action>
     </keybind>
+
+    <!-- app -->
+    <keybind key="W-a">
+      <action name="Execute">
+        <command>pavucontrol</command>
+      </action>
+    </keybind>
     <keybind key="W-e">
       <action name="Execute">
         <command>emacs</command>
-      </action>
-    </keybind>
-    <keybind key="W-p">
-      <action name="Execute">
-        <command>pavucontrol</command>
       </action>
     </keybind>
     <keybind key="W-t">
@@ -538,6 +553,15 @@
       <decor>no</decor>
       <focus>yes</focus>
     </application>
+    <!--
+    <application class="albert">
+      <layer>above</layer>
+      <position force="no">
+        <x>center</x>
+        <y>center</y>
+      </position>
+    </application>
+    -->
     <application class="Polybar">
       <layer>below</layer>
     </application>

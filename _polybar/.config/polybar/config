@@ -33,7 +33,7 @@ radius = 0.0
 padding = 0
 dpi-x = 200
 dpi-y = 200
-font-0 = "Roboto Mono:size=7:style=bold;3"
+font-0 = "Agave:size=8:style=bold;3"
 font-1 = "Font Awesome 5 Free:style=Regular:size=6;3"
 font-2 = "Font Awesome 5 Free:style=Solid:size=6;3"
 font-3 = "NanumGothicCoding:size=7:style=bold;3"

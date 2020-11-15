@@ -33,11 +33,12 @@ alias 0mixon='pactl load-module module-loopback'
 alias 0mixoff='pactl unload-module module-loopback'
 alias 0proxy='ssh -CND 8815 188.166.105.125' # agaric.net
 alias 0sshadd='ssh-add $HOME/.ssh/id_rsa'
-alias 0topc="ps -Ao pcpu,stat,time,pid,cmd --sort=-pcpu,-time | sed '/^ 0.0 /d'"
-alias 0topd="du -kx | ag -v '\./.+/' | sort -rn"
-alias 0topm="ps -Ao rss,vsz,pid,cmd --sort=-rss,-vsz | awk '{if (\$1>5000) print;}'"
+alias 0topc="ps --no-headers c -Ao pcpu,pid,cmd | sort -grk1 | head -21 | column -t -N %,pid,cmd |"' cut -c-$(tput cols)'
+alias 0topm="ps --no-headers c -Ao pmem,rss,vsize,pid,args | awk '{if (\$2 > 10240) \$2=\$2/1024\"M\"; if (\$3 > 10240) \$3=\$3/1024\"M\";}{print;}' | sort -grk1 | head -21 | column -t -N %,rss,vsz,pid,cmd |"' cut -c-$(tput cols)'
 alias asdf='0key hsnt'
 alias asdfb='0key hsnt; 0key bow'
+alias hsnt='0key qwerty'
+alias hsntb='0key qwerty; 0key bow'
 alias hsnt='0key qwerty'
 alias bc='bc -l'
 alias cp='cp -iv'

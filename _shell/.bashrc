@@ -3,15 +3,53 @@
 ## settings
 stty -ixon
 
-## functions
-0gitbr()
-{ git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1 /'; }
+
+## custom functions and variables
+_pwd=$PWD
+
+_gitbr()
+{ git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/^\* *\(.*\)$/\1 /'; }
+
+_prompt()
+{ local e=${PIPESTATUS[-1]}
+  [[ $e = 0 ]] \
+    && e='\[\033[0;32m\]'"$e " \
+    || e='\[\033[0;35m\]'"$e "
+  local t='\[\033[1;37m\]\t '
+  local g='\[\033[0;33m\]'$(_gitbr)
+  local p='\[\033[1;31m\]\w'
+  PS1=$e$t$g$p'\[\033[0m\] '
+  _pwd=$PWD; }
+
+_title()
+{ local c=$(history 1 | sed 's/^ *[0-9]\+ *//')
+  [[ -z $_pwd ]] && c=alacritty
+  echo -ne "\033]0;($(echo ${_pwd:-$PWD} | sed s,$HOME,~,)) $c\007"; }
+
+0ftp()
+{ local phone='192.168.2.3'
+  [[ -z "$1" ]] && echo 'provide ftp password' \
+    || sudo lftp -u b,$1 -p 21000 ftp://$phone; }
+
+0qmk-flash()
+{ #make planck/rev4:blobject:flash \
+  sudo make planck/rev4:blobject \
+  && sudo dfu-programmer atmega32u4 erase \
+  && sudo dfu-programmer atmega32u4 flash planck_rev4_agaric.hex \
+  && sudo dfu-programmer atmega32u4 reset; }
+
+c()
+{ cd "$@" && \
+  { local lim=256 count=$(ls --color=n | wc -l);
+    [[ $count -gt $lim ]] \
+      && echo "skipping ls ($count entries > $lim)" \
+      || ls -AF --color=auto --time-style=long-iso; }; }
 
 ## variables
 HISTCONTROL=ignoreboth
 HISTFILESIZE=65536
 HISTSIZE=65536
-PS1='\[\033[1;37m\]\t \[\033[0;33m\]'"\$(0gitbr)"'\[\033[1;31m\]\w\[\033[0m\] '
+PROMPT_COMMAND=_prompt
 export MANPATH=$MANPATH${MANPATH:+:}/usr/lib/plan9/man
 export LESS=-iRS
 export SSH_AUTH_SOCK="$HOME/.ssh/agent"
@@ -67,25 +105,6 @@ alias ,,,,='c ../../../..'
 source /usr/share/bash-completion/completions/git
 __git_complete g __git_main
 
-## more functions
-c()
-{ cd "$@" && \
-  { local lim=256 count=$(ls --color=n | wc -l);
-    [[ $count -gt $lim ]] \
-      && echo "skipping ls ($count entries > $lim)" \
-      || l; }; }
-
-0ftp()
-{ local phone='192.168.2.3'
-  [[ -z "$1" ]] && echo 'provide ftp password' \
-    || sudo lftp -u b,$1 -p 21000 ftp://$phone; }
-
-0qmk-flash()
-{ [[ -n "$1" ]] \
-  && { sudo dfu-programmer atmega32u4 erase \
-  && sudo dfu-programmer atmega32u4 flash "$1" \
-  && sudo dfu-programmer atmega32u4 reset; } \
-  || echo 'no file given'; }
-
 ## set title
-trap 'echo -ne "\033]0;($(echo $PWD | sed s,$HOME,~,)) $BASH_COMMAND\007"' DEBUG
+trap '_title' DEBUG
+unset _pwd

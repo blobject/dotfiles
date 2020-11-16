@@ -26,20 +26,20 @@
     <animateIconify>no</animateIconify>
     <font place="ActiveWindow">
       <name>Agave</name>
-      <size>8</size>
+      <size>9</size>
       <weight>bold</weight>
     </font>
     <font place="ActiveOnScreenDisplay">
       <name>Agave</name>
-      <size>8</size>
+      <size>9</size>
       <weight>bold</weight>
     </font>
     <font place="InactiveOnScreenDisplay">
       <name>Agave</name>
-      <size>8</size>
+      <size>9</size>
       <weight>bold</weight>
     </font>
-    <!--<keepBorder>yes</keepBorder>-->
+    <keepBorder>yes</keepBorder>
     <titleLayout></titleLayout>
   </theme>
 

@@ -1,4 +1,4 @@
-border.width: 12
+border.width: 20
 padding.width: 0
 window.handle.width: 0
 window.client.padding.width: 0
@@ -6,7 +6,7 @@ window.client.padding.height: 0
 
 osd.bg: flat solid
 osd.bg.color: #3c56aa
-osd.border.width: 6
+osd.border.width: 10
 osd.border.color: #3c56aa
 osd.hilight.bg.color: #16161d
 osd.unhilight.bg: flat border

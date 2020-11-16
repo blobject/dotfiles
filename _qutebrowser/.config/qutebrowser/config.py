@@ -1,4 +1,5 @@
 # qutebrowser config, emacs-like
+# config version 2
 
 c.confirm_quit = ['always']
 c.history_gap_interval = 30
@@ -44,11 +45,12 @@ config.set('content.media.video_capture', True, 'https://us04web.zoom.us')
 config.set('content.notifications', True, 'https://mail.google.com')
 config.set('content.notifications', True, 'https://us04web.zoom.us')
 config.set('content.notifications', True, 'https://www.youtube.com')
+config.set('content.notifications', False, 'https://www.reddit.com')
 c.content.pdfjs = True
 c.content.persistent_storage = 'ask'
 config.set('content.register_protocol_handler', True, 'https://mail.google.com?extsrc=mailto&url=%25s')
 c.completion.show = 'always'
-c.completion.shrink = False
+c.completion.shrink = True
 c.completion.scrollbar.width = 8
 c.completion.scrollbar.padding = 0
 c.completion.timestamp_format = '%Y-%m-%d'
@@ -224,21 +226,22 @@ c.bindings.commands['normal'] = {
   '<ctrl-x>t':           'config-cycle statusbar.show in-mode always ;; config-cycle tabs.show always switching',
   '<ctrl-x><ctrl-c>':    'quit --save',
   '<ctrl-x><shift-k>':   'close',
+  '`':                   'set-cmd-text :',
   '<alt-x>':             'set-cmd-text :',
   '<ctrl-x>s':           'stop',
   '<ctrl-x>r':           'reload',
   '<ctrl-x>R':           'reload -f',
   'o':                   'set-cmd-text -s :open',
   'O':                   'set-cmd-text -s :open -t',
-  '<ctrl-o>':            'set-cmd-text -s :open -w',
+  '<alt-o>':             'set-cmd-text -s :open -w',
+  '<ctrl-x>;':           'set-cmd-text -s :open -b',
   '<ctrl-x>o':           'set-cmd-text :open {url:pretty}',
   '<ctrl-x>O':           'set-cmd-text :open -t {url:pretty}',
-  '<ctrl-x><ctrl-o>':    'set-cmd-text :open -w {url:pretty}',
-  '<ctrl-x>;':           'set-cmd-text -s :open -b',
+  '<ctrl-x><alt-o>':     'set-cmd-text :open -w {url:pretty}',
   '<ctrl-x>:':           'set-cmd-text :open -b {url:pretty}',
   '<return>':            'follow-selected',
   '<shift-return>':      'follow-selected -t',
-  '<ctrl-return>':       'follow-selected -w',
+  '<alt-return>':        'follow-selected -w',
   '<ctrl-shift-return>': 'follow-selected -p',
   # focus
   'i':              'enter-mode insert',
@@ -247,9 +250,10 @@ c.bindings.commands['normal'] = {
   '<ctrl-w>p':      'enter-mode passthrough',
   '<ctrl-w>o':      'devtools-focus',
   ';':              'hint all',
-  ':':              'hint all tab-bg --rapid',
+  ':':              'hint all tab',
+  '<ctrl-shift-:>': 'hint all tab-bg --rapid',
   '<ctrl-;>':       'hint all yank',
-  '<ctrl-shift-:>': 'hint all download',
+  '<alt-;>':        'hint all download',
   # meta
   '<ctrl-w>i': 'devtools',
   '<ctrl-w>s': 'view-source',
@@ -305,7 +309,7 @@ c.bindings.commands['normal'] = {
   # tab, window
   '<ctrl-/>':         'undo',
   '<ctrl-shift-t>':   'undo',
-  '<ctrl-shift-?>':   'undo -w',
+  '<alt-/>':          'undo -w',
   '<ctrl-tab>':       'tab-next',
   '<ctrl-shift-tab>': 'tab-prev',
   '<alt-n>':          'tab-next',
@@ -328,8 +332,9 @@ c.bindings.commands['normal'] = {
   '<alt-9>':          'tab-focus 9',
   '<alt-0>':          'tab-focus -1',
   # yank
-  '<alt-w>':  'yank url',
-  '<ctrl-y>': 'open -- {clipboard}',
+  '<ctrl-y>':       'open -- {clipboard}',
+  '<ctrl-shift-y>': 'open -t -- {clipboard}',
+  '<alt-y>':        'yank url',
   # zoom
   '-': 'zoom-out',
   '=': 'zoom 100',

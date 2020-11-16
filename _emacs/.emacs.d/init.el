@@ -1,6 +1,9 @@
 (package-initialize)
-;(require 'flycheck)
+(require 'company-rtags)
 (require 'dot-mode)
+(require 'flycheck)
+(require 'flycheck-rtags)
+(require 'rtags)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; linum
@@ -18,27 +21,25 @@
   (propertize (format my/linum-format line) 'face 'linum))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; mode-line
+;; modeline
 
 (defvar my/buffer-status
   (quote
-    (:eval (if (buffer-modified-p) "X" (if buffer-read-only "R" " ")))))
-
-(defun my/mode-line-fill (face reserve)
-  "Return empty space using face, leaving reserve space on the right."
-  (unless reserve (setq reserve 20))
-  (propertize " " 'display
-              `((space :align-to (- (+ right right-fringe right-margin)
-                                    ,reserve)))))
+    (:eval (if (buffer-modified-p)
+             (propertize "  " 'face '(:background "#ba8d3b"))
+             (if buffer-read-only (propertize "  " 'face '(:background "#16161d")) "  ")))))
 
 (defvar my/mode-line
   (list my/buffer-status
-        " %b  %l:%c"
+        "%b  %l"
+        (propertize ":" 'face '(:foreground "#b9bdc5"))
+        "%c"
         (setcdr (assq 'vc-mode mode-line-format)
-                '((:eval (replace-regexp-in-string "^ Git[-:]" "  " vc-mode))))
-        "  %m"
-        ;(\` (flycheck-mode flycheck-mode-line))
-        ;(\` (vc-mode vc-mode))
+                '((:eval (replace-regexp-in-string
+                           "^ Git[-:]"
+                           (propertize " " 'face '(:foreground "#b9bdc5"))
+                           vc-mode))))
+        (propertize "  %m" 'face '(:foreground "#b9bdc5"))
         ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -66,7 +67,7 @@
  '(css-indent-offset 2)
  '(custom-enabled-themes '(cemant))
  '(custom-safe-themes
-   '("979bafdf234f8da166ea9c89f9b49ac5c84a807978c8d21126dfde57afc03ea8" default))
+   '("11d87c85e667ff9c72882abd2f2142b94237643221b7ee4c05eee6568e205c04" default))
  '(default-tab-width 2 t)
  '(electric-indent-inhibit t t)
  '(electric-pair-mode t)
@@ -90,14 +91,12 @@
    '(("gnu" . "https://elpa.gnu.org/packages/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(csharp-mode elixir-mode haskell-mode markdown-mode rust-mode dot-mode expand-region iy-go-to-char multiple-cursors paredit rainbow-delimiters web-mode hlinum))
+   '(cmake-mode flycheck flycheck-rtags flycheck-rust company-rtags csharp-mode elixir-mode haskell-mode markdown-mode rust-mode dot-mode expand-region iy-go-to-char multiple-cursors paredit rainbow-delimiters web-mode hlinum))
  '(python-indent 2)
  '(read-quoted-char-radix 16)
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(show-trailing-whitespace t)
- '(sml/col-number-format "%1c")
- '(sml/line-number-format "%1l")
  '(tab-stop-list (number-sequence 2 100 2))
  '(tab-width 2)
  '(tool-bar-mode nil)
@@ -114,6 +113,7 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "monospace" :height 85 :weight bold))))
  '(fixed-pitch-serif ((t (:family "FreeMono" :weight bold))))
+ '(linum ((t (:background "#b0b3bb" :foreground "#575a61" :height 1.0))))
  '(org-agenda-structure ((t (:inverse-video nil :underline nil :slant normal :weight bold :height 1.0))))
  '(org-document-title ((t (:weight bold :height 1.0))))
  '(org-level-1 ((t (:inherit nil :foreground "#36383f" :height 1.0))))
@@ -124,23 +124,45 @@
  '(org-level-6 ((t (:inherit nil :foreground "#af913a" :height 0.9))))
  '(org-level-7 ((t (:inherit nil :foreground "#91328c" :height 0.9))))
  '(org-level-8 ((t (:inherit nil :foreground "#575a61" :height 0.9))))
- '(sml/line-number ((t (:weight bold))))
- '(sml/minor-modes ((t (:inherit sml/global :height 0.9))))
- '(sml/modes ((t (:inherit sml/global :weight bold :height 0.9))))
  '(web-mode-doctype-face ((t nil))))
  ;'(trailing-whitespace ((t (:background "#073642"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; hooks
+;; packages helpers
 
+(defun company-rtags-setup ()
+  (delete 'company-semantic company-backends)
+  (setq rtags-completions-enabled t)
+  (push '(company-rtags :with company-yasnippet) company-backends))
+
+(defun company-cmake-setup ()
+  (add-to-list 'company-backends 'company-cmake))
+
+(defun flycheck-rtags-setup ()
+  (flycheck-select-checker 'rtags)
+  (setq-local flycheck-highlighting-mode nil)
+  (setq-local flycheck-check-syntax-automatically nil))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; packages
+
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+(rtags-enable-standard-keybindings)
+(rtags-diagnostics)
+(rtags-start-process-unless-running)
 (add-hook 'find-file-hooks 'dot-mode-on)
-;(add-hook 'after-init-hook 'global-company-mode)
-;(add-hook 'after-init-hook 'global-flycheck-mode)
+(add-hook 'after-init-hook 'global-company-mode)
+(add-hook 'after-init-hook 'global-flycheck-mode)
 (add-hook 'after-init-hook 'hlinum-activate)
+(add-hook 'c-mode-hook 'company-rtags-setup)
+(add-hook 'c++-mode-hook 'company-rtags-setup)
+(add-hook 'c-mode-hook 'flycheck-rtags-setup)
+(add-hook 'c++-mode-hook 'flycheck-rtags-setup)
+(add-hook 'cmake-mode-hook 'company-cmake-setup)
 (add-hook 'org-mode-hook (lambda () (visual-line-mode) (org-indent-mode)))
 (add-hook 'prog-mode-hook 'linum-mode)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-;(add-hook 'flycheck-mode-hook 'flycheck-rust-setup)
+(add-hook 'flycheck-mode-hook 'flycheck-rust-setup)
 (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
 (add-hook 'geiser-mode-hook 'enable-paredit-mode)
 (add-hook 'linum-before-numbering-hook 'my/linum-get-format)
@@ -152,17 +174,14 @@
 (add-hook 'web-mode-hook (lambda ()
   (if (equal web-mode-content-type "javascript")
     (web-mode-set-content-type "jsx"))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; auto modes
-
 ;(add-to-list 'auto-mode-alist '("\\.pl$" . prolog-mode))
 ;(add-to-list 'auto-mode-alist '("^/var/log/" . syslog-mode))
 ;(add-to-list 'auto-mode-alist '("\\.log$" . syslog-mode))
 (add-to-list 'auto-mode-alist '("\\..?css$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode))
-;(flycheck-add-mode 'javascript-eslint 'web-mode)
+(add-to-list 'auto-mode-alist '("CMakeLists\\.text$" . cmake-mode))
+(add-to-list 'auto-mode-alist '("\\.cmake$" . cmake-mode))
 
 (defadvice web-mode-highlight-part (around tweak-jsx activate)
   (if (equal web-mode-content-type "jsx")
@@ -174,8 +193,18 @@
 ;; key bindings
 
 (fset 'yes-or-no-p 'y-or-n-p)
+(global-unset-key (kbd "<C-down-mouse-1>"))
+(global-unset-key (kbd "<C-down-mouse-2>"))
+(global-unset-key (kbd "<C-down-mouse-3>"))
+(global-unset-key (kbd "<S-down-mouse-1>"))
+(global-unset-key (kbd "<S-down-mouse-2>"))
+(global-unset-key (kbd "<S-down-mouse-3>"))
 (global-set-key (kbd "M-n") (lambda () (interactive) (scroll-up 1)))
 (global-set-key (kbd "M-p") (lambda () (interactive) (scroll-down 1)))
+(global-set-key (kbd "C-M-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "C-M-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-M-<up>") 'shrink-window)
+(global-set-key (kbd "C-M-<down>") 'enlarge-window)
 ;(global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-,") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-all-like-this)
@@ -195,12 +224,10 @@
 (global-unset-key (kbd "C-x ]"))
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "M-C-\\"))
-(global-unset-key (kbd "<C-down-mouse-1>"))
-(global-unset-key (kbd "<C-down-mouse-2>"))
-(global-unset-key (kbd "<C-down-mouse-3>"))
-(global-unset-key (kbd "<S-down-mouse-1>"))
-(global-unset-key (kbd "<S-down-mouse-2>"))
-(global-unset-key (kbd "<S-down-mouse-3>"))
+(define-key c-mode-base-map (kbd "M-.")
+  (function rtags-find-symbol-at-point))
+(define-key c-mode-base-map (kbd "M-,")
+  (function rtags-find-references-at-point))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; interactivity

@@ -78,6 +78,7 @@ c.statusbar.position = 'top'
 c.tabs.background = True
 c.tabs.close_mouse_button = 'middle'
 c.tabs.close_mouse_button_on_bar = 'new-tab'
+c.tabs.favicons.scale = 1.5
 c.tabs.favicons.show = 'always'
 c.tabs.last_close = 'blank'
 c.tabs.mousewheel_switching = False

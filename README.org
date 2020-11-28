@@ -27,7 +27,7 @@ dunst
 | cron | [[https://github.com/leahneukirchen/snooze][snooze]] |
 | notification | [[https://github.com/dunst-project/dunst][dunst]] |
 | bar | [[https://polybar.github.io/][polybar]] |
-| launch | [[https://albertlauncher.github.io/][albert]] |
+| launch | [[https://github.com/davatorium/rofi][rofi]] |
 | look | 2160x1440, 200dpi, font size 9, [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://github.com/blobject/agave][agave]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]], [[https://github.com/PapirusDevelopmentTeam/papirus-icon-theme][papirus]], [[https://github.com/KDE/breeze][breeze]], wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3840x2160][link]] |
 
 *** keybinding
@@ -73,9 +73,9 @@ dunst
 |--------------|----------|-------------|
 | =W-space= | =_= / =S-= / =A-= / =C-= | *close* notification / *close all* / *history* / *context* |
 
-| key | - | do, /albert/ |
+| key | key more | do, /rofi/ |
 |-----|---|--------------|
-| =W-enter= | | launch *launcher* |
+| =W-enter= | =_= / =S-= / =C-= | launch *launcher* / show *launchables* only / show *windows* only |
 
 *** see also
 

@@ -5,26 +5,26 @@ stty -ixon
 
 
 ## custom functions and variables
-_pwd=$PWD
+__0_pwd=$PWD
 
-_gitbr()
+__0_gitbr()
 { git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/^\* *\(.*\)$/\1 /'; }
 
-_prompt()
+__0_prompt()
 { local e=${PIPESTATUS[-1]}
   [[ $e = 0 ]] \
     && e='\[\033[0;32m\]'"$e " \
     || e='\[\033[0;35m\]'"$e "
   local t='\[\033[1;37m\]\t '
-  local g='\[\033[0;33m\]'$(_gitbr)
+  local g='\[\033[0;33m\]'$(__0_gitbr)
   local p='\[\033[1;31m\]\w'
   PS1=$e$t$g$p'\[\033[0m\] '
-  _pwd=$PWD; }
+  __0_pwd=$PWD; }
 
-_title()
+__0_title()
 { local c=$(history 1 | sed 's/^ *[0-9]\+ *//')
-  [[ -z $_pwd ]] && c=alacritty
-  echo -ne "\033]0;($(echo ${_pwd:-$PWD} | sed s,$HOME,~,)) $c\007"; }
+  [[ -z $__0_pwd ]] && c=alacritty
+  echo -ne "\033]0;($(echo ${__0_pwd:-$PWD} | sed s,$HOME,~,)) $c\007"; }
 
 0ftp()
 { local phone='192.168.2.3'
@@ -49,8 +49,7 @@ c()
 HISTCONTROL=ignoreboth
 HISTFILESIZE=65536
 HISTSIZE=65536
-PROMPT_COMMAND=_prompt
-export MANPATH=$MANPATH${MANPATH:+:}/usr/lib/plan9/man
+PROMPT_COMMAND=__0_prompt
 export LESS=-iRS
 export SSH_AUTH_SOCK="$HOME/.ssh/agent"
 eval $(dircolors --sh)
@@ -89,6 +88,7 @@ alias ll='ls -lh'
 alias lla='ll -a'
 alias lls='ll -S'
 alias llt='ll -t'
+alias man='man -m /usr/lib/plan9/man'
 alias mv='mv -iv'
 alias rg='rg --hidden'
 alias rm='rm -i'
@@ -106,5 +106,5 @@ source /usr/share/bash-completion/completions/git
 __git_complete g __git_main
 
 ## set title
-trap '_title' DEBUG
-unset _pwd
+trap __0_title DEBUG
+unset __0_pwd

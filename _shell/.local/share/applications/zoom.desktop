@@ -2,7 +2,7 @@
 Name=Zoom
 Comment=Video Conference
 Exec=zoom %U
-Icon=Zoom.png
+Icon=Zoom
 Terminal=false
 Type=Application
 Encoding=UTF-8

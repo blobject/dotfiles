@@ -1,7 +1,17 @@
+## funcs
+_path_prepend()
+{ case ":$PATH:" in
+    *:"$1":*) ;;
+    *) PATH="$1${PATH:+:$PATH}"
+  esac }
+
 ## vars
-export PATH="$HOME/bin:$HOME/.local/bin${PATH:+:}$PATH"
+_path_prepend "$HOME/.local/bin"
+_path_prepend "$HOME/bin"
+export PATH
 export BROWSER=qutebrowser
 export EDITOR=emacs
+export TERMINAL=alacritty
 export GUILE_AUTO_COMPILE=0
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
 export QT_ENABLE_HIGHDPI_SCALING=1
@@ -15,6 +25,8 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 #export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 #export _JAVA_AWT_WM_NONREPARENTING=1
 #export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd -Dsun.java2d.xrender=true -Dswing.aatext=true'
+
+unset _path_prepend
 
 ## settings
 cat /sys/bus/usb/devices/*/product | grep -q '^Planck$' || setxkbmap -option ctrl:swapcaps

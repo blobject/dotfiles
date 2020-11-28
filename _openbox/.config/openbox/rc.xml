@@ -442,6 +442,10 @@
     <keybind key="W-m">
       <action name="ToggleMaximize"/>
     </keybind>
+    <keybind key="W-semicolon">
+      <action name="ToggleMaximize"/>
+      <action name="ToggleMaximize"/>
+    </keybind>
 
     <!-- media -->
     <keybind key="XF86MonBrightnessDown">
@@ -511,6 +515,21 @@
     </keybind>
 
     <!-- app -->
+    <keybind key="W-Return">
+      <action name="Execute">
+        <command>rofi -modi combi,drun,window -show combi</command>
+      </action>
+    </keybind>
+    <keybind key="W-S-Return">
+      <action name="Execute">
+        <command>rofi -modi combi,drun,window -show drun</command>
+      </action>
+    </keybind>
+    <keybind key="W-C-Return">
+      <action name="Execute">
+        <command>rofi -modi combi,drun,window -show window</command>
+      </action>
+    </keybind>
     <keybind key="W-a">
       <action name="Execute">
         <command>pavucontrol</command>
@@ -553,15 +572,6 @@
       <decor>no</decor>
       <focus>yes</focus>
     </application>
-    <!--
-    <application class="albert">
-      <layer>above</layer>
-      <position force="no">
-        <x>center</x>
-        <y>center</y>
-      </position>
-    </application>
-    -->
     <application class="Polybar">
       <layer>below</layer>
     </application>

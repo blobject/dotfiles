@@ -49,6 +49,7 @@ config.set('content.notifications', False, 'https://www.reddit.com')
 c.content.pdfjs = True
 c.content.persistent_storage = 'ask'
 config.set('content.register_protocol_handler', True, 'https://mail.google.com?extsrc=mailto&url=%25s')
+c.completion.quick = False
 c.completion.show = 'always'
 c.completion.shrink = True
 c.completion.scrollbar.width = 8
@@ -94,7 +95,7 @@ c.tabs.title.alignment = 'left'
 c.tabs.title.format = '{index}: {audio}{current_title}'
 c.tabs.title.format_pinned = '{index}'
 c.tabs.width = '10%'
-c.tabs.min_width = 135
+c.tabs.min_width = 144
 c.tabs.max_width = -1
 c.tabs.indicator.width = 3
 c.tabs.indicator.padding = {'bottom': 6, 'left': 0, 'right': 1, 'top': 2}
@@ -193,8 +194,8 @@ c.fonts.messages.info = 'default_size default_family'
 c.fonts.messages.warning = '500 default_size default_family'
 c.fonts.prompts = 'default_size default_family'
 c.fonts.statusbar = '500 6.5pt default_family'
-c.fonts.tabs.selected = '700 7pt default_family'
-c.fonts.tabs.unselected = '500 7pt default_family'
+c.fonts.tabs.selected = '500 8pt sans'
+c.fonts.tabs.unselected = '400 8pt sans'
 c.fonts.web.family.standard = 'sans'
 c.fonts.web.family.fixed = 'monospace'
 c.fonts.web.family.serif = 'serif'
@@ -225,11 +226,11 @@ c.bindings.commands['normal'] = {
   '<ctrl-g>': 'fake-key <Escape> ;; clear-keychain ;; clear-messages ;; search ;; fullscreen --leave',
   '<ctrl-x>`':           'repeat-command',
   '<ctrl-x>t':           'config-cycle statusbar.show in-mode always ;; config-cycle tabs.show always switching',
-  '<ctrl-x><ctrl-c>':    'quit --save',
+  '<ctrl-x><shift-q>':   'quit --save',
   '<ctrl-x><shift-k>':   'close',
   '`':                   'set-cmd-text :',
   '<alt-x>':             'set-cmd-text :',
-  '<ctrl-x>s':           'stop',
+  '<ctrl-x><ctrl-c>':    'stop',
   '<ctrl-x>r':           'reload',
   '<ctrl-x>R':           'reload -f',
   'o':                   'set-cmd-text -s :open',
@@ -247,9 +248,10 @@ c.bindings.commands['normal'] = {
   # focus
   'i':              'enter-mode insert',
   'I':              'hint inputs',
-  '<ctrl-w>v':      'enter-mode caret',
-  '<ctrl-w>p':      'enter-mode passthrough',
+  '<ctrl-w>e':      'open-editor',
   '<ctrl-w>o':      'devtools-focus',
+  '<ctrl-w>p':      'enter-mode passthrough',
+  '<ctrl-w>v':      'enter-mode caret',
   ';':              'hint all',
   ':':              'hint all tab',
   '<ctrl-shift-:>': 'hint all tab-bg --rapid',
@@ -333,9 +335,9 @@ c.bindings.commands['normal'] = {
   '<alt-9>':          'tab-focus 9',
   '<alt-0>':          'tab-focus -1',
   # yank
-  '<ctrl-y>':       'open -- {clipboard}',
-  '<ctrl-shift-y>': 'open -t -- {clipboard}',
-  '<alt-y>':        'yank url',
+  '<alt-y>':       'open -- {clipboard}',
+  '<alt-shift-y>': 'open -t -- {clipboard}',
+  '<ctrl-y>':      'yank url',
   # zoom
   '-': 'zoom-out',
   '=': 'zoom 100',
@@ -348,6 +350,10 @@ c.bindings.commands['hint'] = {
 c.bindings.commands['command'] = {
   '<escape>':        'leave-mode',
   '<ctrl-g>':        'leave-mode',
+  '<Down>':          'completion-item-focus next',
+  '<Up>':            'completion-item-focus prev',
+  '<Right>':         'completion-item-focus next-category',
+  '<Left>':          'completion-item-focus prev-category',
   '<ctrl-n>':        'completion-item-focus next',
   '<ctrl-p>':        'completion-item-focus prev',
   '<alt-n>':         'command-history-next',

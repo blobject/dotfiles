@@ -3,7 +3,6 @@
 ## settings
 stty -ixon
 
-
 ## custom functions and variables
 __0_pwd=$PWD
 
@@ -102,9 +101,11 @@ alias ,,='c ../..'
 alias ,,,='c ../../..'
 alias ,,,,='c ../../../..'
 
+## imports
 source /usr/share/bash-completion/completions/git
 __git_complete g __git_main
 
 ## set title
 trap __0_title DEBUG
 unset __0_pwd
+

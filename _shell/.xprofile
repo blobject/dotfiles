@@ -7,7 +7,9 @@ _path_prepend()
 
 ## vars
 _path_prepend "$HOME/.local/bin"
+_path_prepend "$HOME/.cargo/bin"
 _path_prepend "$HOME/bin"
+unset _path_prepend
 export PATH
 export BROWSER=qutebrowser
 export EDITOR=emacs
@@ -26,11 +28,9 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 #export _JAVA_AWT_WM_NONREPARENTING=1
 #export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd -Dsun.java2d.xrender=true -Dswing.aatext=true'
 
-unset _path_prepend
-
 ## settings
 cat /sys/bus/usb/devices/*/product | grep -q '^Planck$' || setxkbmap -option ctrl:swapcaps
 xmodmap $HOME/cfg/unstowed/hsnt/hsnt.xmodmap
 xrdb -merge $HOME/.xresources
-xset dpms 1200 1200 1200 fp+ $HOME/.fonts r rate 300 30 s 0 0
+xset dpms 1200 1200 1200 r rate 300 30 s 0 0
 

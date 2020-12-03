@@ -69,8 +69,10 @@
  '(custom-safe-themes
    '("11d87c85e667ff9c72882abd2f2142b94237643221b7ee4c05eee6568e205c04" default))
  '(default-tab-width 2 t)
+ '(display-fill-column-indicator t)
  '(electric-indent-inhibit t t)
  '(electric-pair-mode t)
+ '(fill-column 80)
  '(fringe-mode 0 nil (fringe))
  '(global-dot-mode t)
  '(global-hl-line-mode t)
@@ -94,6 +96,7 @@
    '(cmake-mode flycheck flycheck-rtags flycheck-rust company-rtags csharp-mode elixir-mode haskell-mode markdown-mode rust-mode dot-mode expand-region iy-go-to-char multiple-cursors paredit rainbow-delimiters web-mode hlinum))
  '(python-indent 2)
  '(read-quoted-char-radix 16)
+ '(rust-indent-offset 2)
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(show-trailing-whitespace t)
@@ -112,8 +115,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "monospace" :height 85 :weight bold))))
+ '(fill-column-indicator ((t (:foreground "#d2d6de"))))
  '(fixed-pitch-serif ((t (:family "FreeMono" :weight bold))))
- '(linum ((t (:background "#b0b3bb" :foreground "#575a61" :height 1.0))))
  '(org-agenda-structure ((t (:inverse-video nil :underline nil :slant normal :weight bold :height 1.0))))
  '(org-document-title ((t (:weight bold :height 1.0))))
  '(org-level-1 ((t (:inherit nil :foreground "#36383f" :height 1.0))))
@@ -143,6 +146,10 @@
   (setq-local flycheck-highlighting-mode nil)
   (setq-local flycheck-check-syntax-automatically nil))
 
+(defun my/clike-mode-hook ()
+  (setq c-basic-offset 4)
+  (c-set-offset 'substatement-open 0))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; packages
 
@@ -151,11 +158,14 @@
 (rtags-diagnostics)
 (rtags-start-process-unless-running)
 (add-hook 'find-file-hooks 'dot-mode-on)
+(add-hook 'after-init-hook 'global-display-fill-column-indicator-mode)
 (add-hook 'after-init-hook 'global-company-mode)
 (add-hook 'after-init-hook 'global-flycheck-mode)
 (add-hook 'after-init-hook 'hlinum-activate)
 (add-hook 'c-mode-hook 'company-rtags-setup)
+(add-hook 'c-mode-hook 'my/clike-mode-hook)
 (add-hook 'c++-mode-hook 'company-rtags-setup)
+(add-hook 'c++-mode-hook 'my/clike-mode-hook)
 (add-hook 'c-mode-hook 'flycheck-rtags-setup)
 (add-hook 'c++-mode-hook 'flycheck-rtags-setup)
 (add-hook 'cmake-mode-hook 'company-cmake-setup)

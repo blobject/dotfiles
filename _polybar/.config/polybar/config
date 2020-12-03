@@ -5,8 +5,8 @@ screenchange-reload = true
 bg = #000000
 fg = #575a61
 em = #d2d6de
-one = #cf554d
-two = #667ad3
+dim = #36383f
+red = #cf554d
 o = #92959d
 c = #7883c9
 cc = #545aa7
@@ -34,13 +34,14 @@ padding = 0
 dpi-x = 200
 dpi-y = 200
 font-0 = "Agave:size=8:style=bold;3"
-font-1 = "Font Awesome 5 Free:style=Regular:size=6;3"
-font-2 = "Font Awesome 5 Free:style=Solid:size=6;3"
-font-3 = "NanumGothicCoding:size=7:style=bold;3"
-font-4 = "Source Han Sans:size=7:style=bold;3"
+font-1 = "Agave:size=8;3"
+font-2 = "Font Awesome 5 Free:style=Regular:size=6;3"
+font-3 = "Font Awesome 5 Free:style=Solid:size=6;3"
+font-4 = "NanumGothicCoding:size=7:style=bold;3"
+font-5 = "Source Han Sans:size=7:style=bold;3"
 modules-left = ewmh xwindow
 modules-right = date cpu temperature memory filesystem network backlight pulseaudio battery
-separator =
+separator = " "
 wm-name = c
 tray-position = right
 tray-padding = 1
@@ -55,19 +56,20 @@ enable-click = false
 enable-scroll = false
 label-active = %name%
 label-active-foreground = ${colors.o}
-label-occupied = %name%
-label-occupied-foreground = ${colors.two}
-label-urgent = %name%
-label-urgent-foreground = ${colors.one}
 label-empty = %name%
-format = "<label-state> "
+label-empty-foreground = ${colors.dim}
+label-occupied = %name%
+label-occupied-foreground = ${colors.fg}
+label-urgent = %name%
+label-urgent-foreground = ${colors.red}
+format = <label-state>
 
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:100:…%
 label-foreground = ${colors.em}
 label-empty = x
-format = "<label> "
+format = <label>
 
 [module/date]
 type = internal/date
@@ -75,14 +77,14 @@ interval = 8.0
 date = %a%d%b
 time = %H:%M
 label = %{F#92959d}%time%%{F-} %date%
-format = "<label> "
+format = <label>
 
 [module/cpu]
 type = internal/cpu
 interval = 2.0
 label = %percentage%%
 label-foreground = ${colors.c}
-format = " <label>"
+format =  <label>
 
 [module/temperature]
 type = internal/temperature
@@ -93,16 +95,16 @@ warn-temperature = 60
 label = %temperature-c%
 label-foreground = ${colors.cc}
 label-warn = %temperature-c%
-label-warn-foreground = ${colors.one}
-format = "<label> "
-format-warn = "<label-warn> "
+label-warn-foreground = ${colors.red}
+format = <label>
+format-warn = <label-warn>
 
 [module/memory]
 type = internal/memory
 interval = 4.0
 label = %percentage_used%%
 label-foreground = ${colors.m}
-format = " <label> "
+format =  <label>
 
 [module/filesystem]
 type = internal/fs
@@ -110,7 +112,7 @@ interval = 30.0
 mount-0 = /
 label-mounted = %percentage_used%%
 label-mounted-foreground = ${colors.d}
-format-mounted = " <label-mounted> "
+format-mounted =  <label-mounted>
 
 [module/network]
 type = internal/network
@@ -119,15 +121,15 @@ interval = 4.0
 label-connected = %essid%
 label-connected-foreground = ${colors.w}
 label-disconnected = x
-format-connected = " <label-connected> "
-format-disconnected = " <label-disconnected> "
+format-connected =  <label-connected>
+format-disconnected =  <label-disconnected>
 
 [module/backlight]
 type = internal/backlight
 card = intel_backlight
 label = %percentage%%
 label-foreground = ${colors.l}
-format = " <label> "
+format =  <label>
 
 [module/pulseaudio]
 type = internal/pulseaudio
@@ -136,8 +138,8 @@ use-ui-max = true
 interval = 4.0
 label-volume = %percentage%%
 label-volume-foreground = ${colors.v}
-label-muted = " muted "
-format-volume = " <label-volume> "
+label-muted =  muted
+format-volume =  <label-volume>
 
 [module/battery]
 type = internal/battery

@@ -17,7 +17,7 @@ dunst
 |-------|-------------|
 | machine | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]] |
 | opt. peripherals | [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]], [[https://olkb.com/collections/planck][planck]], [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]], [[https://www.logitech.com/en-us/product/m590-silent-wireless-mouse][m590]] |
-| kernel | [[https://www.kernel.org/][linux]] [[/unstowed/kernel.config][5.9.10]] |
+| kernel | [[https://www.kernel.org/][linux]] [[/unstowed/kernel.config][5.10.5]] |
 | distro | [[https://voidlinux.org/][void]] |
 | shell/[[https://github.com/blobject/scripts][script]] | [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
 | wm | [[http://openbox.org/wiki/Main_Page][openbox]] |
@@ -79,4 +79,4 @@ dunst
 
 *** see also
 
-see [[https://github.com/blobject/scripts][scripts]] for accompanying shell scripts.
+[[https://github.com/blobject/scripts][scripts]]: accompanying shell scripts.

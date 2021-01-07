@@ -1,0 +1,51 @@
+#! /usr/bin/env tclsh
+
+# taken from https://www.verot.net/firefox_tmpfs.htm
+
+source "$::env(HOME)/bin/lib.tcl"
+
+need rsync
+
+catch {exec cp -f $::env(HOME)/.local/share/qutebrowser/sessions/_autosave.yml $::env(HOME)/bak/qutebrowser_session.yml}
+
+set b qutebrowser
+set where $TMPD
+set flag .unpacked
+set data "\".local/share/$b webengine $b _webengine\" \
+          \".cache/$b webengine $b-cache _webengine\""
+
+proc refresh {root link vola stat} {
+  global flag
+  cd $root
+
+  if {![file readable $vola]} {
+    file mkdir $vola
+  }
+  file attributes $vola -permissions 00700
+
+  if {{link} ne [file type $link] || $vola ne [file readlink $link]} {
+    file rename $link $stat
+    file link $link $vola
+  }
+
+  puts "[file tail $::argv0]: $root/$link"
+  if [file exists $link/$flag] {
+    if [catch {exec rsync -av --delete --exclude $flag ./$link/ ./$stat/}] {
+      puts {error copying to disk}
+    }
+  } else {
+    if [catch {exec rsync -av ./$stat/ ./$link/}] {
+      puts {error copying to mem}
+    }
+    close [open $link/$flag a]
+  }
+}
+
+file mkdir $where
+foreach i $data {
+  refresh \
+    $::env(HOME)/[lindex $i 0] \
+    [lindex $i 1] \
+    $where/[lindex $i 2] \
+    [lindex $i 3]
+}

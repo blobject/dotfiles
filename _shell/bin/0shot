@@ -1,0 +1,22 @@
+#! /usr/bin/env tclsh
+
+source "$::env(HOME)/bin/lib.tcl"
+
+need dunstify maim
+
+set arg [lindex $::argv 0]
+set dst $::env(HOME)/got
+set name shot-[exec date +%s].png
+set cmd maim
+set notify {dunstify -u normal -i image-x-generic}
+
+switch -- $arg {
+  screen {}
+  select { append cmd { -s} }
+  window { append cmd " -i [exec printf %d [exec xdo id]]" }
+  default { fail "Usage: $ME screen|select|window" }
+}
+
+exec {*}$cmd $dst/$arg$name
+exec {*}$notify $arg$name
+

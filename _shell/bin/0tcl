@@ -1,0 +1,4 @@
+#! /usr/bin/env tclsh
+
+eval {*}$::argv
+

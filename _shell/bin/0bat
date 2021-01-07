@@ -1,0 +1,33 @@
+#! /usr/bin/env tclsh
+
+source "$::env(HOME)/bin/lib.tcl"
+
+need dunstify
+
+set device BAT0
+set crit 5
+set lo 20
+set hi 80
+set notify {dunstify -r 99647}
+
+set dir /sys/class/power_supply/$device
+set f [open $dir/capacity r]
+set capacity [read -nonewline $f]; close $f
+set f [open $dir/status r]
+set status [read -nonewline $f]; close $f
+
+switch -- [string index $status 0] {
+  {D} {
+    if {$capacity <= $crit} {
+      exec {*}$notify -u critical -i battery-020 $capacity%
+    } elseif {[expr $lo - 5] <= $capacity && $capacity <= $lo} {
+      exec {*}$notify -u normal -i battery-030 $capacity%
+    }
+  }
+  {C} {
+    if {$hi <= $capacity && $capacity <= [expr $hi + 2]} {
+      exec {*}$notify -u low -t 2000 -i battery-090-charging $capacity%
+    }
+  }
+}
+

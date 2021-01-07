@@ -1,11 +1,11 @@
-1. download kernel source
-2. extract kernel source
-3. `make menuconfig` or copy old config and `make oldconfig`
-4. `make`
-5. copy ./arch/x86_64/boot/bzImage to /boot/vmlinuz-*
-6. copy ./System.map to /boot/System.map-*
-7. `make modules_install`
-8. `dracut --force`
-9. edit /boot/EFI/refind/refind.conf
-10. `xbps-reconfigure -f virtualbox-ose-dkms`
-11. cleanup in /boot, /lib/modules, /var/lib/dkms/virtualbox-ose, /usr/src
+ 1. get kernel source
+ 2. `make oldconfig`, `make menuconfig`
+ 3. `make [CC=clang HOSTCC=clang]`
+ 4. copy ./arch/x86_64/boot/bzImage to /boot/vmlinuz-VER
+ 5. copy ./System.map to /boot/System.map-VER
+ 6. `make [CC=clang HOSTCC=clang] modules_install`
+ 7. `dracut --lz4 /boot/initramfs-VER.img VER`
+ 8. edit /boot/EFI/refind/refind.conf
+ 9. `xbps-reconfigure -f virtualbox-ose-dkms`
+  - for clang build: link /usr/bin/[g]cc to clang
+l0. cleanup in /boot, /lib/modules, /usr/src, /var/lib/dkms/virtualbox-ose

@@ -36,16 +36,7 @@ config.set('content.javascript.enabled', True, 'chrome-devtools://*')
 config.set('content.javascript.enabled', True, 'devtools://*')
 config.set('content.javascript.enabled', True, 'chrome://*/*')
 config.set('content.javascript.enabled', True, 'qute://*/*')
-config.set('content.media.audio_capture', True, 'https://cuni-cz.zoom.us')
-config.set('content.media.audio_capture', True, 'https://us04web.zoom.us')
-config.set('content.media.audio_video_capture', True, 'https://cuni-cz.zoom.us')
-config.set('content.media.audio_video_capture', True, 'https://us04web.zoom.us')
-config.set('content.media.video_capture', True, 'https://cuni-cz.zoom.us')
-config.set('content.media.video_capture', True, 'https://us04web.zoom.us')
 config.set('content.notifications', True, 'https://mail.google.com')
-config.set('content.notifications', True, 'https://us04web.zoom.us')
-config.set('content.notifications', True, 'https://www.youtube.com')
-config.set('content.notifications', False, 'https://www.reddit.com')
 c.content.pdfjs = True
 c.content.persistent_storage = 'ask'
 config.set('content.register_protocol_handler', True, 'https://mail.google.com?extsrc=mailto&url=%25s')
@@ -207,12 +198,6 @@ c.bindings.key_mappings = {
   '<Enter>': '<Return>',
   '<Shift+Enter>': '<Shift+Return>',
   '<Ctrl+Enter>': '<Ctrl+Return>',
-#  '<Ctrl+6>': '<Ctrl+^>',
-#  '<Ctrl+[>': '<Escape>',
-#  '<Ctrl+i>': '<Tab>',
-#  '<Ctrl+j>': '<Return>',
-#  '<Ctrl+m>': '<Return>',
-#  '<Shift+Return>': '<Return>'
 }
 c.bindings.default['normal'] = {}
 c.bindings.default['hint'] = {}
@@ -284,14 +269,7 @@ c.bindings.commands['normal'] = {
   '<ctrl-y>':        'insert-text {primary}',
   #https://github.com/qutebrowser/qutebrowser/issues/4213
   #'1': 'fake-key 1',
-  #'2': 'fake-key 2',
-  #'3': 'fake-key 3',
-  #'4': 'fake-key 4',
-  #'5': 'fake-key 5',
-  #'6': 'fake-key 6',
-  #'7': 'fake-key 7',
-  #'8': 'fake-key 8',
-  #'9': 'fake-key 9',
+  # ...
   #'0': 'fake-key 0',
   # history
   '<ctrl-x>h':   'back',

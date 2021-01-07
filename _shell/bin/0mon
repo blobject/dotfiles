@@ -1,0 +1,120 @@
+#! /usr/bin/env tclsh
+
+source "$::env(HOME)/bin/lib.tcl"
+
+need xrandr
+
+proc help {} {
+  global ME
+  puts "Usage: $ME <option>"
+  puts {  x     off}
+  puts {  s  =  same}
+  puts {  d  b  bot  bottom  down}
+  puts {  u  t  up}
+  puts {  l     left}
+  puts {  r     right}
+  exit
+}
+
+proc detect {which} {
+  catch {exec xrandr --query | grep -A1 primary} grep_prm
+  set prm [lindex $grep_prm 0]
+  switch -regexp -- $which {
+    ^prm* {
+      if {$which eq {prm}} {
+        return $prm
+      }
+      return [lindex [exec echo $grep_prm | tail -1] 0]
+    }
+    ^ext* {
+      catch {exec xrandr --query | grep -v $prm | grep -A1 " connected"} grep_ext
+      if {$which eq {ext}} {
+        return [lindex $grep_ext 0]
+      }
+      # matches the last line, so presumes a single external
+      return [lindex [exec echo $grep_ext | tail -1] 0]
+    }
+    ^first$ {
+      catch {exec xrandr --query | grep "\+0\+0 ("} grep_first
+      return [lindex $grep_first 0]
+    }
+  }
+  return {}
+}
+
+proc connected {} {
+  global ext
+  if {[string length $::env(DISPLAY)] \
+      && ![catch {exec xrandr -q | grep "^$ext connected "}]} {
+      return true
+  } else {
+    return false
+  }
+}
+
+proc opt {rel dir ref} {
+  global prm prm_res ext ext_res
+  if {$rel eq {prm}} {
+    set dir "primary --orientation normal --rotate normal --$dir"
+  }
+  return "--auto --output [subst $${rel}]\
+          --mode [subst $${rel}_res]\
+          --$dir [subst $${ref}]"
+}
+
+set arg [lindex $::argv 0]
+set prm [detect prm]
+set ext [detect ext]
+set prm_res [detect prm_res]
+set ext_res [detect ext_res]
+set cmd1 {xrandr}
+set cmd2 {}
+
+switch -- $arg {
+  {} - x - off - \
+  = - s - same - \
+  b - d - bot - bottom - down - \
+  t - u - top - up - \
+  l - left - \
+  r - right {
+    if ![connected] { fail "no external monitor connected" }
+  }
+  default { help }
+}
+
+switch -- $arg {
+  {} - x - off {
+    append cmd1 " --output $ext --off"
+  }
+  = - s - same {
+    append cmd1 " [opt prm same-as ext]"
+  }
+  b - d - bot - bottom - down {
+    set cmd2 "$cmd1 [opt prm above ext]"
+    append cmd1 " [opt ext {rotate normal --below} prm]"
+  }
+  t - u - top - up {
+    set cmd2 "$cmd1 [opt prm below ext]"
+    append cmd1 " [opt ext {rotate normal --above} prm]"
+  }
+  l - left {
+    set cmd2 "$cmd1 [opt prm right-of ext]"
+    append cmd1 " [opt ext {rotate left --left-of} prm]"
+  }
+  r - right {
+    set cmd2 "$cmd1 [opt prm left-of ext]"
+    append cmd1 " [opt ext {rotate left --right-of} prm]"
+  }
+  default { help }
+}
+
+# workaround: polybar seems to mess monitor borders
+catch {exec pkill polybar}
+
+exec {*}$cmd1
+if {$cmd2 ne {}} { exec {*}$cmd2 }
+
+# workaround: restart polybar on "northwest-most" monitor
+set ::env(MONITOR) [detect first]
+exec nohup polybar 0bar >>&$::env(HOME)/.xsession-errors &
+

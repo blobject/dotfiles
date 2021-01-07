@@ -1,0 +1,4 @@
+#! /usr/bin/env tclsh
+
+while true { exec snooze -H* -M/15 0temper }
+

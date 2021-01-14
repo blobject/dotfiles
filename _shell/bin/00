@@ -21,7 +21,7 @@ proc help {} {
   puts "$ME: need file(s) as argument"
   puts "  available bindings:"
   dict for {k v} $data {
-    regsub {^.(.+)$} $k {\1} s
+    regsub {^..(.+)$} $k {\1} s
     puts "    $s\t> [lindex $v 0]"
   }
 

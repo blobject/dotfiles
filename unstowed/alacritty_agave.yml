@@ -1,5 +1,6 @@
 env:
   TERM: alacritty
+live_config_reload: false
 colors:
   primary:
     foreground: '#b9bdc5' # default

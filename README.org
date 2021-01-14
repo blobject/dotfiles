@@ -9,7 +9,8 @@ polybar,
 alacritty ([[https://github.com/dylanaraps/neofetch][neofetch]]),
 emacs,
 alacritty ([[https://github.com/naelstrof/maim][maim]]),
-dunst
+dunst \\
+wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3840x2160][link]]
 
 *** selection
 
@@ -17,7 +18,7 @@ dunst
 |-------|-------------|
 | machine | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]] |
 | opt. peripherals | [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]], [[https://olkb.com/collections/planck][planck]], [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]], [[https://www.logitech.com/en-us/product/m590-silent-wireless-mouse][m590]] |
-| kernel | [[https://www.kernel.org/][linux]] [[/unstowed/kernel.config][5.10.5]] |
+| kernel | [[https://www.kernel.org/][linux]] [[/unstowed/kernel.config][5.10.8]] |
 | distro | [[https://voidlinux.org/][void]] |
 | shell/script | [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
 | wm | [[http://openbox.org/wiki/Main_Page][openbox]] |
@@ -28,7 +29,7 @@ dunst
 | notification | [[https://github.com/dunst-project/dunst][dunst]] |
 | bar | [[https://polybar.github.io/][polybar]] |
 | launch | [[https://github.com/davatorium/rofi][rofi]] |
-| look | 2160x1440, 200dpi, font size 9, [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://github.com/blobject/agave][agave]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]], [[https://github.com/PapirusDevelopmentTeam/papirus-icon-theme][papirus]], [[https://github.com/KDE/breeze][breeze]], wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3840x2160][link]] |
+| look | 2160x1440, 200dpi, font size 9, [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://github.com/blobject/agave][agave]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]], [[https://github.com/PapirusDevelopmentTeam/papirus-icon-theme][papirus]], [[https://github.com/KDE/breeze][breeze]] |
 
 *** scripts
 

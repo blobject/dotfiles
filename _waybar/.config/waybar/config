@@ -1,0 +1,109 @@
+{
+  "layer": "bottom",
+  "position": "top",
+  "modules-left": [
+    "sway/workspaces",
+    "sway/mode",
+    "sway/window"
+  ],
+  "modules-right": [
+    "clock",
+    "cpu",
+    "temperature",
+    "memory",
+    "disk",
+    "network",
+    "backlight",
+    "pulseaudio",
+    "battery",
+    "tray"
+  ],
+  //"idle_inhibitor": {
+  //  "format": "{icon}",
+  //  "format-icons": {
+  //    "activated": "",
+  //    "deactivated": ""
+  //  }
+  //},
+  "sway/workspaces": {
+    "disable-click": false,
+    "disable-scroll": true,
+    "format": "<span foreground=\"#000000\"></span>{name}"
+  },
+  "sway/mode": {
+    "format": "<span foreground=\"#000000\"></span>{}"
+  },
+  "sway/window": {
+    "format": "<span foreground=\"#000000\"></span>{}"
+  },
+  "clock": {
+    "interval": 60,
+    "format": "{:%H:%M<span foreground=\"#000000\"></span><span foreground=\"#575a61\">%a%d%b</span>}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "cpu": {
+    "interval": 5,
+    "format": " {usage}",
+  },
+  "temperature": {
+    "interval": 10,
+    "thermal-zone": 0,
+    "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input",
+    "critical-threshold": 60,
+    "format": "<span foreground=\"#000000\"></span>{temperatureC}°",
+  },
+  "memory": {
+    "interval": 5,
+    "format": " {percentage}"
+  },
+  "disk": {
+    "interval": 90,
+    "format": " {percentage_used}"
+  },
+  "network": {
+    "interval": 20,
+    "format-wifi": " {signalStrength} {essid}",
+    "format-ethernet": " {ipaddr}",
+    "format-linked": " {ifname}",
+    "format-disconnected": "",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}"
+  },
+  "backlight": {
+    "interval": 60,
+    "format": " {percent}",
+  },
+  "pulseaudio": {
+    "scroll-step": 1,
+    "format": "{icon} {volume} {format_source}",
+    "format-bluetooth": "{icon} {volume} {format_source}",
+    "format-bluetooth-muted": " {icon} {format_source}",
+    "format-muted": " {format_source}",
+    "format-source": " {volume}",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol"
+  },
+  "battery": {
+    "interval": 30,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}",
+    "format-charging": " {capacity}",
+    "format-plugged": " {capacity}",
+    "format-alt": "{icon} {time}",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "tray": {
+    "icon-size": 11,
+    "spacing": 2
+  },
+}

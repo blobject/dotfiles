@@ -1,8 +1,0 @@
-0snooze &
-0temper &
-polybar 0bar &
-blueman-tray &
-connman-gtk &
-dunst &
-xautolock -detectsleep -locker 'sudo zzz' -time 45 &
-xwallpaper --daemon --center $HOME/cfg/unstowed/back.jpg &

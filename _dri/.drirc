@@ -2,7 +2,4 @@
   <application name="Default">
     <option name="vblank_mode" value="0"/>
   </application>
-  <application name="Alacritty">
-    <option name="vblank_mode" value="1"/>
-  </application>
 </device>

@@ -10,3 +10,4 @@ proc need {args} {
     if [catch {exec which $cmd}] { fail "need $cmd" }
   }
 }
+

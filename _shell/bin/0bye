@@ -2,7 +2,7 @@
 
 source "$::env(HOME)/bin/lib.tcl"
 
-need 0temper openbox
+need 0temper swaylock swaymsg
 
 set arg [lindex $::argv 0]
 switch -- $arg {
@@ -10,8 +10,10 @@ switch -- $arg {
 }
 
 switch -- $arg {
-  logout   { exec openbox --exit }
+  lock     { exec swaylock }
+  logout   { exec swaymsg exit }
   sleep    { exec sudo zzz }
   reboot   { exec sudo reboot }
   shutdown { exec sudo halt }
 }
+

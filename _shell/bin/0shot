@@ -2,21 +2,70 @@
 
 source "$::env(HOME)/bin/lib.tcl"
 
-need dunstify maim
+need grim jq slurp swaymsg notify-send
 
-set arg [lindex $::argv 0]
+set one [lindex $::argv 0]
+set two [lindex $::argv 1]
 set dst $::env(HOME)/got
-set name shot-[exec date +%s].png
-set cmd maim
-set notify {dunstify -u normal -i image-x-generic}
+set name "shot-[exec date +%s]."
+set cmd {grim}
+set geom {}
+set notify {notify-send -u normal -i image-x-generic}
 
-switch -- $arg {
-  screen {}
-  select { append cmd { -s} }
-  window { append cmd " -i [exec printf %d [exec xdo id]]" }
-  default { fail "Usage: $ME screen|select|window" }
+proc usage {} {
+  global ME
+  fail "Usage: $ME active|screen|select|window jpg|png"
 }
 
-exec {*}$cmd $dst/$arg$name
-exec {*}$notify $arg$name
+if {2 != $argc} {
+  puts stderr "wrong number of arguments"
+  usage
+}
+
+append name $two
+
+switch -- $two {
+  jpg {
+    set two "-t jpeg -q 90"
+  }
+  png {
+    set two "-t png"
+  }
+  default {
+    puts stderr "unrecognised image type: $two"
+    usage
+  }
+}
+
+switch -- $one {
+  active {
+    set foc [exec swaymsg -t get_tree | jq -r {recurse(.nodes[]?, .floating_nodes[]?) | select(.focused)}]
+    set geom [exec echo $foc | jq -r {.rect | "\(.x),\(.y) \(.width)x\(.height)"}]
+    set geom [list -g $geom]
+  }
+  screen {}
+  select {
+    catch {set geom [exec slurp -d]}
+    if {{} eq $geom} {
+      puts "$ME: select shot canceled"
+      exit
+    }
+    set geom [list -g $geom]
+  }
+  window {
+    catch {set geom [exec swaymsg -t get_tree | jq -r {.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"} | slurp]}
+    if {{} eq $geom} {
+      puts "$ME: window shot canceled"
+      exit
+    }
+    set geom [list -g $geom]
+  }
+  default {
+    puts stderr "unrecognised command: $one"
+    usage
+  }
+}
+
+exec {*}$cmd {*}$two {*}$geom $dst/$one$name
+exec {*}$notify shot $one$name
 

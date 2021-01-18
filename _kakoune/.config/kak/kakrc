@@ -1,0 +1,9 @@
+add-highlighter global/ number-lines -hlcursor
+add-highlighter global/ regex \h+$ 0:Error
+add-highlighter global/ wrap
+map global normal <c-a> '*%s<ret>' -docstring 'select all'
+map global normal <c-p> '!wl-paste<space>--no-newline<ret>' -docstring 'paste clipboard'
+map global normal <c-y> '<a-|>wl-copy<ret>' -docstring 'yank selection into clipboard'
+set-option global tabstop 2
+set-option global indentwidth 2
+

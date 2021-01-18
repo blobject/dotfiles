@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Logout
+Comment=Logout of session
+Icon=system-log-out
+Exec=0bye logout
+Categories=X;
+Encoding=UTF-8
+StartupNotify=false
+Terminal=false

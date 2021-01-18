@@ -1,0 +1,99 @@
+exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus &
+exec xrdb -merge $HOME/.xresources &
+exec swayidle -w \
+  timeout 1200 'swaymsg "output * dpms off"' \
+  resume 'swaymsg "output * dpms on"' &
+input 1:1:AT_Translated_Set_2_keyboard {
+  repeat_delay 300
+  repeat_rate 30
+  xkb_layout hsnt
+  xkb_options ctrl:swapcaps
+}
+input 1267:12496:ELAN962C:00_04F3:30D0_Touchpad {
+  dwt enabled
+  tap enabled
+  natural_scroll enabled
+  middle_emulation enabled
+}
+output * bg ~/cfg/unstowed/back.jpg center
+output eDP-1 scale 2
+default_border pixel 10
+default_floating_border pixel 10
+floating_maximum_size 2096 x 1400
+floating_minimum_size 200 x 200
+floating_modifier Mod4 normal
+focus_follows_mouse no
+font pango:Monospace Bold 8
+hide_edge_borders smart
+client.focused          #3c56aa #3c56aa #d2d6de #667ad3 #3c56aa
+client.focused_inactive #575a61 #575a61 #d2d6de #36383f #575a61
+client.unfocused        #92959d #92959d #16161d #575a61 #92959d
+client.urgent           #a32c2d #a32c2d #d2d6de #cf554d #a32c2d
+client.placeholder      #000000 #b9bdc5 #16161d #000000 #b9bdc5
+client.background       #b9bdc5
+bindsym Mod4+1       workspace number 1
+bindsym Mod4+2       workspace number 2
+bindsym Mod4+3       workspace number 3
+bindsym Mod4+Mod1+1  move container to workspace number 1
+bindsym Mod4+Mod1+2  move container to workspace number 2
+bindsym Mod4+Mod1+3  move container to workspace number 3
+bindsym Mod4+h       focus left
+bindsym Mod4+j       focus down
+bindsym Mod4+k       focus up
+bindsym Mod4+l       focus right
+bindsym Mod4+Shift+h move left
+bindsym Mod4+Shift+j move down
+bindsym Mod4+Shift+k move up
+bindsym Mod4+Shift+l move right
+mode "resize" {
+  bindsym h resize shrink width  10px
+  bindsym j resize grow   height 10px
+  bindsym k resize shrink height 10px
+  bindsym l resize grow   width  10px
+  bindsym Escape mode "default"
+  bindsym Return mode "default"
+  bindsym Control+g mode "default"
+}
+bindsym Mod4+r mode "resize"
+bindsym Mod4+f               fullscreen
+bindsym Mod4+semicolon       splitv
+bindsym Mod4+Shift+semicolon splith
+bindsym Mod4+period          layout toggle split
+bindsym Mod4+Shift+period    layout tabbed
+bindsym Mod4+comma           floating toggle
+bindsym Mod4+Shift+comma     focus mode_toggle
+bindsym Mod4+apostrophe      focus parent
+bindsym Mod4+BackSpace       scratchpad show
+bindsym Mod4+Mod1+BackSpace  move scratchpad
+bindsym Mod4+Shift+r         reload
+bindsym Mod4+Shift+Escape    kill
+bindsym XF86MonBrightnessDown exec '0lum -5 &'
+bindsym XF86MonBrightnessUp   exec '0lum +5 &'
+bindsym XF86AudioMute         exec '0vol x &'
+bindsym XF86AudioLowerVolume  exec '0vol -2 &'
+bindsym XF86AudioRaiseVolume  exec '0vol +2 &'
+bindsym XF86AudioMicMute      exec '0vol mic x &'
+bindsym Control+XF86AudioMute exec '0vol bt x &'
+bindsym Control+XF86AudioLowerVolume exec '0vol bt -2 &'
+bindsym Control+XF86AudioRaiseVolume exec '0vol bt +2 &'
+bindsym Control+XF86AudioMicMute     exec '0vol bt mic x &'
+bindsym Print                 exec '0shot png screen &'
+bindsym Control+Print         exec '0shot png window &'
+bindsym Shift+Print           exec '0shot png select &'
+bindsym Mod1+Print            exec '0shot png active &'
+bindsym Mod4+Return           exec 'fuzzel -b 16161ddd -C 16161ddd -s 3c56aadd -t d2d6dedd -m 72a336dd -B 0 -r 0 -f monospace:size=20:weight=bold -i Papirus -l 12 -T "alacritty -e" -w 25 &'
+bindsym Mod4+space            exec 'makoctl dismiss &'
+bindsym Mod4+Shift+space      exec 'makoctl dismiss -a &'
+bindsym Mod4+a                exec 'pavucontrol &'
+bindsym Mod4+c                exec 'alacritty -e connmanctl &'
+bindsym Mod4+e                exec 'emacs &'
+bindsym Mod4+t                exec 'alacritty &'
+bindsym Mod4+w                exec 'qutebrowser &'
+bindsym Mod4+Shift+w          exec 'firefox &'
+bindsym Mod4+Mod1+w           exec '0tcl exec firefox --private-window --profile "$::env(HOME)/p/firefox_proxy" 2>/dev/null &'
+exec 0snooze &
+exec 0temper &
+exec blueman-tray &
+exec mako &
+exec waybar &
+

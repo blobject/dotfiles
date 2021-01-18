@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Lock
+Comment=Lock screen
+Icon=system-lock-screen
+Exec=0bye lock
+Categories=X;
+Encoding=UTF-8
+StartupNotify=false
+Terminal=false

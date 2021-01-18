@@ -1,8 +1,8 @@
 - .alacritty.yml
 - cfg/unstowed/alacritty_*.yml
 - .emacs.d/init.el
-- .config/dunst/dunstrc
-- .config/polybar/config
-- .themes/0openbox/...
+- .config/waybar/style.css
+- .config/mako/config
+- .config/sway/config
 - .xresources
 - qutebrowser settings

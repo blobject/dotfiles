@@ -1,0 +1,30 @@
+max-visible=10
+sort=-time
+layer=top
+anchor=top-right
+font=Agave 11
+text-color=#d2d6deff
+background-color=#16161dff
+width=320
+margin=20
+padding=7
+border-size=10
+border-color=#d2d6deff
+progress-color=#3c56aaff
+icons=1
+max-icon-size=64
+icon-path=/usr/share/icons/breeze-dark/devices/22:/usr/share/icons/breeze-dark/mimetypes/22:/usr/share/icons/breeze-dark/status/22:/usr/share/icons/hicolor/scalable/apps
+markup=1
+actions=0
+format=%s: <b>%b</b>
+default-timeout=8000
+group-by=summary
+
+[urgency="high"]
+background-color=#a32c2dff
+
+[grouped=true]
+format=%s: <b>%b</b>
+default-timeout=0
+ignore-timeout=1
+

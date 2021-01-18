@@ -15,9 +15,15 @@ export BROWSER=qutebrowser
 export EDITOR=emacs
 export TERMINAL=alacritty
 export GUILE_AUTO_COMPILE=0
+export MOZ_ENABLE_WAYLAND=1
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
 export QT_ENABLE_HIGHDPI_SCALING=1
+export QT_QPA_PLATFORM=wayland
 export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+export QT_WAYLAND_FORCE_DPI=physical
+export XCURSOR_THEME=Breeze_Amber
+export XDG_SESSION_TYPE=wayland
 #export XDG_MENU_PREFIX=''
 #export XDG_CONFIG_HOME="$HOME/.config"
 #export XDG_CONFIG_DIRS=/etc/xdg
@@ -25,12 +31,6 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 #export XDG_DATA_DIRS='/usr/share:/usr/local/share'
 #export XDG_CACHE_HOME="$HOME/.cache"
 #export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
-#export _JAVA_AWT_WM_NONREPARENTING=1
+export _JAVA_AWT_WM_NONREPARENTING=1
 #export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd -Dsun.java2d.xrender=true -Dswing.aatext=true'
-
-## settings
-cat /sys/bus/usb/devices/*/product | grep -q '^Planck$' || setxkbmap -option ctrl:swapcaps
-xmodmap $HOME/cfg/unstowed/hsnt/hsnt.xmodmap
-xrdb -merge $HOME/.xresources
-xset dpms 1200 1200 1200 r rate 300 30 s 0 0
 

@@ -1,0 +1,5 @@
+- copy keymap to /usr/share/X11/xkb/symbols
+- swaymsg "input [swaymsg -t get_inputs > KBD_ID] xkb_layout KEYMAP"
+
+optional:
+- swaymsg "input KBD_ID xkb_options ctrl:nocaps"

@@ -2,22 +2,21 @@
 
 source "$::env(HOME)/bin/lib.tcl"
 
-# acpilight provides "xbacklight"
-need dunstify xbacklight
+need light notify-send
 
 set arg [lindex $::argv 0]
-set cmd {sudo xbacklight}
-set notify {dunstify -r 99173 -u low -t 2000 -i redshift-status-}
+set cmd {light}
+set notify {notify-send -u low -t 2000 -i redshift-status-}
 
 switch -- [string index $arg 0] {
-  {} { set cmd {};        append notify on }
-  - { append cmd { -dec}; append notify off }
-  + { append cmd { -inc}; append notify on }
+  {} { set cmd {};      append notify on }
+  - { append cmd { -U}; append notify off }
+  + { append cmd { -A}; append notify on }
   default { fail "Usage: $ME \[(-|+)percent\]" }
 }
 if [string length $cmd] {
   set arg [string range $arg 1 end]
   exec {*}$cmd $arg
 }
-exec {*}$notify [exec xbacklight -get]%
+exec {*}$notify lum [exec light -G]%
 

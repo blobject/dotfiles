@@ -2,37 +2,29 @@
 
 source "$::env(HOME)/bin/lib.tcl"
 
-need dunstify setxkbmap xmodmap
+need swaymsg notify-send
 
+set dev {1:1:AT_Translated_Set_2_keyboard}
 set arg [lindex $::argv 0]
 set re_planck {^Planck$}
 
 switch -- $arg {
   hsnt {
-    exec setxkbmap -option us
-    if [catch {exec cat /sys/bus/usb/devices/*/product | grep -q $re_planck}] {
-      exec setxkbmap -option ctrl:swapcaps
-    }
-    exec xmodmap $::env(HOME)/cfg/unstowed/hsnt/hsnt.xmodmap
+    exec swaymsg "input $dev xkb_layout hsnt"
+    exec swaymsg "input $dev xkb_options ctrl:nocaps"
   }
 
   qwerty {
-    if ![catch {exec cat /sys/bus/usb/devices/*/product | grep -q $re_planck}] {
-      exec setxkbmap -option ctrl:swapcaps us
-    } else {
-      exec setxkbmap -option us
-    }
+    exec swaymsg "input $dev xkb_layout us"
+    exec swaymsg "input $dev xkb_options ctrl:nocaps"
   }
 
   bow {
-    exec xmodmap -e {keycode 49 = Escape Escape Escape}
-    exec xmodmap -e {clear mod1}
-    exec xmodmap -e {keycode 108 = grave asciitilde grave asciitilde}
-    exec xmodmap -e {add mod1 = Alt_L}
+    exec swaymsg "input $dev xkb_options bow:nocaps_esc_grave_alt"
   }
 }
 
-exec xset r rate 300 30
+#exec xset r rate 300 30
 
-exec dunstify -r 99437 -u low -t 2000 -i input-keyboard $arg
+exec notify-send -u low -t 2000 -i input-keyboard key $arg
 

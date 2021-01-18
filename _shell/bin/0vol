@@ -2,7 +2,7 @@
 
 source "$::env(HOME)/bin/lib.tcl"
 
-need dunstify ponymix
+need ponymix notify-send
 
 # vars
 
@@ -15,7 +15,7 @@ set dev {}
 set ismic false
 set base "ponymix --sink --device "
 set cmd {}
-set notify {dunstify -r 99701 -u low -t 2000 -i}
+set notify {notify-send -u low -t 2000 -i}
 
 # which?
 
@@ -24,7 +24,7 @@ if {{bt} ne [lindex $::argv 0]} {
 } else {
   set ::argv [lrange $::argv 1 end]
   if [catch {exec ponymix --sink list | grep {: bluez_}}] {
-    exec {*}$notify network-bluetooth {no bt audio}
+    exec {*}$notify network-bluetooth vol {no bt audio}
     exit
   } else {
     switch -- [exec ponymix --sink list \
@@ -76,26 +76,26 @@ switch -- [string index [lindex $::argv 0] 0] {
   {} {
     set arg " audio-ready"
     if {$ismic} { set arg " mic-ready" }
-    append notify "$arg \"$dev [exec {*}$base get-volume]%\""
+    append notify "$arg vol \"$dev [exec {*}$base get-volume]%\""
   }
   x {
     set arg " audio-off \"$dev muted\""
-    if {$ismic} { set arg " mic-off \"$dev muted\"" }
+    if {$ismic} { set arg " mic-off vol \"$dev muted\"" }
     if [catch {exec {*}$base is-muted}] {
       set arg " audio-on \"$dev on\""
-      if {$ismic} { set arg " mic-on \"$dev on\"" }
+      if {$ismic} { set arg " mic-on vol \"$dev on\"" }
     }
     append notify $arg
   }
   - {
     set arg " audio-volume-medium"
     if {$ismic} { set arg " microphone-sensitivity-medium" }
-    append notify "$arg \"$dev [exec {*}$base get-volume]%\""
+    append notify "$arg vol \"$dev [exec {*}$base get-volume]%\""
   }
   + {
     set arg " audio-volume-high"
     if {$ismic} { set arg " microphone-sensitivity-high" }
-    append notify "$arg \"$dev [exec {*}$base get-volume]%\""
+    append notify "$arg vol \"$dev [exec {*}$base get-volume]%\""
   }
 }
 

@@ -1,6 +1,6 @@
 *multiClickTime: 300
 Xcursor.size: 64
-Xft.dpi: 200
+Xft.dpi: 120
 
 XTerm.termName: xterm-256color
 XTerm.omitTranslation: fullscreen, popup-menu

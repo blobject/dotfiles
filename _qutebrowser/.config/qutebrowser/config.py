@@ -110,7 +110,7 @@ c.url.searchengines = {
 }
 c.url.start_pages = 'https://start.duckduckgo.com'
 c.url.yank_ignored_parameters = ['ref', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']
-c.window.hide_decoration = False
+c.window.hide_decoration = True
 c.window.title_format = '{perc}{current_title}{title_sep}qutebrowser'
 c.zoom.default = '100%'
 c.zoom.levels = ['25%', '33%', '50%', '67%', '75%', '90%', '100%', '110%', '125%', '150%', '175%', '200%', '250%', '300%', '400%', '500%']
@@ -384,7 +384,7 @@ c.bindings.commands['caret'] = {
   '<ctrl-shift-n>':     'move-to-start-of-document',
 }
 c.bindings.commands['passthrough'] = {
-  '<shift-escape>': 'leave-mode',
+  '<ctrl-shift-g>': 'leave-mode',
 }
 c.bindings.commands['register'] = {
   '<ctrl-g>': 'leave-mode',

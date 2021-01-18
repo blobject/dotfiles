@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Shutdown
+Comment=Shutdown computer
+Icon=system-shutdown
+Exec=0bye shutdown
+Categories=X;
+Encoding=UTF-8
+StartupNotify=false
+Terminal=false

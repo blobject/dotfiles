@@ -38,7 +38,7 @@
   },
   "clock": {
     "interval": 60,
-    "format": "{:%H:%M<span foreground=\"#000000\"></span><span foreground=\"#575a61\">%a%d%b</span>}",
+    "format": "<span foreground=\"#000000\"></span>{:%H:%M <span foreground=\"#575a61\">%a%d%b</span>}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
   "cpu": {
@@ -103,7 +103,7 @@
     "format-icons": ["", "", "", "", ""]
   },
   "tray": {
-    "icon-size": 11,
-    "spacing": 2
+    "icon-size": 24,
+    "spacing": 4
   },
 }

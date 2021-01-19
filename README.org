@@ -7,9 +7,9 @@
 counter-clockwise from northwest:
 waybar,
 alacritty ([[https://github.com/dylanaraps/neofetch][neofetch]]),
-alacritty (kakoune),
+emacs,
 alacritty ([[https://wayland.emersion.fr/grim/][grim]]),
-mako \\
+mako. \\
 wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3840x2160][link]]
 
 *** selection
@@ -25,7 +25,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 | observe | [[https://github.com/leahneukirchen/snooze][snooze]], [[https://wayland.emersion.fr/mako/][mako]], [[https://github.com/Alexays/Waybar][waybar]] |
 | edit | [[https://www.gnu.org/software/emacs/][emacs]], [[http://kakoune.org/][kakoune]], [[https://www.vim.org/][vim]] |
 | www | [[https://qutebrowser.org/][qutebrowser]] |
-| look | 2160x1440, 200dpi, font size 9, [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://github.com/blobject/agave][agave]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]], [[https://github.com/PapirusDevelopmentTeam/papirus-icon-theme][papirus]], [[https://github.com/KDE/breeze][breeze]] |
+| look | 2160x1440, 96dpi, font size ~20, [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://github.com/blobject/agave][agave]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]], [[https://github.com/PapirusDevelopmentTeam/papirus-icon-theme][papirus]], [[https://github.com/KDE/breeze][breeze]] |
 
 *** scripts
 

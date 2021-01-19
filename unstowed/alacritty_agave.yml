@@ -47,7 +47,7 @@ font:
   bold_italic:
     family: Agave
     style: Bold Italic
-  size: 5.5
+  size: 11
 scrolling:
   history: 64
 window:

@@ -2,11 +2,14 @@
 
 source "$::env(HOME)/bin/lib.tcl"
 
-need 0temper swaylock swaymsg
+need 0temper pkill swaylock swaymsg
 
 set arg [lindex $::argv 0]
 switch -- $arg {
-  logout - sleep - reboot - shutdown { exec 0temper }
+  logout - sleep - reboot - shutdown {
+    exec 0temper
+    exec pkill pulseaudio
+  }
 }
 
 switch -- $arg {

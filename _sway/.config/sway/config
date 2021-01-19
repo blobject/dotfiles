@@ -1,5 +1,12 @@
-#exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus &
-exec light -S 30 &
+exec_always {
+  gsettings set org.gnome.desktop.interface cursor-size 64
+  gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Amber'
+  gsettings set org.gnome.desktop.interface font-name 'Sans 18'
+  gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
+  gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
+  light -S 30
+}
+exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus &
 exec xrdb -merge $HOME/.xresources &
 exec swayidle -w \
   timeout 1200 'swaymsg "output * dpms off"' \
@@ -12,19 +19,20 @@ input 1:1:AT_Translated_Set_2_keyboard {
 }
 input 1267:12496:ELAN962C:00_04F3:30D0_Touchpad {
   dwt enabled
-  tap enabled
-  natural_scroll enabled
   middle_emulation enabled
+  natural_scroll enabled
+  pointer_accel 0.5
+  tap enabled
 }
 output * bg ~/cfg/unstowed/back.jpg center
-output eDP-1 scale 2
-default_border pixel 10
-default_floating_border pixel 10
-floating_maximum_size 1048 x 700
-floating_minimum_size 50 x 10
+output eDP-1 scale 1
+default_border pixel 20
+default_floating_border pixel 20
+floating_maximum_size 2160 x 1416
+floating_minimum_size 100 x 20
 floating_modifier Mod4 normal
 focus_follows_mouse no
-font pango:Monospace Bold 8
+font pango:Monospace Bold 16
 hide_edge_borders smart
 client.focused          #3c56aa #3c56aa #d2d6de #667ad3 #3c56aa
 client.focused_inactive #575a61 #575a61 #d2d6de #36383f #575a61
@@ -32,6 +40,7 @@ client.unfocused        #92959d #92959d #16161d #575a61 #92959d
 client.urgent           #a32c2d #a32c2d #d2d6de #cf554d #a32c2d
 client.placeholder      #000000 #b9bdc5 #16161d #000000 #b9bdc5
 client.background       #b9bdc5
+for_window [title="^watchcdda$"] floating enable
 bindsym Mod4+1       workspace number 1
 bindsym Mod4+2       workspace number 2
 bindsym Mod4+3       workspace number 3
@@ -82,7 +91,7 @@ bindsym Print                 exec '0shot png screen &'
 bindsym Control+Print         exec '0shot png window &'
 bindsym Shift+Print           exec '0shot png select &'
 bindsym Mod1+Print            exec '0shot png active &'
-bindsym Mod4+Return           exec 'fuzzel -b 16161ddd -C 16161ddd -s 3c56aadd -t d2d6dedd -m 72a336dd -B 0 -r 0 -f monospace:size=20:weight=bold -i Papirus -l 12 -T "alacritty -e" -w 25 &'
+bindsym Mod4+Return           exec 'fuzzel -b 16161ddd -C 16161ddd -s 3c56aadd -t d2d6dedd -m 72a336dd -B 0 -r 0 -f monospace:size=20:weight=bold -i Papirus -l 12 -T "alacritty -e" -w 30 &'
 bindsym Mod4+space            exec 'makoctl dismiss &'
 bindsym Mod4+Shift+space      exec 'makoctl dismiss -a &'
 bindsym Mod4+a                exec 'pavucontrol &'

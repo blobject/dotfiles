@@ -1,6 +1,6 @@
 exec_always {
-  gsettings set org.gnome.desktop.interface cursor-size 64
-  gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Amber'
+  #gsettings set org.gnome.desktop.interface cursor-size 64
+  #gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Amber'
   gsettings set org.gnome.desktop.interface font-name 'Sans 18'
   gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
   gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
@@ -26,6 +26,7 @@ input 1267:12496:ELAN962C:00_04F3:30D0_Touchpad {
 }
 output * bg ~/cfg/unstowed/back.jpg center
 output eDP-1 scale 1
+seat seat0 xcursor_theme Breeze_Amber 64
 default_border pixel 20
 default_floating_border pixel 20
 floating_maximum_size 2160 x 1416

@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=Reboot
+Name=Reboot / restart
 Comment=Reboot computer
 Icon=system-reboot
 Exec=0bye reboot

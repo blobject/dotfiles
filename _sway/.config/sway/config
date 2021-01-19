@@ -1,4 +1,5 @@
-exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus &
+#exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus &
+exec light -S 30 &
 exec xrdb -merge $HOME/.xresources &
 exec swayidle -w \
   timeout 1200 'swaymsg "output * dpms off"' \
@@ -19,8 +20,8 @@ output * bg ~/cfg/unstowed/back.jpg center
 output eDP-1 scale 2
 default_border pixel 10
 default_floating_border pixel 10
-floating_maximum_size 2096 x 1400
-floating_minimum_size 200 x 200
+floating_maximum_size 1048 x 700
+floating_minimum_size 50 x 10
 floating_modifier Mod4 normal
 focus_follows_mouse no
 font pango:Monospace Bold 8

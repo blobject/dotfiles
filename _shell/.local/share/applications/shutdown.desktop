@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=Shutdown
+Name=Shutdown / halt
 Comment=Shutdown computer
 Icon=system-shutdown
 Exec=0bye shutdown

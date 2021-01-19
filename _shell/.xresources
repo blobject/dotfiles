@@ -1,6 +1,5 @@
 *multiClickTime: 300
 Xcursor.size: 64
-Xft.dpi: 120
 
 XTerm.termName: xterm-256color
 XTerm.omitTranslation: fullscreen, popup-menu
@@ -41,7 +40,6 @@ XTerm*colorITMode: true
 XTerm*colorUL: #000000
 XTerm*colorULMode: true
 XTerm*locale: false
-XTerm*loginShell: true
 XTerm*metaSendsEscape: true
 XTerm*saveLines: 16384
 XTerm*scrollKey: true

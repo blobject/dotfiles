@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=Sleep
+Name=Sleep / suspend
 Comment=Sleep computer
 Icon=system-suspend
 Exec=0bye sleep

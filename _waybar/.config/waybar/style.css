@@ -1,7 +1,7 @@
 * { border: none; border-radius: 0; min-height: 0; }
 window#waybar { background-color: #000000; color: #ffffff; }
 window#waybar.hidden { opacity: 0.2; }
-#workspaces,
+#workspaces button,
 #mode,
 #window,
 #clock,
@@ -18,9 +18,8 @@ window#waybar.hidden { opacity: 0.2; }
   font-weight: 700;
 }
 #tray {
-  font-family: sans-serif;
-  font-size: 12px;
-  margin-left: 4px;
+  font-size: 15px;
+  font-weight: 500;
 }
 #window,
 #clock,
@@ -38,6 +37,7 @@ window#waybar.hidden { opacity: 0.2; }
 #mode { margin-left: 4px; }
 #window { margin-right: 0; }
 #cpu { margin-right: 0; }
+#tray { margin-left: 4px; }
 #workspaces button.urgent,
 #temperature.critical,
 #battery.critical:not(.charging) {

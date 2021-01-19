@@ -79,10 +79,10 @@ switch -- [string index [lindex $::argv 0] 0] {
     append notify "$arg vol \"$dev [exec {*}$base get-volume]%\""
   }
   x {
-    set arg " audio-off \"$dev muted\""
+    set arg " audio-off vol \"$dev muted\""
     if {$ismic} { set arg " mic-off vol \"$dev muted\"" }
     if [catch {exec {*}$base is-muted}] {
-      set arg " audio-on \"$dev on\""
+      set arg " audio-on vol \"$dev on\""
       if {$ismic} { set arg " mic-on vol \"$dev on\"" }
     }
     append notify $arg

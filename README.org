@@ -21,7 +21,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 | kernel, distro | [[https://www.kernel.org/][linux]] [[/unstowed/kernel.config][5.10.8]], [[https://voidlinux.org/][void]] |
 | shell/script | [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
 | terminal | [[https://github.com/alacritty/alacritty][alacritty]], [[https://github.com/tmux/tmux/wiki][tmux]] |
-| wm, launch | [[https://swaywm.org/][sway]], [[https://codeberg.org/dnkl/fuzzel][fuzzel]] |
+| display, launch | [[https://swaywm.org/][sway]], [[https://github.com/sddm/sddm][sddm]], [[https://codeberg.org/dnkl/fuzzel][fuzzel]] |
 | observe | [[https://github.com/leahneukirchen/snooze][snooze]], [[https://wayland.emersion.fr/mako/][mako]], [[https://github.com/Alexays/Waybar][waybar]] |
 | edit | [[https://www.gnu.org/software/emacs/][emacs]], [[http://kakoune.org/][kakoune]], [[https://www.vim.org/][vim]] |
 | www | [[https://qutebrowser.org/][qutebrowser]] |

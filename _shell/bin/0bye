@@ -2,21 +2,26 @@
 
 source "$::env(HOME)/bin/lib.tcl"
 
-need 0temper pkill swaylock swaymsg
+need 0temper openbox pkill swaylock swaymsg
 
 set arg [lindex $::argv 0]
 switch -- $arg {
-  logout - sleep - reboot - shutdown {
+  e - o - q - x - logout - z - sleep - b - r - reboot - h - s - shutdown {
     exec 0temper
-    exec pkill pulseaudio
+    catch {exec pkill dbus-daemon}
+    catch {exec pkill dbus-launch}
+    catch {exec pkill pulseaudio}
   }
 }
 
 switch -- $arg {
-  lock     { exec swaylock }
-  logout   { exec swaymsg exit }
-  sleep    { exec sudo zzz }
-  reboot   { exec sudo reboot }
-  shutdown { exec sudo halt }
+  l - k - lock { if {{w} eq $SESS} { exec swaylock; } }
+  e - o - q - x - logout {
+    if {{w} eq $SESS} { exec swaymsg exit; }
+    if {{x} eq $SESS} { exec openbox --exit; }
+  }
+  z - sleep { exec sudo zzz }
+  b - r - reboot { exec sudo reboot }
+  h - s - shutdown { exec sudo halt }
 }
 

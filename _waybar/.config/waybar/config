@@ -67,7 +67,7 @@
     "format": " {percentage_used}"
   },
   "network": {
-    "interval": 20,
+    "interval": 30,
     "format-wifi": "{icon} {signalStrength} {essid}",
     "format-icons": ["", "", ""],
     "format-ethernet": " {ipaddr}",

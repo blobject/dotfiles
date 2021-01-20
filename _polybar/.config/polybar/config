@@ -1,0 +1,159 @@
+[settings]
+screenchange-reload = true
+
+[colors]
+bg = #000000
+fg = #575a61
+em = #d2d6de
+dim = #36383f
+red = #cf554d
+o = #92959d
+c = #7883c9
+cc = #545aa7
+m = #66b5c9
+d = #88c978
+w = #c5c950
+l = #ddac4f
+v = #dd9585
+b = #a04611
+bb = #dd6e2e
+
+[bar/0bar]
+monitor = ${env:MONITOR:eDP1}
+override-redirect = false
+bottom = false
+fixed-center = false
+width = 100%
+height = 22
+offset-x = 0
+offset-y = 0
+background = ${colors.bg}
+foreground = ${colors.fg}
+radius = 0.0
+padding = 0
+dpi-x = 200
+dpi-y = 200
+font-0 = "Agave:size=8:style=bold;3"
+font-1 = "Agave:size=8;3"
+font-2 = "Font Awesome 5 Pro:style=Light:size=6;3"
+font-3 = "NanumGothicCoding:size=7:style=bold;3"
+font-4 = "Source Han Sans:size=7:style=bold;3"
+modules-left = ewmh xwindow
+modules-right = date cpu temperature memory filesystem network backlight pulseaudio battery
+separator = " "
+wm-name = c
+tray-position = right
+tray-padding = 1
+tray-background = ${colors.bg}
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/ewmh]
+type = internal/xworkspaces
+pin-workspaces = false
+enable-click = false
+enable-scroll = false
+label-active = %name%
+label-active-foreground = ${colors.o}
+label-empty = %name%
+label-empty-foreground = ${colors.dim}
+label-occupied = %name%
+label-occupied-foreground = ${colors.fg}
+label-urgent = %name%
+label-urgent-foreground = ${colors.red}
+format = <label-state>
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:100:…%
+label-foreground = ${colors.em}
+label-empty = x
+format = <label>
+
+[module/date]
+type = internal/date
+interval = 8.0
+date = %a%d%b
+time = %H:%M
+label = %{F#92959d}%time%%{F-} %date%
+format = <label>
+
+[module/cpu]
+type = internal/cpu
+interval = 2.0
+label = %percentage%%
+label-foreground = ${colors.c}
+format = 廊 <label>
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input
+interval = 2.0
+warn-temperature = 60
+label = %temperature-c%
+label-foreground = ${colors.cc}
+label-warn = %temperature-c%
+label-warn-foreground = ${colors.red}
+format = <label>
+format-warn = <label-warn>
+
+[module/memory]
+type = internal/memory
+interval = 4.0
+label = %percentage_used%%
+label-foreground = ${colors.m}
+format =  <label>
+
+[module/filesystem]
+type = internal/fs
+interval = 30.0
+mount-0 = /
+label-mounted = %percentage_used%%
+label-mounted-foreground = ${colors.d}
+format-mounted =  <label-mounted>
+
+[module/network]
+type = internal/network
+interface = wlp0s20f3
+interval = 4.0
+label-connected = %essid%
+label-connected-foreground = ${colors.w}
+label-disconnected = x
+format-connected =  <label-connected>
+format-disconnected =  <label-disconnected>
+
+[module/backlight]
+type = internal/backlight
+card = intel_backlight
+label = %percentage%%
+label-foreground = ${colors.l}
+format =  <label>
+
+[module/pulseaudio]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_00_1f.3.analog-stereo
+use-ui-max = true
+interval = 4.0
+label-volume = %percentage%%
+label-volume-foreground = ${colors.v}
+label-muted =  muted
+format-volume =  <label-volume>
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+poll-interval = 8.0
+;full-at = 98
+time-format = %R
+label-charging = %percentage%%+%{F#997a8d}%consumption%(%time%)%{F-}
+label-discharging = %percentage%%!%{F#997a8d}%consumption%(%time%)%{F-}
+label-full = full
+label-charging-foreground = ${colors.b}
+label-discharging-foreground = ${colors.bb}
+label-full-foreground = ${colors.b}
+format-charging = " <label-charging> "
+format-discharging = " <label-discharging> "
+format-full = " <label-full> "
+

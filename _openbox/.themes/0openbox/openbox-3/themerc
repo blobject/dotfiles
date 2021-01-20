@@ -1,0 +1,41 @@
+border.width: 20
+padding.width: 0
+window.handle.width: 0
+window.client.padding.width: 0
+window.client.padding.height: 0
+
+osd.bg: flat solid
+osd.bg.color: #3c56aa
+osd.border.width: 10
+osd.border.color: #3c56aa
+osd.hilight.bg.color: #16161d
+osd.unhilight.bg: flat border
+osd.unhilight.bg.color: #36383f
+
+window.active.border.color: #3c56aa
+window.active.button.*.bg: flat solid
+window.active.button.*.bg.color: #3c56aa
+window.active.button.*.image.color: #3c56aa
+window.active.client.color: #3c56aa
+window.active.grip.bg: parentrelative
+window.active.handle.bg: flat solid
+window.active.handle.bg.color: #3c56aa
+window.active.label.text.color: #d2d6de
+window.active.label.bg: parentrelative
+window.active.title.bg: flat border
+window.active.title.bg.color: #3c56aa
+window.active.title.bg.border.color: #3c56aa
+
+window.inactive.border.color: #92959d
+window.inactive.button.*.bg: flat solid
+window.inactive.button.*.bg.color: #92959d
+window.inactive.button.*.image.color: #92959d
+window.inactive.client.color: #92959d
+window.inactive.grip.bg: parentrelative
+window.inactive.handle.bg: flat solid
+window.inactive.handle.bg.color: #92959d
+window.inactive.label.text.color: #ffffff
+window.inactive.label.bg: parentrelative
+window.inactive.title.bg: flat border
+window.inactive.title.bg.color: #92959d
+window.inactive.title.bg.border.color: #92959d

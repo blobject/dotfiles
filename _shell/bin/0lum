@@ -2,21 +2,34 @@
 
 source "$::env(HOME)/bin/lib.tcl"
 
-need light notify-send
+# xbacklight provided by acpilight
+need xbacklight light notify-send
 
 set arg [lindex $::argv 0]
 set cmd {light}
+set cmd_set {-S}
+set cmd_dec {-U}
+set cmd_inc {-A}
+set cmd_get {-G}
+if {{x} eq $SESS} {
+  set cmd {xbacklight}
+  set cmd_set {-set}
+  set cmd_dec {-dec}
+  set cmd_inc {-inc}
+  set cmd_get {-get}
+}
+set cmd_sub $cmd
 set notify {notify-send -u low -t 2000 -i redshift-status-}
 
 switch -- [string index $arg 0] {
-  {} { set cmd {};      append notify on }
-  - { append cmd { -U}; append notify off }
-  + { append cmd { -A}; append notify on }
-  default { fail "Usage: $ME \[(-|+)percent\]" }
+  {} { append notify on }
+  - { append cmd_sub " $cmd_dec"; append notify off; }
+  + { append cmd_sub " $cmd_inc"; append notify on; }
+  default { append cmd_sub " $cmd_set"; append notify on }
 }
-if [string length $cmd] {
+if [string length $arg] {
   set arg [string range $arg 1 end]
-  exec {*}$cmd $arg
+  exec {*}$cmd_sub $arg
 }
-exec {*}$notify lum [exec light -G]%
+exec {*}$notify lum [exec $cmd $cmd_get]%
 

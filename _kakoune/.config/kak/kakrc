@@ -4,6 +4,7 @@ add-highlighter global/ wrap
 map global normal <c-a> '*%s<ret>' -docstring 'select all'
 map global normal <c-p> '!wl-paste<space>--no-newline<ret>' -docstring 'paste clipboard'
 map global normal <c-y> '<a-|>wl-copy<ret>' -docstring 'yank selection into clipboard'
-set-option global tabstop 2
 set-option global indentwidth 2
+set-option global tabstop 2
+set-option global ui_options ncurses_assistant=none
 

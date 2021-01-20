@@ -2,21 +2,21 @@ max-visible=10
 sort=-time
 layer=top
 anchor=top-right
-font=Agave 22
+font=Agave 20
 text-color=#d2d6deff
 background-color=#16161dff
-width=640
+width=540
 margin=40
 padding=15
 border-size=20
 border-color=#d2d6deff
 progress-color=#3c56aaff
 icons=1
-max-icon-size=64
-icon-path=/usr/share/icons/breeze-dark/devices/22:/usr/share/icons/breeze-dark/mimetypes/22:/usr/share/icons/breeze-dark/status/22:/usr/share/icons/hicolor/scalable/apps
+max-icon-size=24
+icon-path=/usr/share/icons/breeze-dark:/usr/share/icons/hicolor
 markup=1
 actions=0
-format=%s: <b>%b</b>
+format=%s <b>%b</b>
 default-timeout=8000
 group-by=summary
 
@@ -24,7 +24,7 @@ group-by=summary
 background-color=#a32c2dff
 
 [grouped=true]
-format=%s: <b>%b</b>
+format=%s <b>%b</b>
 default-timeout=0
 ignore-timeout=1
 

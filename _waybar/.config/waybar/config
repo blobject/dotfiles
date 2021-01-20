@@ -28,29 +28,35 @@
   "sway/workspaces": {
     "disable-click": false,
     "disable-scroll": true,
-    "format": "<span foreground=\"#000000\"></span>{name}"
+    "format": "{icon}",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": ""
+    }
   },
   "sway/mode": {
-    "format": "<span foreground=\"#000000\"></span>{}"
+    "format": "<span foreground=\"#000000\"></span>{}"
   },
   "sway/window": {
-    "format": "<span foreground=\"#000000\"></span>{}"
+    "format": "<span foreground=\"#000000\"></span>{}"
   },
   "clock": {
     "interval": 60,
-    "format": "<span foreground=\"#000000\"></span>{:%H:%M <span foreground=\"#575a61\">%a%d%b</span>}",
+    "format": "<span foreground=\"#000000\"></span>{:%H:%M <span foreground=\"#575a61\">%a%d%b</span>}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
   "cpu": {
     "interval": 5,
-    "format": " {usage}",
+    "format": "廊 {usage}"
   },
   "temperature": {
     "interval": 10,
     "thermal-zone": 0,
     "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input",
     "critical-threshold": 60,
-    "format": "<span foreground=\"#000000\"></span>{temperatureC}°",
+    "format": "<span foreground=\"#000000\"></span>{temperatureC}°"
   },
   "memory": {
     "interval": 5,
@@ -58,35 +64,36 @@
   },
   "disk": {
     "interval": 90,
-    "format": " {percentage_used}"
+    "format": " {percentage_used}"
   },
   "network": {
     "interval": 20,
-    "format-wifi": " {signalStrength} {essid}",
+    "format-wifi": "{icon} {signalStrength} {essid}",
+    "format-icons": ["", "", ""],
     "format-ethernet": " {ipaddr}",
     "format-linked": " {ifname}",
-    "format-disconnected": "",
-    "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    "format-disconnected": "",
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}"
   },
   "backlight": {
     "interval": 60,
-    "format": " {percent}",
+    "format": " {percent}"
   },
   "pulseaudio": {
     "scroll-step": 1,
     "format": "{icon} {volume} {format_source}",
-    "format-bluetooth": "{icon} {volume} {format_source}",
-    "format-bluetooth-muted": " {icon} {format_source}",
-    "format-muted": " {format_source}",
+    "format-bluetooth": "{icon} {volume} {format_source}",
+    "format-bluetooth-muted": "{icon} {format_source}",
+    "format-muted": " {format_source}",
     "format-source": " {volume}",
     "format-source-muted": "",
     "format-icons": {
+      "default": ["", "", ""],
+      "hands-free": "",
       "headphone": "",
-      "hands-free": "",
       "headset": "",
-      "phone": "",
-      "portable": "",
-      "default": ["", "", ""]
+      "phone": "",
+      "portable": ""
     },
     "on-click": "pavucontrol"
   },
@@ -97,10 +104,10 @@
       "critical": 15
     },
     "format": "{icon} {capacity}",
-    "format-charging": " {capacity}",
-    "format-plugged": " {capacity}",
     "format-alt": "{icon} {time}",
-    "format-icons": ["", "", "", "", ""]
+    "format-icons": ["", "", "", "", ""],
+    "format-charging": " {capacity}",
+    "format-plugged": " {capacity}"
   },
   "tray": {
     "icon-size": 24,

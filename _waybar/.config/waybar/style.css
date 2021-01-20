@@ -1,9 +1,16 @@
 * { border: none; border-radius: 0; min-height: 0; }
-window#waybar { background-color: #000000; color: #ffffff; }
+window#waybar { background-color: #000000; color: #d2d6de; }
 window#waybar.hidden { opacity: 0.2; }
-#workspaces *,
+#workspaces button {
+  font-family: "Font Awesome 5 Pro Light";
+  font-size: 20px;
+  font-weight: 700;
+}
+#workspaces button.focused,
+#workspaces button.visible {
+  font-family: "Font Awesome 5 Pro Solid";
+}
 #mode,
-#window,
 #clock,
 #battery,
 #cpu,
@@ -11,14 +18,23 @@ window#waybar.hidden { opacity: 0.2; }
 #disk,
 #temperature,
 #backlight,
-#network,
+#network {
+  font-family: Agave, "Font Awesome 5 Pro Light";
+  font-size: 22px;
+  font-weight: 700;
+}
+#window {
+  font-family: Agave, "Font Awesome 5 Pro Light", NanumGothicCoding, "Source Han Sans";
+  font-size: 22px;
+  font-weight: 700;
+}
 #pulseaudio {
-  font-family: Agave, "Font Awesome 5 Free Regular", NanumGothicCoding, Source Han Sans;
+  font-family: Agave, "Font Awesome 5 Pro Light", "Font Awesome 5 Pro Brands";
   font-size: 22px;
   font-weight: 700;
 }
 #tray {
-  font-family: Sans;
+  font-family: sans;
   font-size: 26px;
   font-weight: 500;
 }
@@ -35,7 +51,7 @@ window#waybar.hidden { opacity: 0.2; }
   margin: 0 12px;
 }
 #workspaces { margin-left: 0; }
-#mode { margin-left: 8px; }
+#mode { margin-left: 12px; }
 #window { margin-right: 0; }
 #cpu { margin-right: 0; }
 #tray { margin-left: 8px; }
@@ -44,15 +60,20 @@ window#waybar.hidden { opacity: 0.2; }
 #battery.critical:not(.charging) {
   color: #cf554d;
 }
+#workspaces button,
 #network.disconnected,
 #pulseaudio.muted {
   color: #575a61;
 }
 /*#idle_inhibitor { color: #d2d6de; background-color: #000000; }*/
 /*#idle_inhibitor.activated { color: #16161d; background-color: #d2d6de; }*/
-#workspaces button { margin: 0; padding: 0; color: #36383f; min-width: 20px; }
+#workspaces button { margin: 0; padding: 0; min-width: 32px; }
 #workspaces button:hover { background: none; text-shadow: none; box-shadow: none; }
-#workspaces button.focused { color: #92959d; }
+#workspaces button.visible { color: #36383f; }
+#workspaces button#sway-workspace-1.focused { color: #b9bdc5; }
+#workspaces button#sway-workspace-2.focused { color: #ba8d3b; }
+#workspaces button#sway-workspace-3.focused { color: #72a336; }
+#workspaces button#sway-workspace-4.focused { color: #667ad3; }
 #mode { color: #ba59b3; }
 #clock { color: #92959d; }
 #cpu { color: #7883c9; }

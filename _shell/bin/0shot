@@ -6,6 +6,7 @@ need grim jq slurp swaymsg notify-send
 
 set one [lindex $::argv 0]
 set two [lindex $::argv 1]
+set three [lindex $::argv 2]
 set dst $::env(HOME)/got
 set name "shot-[exec date +%s]."
 set cmd {grim}
@@ -13,27 +14,40 @@ set geom {}
 set notify {notify-send -u normal -i image-x-generic}
 
 proc usage {} {
-  global ME
-  fail "Usage: $ME active|screen|select|window jpg|png"
+  global ME dst
+  return "Usage: $ME \[active|*screen|select|window] \[jpg|*png] \[c]
+will save to: $dst"
 }
 
-if {2 != $argc} {
+if {3 < $argc} {
   puts stderr "wrong number of arguments"
-  usage
+  fail [usage]
 }
 
+if {{} ne $three} {
+  if {{c} eq $three} {
+    set three {-c }
+  } else {
+    puts stderr "unrecognised cursor enabling: $three"
+    fail [usage]
+  }
+}
+
+if {{} eq $two} {
+  set two png
+}
 append name $two
 
+if {{} eq $one} {
+  set one screen
+}
+
 switch -- $two {
-  jpg {
-    set two "-t jpeg -q 90"
-  }
-  png {
-    set two "-t png"
-  }
+  jpg { set two "$three-t jpeg -q 90"; }
+  png { set two "$three-t png"; }
   default {
     puts stderr "unrecognised image type: $two"
-    usage
+    fail [usage]
   }
 }
 
@@ -62,7 +76,7 @@ switch -- $one {
   }
   default {
     puts stderr "unrecognised command: $one"
-    usage
+    fail [usage]
   }
 }
 

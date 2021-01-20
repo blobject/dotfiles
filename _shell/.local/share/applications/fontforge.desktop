@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=FontForge
+Name[en_US]=Font Editor
+Comment=An outline font editor
+Exec=env GDK_BACKEND=x11 fontforge %U
+TryExec=env GDK_BACKEND=x11 fontforge
+Icon=org.fontforge.FontForge
+StartupWMClass=fontforge
+Terminal=false
+Categories=Graphics;

@@ -18,14 +18,13 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 |-------|-------------|
 | machine | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]] |
 | opt. peripherals | [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]], [[https://olkb.com/collections/planck][planck]], [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]], [[https://www.logitech.com/en-us/product/m590-silent-wireless-mouse][m590]] |
-| kernel, distro | [[https://www.kernel.org/][linux]] [[/unstowed/kernel.config][5.10.8]], [[https://voidlinux.org/][void]] |
-| shell/script | [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
-| terminal | [[https://github.com/alacritty/alacritty][alacritty]], [[https://github.com/tmux/tmux/wiki][tmux]] |
+| distro, kernel | [[https://voidlinux.org/][void]], [[https://www.kernel.org/][linux]] [[/unstowed/kernel.config][5.10.8]] |
+| terminal, shell, script | [[https://github.com/alacritty/alacritty][alacritty]], [[https://github.com/tmux/tmux/wiki][tmux]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
 | display, launch | [[https://swaywm.org/][sway]], [[https://github.com/sddm/sddm][sddm]], [[https://codeberg.org/dnkl/fuzzel][fuzzel]] |
-| observe | [[https://github.com/leahneukirchen/snooze][snooze]], [[https://wayland.emersion.fr/mako/][mako]], [[https://github.com/Alexays/Waybar][waybar]] |
+| hover | [[https://github.com/leahneukirchen/snooze][snooze]], [[https://wayland.emersion.fr/mako/][mako]], [[https://github.com/Alexays/Waybar][waybar]] |
 | edit | [[https://www.gnu.org/software/emacs/][emacs]], [[http://kakoune.org/][kakoune]], [[https://www.vim.org/][vim]] |
 | www | [[https://qutebrowser.org/][qutebrowser]] |
-| look | 2160x1440, 96dpi, font size ~20, [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://github.com/blobject/agave][agave]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]], [[https://github.com/PapirusDevelopmentTeam/papirus-icon-theme][papirus]], [[https://github.com/KDE/breeze][breeze]] |
+| look | 2160x1440, 100dpi, font size ~20pt, [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]], [[https://github.com/PapirusDevelopmentTeam/papirus-icon-theme][papirus]], [[https://github.com/KDE/breeze][breeze]] |
 
 *** scripts
 
@@ -53,23 +52,24 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 | | | /GENERAL, MOVE, RESIZE/ |
 |-|-|-------------------------|
 | =W-S-r= | | *reconfigure* |
-| =W-L,R= | | *move* window / *resize* |
+| =W-= *mouse* | =L= / =R= | *move* window / *resize* |
 | =W-S-esc= | | *close* window |
-| =W-= *num* | =1= / =2= / =3= | *focus nth* desktop |
-| =W-A-= *num* | =1= / =2= / =3= | *move* window to *nth* desktop |
+| =W-= *num* | =1= / =2= / =3= / =4= | *focus nth* desktop |
+| =W-S-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |
 | =W-S-= *dir* | =h= / =j= / =k= / =l= | *move* window *left* / *down* / *up* / *right* |
 | =W-r= | =h= / =j= / =k= / =l= | enter *resize mode* then *shrink width* / *expand height* / *shrink height* / *expand width* |
+| =W-S-bksp= | | *move* to *scratchpad* |
+| =W-slash= | | change to *tabbed* layout |
 | =W-comma= | | toggle *float* |
-| =W-S-period= | | change to *tabbed* layout |
-| =W-bksp= | =A-= | toggle / *move* to *scratchpad* |
 
 | | | /FOCUS/ |
 |-|-|---------|
 | =W-= *dir* | =h= / =j= / =k= / =l= | *focus* window to *left* / *below* / *above* / to *right* |
+| =W-bksp= | | toggle *scratchpad* |
 | =W-semic= | =_= / =S-= | prepare *vertical split* / *horizontal* |
 | =W-period= | | toggle *split direction* |
-| =W-S-comma= | | toggle *focus* between tiled and floating |
 | =W-quote= | | *focus parent* |
+| =W-tab= | | toggle *focus* between tiled and floating |
 | =W-f= | | toggle window *fullscreen* |
 
 | | | /APP/ |

@@ -1,7 +1,7 @@
 exec_always {
   #gsettings set org.gnome.desktop.interface cursor-size 64
   #gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Amber'
-  gsettings set org.gnome.desktop.interface font-name 'Sans 18'
+  gsettings set org.gnome.desktop.interface font-name 'sans 18'
   gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
   gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
   light -S 30
@@ -33,7 +33,7 @@ floating_maximum_size 2160 x 1416
 floating_minimum_size 100 x 20
 floating_modifier Mod4 normal
 focus_follows_mouse no
-font pango:Monospace Bold 16
+font pango:monospace bold 16
 hide_edge_borders smart
 client.focused          #3c56aa #3c56aa #d2d6de #667ad3 #3c56aa
 client.focused_inactive #575a61 #575a61 #d2d6de #36383f #575a61
@@ -45,9 +45,11 @@ for_window [title="^watchcdda$"] floating enable
 bindsym Mod4+1       workspace number 1
 bindsym Mod4+2       workspace number 2
 bindsym Mod4+3       workspace number 3
-bindsym Mod4+Mod1+1  move container to workspace number 1
-bindsym Mod4+Mod1+2  move container to workspace number 2
-bindsym Mod4+Mod1+3  move container to workspace number 3
+bindsym Mod4+4       workspace number 4
+bindsym Mod4+Shift+1 move container to workspace number 1
+bindsym Mod4+Shift+2 move container to workspace number 2
+bindsym Mod4+Shift+3 move container to workspace number 3
+bindsym Mod4+Shift+4 move container to workspace number 4
 bindsym Mod4+h       focus left
 bindsym Mod4+j       focus down
 bindsym Mod4+k       focus up
@@ -70,12 +72,12 @@ bindsym Mod4+f               fullscreen
 bindsym Mod4+semicolon       splitv
 bindsym Mod4+Shift+semicolon splith
 bindsym Mod4+period          layout toggle split
-bindsym Mod4+Shift+period    layout tabbed
+bindsym Mod4+slash           layout tabbed
 bindsym Mod4+comma           floating toggle
-bindsym Mod4+Shift+comma     focus mode_toggle
+bindsym Mod4+Tab             focus mode_toggle
 bindsym Mod4+apostrophe      focus parent
 bindsym Mod4+BackSpace       scratchpad show
-bindsym Mod4+Mod1+BackSpace  move scratchpad
+bindsym Mod4+Shift+BackSpace move scratchpad
 bindsym Mod4+Shift+r         reload
 bindsym Mod4+Shift+Escape    kill
 bindsym XF86MonBrightnessDown exec '0lum -5 &'

@@ -1,4 +1,5 @@
 ## funcs
+# first lookup should be prepended last
 _path_prepend()
 { case ":$PATH:" in
     *:"$1":*) ;;
@@ -17,8 +18,6 @@ export TERMINAL=alacritty
 export _JAVA_AWT_WM_NONREPARENTING=1
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 export GUILE_AUTO_COMPILE=0
-#export QT_AUTO_SCREEN_SCALE_FACTOR=1
-#export QT_ENABLE_HIGHDPI_SCALING=1
 export QT_QPA_PLATFORMTHEME=qt5ct
 #export XCURSOR_THEME=Breeze_Amber
 #export XCURSOR_SIZE=64
@@ -30,10 +29,11 @@ export XDG_DATA_DIRS='/usr/share:/usr/local/share'
 export XDG_MENU_PREFIX=''
 
 ## session-specific
-if [[ 'z' = "z$WAYLAND_DISPLAY" ]]; then
-  true
-elif [[ -n $DISPLAY ]]; then
+if [[ 'z' = "z$WAYLAND_DISPLAY" ]] && [[ -n $DISPLAY ]]; then
   # x
+  export QT_AUTO_SCREEN_SCALE_FACTOR=0
+  #export QT_ENABLE_HIGHDPI_SCALING=1
+  export QT_FONT_DPI=100
   export XDG_CURRENT_DESKTOP=openbox
 else
   # wayland

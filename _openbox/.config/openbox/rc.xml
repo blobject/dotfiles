@@ -44,13 +44,14 @@
   </theme>
 
   <desktops>
-    <number>3</number>
+    <number>4</number>
     <firstdesk>1</firstdesk>
     <popupTime>0</popupTime>
     <names>
       <name>1</name>
       <name>2</name>
       <name>3</name>
+      <name>4</name>
     </names>
   </desktops>
 
@@ -129,7 +130,7 @@
     <keybind key="W-S-r">
       <action name="Reconfigure"/>
     </keybind>
-    <keybind key="W-S-BackSpace">
+    <keybind key="W-S-Escape">
       <action name="Close"/>
     </keybind>
 

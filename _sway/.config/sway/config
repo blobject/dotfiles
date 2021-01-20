@@ -4,9 +4,9 @@ exec_always {
   gsettings set org.gnome.desktop.interface font-name 'sans 18'
   gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
   gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
-  light -S 30
 }
 exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus &
+exec light -S 30 &
 exec xrdb -merge $HOME/.xresources &
 exec swayidle -w \
   timeout 1200 'swaymsg "output * dpms off"' \
@@ -27,14 +27,14 @@ input 1267:12496:ELAN962C:00_04F3:30D0_Touchpad {
 output * bg ~/cfg/unstowed/back.jpg center
 output eDP-1 scale 1
 seat seat0 xcursor_theme Breeze_Amber 64
-default_border pixel 20
+default_border          pixel 20
 default_floating_border pixel 20
-floating_maximum_size 2160 x 1416
-floating_minimum_size 100 x 20
-floating_modifier Mod4 normal
-focus_follows_mouse no
-font pango:monospace bold 16
-hide_edge_borders smart
+floating_maximum_size   2160 x 1416
+floating_minimum_size   100 x 20
+floating_modifier       Mod4 normal
+focus_follows_mouse     no
+font                    pango:monospace bold 16
+hide_edge_borders       smart
 client.focused          #3c56aa #3c56aa #d2d6de #667ad3 #3c56aa
 client.focused_inactive #575a61 #575a61 #d2d6de #36383f #575a61
 client.unfocused        #92959d #92959d #16161d #575a61 #92959d
@@ -58,6 +58,7 @@ bindsym Mod4+Shift+h move left
 bindsym Mod4+Shift+j move down
 bindsym Mod4+Shift+k move up
 bindsym Mod4+Shift+l move right
+bindsym Mod4+r               mode "resize"
 mode "resize" {
   bindsym h resize shrink width  10px
   bindsym j resize grow   height 10px
@@ -67,7 +68,6 @@ mode "resize" {
   bindsym Return mode "default"
   bindsym Control+g mode "default"
 }
-bindsym Mod4+r mode "resize"
 bindsym Mod4+f               fullscreen
 bindsym Mod4+semicolon       splitv
 bindsym Mod4+Shift+semicolon splith

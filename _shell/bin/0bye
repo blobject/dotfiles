@@ -15,8 +15,8 @@ switch -- $arg {
 }
 
 switch -- $arg {
-  l - k - lock { if {{w} eq $SESS} { exec swaylock; } }
-  e - o - q - x - logout {
+  k - o - lock { if {{w} eq $SESS} { exec swaylock; } }
+  e - l - q - x - logout {
     if {{w} eq $SESS} { exec swaymsg exit; }
     if {{x} eq $SESS} { exec openbox --exit; }
   }

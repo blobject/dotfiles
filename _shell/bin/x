@@ -1,0 +1,4 @@
+#! /bin/sh
+
+exec env GDK_BACKEND=x11 $@
+

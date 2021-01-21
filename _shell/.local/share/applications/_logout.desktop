@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=Logout / quit / exit
+Name=logout / quit / exit
 Comment=Logout of session
 Icon=system-log-out
 Exec=0bye logout

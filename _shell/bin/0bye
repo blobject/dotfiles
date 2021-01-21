@@ -1,6 +1,6 @@
 #! /usr/bin/env tclsh
 
-source "$::env(HOME)/bin/lib.tcl"
+source $::env(HOME)/bin/lib.tcl
 
 need 0temper openbox pkill swaylock swaymsg
 

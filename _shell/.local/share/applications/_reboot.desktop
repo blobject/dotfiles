@@ -1,9 +1,9 @@
 [Desktop Entry]
 Type=Application
-Name=Lock
-Comment=Lock screen
-Icon=system-lock-screen
-Exec=0bye lock
+Name=reboot / restart
+Comment=Reboot computer
+Icon=system-reboot
+Exec=0bye reboot
 Categories=X;
 Encoding=UTF-8
 StartupNotify=false

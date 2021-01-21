@@ -1,16 +1,16 @@
 #! /usr/bin/env tclsh
 
-source "$::env(HOME)/bin/lib.tcl"
+source $::env(HOME)/bin/lib.tcl
 
 need ponymix notify-send
 
 # vars
 
 set devs [dict create \
-  laptop alsa_output.pci-0000_00_1f.3.analog-stereo \
-  mic    alsa_input.pci-0000_00_1f.3.analog-stereo \
-  cx     bluez_sink.00_1B_66_8C_6C_44.a2dp_sink \
-  clip   bluez_sink.00_12_6F_EE_F0_F7.a2dp_sink ]
+  std  alsa_output.pci-0000_00_1f.3.analog-stereo \
+  mic  alsa_input.pci-0000_00_1f.3.analog-stereo \
+  cx   bluez_sink.00_1B_66_8C_6C_44.a2dp_sink \
+  clip bluez_sink.00_12_6F_EE_F0_F7.a2dp_sink ]
 set dev {}
 set ismic false
 set base "ponymix --sink --device "
@@ -20,7 +20,7 @@ set notify {notify-send -u low -t 2000 -i}
 # which?
 
 if {{bt} ne [lindex $::argv 0]} {
-  set dev laptop
+  set dev std
 } else {
   set ::argv [lrange $::argv 1 end]
   if [catch {exec ponymix --sink list | grep {: bluez_}}] {
@@ -50,7 +50,7 @@ if {{mic} eq [lindex $::argv 0]} {
        micdev] {
     append base $micdev
   } else {
-    set dev laptop
+    set dev std
     append base [dict get $devs mic]
   }
   set cmd $base
@@ -63,7 +63,7 @@ switch -- [string index [lindex $::argv 0] 0] {
   x { append cmd { toggle} }
   - { append cmd " decrease [string range $::argv 1 end]" }
   + { append cmd " increase [string range $::argv 1 end]" }
-  default { fail "Usage: $ME \[bt\] \[mic\] ''|x|-N|+N" }
+  default { fail "Usage: $ME \[bt\] \[mic\] ''|x|-N|+N" nome }
 }
 
 # execute ponymix

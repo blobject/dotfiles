@@ -20,7 +20,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 | opt. peripherals | [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]], [[https://olkb.com/collections/planck][planck]], [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]], [[https://www.logitech.com/en-us/product/m590-silent-wireless-mouse][m590]] |
 | distro, kernel | [[https://voidlinux.org/][void]], [[https://www.kernel.org/][linux]] [[/unstowed/kernel.config][5.10.8]] |
 | terminal, shell, script | [[https://github.com/alacritty/alacritty][alacritty]], [[https://github.com/tmux/tmux/wiki][tmux]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
-| display, launch | [[https://swaywm.org/][sway]], [[https://github.com/sddm/sddm][sddm]], [[https://codeberg.org/dnkl/fuzzel][fuzzel]] |
+| display, launch | [[https://swaywm.org/][sway]], [[https://github.com/sddm/sddm][sddm]], [[https://github.com/Cloudef/bemenu][bemenu]] |
 | hover | [[https://github.com/leahneukirchen/snooze][snooze]], [[https://wayland.emersion.fr/mako/][mako]], [[https://github.com/Alexays/Waybar][waybar]] |
 | edit | [[https://www.gnu.org/software/emacs/][emacs]], [[http://kakoune.org/][kakoune]], [[https://www.vim.org/][vim]] |
 | www | [[https://qutebrowser.org/][qutebrowser]] |
@@ -31,9 +31,10 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 | name | description |
 |------|-------------|
 | *[[_shell/bin/00][00]]* | run file(s) based on [[https://en.wikipedia.org/wiki/Media_type][mimetype]] |
+| *[[_shell/bin/0app][0app]]* | list and launch .desktop files |
 | *[[_shell/bin/0bat][0bat]]* | alert battery level |
 | *[[_shell/bin/0bye][0bye]]* | exit wm/machine |
-| *[[_shell/bin/0key][0key]]* | configure key mapping |
+| *[[_shell/bin/0key][0key]]* | set key mapping |
 | *[[_shell/bin/0lum][0lum]]* | control brightness |
 | *[[_shell/bin/0mon][0mon]]* | wrap [[https://www.x.org/wiki/Projects/XRandR/][xrandr]] |
 | *[[_shell/bin/0save][0save]]* | backup config & env |
@@ -47,7 +48,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 *** keybinding
 
 | key template | key more | do, /sway/ |
-|--------------|----------|---------------|
+|--------------|----------|------------|
 
 | | | /GENERAL, MOVE, RESIZE/ |
 |-|-|-------------------------|
@@ -77,11 +78,11 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 | =print= | =_= / =A-= / =C-= / =S-= | *take picture* of *screen* / *active* / *window* / *selection* |
 | =W-= *letter* | =a= / =c= / =e= / =t= / =w= | launch *audio* control, *wifi* control, *editor*, *terminal*, *www* |
 
-| key | key more | do, /fuzzel/ |
-|-----|---|--------------|
+| key | key more | do, /bemenu/ |
+|-----|----------|--------------|
 | =W-enter= | | launch *launcher* |
 
 | key template | key more | do, /mako/ |
-|--------------|----------|-------------|
+|--------------|----------|------------|
 | =W-space= | =_= / =S-= | *close* notification / *close all*
 

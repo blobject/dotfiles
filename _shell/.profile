@@ -1,5 +1,4 @@
 ## funcs
-# first lookup should be prepended last
 _path_prepend()
 { case ":$PATH:" in
     *:"$1":*) ;;
@@ -10,6 +9,7 @@ _path_prepend()
 _path_prepend "$HOME/.local/bin"
 _path_prepend "$HOME/.cargo/bin"
 _path_prepend "$HOME/bin"
+# first lookup should be prepended last
 unset _path_prepend
 export PATH
 export BROWSER=qutebrowser
@@ -32,14 +32,15 @@ export XDG_MENU_PREFIX=''
 if [[ 'z' = "z$WAYLAND_DISPLAY" ]] && [[ -n $DISPLAY ]]; then
   # x
   export QT_AUTO_SCREEN_SCALE_FACTOR=0
-  #export QT_ENABLE_HIGHDPI_SCALING=1
   export QT_FONT_DPI=100
   export XDG_CURRENT_DESKTOP=openbox
 else
   # wayland
+  export CLUTTER_BACKEND=wayland
   export GDK_BACKEND=wayland
   export MOZ_ENABLE_WAYLAND=1
-  export QT_QPA_PLATFORM=wayland
+  export QT_QPA_PLATFORM="wayland-egl;xcb"
+  export SDL_VIDEODRIVER=wayland
   export XDG_CURRENT_DESKTOP=sway
 fi
 

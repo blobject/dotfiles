@@ -1,6 +1,6 @@
 #! /usr/bin/env tclsh
 
-source "$::env(HOME)/bin/lib.tcl"
+source $::env(HOME)/bin/lib.tcl
 
 need notify-send
 
@@ -19,9 +19,9 @@ set status [read -nonewline $f]; close $f
 switch -- [string index $status 0] {
   {D} {
     if {$capacity <= $crit} {
-      exec {*}$notify -u critical -i battery-020 bat $capacity%
+      exec {*}$notify -u critical -t 1800000 -i battery-020 bat $capacity%
     } elseif {[expr $lo - 5] <= $capacity && $capacity <= $lo} {
-      exec {*}$notify -u normal -i battery-030 bat $capacity%
+      exec {*}$notify -u normal -t 4000 -i battery-030 bat $capacity%
     }
   }
   {C} {

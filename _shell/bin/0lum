@@ -1,6 +1,6 @@
 #! /usr/bin/env tclsh
 
-source "$::env(HOME)/bin/lib.tcl"
+source $::env(HOME)/bin/lib.tcl
 
 # xbacklight provided by acpilight
 need xbacklight light notify-send

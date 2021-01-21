@@ -2,7 +2,7 @@
 
 # taken from https://www.verot.net/firefox_tmpfs.htm
 
-source "$::env(HOME)/bin/lib.tcl"
+source $::env(HOME)/bin/lib.tcl
 
 need rsync
 

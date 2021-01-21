@@ -1,0 +1,158 @@
+#! /usr/bin/env tclsh
+
+source $::env(HOME)/bin/lib.tcl
+
+need gtk-launch jq swaymsg
+
+set cache $TMPD/0app.txt
+global dirs
+global apps
+set width 2160 ;# presumes eDP-1
+set width_line [expr [expr $width / 16] - 5]
+set width_short [expr $width_line / 2]
+
+proc load_cache {} {
+  global cache dirs apps
+  if {![file isfile $cache]} {
+    return
+  }
+  set h [open $cache r]
+  set lines [split [read $h] "\n"]
+  close $h
+  set load_apps false
+  foreach line $lines {
+    if [string equal $line {#a}] {
+      set load_apps true
+    }
+    if [string equal [string index $line 0] {#}] {
+      continue
+    }
+    if {!$load_apps} {
+      set l [split [string map [list {***} \0] $line] \0]
+      set path        [lindex $l 0]
+      set dirs($path) [lindex $l 1]
+    } else {
+      set l [split [string map [list {***} \0] $line] \0]
+      set f          [lindex $l 0]
+      set apps($f,t) [lindex $l 1]
+      set apps($f,n) [lindex $l 2]
+      set apps($f,e) [lindex $l 3]
+      set apps($f,d) [lindex $l 4]
+    }
+  }
+}
+
+# convert data structures to file in tmpfs
+# TODO: don't save if not old
+proc save_cache {} {
+  global cache dirs apps
+  set h [open $cache w]
+  puts $h "#d"
+  foreach path [array names dirs] {
+    puts $h "$path*$dirs($path)"
+  }
+  puts $h "#a"
+  foreach key [array names apps] {
+    if [regexp {[dnt]$} $key] {
+      continue
+    }
+    regsub {,[dent]$} $key {} f
+    puts -nonewline $h "$f***"
+    puts -nonewline $h "$apps($f,t)***"
+    puts -nonewline $h "$apps($f,n)***"
+    puts -nonewline $h "$apps($f,e)***"
+    puts            $h "$apps($f,d)"
+  }
+  close $h
+}
+
+# extract application Name and Exec
+proc parse {f} {
+  set h [open $f]
+  set lines [split [read $h] "\n"]
+  close $h
+  set n {}
+  set e {}
+  foreach line $lines {
+    set prefix [string range $line 0 4]
+    if [string equal $prefix {Name=}] {
+      set n [string range $line 5 end]
+    } elseif [string equal $prefix {Exec=}] {
+      set e [string range $line 5 end]
+    }
+    if {{} ne $n && {} ne $e} {
+      break
+    }
+  }
+  return [list $n $e]
+}
+
+# print to stdout
+proc pass {f} {
+  global apps width_line width_short
+  set short $apps($f,e)
+  if {$width_short < [string length $short]} {
+    set short "[string range $apps($f,e) 0 [expr $width_short - 1]]…"
+  }
+  set diff [expr $width_line - [expr [string length $apps($f,n)] \
+    + [string length $f] + [string length $short]]]
+  puts "$apps($f,n)  ($f)[string repeat { } $diff]$short"
+}
+
+# traverse directories
+proc trav {} {
+  global dirs apps
+  set ds [split $::env(XDG_DATA_DIRS) :]
+  append ds " [split $::env(XDG_DATA_HOME) :]"
+  foreach d [lsort $ds] {
+    set dd $d/applications
+    if {![file isdir $dd]} {
+      continue
+    }
+    set mtime [file mtime $dd]
+    if {![info exists dirs($dd)] || [expr $mtime > $dirs($dd)]} {
+      set dirs($dd) $mtime
+    }
+    set dirs($dd) $mtime
+    foreach p [lsort [glob -type f $dd/*.desktop]] {
+      regsub {^.*/} $p {} f
+      regsub {\.desktop$} $f {} f
+      set mtime [file mtime $p]
+      if {![info exists apps($f,t)] || [expr $mtime > $apps($f,t)]} {
+        set parsed [parse $p]
+        set apps($f,t) $mtime
+        set apps($f,n) [lindex $parsed 0]
+        set apps($f,e) [lindex $parsed 1]
+        set apps($f,d) $dd
+      }
+      pass $f
+    }
+  }
+  flush stdout
+  save_cache
+}
+
+# an invocation is like: `0app | bemenu ... | 0app run`
+
+switch -- [lindex $::argv 0] {
+  # try loading cache and print all apps to stdout (to bemenu)
+  {} {
+    load_cache
+    trav
+  }
+  # take output of selection program (bemenu) and launch the selected app
+  run {
+    gets stdin app
+    if {{} eq $app} {
+      exit
+    }
+    regsub {^[^\(]+\(} $app {} app
+    regsub {\).+$} $app {} app
+    exec gtk-launch $app.desktop
+    exit
+  }
+  default {
+    fail "Usage: $ME \[run]" nome
+  }
+}
+

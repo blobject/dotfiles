@@ -1,6 +1,6 @@
 #! /usr/bin/env tclsh
 
-source "$::env(HOME)/bin/lib.tcl"
+source $::env(HOME)/bin/lib.tcl
 
 need grim jq slurp swaymsg notify-send
 
@@ -21,7 +21,7 @@ will save to: $dst"
 
 if {3 < $argc} {
   puts stderr "wrong number of arguments"
-  fail [usage]
+  fail [usage] nome
 }
 
 if {{} ne $three} {
@@ -29,7 +29,7 @@ if {{} ne $three} {
     set three {-c }
   } else {
     puts stderr "unrecognised cursor enabling: $three"
-    fail [usage]
+    fail [usage] nome
   }
 }
 
@@ -47,7 +47,7 @@ switch -- $two {
   png { set two "$three-t png"; }
   default {
     puts stderr "unrecognised image type: $two"
-    fail [usage]
+    fail [usage] nome
   }
 }
 
@@ -76,7 +76,7 @@ switch -- $one {
   }
   default {
     puts stderr "unrecognised command: $one"
-    fail [usage]
+    fail [usage] nome
   }
 }
 

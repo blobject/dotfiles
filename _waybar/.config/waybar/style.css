@@ -69,7 +69,6 @@ window#waybar.hidden { opacity: 0.2; }
 /*#idle_inhibitor.activated { color: #16161d; background-color: #d2d6de; }*/
 #workspaces button { margin: 0; padding: 0; min-width: 32px; }
 #workspaces button:hover { background: none; text-shadow: none; box-shadow: none; }
-#workspaces button.visible { color: #36383f; }
 #workspaces button#sway-workspace-1.focused { color: #b9bdc5; }
 #workspaces button#sway-workspace-2.focused { color: #ba8d3b; }
 #workspaces button#sway-workspace-3.focused { color: #72a336; }

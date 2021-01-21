@@ -1,6 +1,6 @@
 #! /usr/bin/env tclsh
 
-source "$::env(HOME)/bin/lib.tcl"
+source $::env(HOME)/bin/lib.tcl
 
 set dst $::env(HOME)/bak/save
 set nam [exec hostname]
@@ -9,7 +9,6 @@ set src $TMPD/$tmp
 set zip $tmp.tgz
 set want "$::env(HOME)/doc/*doc \
           $::env(HOME)/cfg/*dotfiles \
-          $::env(HOME)/bin/*scripts \
           $::env(HOME)/.gnupg/*gnupg \
           $::env(HOME)/.ssh/*ssh"
 
@@ -79,6 +78,8 @@ proc etc {src} {
   exec tail -n +1 {*}[glob /etc/X11/xorg.conf.d/*] >$src/xorg
   puts "* refind"
   exec cp /boot/EFI/refind/refind.conf $src/refind
+  puts "* sddm"
+  exec cp /etc/sddm.conf.d/b.conf $src/sddm
   puts "* xorg"
   exec xbps-query --list-pkgs >$src/installed
   puts "* packages installed"

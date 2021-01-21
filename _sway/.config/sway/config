@@ -15,7 +15,12 @@ input 1:1:AT_Translated_Set_2_keyboard {
   repeat_delay 300
   repeat_rate 30
   xkb_layout hsnt
-  xkb_options ctrl:swapcaps
+  xkb_options ctrl:nocaps
+}
+input 1256:28705:B.O.W_Keyboard {
+  repeat_delay 300
+  repeat_rate 30
+  xkb_layout bow
 }
 input 1267:12496:ELAN962C:00_04F3:30D0_Touchpad {
   dwt enabled
@@ -25,7 +30,8 @@ input 1267:12496:ELAN962C:00_04F3:30D0_Touchpad {
   tap enabled
 }
 output * bg ~/cfg/unstowed/back.jpg center
-output eDP-1 scale 1
+output eDP-1 pos 0 1080 scale 1
+output DP-1 pos 120 0 scale 1
 seat seat0 xcursor_theme Breeze_Amber 64
 default_border          pixel 20
 default_floating_border pixel 20
@@ -60,10 +66,10 @@ bindsym Mod4+Shift+k move up
 bindsym Mod4+Shift+l move right
 bindsym Mod4+r               mode "resize"
 mode "resize" {
-  bindsym h resize shrink width  10px
-  bindsym j resize grow   height 10px
-  bindsym k resize shrink height 10px
-  bindsym l resize grow   width  10px
+  bindsym h resize shrink width  16px
+  bindsym j resize grow   height 16px
+  bindsym k resize shrink height 16px
+  bindsym l resize grow   width  16px
   bindsym Escape mode "default"
   bindsym Return mode "default"
   bindsym Control+g mode "default"
@@ -94,7 +100,7 @@ bindsym Print                 exec '0shot png screen &'
 bindsym Control+Print         exec '0shot png window &'
 bindsym Shift+Print           exec '0shot png select &'
 bindsym Mod1+Print            exec '0shot png active &'
-bindsym Mod4+Return           exec 'fuzzel -b 16161ddd -C 16161ddd -s 3c56aadd -t d2d6dedd -m 72a336dd -B 0 -r 0 -f monospace:size=20:weight=bold -i Papirus -l 12 -T "alacritty -e" -w 30 &'
+bindsym Mod4+Return           exec '0app | bemenu -f --fn "Agave bold 22" -i -l 16 -m 1 -n -p " > " -P ">" --scrollbar autohide -w --tb="#000000" --tf="#575a61" --fb="#000000" --ff="#cf554d" --nb="#000000" --nf="#92959d" --hb="#000000" --hf="#667ad3" --scb="#000000" --scf="#92959d" | 0app run'
 bindsym Mod4+space            exec 'makoctl dismiss &'
 bindsym Mod4+Shift+space      exec 'makoctl dismiss -a &'
 bindsym Mod4+a                exec 'pavucontrol &'
@@ -107,6 +113,7 @@ bindsym Mod4+Mod1+w           exec '0tcl exec firefox --private-window --profile
 exec 0snooze &
 exec 0temper &
 exec blueman-tray &
+exec gammastep-indicator -l manual -l 50.1:14.4 -m wayland -t 6500K:5500K &
 exec mako &
 exec waybar &
 

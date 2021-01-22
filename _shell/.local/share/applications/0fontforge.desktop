@@ -1,11 +1,11 @@
 [Desktop Entry]
 Type=Application
 Name=FontForge
-Name[en_US]=Font Editor
 Comment=An outline font editor
 Exec=x fontforge %U
-TryExec=x fontforge
 Icon=org.fontforge.FontForge
+Categories=Graphics;
+Encoding=UTF-8
+StartupNotify=true
 StartupWMClass=fontforge
 Terminal=false
-Categories=Graphics;

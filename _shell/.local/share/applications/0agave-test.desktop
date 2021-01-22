@@ -1,10 +1,9 @@
 [Desktop Entry]
 Type=Application
 Name=Agave tester
-Name[en_US]=Agave tester
 Comment=Test Agave font with alacritty
-Icon=Alacritty
 Exec=0tcl exec alacritty --config-file $::env(HOME)/cfg/unstowed/alacritty_agave.yml
+Icon=Alacritty
 Categories=TerminalEmulator;
 Encoding=UTF-8
 StartupNotify=true

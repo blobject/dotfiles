@@ -5,7 +5,6 @@ exec_always {
   gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
   gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
 }
-exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus &
 exec light -S 30 &
 exec xrdb -merge $HOME/.xresources &
 exec swayidle -w \
@@ -47,6 +46,7 @@ client.unfocused        #92959d #92959d #16161d #575a61 #92959d
 client.urgent           #a32c2d #a32c2d #d2d6de #cf554d #a32c2d
 client.placeholder      #000000 #b9bdc5 #16161d #000000 #b9bdc5
 client.background       #b9bdc5
+for_window [app_id="qutebrowser"] inhibit_idle fullscreen
 for_window [title="^watchcdda$"] floating enable
 bindsym Mod4+1       workspace number 1
 bindsym Mod4+2       workspace number 2
@@ -100,7 +100,7 @@ bindsym Print                 exec '0shot png screen &'
 bindsym Control+Print         exec '0shot png window &'
 bindsym Shift+Print           exec '0shot png select &'
 bindsym Mod1+Print            exec '0shot png active &'
-bindsym Mod4+Return           exec '0app | bemenu -f --fn "Agave bold 22" -i -l 16 -m 1 -n -p " > " -P ">" --scrollbar autohide -w --tb="#000000" --tf="#575a61" --fb="#000000" --ff="#cf554d" --nb="#000000" --nf="#92959d" --hb="#000000" --hf="#667ad3" --scb="#000000" --scf="#92959d" | 0app run'
+bindsym Mod4+Return           exec '0app | bemenu -f --fn "Agave bold 22" -i -l 16 -m 1 -n -p ">" -P "-->" --scrollbar autohide -w --tb="#000000" --tf="#575a61" --fb="#000000" --ff="#cf554d" --nb="#000000" --nf="#92959d" --hb="#000000" --hf="#667ad3" --scb="#000000" --scf="#92959d" | 0app run'
 bindsym Mod4+space            exec 'makoctl dismiss &'
 bindsym Mod4+Shift+space      exec 'makoctl dismiss -a &'
 bindsym Mod4+a                exec 'pavucontrol &'

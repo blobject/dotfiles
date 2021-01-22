@@ -64,12 +64,12 @@
   },
   "disk": {
     "interval": 90,
-    "format": " {percentage_used}"
+    "format": " {percentage_used}"
   },
   "network": {
     "interval": 30,
     "format-wifi": "{icon} {signalStrength} {essid}",
-    "format-icons": ["", "", ""],
+    "format-icons": ["", "", "", ""],
     "format-ethernet": " {ipaddr}",
     "format-linked": " {ifname}",
     "format-disconnected": "",
@@ -88,9 +88,9 @@
     "format-source": " {volume}",
     "format-source-muted": "",
     "format-icons": {
-      "default": ["", "", ""],
+      "default": ["", "", "", "", ""],
       "hands-free": "",
-      "headphone": "",
+      "headphone": "",
       "headset": "",
       "phone": "",
       "portable": ""
@@ -105,8 +105,8 @@
     },
     "format": "{icon} {capacity}",
     "format-alt": "{icon} {time}",
-    "format-icons": ["", "", "", "", ""],
-    "format-charging": " {capacity}",
+    "format-icons": ["", "", "", "", "", ""],
+    "format-charging": " {capacity}",
     "format-plugged": " {capacity}"
   },
   "tray": {

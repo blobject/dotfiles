@@ -9,7 +9,7 @@ set limit 64
 # ie. will occupy the parent shell.
 # mappings:   type  prog         clon? ext?  types
 dict set data 01doc {libreoffice false true
-  "text/rtf application/msword application/vnd.openxmlformats application/vnd.oasis.opendocument"}
+  "text/rtf application/msword application/vnd.ms-powerpoint application/vnd.openxmlformats application/vnd.oasis.opendocument"}
 dict set data 02img {imv         false true
   "image/"}
 dict set data 03med {mpv         false true
@@ -117,7 +117,7 @@ dict for {type files} [prep [dict create]] {
         regsub ";" $mime {} mime
         regsub -all "\\$" $fs {, } fs
         regsub ",\\s*$" $fs {} fs
-        puts "    \[$mime\] $fs"
+        puts "    \[$mime] $fs"
       }
     }
 
@@ -134,20 +134,20 @@ dict for {type files} [prep [dict create]] {
       set mime [lsort -unique $mime]
       regsub -all ";" $mime {, } mime
       regsub ",\\s*$" [join $mime {}] {} mime
-      set fs [regexp -all -inline "\\^\[^$\]+\\$" $files]
+      set fs [regexp -all -inline "\\^\[^$]+\\$" $files]
       regsub -all "\\^" $fs {} fs
       regsub -all "\\$" $fs {, } fs
       regsub ",\\s*$" [join $fs {}] {} fs
-      puts "  $cmd \[$mime\]: $fs"
+      puts "  $cmd \[$mime]: $fs"
       if $mult {
         foreach f [split $files {$}] {if {$f != {}} {
-          regsub "\[^;\]+;\\^" $f {} f
+          regsub "\[^;]+;\\^" $f {} f
           lappend tasks [list "$opt $cmd" "\"$f\""]
         }}
       } else {
         set fs {}
         foreach f [split $files {$}] {if {$f != {}} {
-          regsub "\[^;\]+;\\^" $f {} f
+          regsub "\[^;]+;\\^" $f {} f
           lappend fs $f
         }}
         lappend tasks [list "$opt $cmd" $fs]

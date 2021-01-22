@@ -63,7 +63,7 @@ switch -- [string index [lindex $::argv 0] 0] {
   x { append cmd { toggle} }
   - { append cmd " decrease [string range $::argv 1 end]" }
   + { append cmd " increase [string range $::argv 1 end]" }
-  default { fail "Usage: $ME \[bt\] \[mic\] ''|x|-N|+N" nome }
+  default { fail "Usage: $ME \[bt] \[mic] ''|x|-N|+N" nome }
 }
 
 # execute ponymix

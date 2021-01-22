@@ -1,13 +1,13 @@
 [Desktop Entry]
+Type=Application
 Name=Skype
 Comment=Skype Internet Telephony
 Exec=x /usr/bin/skypeforlinux %U
 Icon=skypeforlinux
-Terminal=false
-Type=Application
+Categories=Network;Application;
+Encoding=UTF-8
 StartupNotify=true
 StartupWMClass=Skype
-Encoding=UTF-8
-Categories=Network;Application;
+Terminal=false
 MimeType=x-scheme-handler/skype;x-scheme-handler/tel;x-scheme-handler/callto;
 X-KDE-Protocols=skype,tel,callto

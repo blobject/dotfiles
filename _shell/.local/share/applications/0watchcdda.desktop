@@ -1,7 +1,6 @@
 [Desktop Entry]
 Type=Application
 Name=WatchCDDA
-Name[en_US]=WatchCDDA
 Comment=watchcdda.net
 Exec=0tcl exec alacritty --title watchcdda --config-file $::env(HOME)/cfg/unstowed/alacritty_watchcdda.yml -e ssh cdda
 Icon=cataclysm-dda

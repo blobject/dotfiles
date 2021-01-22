@@ -35,6 +35,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 | *[[_shell/bin/0bat][0bat]]* | alert battery level |
 | *[[_shell/bin/0bye][0bye]]* | exit wm/machine |
 | *[[_shell/bin/0key][0key]]* | set key mapping |
+| *[[_shell/bin/0log][0log]]* | read system logs |
 | *[[_shell/bin/0lum][0lum]]* | control brightness |
 | *[[_shell/bin/0mon][0mon]]* | wrap [[https://www.x.org/wiki/Projects/XRandR/][xrandr]] |
 | *[[_shell/bin/0save][0save]]* | backup config & env |

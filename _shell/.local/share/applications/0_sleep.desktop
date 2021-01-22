@@ -1,9 +1,9 @@
 [Desktop Entry]
 Type=Application
-Name=shutdown / halt
-Comment=Shutdown computer
-Icon=system-shutdown
-Exec=0bye shutdown
+Name=sleep / suspend
+Comment=Sleep computer
+Exec=0bye sleep
+Icon=system-suspend
 Categories=X;
 Encoding=UTF-8
 StartupNotify=false

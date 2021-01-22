@@ -1,9 +1,9 @@
 [Desktop Entry]
 Type=Application
-Name=lock
-Comment=Lock screen
-Icon=system-lock-screen
-Exec=0bye lock
+Name=logout / quit / exit
+Comment=Logout of session
+Exec=0bye logout
+Icon=system-log-out
 Categories=X;
 Encoding=UTF-8
 StartupNotify=false

@@ -1,6 +1,8 @@
 [[ $- != *i* ]] && return
 
 ## settings
+bind '"\en": menu-complete'
+bind '"\ep": menu-complete-backward'
 stty -ixon
 
 ## custom functions and variables

@@ -1,7 +1,6 @@
 [Desktop Entry]
 Type=Application
 Name=Cataclysm
-Name[en_US]=Cataclysm
 Comment=Dark Days Ahead
 Exec=cataclysm-tiles
 Icon=cataclysm-dda

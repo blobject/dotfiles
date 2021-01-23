@@ -4,12 +4,12 @@ source $::env(HOME)/bin/lib.tcl
 
 need 0snooze-bat 0snooze-temper snooze
 
-if [catch {exec ps x | grep {snooze .* 0temper$} | grep -v grep}] {
+if {[catch {exec ps x | grep {snooze .* 0temper$} | grep -v grep}]} {
   exec 0snooze-temper &
 } else {
   puts {0temper already running}
 }
-if [catch {exec ps x | grep {snooze .* 0bat$} | grep -v grep}] {
+if {[catch {exec ps x | grep {snooze .* 0bat$} | grep -v grep}]} {
   exec 0snooze-bat &
 } else {
   puts {0bat already running}

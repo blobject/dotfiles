@@ -9,7 +9,9 @@ exec light -S 30 &
 exec xrdb -merge $HOME/.xresources &
 exec swayidle -w \
   timeout 1200 'swaymsg "output * dpms off"' \
-  resume 'swaymsg "output * dpms on"' &
+        resume 'swaymsg "output * dpms on"' \
+  before-sleep '0bye lock' \
+  timeout 2400 '0bye sleep' &
 input 1:1:AT_Translated_Set_2_keyboard {
   repeat_delay 300
   repeat_rate 30
@@ -96,10 +98,10 @@ bindsym Control+XF86AudioMute exec '0vol bt x &'
 bindsym Control+XF86AudioLowerVolume exec '0vol bt -2 &'
 bindsym Control+XF86AudioRaiseVolume exec '0vol bt +2 &'
 bindsym Control+XF86AudioMicMute     exec '0vol bt mic x &'
-bindsym Print                 exec '0shot png screen &'
-bindsym Control+Print         exec '0shot png window &'
-bindsym Shift+Print           exec '0shot png select &'
-bindsym Mod1+Print            exec '0shot png active &'
+bindsym Print                 exec '0shot screen png &'
+bindsym Control+Print         exec '0shot window png &'
+bindsym Shift+Print           exec '0shot select png &'
+bindsym Mod1+Print            exec '0shot active png &'
 bindsym Mod4+Return           exec '0app | bemenu -f --fn "Agave bold 22" -i -l 16 -m 1 -n -p ">" -P "-->" --scrollbar autohide -w --tb="#000000" --tf="#575a61" --fb="#000000" --ff="#cf554d" --nb="#000000" --nf="#92959d" --hb="#000000" --hf="#667ad3" --scb="#000000" --scf="#92959d" | 0app run'
 bindsym Mod4+space            exec 'makoctl dismiss &'
 bindsym Mod4+Shift+space      exec 'makoctl dismiss -a &'

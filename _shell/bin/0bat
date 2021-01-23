@@ -20,12 +20,12 @@ switch -- [string index $status 0] {
   {D} {
     if {$capacity <= $crit} {
       exec {*}$notify -u critical -t 1800000 -i battery-020 bat $capacity%
-    } elseif {[expr $lo - 5] <= $capacity && $capacity <= $lo} {
+    } elseif {[expr {$lo - 5}] <= $capacity && $capacity <= $lo} {
       exec {*}$notify -u normal -t 4000 -i battery-030 bat $capacity%
     }
   }
   {C} {
-    if {$hi <= $capacity && $capacity <= [expr $hi + 2]} {
+    if {$hi <= $capacity && $capacity <= [expr {$hi + 2}]} {
       exec {*}$notify -u low -t 2000 -i battery-090-charging bat $capacity%
     }
   }

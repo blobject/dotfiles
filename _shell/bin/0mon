@@ -21,14 +21,14 @@ proc detect {which} {
   set prm [lindex $grep_prm 0]
   switch -regexp -- $which {
     ^prm* {
-      if {$which eq {prm}} {
+      if {{prm} eq $which} {
         return $prm
       }
       return [lindex [exec echo $grep_prm | tail -1] 0]
     }
     ^ext* {
       catch {exec xrandr --query | grep -v $prm | grep -A1 " connected"} grep_ext
-      if {$which eq {ext}} {
+      if {{ext} eq $which} {
         return [lindex $grep_ext 0]
       }
       # matches the last line, so presumes a single external
@@ -54,7 +54,7 @@ proc connected {} {
 
 proc opt {rel dir ref} {
   global prm prm_res ext ext_res
-  if {$rel eq {prm}} {
+  if {[string $rel {prm}]} {
     set dir "primary --orientation normal --rotate normal --$dir"
   }
   return "--auto --output [subst $${rel}]\
@@ -77,7 +77,7 @@ switch -- $arg {
   t - u - top - up - \
   l - left - \
   r - right {
-    if ![connected] { fail "no external monitor connected" }
+    if {![connected]} { fail "no external monitor connected" }
   }
   default { help }
 }
@@ -112,7 +112,7 @@ switch -- $arg {
 catch {exec pkill polybar}
 
 exec {*}$cmd1
-if {$cmd2 ne {}} { exec {*}$cmd2 }
+if {{} ne $cmd2} { exec {*}$cmd2 }
 
 # workaround: restart polybar on "northwest-most" monitor
 set ::env(MONITOR) [detect first]

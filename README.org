@@ -5,36 +5,31 @@
 [[/unstowed/screenshot.jpg]]
 
 counter-clockwise from northwest:
-waybar,
+[[https://github.com/Alexays/Waybar][waybar]],
 alacritty ([[https://github.com/dylanaraps/neofetch][neofetch]]),
 emacs,
 alacritty ([[https://wayland.emersion.fr/grim/][grim]]),
-mako. \\
-wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3840x2160][link]]
+[[https://wayland.emersion.fr/mako/][mako]].
+wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3840x2160][link]].
 
 *** selection
 
 | class | instance(s) |
 |-------|-------------|
-| machine | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]] |
-| opt. peripherals | [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]], [[https://olkb.com/collections/planck][planck]], [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]], [[https://www.logitech.com/en-us/product/m590-silent-wireless-mouse][m590]] |
-| distro, kernel | [[https://voidlinux.org/][void]], [[https://www.kernel.org/][linux]] [[/unstowed/kernel.config][5.10.8]] |
-| terminal, shell, script | [[https://github.com/alacritty/alacritty][alacritty]], [[https://github.com/tmux/tmux/wiki][tmux]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
-| display, launch | [[https://swaywm.org/][sway]], [[https://github.com/sddm/sddm][sddm]], [[https://github.com/Cloudef/bemenu][bemenu]] |
-| hover | [[https://github.com/leahneukirchen/snooze][snooze]], [[https://wayland.emersion.fr/mako/][mako]], [[https://github.com/Alexays/Waybar][waybar]] |
-| edit | [[https://www.gnu.org/software/emacs/][emacs]], [[http://kakoune.org/][kakoune]], [[https://www.vim.org/][vim]] |
-| www | [[https://qutebrowser.org/][qutebrowser]] |
-| look | 2160x1440, 100dpi, font size ~20pt, [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]], [[https://github.com/PapirusDevelopmentTeam/papirus-icon-theme][papirus]], [[https://github.com/KDE/breeze][breeze]] |
+| hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]] |
+| opt. hw | [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]], [[https://olkb.com/collections/planck][planck]], [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]], [[https://www.logitech.com/en-us/product/m590-silent-wireless-mouse][m590]] |
+| env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://swaywm.org/][sway]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]], [[https://www.gnu.org/software/emacs/][emacs]], [[http://kakoune.org/][kakoune]], [[https://www.vim.org/][vim]], [[https://github.com/alacritty/alacritty][alacritty]], [[https://qutebrowser.org/][qutebrowser]] |
+| look | 2160x1440, 100dpi, font size ~20pt, [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://github.com/mozilla/zilla-slab][zilla slab]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
 
 *** scripts
 
 | name | description |
 |------|-------------|
 | *[[_shell/bin/00][00]]* | run file(s) based on [[https://en.wikipedia.org/wiki/Media_type][mimetype]] |
-| *[[_shell/bin/0app][0app]]* | list and launch .desktop files |
+| *[[_shell/bin/0app][0app]]* | list and launch =.desktop= files |
 | *[[_shell/bin/0bat][0bat]]* | alert battery level |
-| *[[_shell/bin/0bye][0bye]]* | exit wm/machine |
-| *[[_shell/bin/0key][0key]]* | set key mapping |
+| *[[_shell/bin/0bye][0bye]]* | close session |
+| *[[_shell/bin/0key][0key]]* | set key layout |
 | *[[_shell/bin/0log][0log]]* | read system logs |
 | *[[_shell/bin/0lum][0lum]]* | control brightness |
 | *[[_shell/bin/0mon][0mon]]* | wrap [[https://www.x.org/wiki/Projects/XRandR/][xrandr]] |
@@ -86,4 +81,111 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 | key template | key more | do, /mako/ |
 |--------------|----------|------------|
 | =W-space= | =_= / =S-= | *close* notification / *close all*
+
+*** dependencies
+
+*note:* "surface" boundary defined by =.bashrc= and =.local/share/applications=.
+
+/languages/ (in scope, non-default: /tcl/),
+/fonts/,
+and ...
+
+/within sub-surface scope:/ \\
+alacritty,
+bemenu,
+blueman,
+breeze-amber-cursor-theme,
+breeze-icons,
+dfu-programmer,
+emacs,
+firefox,
+gammastep-indicator,
+grim,
+imv,
+jq,
+kakoune,
+libreoffice,
+light,
+mako,
+mpv,
+papirus-icon-theme,
+pavucontrol,
+ponymix,
+qutebrowser,
+rsync,
+slurp,
+snooze,
+socklog,
+stow,
+sway,
+swayidle,
+vim,
+wl-clipboard,
+waybar,
+xrdb,
+zathura |
+/manual:/
+cemant
+
+/within surface scope (aliases, shortcuts):/ \\
+bash-completion,
+bc,
+cataclysm-dda,
+fd,
+fontforge,
+git,
+lftp,
+plan9port,
+psmisc,
+ripgrep,
+rlwrap,
+skype,
+steam,
+swaylock |
+/manual:/
+tor-browser,
+zoom
+
+/out of scope, but essential (excl. default dependencies):/ \\
+gnupg2,
+lz4,
+refind,
+openssh,
+tlp
+
+/out of scope, but preferred:/ \\
+adwaita-qt,
+ardour,
+blender,
+connman,
+dracut,
+gimp,
+godot,
+inkscape,
+mypaint,
+ntfs-3g,
+obs,
+p7zip,
+pdf.js,
+qt,
+qt5ct,
+sddm,
+texlive-bin,
+tmux,
+unzip,
+virtualbox-ose
+
+/x, deprecating:/ \\
+acpilight,
+openbox,
+polybar,
+setxkbmap,
+xf86-input-mtrack,
+xf86-video-intel,
+xorg-minimal,
+xorg-server-xwayland,
+xrandr,
+xset,
+xterm,
+xwallpaper
 

@@ -36,7 +36,6 @@ window#waybar.hidden { opacity: 0.2; }
 #tray {
   font-family: sans;
   font-size: 26px;
-  font-weight: 500;
 }
 #clock,
 #battery,

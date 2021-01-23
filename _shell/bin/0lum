@@ -27,7 +27,7 @@ switch -- [string index $arg 0] {
   + { append cmd_sub " $cmd_inc"; append notify on; }
   default { append cmd_sub " $cmd_set"; append notify on }
 }
-if [string length $arg] {
+if {[string length $arg]} {
   set arg [string range $arg 1 end]
   exec {*}$cmd_sub $arg
 }

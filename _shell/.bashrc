@@ -65,7 +65,8 @@ fi
 
 ## aliases
 alias 0clock='echo "$(date +%s) $(TZ=UTC date)"; echo "Prague:    $(date)"; echo "Reykjavik: $(TZ=Atlantic/Reykjavik date)"; echo "Riyadh:    $(TZ=Asia/Riyadh date)"; echo "Seoul:     $(TZ=Asia/Seoul date)"'
-alias 0fonts="fc-list | sed 's/^.\+: //;s/:.\+$//;s/,.*$//' | sort -u | pr -2 -T"
+#alias 0fonts="fc-list | sed 's/^.\+: //;s/:.\+$//;s/,.*$//' | sort -u | pr -2 -T"
+alias 0fonts="pango-list | grep '^[^ ]' | sort | pr -2 -T"
 alias 0ip='wget -qO - https://ipinfo.io/ip'
 alias 0mixon='pactl load-module module-loopback'
 alias 0mixoff='pactl unload-module module-loopback'

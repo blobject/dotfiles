@@ -43,7 +43,7 @@ proc mapping {mime} {
 
   dict for {k v} $data {
     foreach i [lindex $v 3] {
-      if [string match *$i* $mime] {
+      if {[string match *$i* $mime]} {
         return $k
       }
     }
@@ -53,7 +53,7 @@ proc mapping {mime} {
 }
 
 proc add-dict-list {d k v} {
-  if ![dict exists $d $k] {
+  if {![dict exists $d $k]} {
     dict set d $k {}
   }
   dict with d {append $k $v}
@@ -61,7 +61,7 @@ proc add-dict-list {d k v} {
 }
 
 proc add-dict-dict {d k1 k2 v} {
-  if ![dict exists $d $k1 $k2] {
+  if {![dict exists $d $k1 $k2]} {
     dict set d $k1 $k2 {}
   }
   dict with d $k1 {append $k2 $v}
@@ -70,7 +70,7 @@ proc add-dict-dict {d k1 k2 v} {
 
 proc prep {task} {
   foreach f $::argv {
-    if ![file readable $f] {
+    if {![file readable $f]} {
       set task [add-dict-list $task 0nex $f]
       continue
     }
@@ -84,7 +84,7 @@ proc prep {task} {
     set m [mapping $mt]
 
     # append $ to file as delimiter
-    if {[string compare $m 0] > 0} {
+    if {0 < [string compare $m 0]} {
       set task [add-dict-list $task $m "$$mt^$f$"]
     } else {
       set task [add-dict-dict $task 0nom $mt "$f$"]
@@ -94,11 +94,11 @@ proc prep {task} {
   return $task
 }
 
-if {$::argc == 0} { help }
-if {$::argc > $limit} { fail "too many arguments ($::argc > $limit)" }
+if {0 == $::argc} { help }
+if {$limit < $::argc} { fail "too many arguments ($::argc > $limit)" }
 
 puts -nonewline "processing $::argc file"
-if {$::argc > 1} { puts s } else { puts "" }
+if {1 < $::argc} { puts s } else { puts "" }
 
 set tasks {}
 dict for {type files} [prep [dict create]] {
@@ -139,14 +139,14 @@ dict for {type files} [prep [dict create]] {
       regsub -all "\\$" $fs {, } fs
       regsub ",\\s*$" [join $fs {}] {} fs
       puts "  $cmd \[$mime]: $fs"
-      if $mult {
-        foreach f [split $files {$}] {if {$f != {}} {
+      if {$mult} {
+        foreach f [split $files {$}] {if {{} ne $f} {
           regsub "\[^;]+;\\^" $f {} f
           lappend tasks [list "$opt $cmd" "\"$f\""]
         }}
       } else {
         set fs {}
-        foreach f [split $files {$}] {if {$f != {}} {
+        foreach f [split $files {$}] {if {{} ne $f} {
           regsub "\[^;]+;\\^" $f {} f
           lappend fs $f
         }}

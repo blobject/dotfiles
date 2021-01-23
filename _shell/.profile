@@ -32,7 +32,7 @@ export XDG_MENU_PREFIX=''
 if [[ 'z' = "z$WAYLAND_DISPLAY" ]] && [[ -n $DISPLAY ]]; then
   # x
   export QT_AUTO_SCREEN_SCALE_FACTOR=0
-  export QT_FONT_DPI=100
+  export QT_FONT_DPI=200
   export XDG_CURRENT_DESKTOP=openbox
 else
   # wayland

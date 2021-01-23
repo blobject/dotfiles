@@ -17,7 +17,9 @@ proc msg {s} { puts "### $s ###" }
 proc sep {} { puts "--------------------" }
 
 proc prep {src nam tmp} {
-  if [file isdirectory $src] { file delete -force $src }
+  if {[file isdirectory $src]} {
+    file delete -force $src
+  }
 
   file mkdir $src
   set f [open $src/LOG w]; puts $f $tmp; close $f
@@ -38,22 +40,22 @@ proc copy {src} {
       set n $m
     }
 
-    if ![file readable $f] {
+    if {![file readable $f]} {
       msg "invalid file $f"
       continue
     }
-    if [file readable $src/$n] {
+    if {[file readable $src/$n]} {
       msg "name \"$n\" already exists"
       continue
     }
 
-    if [file isfile $f] {
-      if [catch {exec cp -d $f $src/$n}] {
+    if {[file isfile $f]} {
+      if {[catch {exec cp -d $f $src/$n}]} {
         msg "error copying $f"
         continue
       }
-    } elseif [file isdirectory $f] {
-      if [catch {exec rsync -lr --exclude=.git $f $src/$n}] {
+    } elseif {[file isdirectory $f]} {
+      if {[catch {exec rsync -lr --exclude=.git $f $src/$n}]} {
         msg "error copying $f"
         continue
       }
@@ -78,9 +80,6 @@ proc etc {src} {
   exec tail -n +1 {*}[glob /etc/X11/xorg.conf.d/*] >$src/xorg
   puts "* refind"
   exec cp /boot/EFI/refind/refind.conf $src/refind
-  puts "* sddm"
-  exec cp /etc/sddm.conf.d/b.conf $src/sddm
-  puts "* xorg"
   exec xbps-query --list-pkgs >$src/installed
   puts "* packages installed"
   exec ls /var/service/ >$src/services
@@ -89,11 +88,11 @@ proc etc {src} {
 
 proc save {src nam dst} {
   cd $src/..
-  if [catch {exec tar czf $dst $nam}] { fail "error zipping" }
+  if {[catch {exec tar czf $dst $nam}]} { fail "error zipping" }
 }
 
 proc fin {src zip dst} {
-  if [file isdirectory $src] { file delete -force $src }
+  if {[file isdirectory $src]} { file delete -force $src }
   puts "removed $src"
 
   set p [open |[list du -hs $dst/$zip] r]

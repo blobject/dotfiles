@@ -23,7 +23,7 @@ if {{bt} ne [lindex $::argv 0]} {
   set dev std
 } else {
   set ::argv [lrange $::argv 1 end]
-  if [catch {exec ponymix --sink list | grep {: bluez_}}] {
+  if {[catch {exec ponymix --sink list | grep {: bluez_}}]} {
     exec {*}$notify network-bluetooth vol {no bt audio}
     exit
   } else {
@@ -43,11 +43,11 @@ if {{mic} eq [lindex $::argv 0]} {
   set ::argv [lrange $::argv 1 end]
   set ismic true
   set base "ponymix --source --device "
-  if ![catch {exec ponymix --source list \
-       | grep [exec echo [dict get $devs $dev] | cut -d. -f2] \
-       | grep {\(source\.\|input\.\)} \
-       | cut {-d } -f3} \
-       micdev] {
+  if {![catch {exec ponymix --source list \
+        | grep [exec echo [dict get $devs $dev] | cut -d. -f2] \
+        | grep {\(source\.\|input\.\)} \
+        | cut {-d } -f3} \
+        micdev]} {
     append base $micdev
   } else {
     set dev std
@@ -81,7 +81,7 @@ switch -- [string index [lindex $::argv 0] 0] {
   x {
     set arg " audio-off vol \"$dev muted\""
     if {$ismic} { set arg " mic-off vol \"$dev muted\"" }
-    if [catch {exec {*}$base is-muted}] {
+    if {[catch {exec {*}$base is-muted}]} {
       set arg " audio-on vol \"$dev on\""
       if {$ismic} { set arg " mic-on vol \"$dev on\"" }
     }

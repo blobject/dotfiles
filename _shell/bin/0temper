@@ -29,12 +29,12 @@ proc refresh {root link vola stat} {
   }
 
   puts "[file tail $::argv0]: $root/$link"
-  if [file exists $link/$flag] {
-    if [catch {exec rsync -av --delete --exclude $flag ./$link/ ./$stat/}] {
+  if {[file exists $link/$flag]} {
+    if {[catch {exec rsync -av --delete --exclude $flag ./$link/ ./$stat/}]} {
       puts {error copying to disk}
     }
   } else {
-    if [catch {exec rsync -av ./$stat/ ./$link/}] {
+    if {[catch {exec rsync -av ./$stat/ ./$link/}]} {
       puts {error copying to mem}
     }
     close [open $link/$flag a]

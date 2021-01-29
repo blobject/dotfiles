@@ -1,4 +1,0 @@
-xrdb $HOME/.xresources
-polybar 0bar &
-xwallpaper --daemon --center $HOME/cfg/unstowed/back.jpg &
-

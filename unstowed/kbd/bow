@@ -3,7 +3,6 @@
 default partial alphanumeric_keys modifier_keys
 xkb_symbols "bow" {
   include "hsnt"
-  include "ctrl(nocaps)"
   name[Group1]= "English (Hsnt, bow)";
   key <TLDE> { [ Escape ] };
   replace key <RALT> { [ grave, asciitilde ] };

@@ -1,0 +1,42 @@
+pcm.!default {
+  type sndio
+}
+
+pcm.bt_cx {
+  type plug
+  slave {
+    pcm {
+      type bluealsa
+      device "00:1b:66:8c:6c:44"
+      profile "a2dp"
+    }
+  }
+  hint {
+    show on
+    description "Sennheiser CX 6.00BT"
+  }
+}
+
+ctl.bt_cx {
+  type bluealsa
+}
+
+pcm.bt_jbl {
+  type plug
+  slave {
+    pcm {
+      type bluealsa
+      device "00:12:6f:ee:f0:f7"
+      profile "a2dp"
+    }
+  }
+  hint {
+    show on
+    description "JBL Clip 2"
+  }
+}
+
+ctl.bt_jbl {
+  type bluealsa
+}
+

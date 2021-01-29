@@ -1,0 +1,7 @@
+1. bluetoothctl
+2. > scan on
+3. > devices
+4. > pair $dev
+5. > connect $dev
+6. > trust $dev
+7. > scan off

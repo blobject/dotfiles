@@ -6,8 +6,8 @@
 
 counter-clockwise from northwest:
 [[https://github.com/Alexays/Waybar][waybar]],
-alacritty ([[https://github.com/dylanaraps/neofetch][neofetch]]),
-emacs,
+[[https://github.com/alacritty/alacritty][alacritty]] ([[https://github.com/dylanaraps/neofetch][neofetch]]),
+[[http://www.gnu.org/software/emacs/][emacs]],
 alacritty ([[https://wayland.emersion.fr/grim/][grim]]),
 [[https://wayland.emersion.fr/mako/][mako]].
 wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3840x2160][link]].
@@ -16,26 +16,25 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 
 | class | instance(s) |
 |-------|-------------|
-| hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]] |
-| opt. hw | [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]], [[https://olkb.com/collections/planck][planck]], [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]], [[https://www.logitech.com/en-us/product/m590-silent-wireless-mouse][m590]] |
-| env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://swaywm.org/][sway]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]], [[https://www.gnu.org/software/emacs/][emacs]], [[http://kakoune.org/][kakoune]], [[https://www.vim.org/][vim]], [[https://github.com/alacritty/alacritty][alacritty]], [[https://qutebrowser.org/][qutebrowser]] |
+| hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]], [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]], [[https://olkb.com/collections/planck][planck]], [[https://www.amazon.com/moko-keyboard/s?k=moko+keyboard][moko foldable]], [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]], [[https://www.logitech.com/en-us/product/m590-silent-wireless-mouse][m590]] |
+| env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://swaywm.org/][sway]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
 | look | 2160x1440, 100dpi, font size ~20pt, [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://github.com/mozilla/zilla-slab][zilla slab]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
 
 *** scripts
 
 | name | description |
 |------|-------------|
-| *[[_shell/bin/00][00]]* | run file(s) based on [[https://en.wikipedia.org/wiki/Media_type][mimetype]] |
+| *[[_shell/bin/00][00]]* | run file(s) based on mimetype |
 | *[[_shell/bin/0app][0app]]* | list and launch =.desktop= files |
 | *[[_shell/bin/0bat][0bat]]* | alert battery level |
-| *[[_shell/bin/0bye][0bye]]* | close session |
+| *[[_shell/bin/0bye][0bye]]* | stop session |
 | *[[_shell/bin/0key][0key]]* | set key layout |
 | *[[_shell/bin/0log][0log]]* | read system logs |
 | *[[_shell/bin/0lum][0lum]]* | control brightness |
 | *[[_shell/bin/0mon][0mon]]* | wrap [[https://www.x.org/wiki/Projects/XRandR/][xrandr]] |
 | *[[_shell/bin/0save][0save]]* | backup config & env |
 | *[[_shell/bin/0shot][0shot]]* | take screenshot |
-| *[[_shell/bin/0snooze][0snooze]]* | wrap snooze |
+| *[[_shell/bin/0snooze][0snooze]]* | wrap [[https://github.com/leahneukirchen/snooze][snooze]] |
 | *[[_shell/bin/0tcl][0tcl]]* | like ~sh -c~ but for tcl |
 | *[[_shell/bin/0temper][0temper]]* | [[https://wiki.archlinux.org/index.php/Firefox/Profile_on_RAM][sync browser]] data to [[https://en.wikipedia.org/wiki/Tmpfs][tmpfs]] |
 | *[[_shell/bin/0vol][0vol]]* | control volume |
@@ -72,120 +71,45 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 | | | /APP/ |
 |-|-|-------|
 | =print= | =_= / =A-= / =C-= / =S-= | *take picture* of *screen* / *active* / *window* / *selection* |
-| =W-= *letter* | =a= / =c= / =e= / =t= / =w= | launch *audio* control, *wifi* control, *editor*, *terminal*, *www* |
-
-| key | key more | do, /bemenu/ |
-|-----|----------|--------------|
 | =W-enter= | | launch *launcher* |
+| =W-= *letter* | =a= / =c= / =e= / =t= / =w= | launch *audio* control, *wifi* control, *editor*, *terminal*, *www* |
 
 | key template | key more | do, /mako/ |
 |--------------|----------|------------|
 | =W-space= | =_= / =S-= | *close* notification / *close all*
 
-*** dependencies
+*** steps
 
-*note:* "surface" boundary defined by =.bashrc= and =.local/share/applications=.
-
-/languages/ (in scope, non-default: /tcl/),
-/fonts/,
-and ...
-
-/within sub-surface scope:/ \\
-alacritty,
-bemenu,
-blueman,
-breeze-amber-cursor-theme,
-breeze-icons,
-dfu-programmer,
-emacs,
-firefox,
-gammastep-indicator,
-grim,
-imv,
-jq,
-kakoune,
-libreoffice,
-light,
-mako,
-mpv,
-papirus-icon-theme,
-pavucontrol,
-ponymix,
-qutebrowser,
-rsync,
-slurp,
-snooze,
-socklog,
-stow,
-sway,
-swayidle,
-vim,
-wl-clipboard,
-waybar,
-xrdb,
-zathura |
-/manual:/
-cemant
-
-/within surface scope (aliases, shortcuts):/ \\
-bash-completion,
-bc,
-cataclysm-dda,
-fd,
-fontforge,
-git,
-lftp,
-plan9port,
-psmisc,
-ripgrep,
-rlwrap,
-skype,
-steam,
-swaylock |
-/manual:/
-tor-browser,
-zoom
-
-/out of scope, but essential (excl. default dependencies):/ \\
-gnupg2,
-lz4,
-refind,
-openssh,
-tlp
-
-/out of scope, but preferred:/ \\
-adwaita-qt,
-ardour,
-blender,
-connman,
-dracut,
-gimp,
-godot,
-inkscape,
-mypaint,
-ntfs-3g,
-obs,
-p7zip,
-pdf.js,
-qt,
-qt5ct,
-sddm,
-texlive-bin,
-tmux,
-unzip,
-virtualbox-ose
-
-/x, deprecating:/ \\
-acpilight,
-openbox,
-polybar,
-setxkbmap,
-xf86-input-mtrack,
-xf86-video-intel,
-xorg-minimal,
-xorg-server-xwayland,
-xrandr,
-xset,
-xterm,
-xwallpaper
+1. *fs:* 512m vfat efi, rest xfs, swap as file
+1. *boot:* refind (remove grub), use only EFI/refind/refind.conf, use partuuid everywhere
+  - reboot to confirm working
+1. *net:* installer already set up wpa_supplicant stuff, so reuse it
+  - ~sudo wpa_supplicant -i $dev -c /etc/wpa_supplicant/wpa_supplicant-$dev.conf~
+  - enable wpa_supplicant service
+1. *repo:* void-repo-{multilib,nonfree}[-nonfree]
+1. /immediate goodness:/ bash-completion, openntpd, socklog, tlp
+1. *shell/cmdline/oldconfig:* tcl, git, stow, tmux, ripgrep, fd, rlwrap, p7zip, lz4
+  - note: stow will link the minimal nonexistent path, so any later addition to a (mistakenly) linked dir will reside in the stowable repository (hence the mkdirs in =stow.tcl=)
+1. *kbd:* /usr/share/{kbd/keymaps/i386,X11/xkb/symbols}
+1. *hw:* various firmware, xf86-video-intel, intel-video-accel, mesa-dri, xf86-input-mtrack
+1. *sess:* elogind, dbus-elogind, sddm, sway, xwayland, xorg-minimal, cwm, setxkbmap, xrdb, xset, xterm, alacritty, qt5-wayland (for qutebrowser, etc.)
+  - links: /etc/sddm.conf.d, /etc/X11/xorg.conf.d
+  - ~chmod u+s /usr/bin/sway~ for seat-related headache
+  - reboot and login to confirm working
+1. *edit:* emacs, vim, kakoune
+1. *util:* snooze, rsync, bemenu, wpa_gui, blueman-tray, light, acpilight, gammastep-indicator, mako, waybar, libappindicator, qt5ct, grim, slurp, jq, wev, wl-clipboard, xrandr, xwallpaper, polybar, xdg-utils, psmisc
+1. *snd:* sndio, alsa-sndio, aucatctl, alsa-utils, bluez-alsa, cmixer
+  - fix and persist: =alsamixer= then ~sudo alsactl store~
+  - check device number in alsa, put it in /etc/sv/sndiod/conf
+  - use aucatctl for volume adjustment, amixer for muting
+  - define bluetooth devices in alsa
+1. /groups:/ user should be in: wheel, lp, audio, video, kvm, users, xbuilder, vboxusers, bluetooth, socklog
+1. *dev:* base-devel, clang, llvm, cmake, elixir, ghc, go, guile, lua, mono, msbuild-bin, openjdk, rustup, squeak, swi-prolog, dfu-programmer, catch2, valgrind
+1. *apps* & *fun:* gnupg2, qutebrowser, firefox-esr, imv, mplayer, ffmpeg, zathura, pdf.js, libreoffice, foliate, texlive, gimp, inkscape, mypaint, fontforge, papirus-icon-theme, breeze-obsidian-cursor-theme, breeze-icons, cataclysm-dda, skype, steam, virtualbox-ose
+  - steam: some 32bit libs, sdl stuff
+1. /off repo:/ dotnet, zoom
+1. *kernel:* some headers (libelf, libressl) to make =make= work
+  - keep graphics modular, wayland seems to fail otherwise
+  - update refind.conf
+  - reboot to confirm working
 

@@ -1,0 +1,195 @@
+#! /usr/bin/env tclsh
+
+source $::env(HOME)/bin/lib.tcl
+
+need amixer aucatctl notify-send
+
+# - This script assumes that device volumes are fixed via `sudo alsactl
+#   store` and that muting/unmuting is the responsibility of only alsa.
+#   Volume modification, on the other hand, is done (only) through
+#   sndio's master, whose target device is set at /etc/sv/sndiod/conf.
+# - Muting/unmuting is done on alsa Master. On the back end, Speaker
+#   and Headphone are unmuted, but only one of them can be unmuted at
+#   any given time. A /tmp file will help ensure this.
+# - When muting, sndio's master is set to 0, but the /tmp file remembers
+#   the previous non-0 volume to which it will return when unmuted.
+
+# vars
+
+set tmpf $TMPD/0vol
+set card 3 ;# per kernel + alsa detection
+set max 127
+set dev_laptop Speaker
+set dev_lapmic Capture
+set dev_phones Headphone
+set cmd_mut "amixer -c $card"
+set cmd_vol {aucatctl master}
+set cmd {notify-send -u low -t 2000 -i}
+
+# procs
+
+proc get_mut {dev} {
+  global cmd_mut
+  set m [exec {*}$cmd_mut get $dev]
+  set mute true
+  regexp {.*([fn])]} $m -> m
+  if {{n} eq $m} { set mute false }
+  return $mute
+}
+
+proc get_vol {} {
+  global cmd_vol
+  regexp {=([0-9]+)} [exec {*}$cmd_vol] -> vol
+  return $vol
+}
+
+proc get_cur {} {
+  global tmpf dev_phones
+  set dev $dev_phones
+  set vol [get_vol]
+  if {[file exists $tmpf]} {
+    set h [open $tmpf r]
+    set cur [read $h]
+    close $h
+    set dev [lindex $cur 0]
+    if {0 == $vol} { set vol [lindex $cur 1] }
+  }
+  return "$dev $vol"
+}
+
+proc set_vol {vol} {
+  # workaround for weird aucatctl behavior, sometimes ignoring commands
+  global cmd_vol
+  set cmd "$cmd_vol=$vol"
+  exec {*}$cmd
+  while {[get_vol] ne $vol} {
+    after 500
+    exec {*}$cmd
+  }
+}
+
+proc save_cur {dev} {
+  global tmpf
+  set cur [get_cur]
+  set h [open $tmpf w]
+  puts $h "$dev [lindex $cur 1]"
+  close $h
+}
+
+proc perc {vol} {
+  global max
+  return [expr [expr $vol * 100] / $max]
+}
+
+# more vars
+
+set cur [get_cur]
+set dev [lindex $cur 0]
+set vol [lindex $cur 1]
+set muted [get_mut Master]
+set mic false
+if {{mic} eq [lindex $::argv 0]} {
+  set ::argv [lrange $::argv 1 end]
+  set mic true
+}
+
+# modify
+
+set arg [lindex $::argv 0]
+set op [string index $arg 0]
+switch -- $op {
+  {} {}
+  s {
+    foreach d "$dev_laptop $dev_phones" {
+      exec {*}$cmd_mut -q set $d off
+    }
+    set d $dev_phones
+    if {{H} eq [string index $dev 0]} {
+      set d $dev_laptop
+    }
+    exec {*}$cmd_mut -q set $d on
+    save_cur $d
+    set dev $d
+  }
+  x {
+    if {$mic} {
+      exec {*}$cmd_mut -q set $dev_lapmic toggle
+    } else {
+      exec {*}$cmd_mut -q set Master toggle
+      set v $vol
+      if {!$muted} { set v 0 }
+      set_vol $v
+      save_cur $dev
+    }
+  }
+  = - + - {-} {
+    set v [string range $::argv 1 end]
+    if {{=} ne $op} {
+      set v [expr $vol $op $v]
+    }
+    if {$max < $v} { set vol $max }
+    if {1    > $v} { set vol 1}
+    set vol $v
+    set_vol $vol
+    save_cur $dev
+  }
+  default {
+    fail "Usage: $ME \[bt] \[mic] ''|s|x|-N|+N" nome
+  }
+}
+
+# notify
+
+set notify true
+switch -- [string index [lindex $::argv 0] 0] {
+  {} {
+    set d $dev
+    set icon audio-ready
+    set stat [perc $vol]%
+    if {$mic} {
+      set d $dev_lapmic
+      set icon mic-ready
+      set stat on
+      if {[get_mut $d]} {
+        set stat muted
+      }
+    }
+    append cmd " $icon vol \"$d $stat\""
+  }
+  s {
+    append cmd " view-refresh vol \"using $dev\""
+  }
+  x {
+    set d $dev
+    set icon audio-off
+    set stat muted
+    if {$muted} {
+      set icon audio-on
+      set stat "on ([perc $vol]%)"
+    }
+    if {$mic} {
+      set d $dev_lapmic
+      set icon mic-on
+      set stat on
+      if {[get_mut $d]} {
+        set icon mic-off
+        set stat muted
+      }
+    }
+    append cmd " $icon vol \"$d $stat\""
+  }
+  - {
+    append cmd " audio-volume-medium vol \"$dev [perc $vol]%\""
+  }
+  + {
+    append cmd " audio-volume-high vol \"$dev [perc $vol]%\""
+  }
+  default {
+    set notify false
+  }
+}
+
+if {$notify} {
+  exec {*}$cmd
+}
+

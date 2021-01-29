@@ -1,9 +1,9 @@
 (package-initialize)
-(require 'company-rtags)
+;(require 'company-rtags)
 (require 'dot-mode)
 (require 'flycheck)
-(require 'flycheck-rtags)
-(require 'rtags)
+;(require 'flycheck-rtags)
+;(require 'rtags)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; linum
@@ -93,7 +93,7 @@
    '(("gnu" . "https://elpa.gnu.org/packages/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(cmake-mode flycheck flycheck-rtags flycheck-rust company-rtags csharp-mode elixir-mode haskell-mode markdown-mode rust-mode dot-mode expand-region iy-go-to-char multiple-cursors paredit rainbow-delimiters web-mode hlinum))
+   '(cmake-mode flycheck flycheck-rtags flycheck-rust company-rtags csharp-mode elixir-mode haskell-mode markdown-mode rust-mode dot-mode expand-region multiple-cursors paredit rainbow-delimiters web-mode hlinum))
  '(python-indent 2)
  '(read-quoted-char-radix 16)
  '(rust-indent-offset 2)
@@ -154,20 +154,20 @@
 ;; packages
 
 (flycheck-add-mode 'javascript-eslint 'web-mode)
-(rtags-enable-standard-keybindings)
-(rtags-diagnostics)
-(rtags-start-process-unless-running)
+;(rtags-enable-standard-keybindings)
+;(rtags-diagnostics)
+;(rtags-start-process-unless-running)
 (add-hook 'find-file-hooks 'dot-mode-on)
 (add-hook 'after-init-hook 'global-display-fill-column-indicator-mode)
 (add-hook 'after-init-hook 'global-company-mode)
 (add-hook 'after-init-hook 'global-flycheck-mode)
 (add-hook 'after-init-hook 'hlinum-activate)
-(add-hook 'c-mode-hook 'company-rtags-setup)
+;(add-hook 'c-mode-hook 'company-rtags-setup)
 (add-hook 'c-mode-hook 'my/clike-mode-hook)
-(add-hook 'c++-mode-hook 'company-rtags-setup)
+;(add-hook 'c++-mode-hook 'company-rtags-setup)
 (add-hook 'c++-mode-hook 'my/clike-mode-hook)
-(add-hook 'c-mode-hook 'flycheck-rtags-setup)
-(add-hook 'c++-mode-hook 'flycheck-rtags-setup)
+;(add-hook 'c-mode-hook 'flycheck-rtags-setup)
+;(add-hook 'c++-mode-hook 'flycheck-rtags-setup)
 (add-hook 'cmake-mode-hook 'company-cmake-setup)
 (add-hook 'org-mode-hook (lambda () (visual-line-mode) (org-indent-mode)))
 (add-hook 'prog-mode-hook 'linum-mode)
@@ -234,10 +234,10 @@
 (global-unset-key (kbd "C-x ]"))
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "M-C-\\"))
-(define-key c-mode-base-map (kbd "M-.")
-  (function rtags-find-symbol-at-point))
-(define-key c-mode-base-map (kbd "M-,")
-  (function rtags-find-references-at-point))
+;(define-key c-mode-base-map (kbd "M-.")
+;  (function rtags-find-symbol-at-point))
+;(define-key c-mode-base-map (kbd "M-,")
+;  (function rtags-find-references-at-point))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; interactivity

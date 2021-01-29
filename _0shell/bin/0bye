@@ -1,0 +1,33 @@
+#! /usr/bin/env tclsh
+
+source $::env(HOME)/bin/lib.tcl
+
+need 0temper pkill swaylock swaymsg
+
+set arg [lindex $::argv 0]
+switch -- $arg {
+  e - o - q - x - logout - z - sleep - b - r - reboot - h - s - shutdown {
+    exec 0temper
+    #catch {exec pkill pulseaudio}
+  }
+}
+
+switch -- $arg {
+  z - sleep {}
+  default {
+    catch {exec pkill dbus-daemon}
+    catch {exec pkill dbus-launch}
+  }
+}
+
+switch -- $arg {
+  k - o - lock { if {{w} eq $SESS} { exec swaylock -f -c 000000; } }
+  e - l - q - x - logout {
+    if {{w} eq $SESS} { exec swaymsg exit; }
+    if {{x} eq $SESS} { exec pkill cwm; }
+  }
+  z - sleep { exec sudo zzz }
+  b - r - reboot { exec sudo reboot }
+  h - s - shutdown { exec sudo halt }
+}
+

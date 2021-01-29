@@ -28,7 +28,7 @@ window#waybar.hidden { opacity: 0.2; }
   font-size: 22px;
   font-weight: 700;
 }
-#pulseaudio {
+#sndio {
   font-family: Agave, "Font Awesome 5 Pro Light", "Font Awesome 5 Pro Brands";
   font-size: 22px;
   font-weight: 700;
@@ -45,7 +45,7 @@ window#waybar.hidden { opacity: 0.2; }
 #temperature,
 #backlight,
 #network,
-#pulseaudio {
+#sndio {
   margin: 0 12px;
 }
 #workspaces { margin-right: 3px; }
@@ -79,7 +79,7 @@ window#waybar.hidden { opacity: 0.2; }
 #disk { color: #88c978; }
 #network { color: #c5c950; }
 #backlight { color: #ddac4f; }
-#pulseaudio { color: #dd9585; }
+#sndio { color: #dd9585; }
 #battery { color: #dd6e2e; }
 #battery.charging { color: #a04611; }
 #tray { color: #000000; }

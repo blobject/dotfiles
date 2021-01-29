@@ -14,7 +14,7 @@
     "disk",
     "network",
     "backlight",
-    "pulseaudio",
+    "sndio",
     "battery",
     "tray"
   ],
@@ -79,23 +79,31 @@
     "interval": 60,
     "format": " {percent}"
   },
-  "pulseaudio": {
-    "scroll-step": 1,
-    "format": "{icon} {volume} {format_source}",
-    "format-bluetooth": " {icon} {volume} {format_source}",
-    "format-bluetooth-muted": " {icon} {format_source}",
-    "format-muted": " {format_source}",
-    "format-source": " {volume}",
-    "format-source-muted": "",
-    "format-icons": {
-      "default": ["", "", "", "", ""],
-      "hands-free": "",
-      "headphone": "",
-      "headset": "",
-      "phone": "",
-      "portable": ""
-    },
-    "on-click": "pavucontrol"
+  "sndio": {
+    //"scroll-step": 5,
+    //"format": "{volume}"
+    //"format": "{icon} {volume} {format_source}",
+    //"format-bluetooth": " {icon} {volume} {format_source}",
+    //"format-bluetooth: " {icon} {volume} {format_source}",
+    //"format-muted": " {format_source}",
+    //"format-source": " {volume}",
+    //"format-source-muted": "",
+    //"format-icons": {
+    //  "default": ["", "", "", "", ""],
+    //  "hands-free": "",
+    //  "headphone": "",
+    //  "headset": "",
+    //  "phone": "",
+    //  "portable": ""
+    //},
+    //"on-click": "pavucontrol"
+    "format": " {volume}",
+    "format-bluetooth": "  {volume}",
+    "on-click-middle": "",
+    "on-click-right": "",
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "tooltip": false
   },
   "battery": {
     "interval": 30,

@@ -1,0 +1,90 @@
+#! /usr/bin/env tclsh
+
+source $::env(HOME)/bin/lib.tcl
+
+need grim jq slurp swaymsg notify-send
+
+set one [lindex $::argv 0]
+set two [lindex $::argv 1]
+set three [lindex $::argv 2]
+set dst $::env(HOME)/got
+set name "shot-[exec date +%s]."
+set cmd {grim}
+set geom {}
+set notify {notify-send -u normal -i image-x-generic}
+
+proc usage {} {
+  global ME dst
+  return "Usage: $ME \[active|*screen|select|window] \[jpg|*png] \[c]
+will save to: $dst"
+}
+
+if {3 < $argc} {
+  puts stderr "wrong number of arguments"
+  fail [usage] nome
+}
+
+if {{} ne $three} {
+  if {{c} eq $three} {
+    set three {-c }
+  } else {
+    puts stderr "unrecognised cursor enabling: $three"
+    fail [usage] nome
+  }
+}
+
+if {{} eq $two} {
+  set two png
+}
+
+if {{} eq $one} {
+  set one screen
+}
+
+switch -- $two {
+  j - jpg {
+    append name jpg
+    set two "$three-t jpeg -q 90"
+  }
+  p - png {
+    append name png
+    set two "$three-t png"
+  }
+  default {
+    puts stderr "unrecognised image type: $two"
+    fail [usage] nome
+  }
+}
+
+switch -- $one {
+  active {
+    set foc [exec swaymsg -t get_tree | jq -r {recurse(.nodes[]?, .floating_nodes[]?) | select(.focused)}]
+    set geom [exec echo $foc | jq -r {.rect | "\(.x),\(.y) \(.width)x\(.height)"}]
+    set geom [list -g $geom]
+  }
+  screen {}
+  select {
+    catch {set geom [exec slurp -d]}
+    if {{} eq $geom} {
+      puts "$ME: select shot canceled"
+      exit
+    }
+    set geom [list -g $geom]
+  }
+  window {
+    catch {set geom [exec swaymsg -t get_tree | jq -r {.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"} | slurp]}
+    if {{} eq $geom} {
+      puts "$ME: window shot canceled"
+      exit
+    }
+    set geom [list -g $geom]
+  }
+  default {
+    puts stderr "unrecognised command: $one"
+    fail [usage] nome
+  }
+}
+
+exec {*}$cmd {*}$two {*}$geom $dst/$one$name
+exec {*}$notify shot $one$name
+

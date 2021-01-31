@@ -1,6 +1,7 @@
 # qutebrowser config, emacs-like
 # config version 2
 
+config.load_autoconfig(False)
 c.confirm_quit = ['always']
 c.history_gap_interval = 30
 c.new_instance_open_target = 'tab'
@@ -226,17 +227,17 @@ c.bindings.commands['normal'] = {
   '<ctrl-x>O':           'set-cmd-text :open -t {url:pretty}',
   '<ctrl-x><alt-o>':     'set-cmd-text :open -w {url:pretty}',
   '<ctrl-x>:':           'set-cmd-text :open -b {url:pretty}',
-  '<return>':            'follow-selected',
-  '<shift-return>':      'follow-selected -t',
-  '<alt-return>':        'follow-selected -w',
-  '<ctrl-shift-return>': 'follow-selected -p',
+  '<return>':            'selection-follow',
+  '<shift-return>':      'selection-follow -t',
+  '<alt-return>':        'selection-follow -w',
+  '<ctrl-shift-return>': 'selection-follow -p',
   # focus
-  'i':              'enter-mode insert',
+  'i':              'mode-enter insert',
   'I':              'hint inputs',
-  '<ctrl-w>e':      'open-editor',
+  '<ctrl-w>e':      'edit-text',
   '<ctrl-w>o':      'devtools-focus',
-  '<ctrl-w>p':      'enter-mode passthrough',
-  '<ctrl-w>v':      'enter-mode caret',
+  '<ctrl-w>p':      'mode-enter passthrough',
+  '<ctrl-w>v':      'mode-enter caret',
   ';':              'hint all',
   ':':              'hint all tab',
   '<ctrl-shift-:>': 'hint all tab-bg --rapid',
@@ -297,7 +298,7 @@ c.bindings.commands['normal'] = {
   '<alt-p>':          'tab-prev',
   '<alt-shift-n>':    'tab-move +',
   '<alt-shift-p>':    'tab-move -',
-  '<ctrl-x>b':        'set-cmd-text -s :buffer',
+  '<ctrl-x>b':        'set-cmd-text -s :tab-select',
   '<ctrl-x>k':        'tab-close',
   '<ctrl-x>x':        'tab-close -n',
   '<ctrl-x>m':        'tab-mute',
@@ -322,16 +323,14 @@ c.bindings.commands['normal'] = {
   '+': 'zoom-in',
 }
 c.bindings.commands['hint'] = {
-  '<escape>': 'leave-mode',
-  '<ctrl-g>': 'leave-mode',
+  '<escape>': 'mode-leave',
+  '<ctrl-g>': 'mode-leave',
 }
 c.bindings.commands['command'] = {
-  '<escape>':        'leave-mode',
-  '<ctrl-g>':        'leave-mode',
+  '<escape>':        'mode-leave',
+  '<ctrl-g>':        'mode-leave',
   '<Down>':          'completion-item-focus next',
   '<Up>':            'completion-item-focus prev',
-  '<Right>':         'completion-item-focus next-category',
-  '<Left>':          'completion-item-focus prev-category',
   '<ctrl-n>':        'completion-item-focus next',
   '<ctrl-p>':        'completion-item-focus prev',
   '<alt-n>':         'command-history-next',
@@ -339,6 +338,8 @@ c.bindings.commands['command'] = {
   '<return>':        'command-accept',
   '<tab>':           'completion-item-focus next-category',
   '<shift-tab>':     'completion-item-focus prev-category',
+  '<Right>':         'rl-forward-char',
+  '<Left>':          'rl-backward-char',
   '<ctrl-f>':        'rl-forward-char',
   '<ctrl-b>':        'rl-backward-char',
   '<alt-f>':         'rl-forward-word',
@@ -352,8 +353,8 @@ c.bindings.commands['command'] = {
   '<ctrl-y>':        'rl-yank',
 }
 c.bindings.commands['insert'] = {
-  '<escape>':        'leave-mode',
-  '<ctrl-g>':        'leave-mode',
+  '<escape>':        'mode-leave',
+  '<ctrl-g>':        'mode-leave',
   '<ctrl-f>':        'fake-key <Right>',
   '<ctrl-b>':        'fake-key <Left>',
   '<ctrl-a>':        'fake-key <Home>',
@@ -368,10 +369,10 @@ c.bindings.commands['insert'] = {
   '<ctrl-y>':        'insert-text {primary}',
 }
 c.bindings.commands['caret'] = {
-  '<escape>':           'leave-mode',
-  '<ctrl-g>':           'leave-mode',
-  '<ctrl-space>':       'toggle-selection',
-  '<ctrl-shift-space>': 'toggle-selection --line',
+  '<escape>':           'mode-leave',
+  '<ctrl-g>':           'mode-leave',
+  '<ctrl-space>':       'selection-toggle',
+  '<ctrl-shift-space>': 'selection-toggle --line',
   '<ctrl-f>':           'move-to-next-char',
   '<ctrl-b>':           'move-to-prev-char',
   '<ctrl-a>':           'move-to-start-of-line',
@@ -384,12 +385,12 @@ c.bindings.commands['caret'] = {
   '<ctrl-shift-n>':     'move-to-start-of-document',
 }
 c.bindings.commands['passthrough'] = {
-  '<ctrl-shift-g>': 'leave-mode',
+  '<ctrl-shift-g>': 'mode-leave',
 }
 c.bindings.commands['register'] = {
-  '<ctrl-g>': 'leave-mode',
+  '<ctrl-g>': 'mode-leave',
 }
 c.bindings.commands['yesno'] = {
-  '<ctrl-g>': 'leave-mode',
+  '<ctrl-g>': 'mode-leave',
 }
 

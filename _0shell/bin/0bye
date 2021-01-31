@@ -5,8 +5,10 @@ source $::env(HOME)/bin/lib.tcl
 need 0temper pkill swaylock swaymsg
 
 set arg [lindex $::argv 0]
+
 switch -- $arg {
-  e - o - q - x - logout - z - sleep - b - r - reboot - h - s - shutdown {
+  k - o - lock {}
+  default {
     exec 0temper
     #catch {exec pkill pulseaudio}
   }

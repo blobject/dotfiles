@@ -1,8 +1,0 @@
-- .alacritty.yml
-- cfg/unstowed/alacritty_*.yml
-- .emacs.d/init.el
-- .config/waybar/style.css
-- .config/mako/config
-- .config/sway/config
-- .xresources
-- qutebrowser settings

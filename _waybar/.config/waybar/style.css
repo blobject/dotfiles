@@ -1,5 +1,5 @@
 * { border: none; border-radius: 0; min-height: 0; }
-window#waybar { background-color: #000000; color: #d2d6de; }
+window#waybar { background-color: #000000; color: #575a61; }
 window#waybar.hidden { opacity: 0.2; }
 #workspaces button {
   font-family: "Font Awesome 5 Pro Light";
@@ -11,6 +11,7 @@ window#waybar.hidden { opacity: 0.2; }
   font-family: "Font Awesome 5 Pro Solid";
 }
 #mode,
+#idle_inhibitor,
 #clock,
 #battery,
 #cpu,
@@ -24,7 +25,7 @@ window#waybar.hidden { opacity: 0.2; }
   font-weight: 700;
 }
 #window {
-  font-family: Agave, "Font Awesome 5 Pro", NanumGothicCoding, "Source Han Sans";
+  font-family: Agave, monospace;
   font-size: 22px;
   font-weight: 700;
 }
@@ -39,19 +40,22 @@ window#waybar.hidden { opacity: 0.2; }
 }
 #clock,
 #battery,
-#cpu,
+#temperature,
 #memory,
 #disk,
-#temperature,
-#backlight,
 #network,
 #sndio {
   margin: 0 12px;
 }
 #workspaces { margin-right: 3px; }
+#workspaces button { margin-right: 4px; padding: 0; min-width: 25px; }
+#workspaces button:hover { background: none; text-shadow: none; box-shadow: none; }
 #mode { margin-left: 7px; margin-right: 5px; }
 #window { margin-left: 3px; margin-right: 0; }
-#cpu { margin-right: 0; }
+#cpu { margin-left: 12px; }
+#backlight { margin-left: 12px; margin-right: 8px; }
+#idle_inhibitor { padding: 0 3px; margin-left: 2px; margin-right: 10px; }
+#idle_inhibitor.deactivated { margin-left: 0; margin-right: 9px; }
 #tray { margin-left: 8px; }
 #workspaces button.urgent,
 #temperature.critical,
@@ -59,28 +63,22 @@ window#waybar.hidden { opacity: 0.2; }
   color: #cf554d;
 }
 #workspaces button,
-#network.disconnected,
-#pulseaudio.muted {
-  color: #575a61;
+#window {
+  color: #92959d;
 }
-/*#idle_inhibitor { color: #d2d6de; background-color: #000000; }*/
-/*#idle_inhibitor.activated { color: #16161d; background-color: #d2d6de; }*/
-#workspaces button { margin-right: 4px; padding: 0; min-width: 25px; }
-#workspaces button:hover { background: none; text-shadow: none; box-shadow: none; }
 #workspaces button#sway-workspace-1.focused { color: #b9bdc5; }
 #workspaces button#sway-workspace-2.focused { color: #ba8d3b; }
 #workspaces button#sway-workspace-3.focused { color: #72a336; }
 #workspaces button#sway-workspace-4.focused { color: #667ad3; }
 #mode { color: #ba59b3; }
-#clock { color: #92959d; }
 #cpu { color: #7883c9; }
 #temperature { color: #545aa7; margin-left: 0; }
 #memory { color: #66b5c9; }
 #disk { color: #88c978; }
 #network { color: #c5c950; }
 #backlight { color: #ddac4f; }
+#idle_inhibitor.activated { background-color: #ddac4f; color: #16161d; }
 #sndio { color: #dd9585; }
 #battery { color: #dd6e2e; }
 #battery.charging { color: #a04611; }
-#tray { color: #000000; }
 

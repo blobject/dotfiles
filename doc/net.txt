@@ -1,3 +1,7 @@
+wifi:
+- /etc/modprobe.d/: options iwlwifi 11n_disable=8
+
+bluetooth:
 1. bluetoothctl
 2. > scan on
 3. > devices

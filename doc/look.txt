@@ -1,0 +1,32 @@
+colors:
+- .alacritty.yml
+- cfg/unstowed/alacritty_*.yml
+- .emacs.d/init.el
+- .config/waybar/style.css
+- .config/mako/config
+- .config/sway/config
+- .xresources
+
+cursor:
+- /etc/sddm.d/*.conf
+- .profile
+- .gtkrc-2.0
+- .config/gtk-3.0/settings.ini
+- .config/sway/config
+
+hidpi:
+- qutebrowser settings
+- /etc/sddm.d/*.conf
+- .profile
+- .config/sway/config
+- .alacritty.yml
+- .xresources
+- .gtkrc-2.0
+- .config/gtk-3.0/settings.ini
+- qtconfig-qt4
+- qt5ct
+- .emacs.d/init.el
+- .config/mako/config
+- .config/qutebrowser/config.py
+- .config/waybar/config,style.css
+

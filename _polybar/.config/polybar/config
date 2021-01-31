@@ -19,7 +19,7 @@ b = #a04611
 bb = #dd6e2e
 
 [bar/0bar]
-monitor = ${env:MONITOR:eDP1}
+monitor = ${env:MONITOR:eDP-1}
 override-redirect = false
 bottom = false
 fixed-center = false
@@ -33,11 +33,10 @@ radius = 0.0
 padding = 0
 dpi-x = 200
 dpi-y = 200
-font-0 = "Agave:size=9:style=bold;3"
-font-1 = "Font Awesome 5 Pro:style=Light:size=8;3"
-font-2 = "Font Awesome 5 Pro:style=Regular:size=8;3"
-font-3 = "NanumGothicCoding:size=8:style=bold;3"
-font-4 = "Source Han Sans:size=8:style=bold;3"
+font-0 = "Agave:size=8:style=bold;3"
+font-1 = "Font Awesome 5 Pro:style=Light bold:size=7;2"
+font-2 = "NanumGothicCoding:size=7:style=bold;3"
+font-3 = "Source Han Sans:size=7:style=bold;3"
 modules-left = ewmh xwindow
 modules-right = date cpu temperature memory filesystem network backlight battery
 separator = "  "
@@ -50,16 +49,21 @@ cursor-scroll = ns-resize
 
 [module/ewmh]
 type = internal/xworkspaces
-pin-workspaces = false
+pin-workspaces = true
 enable-click = false
 enable-scroll = false
-label-active = %name%
+icon-0 = one;
+icon-1 = two;
+icon-2 = three;
+icon-3 = four;
+icon-default =
+label-active = %icon%
 label-active-foreground = ${colors.o}
-label-empty = %name%
+label-empty = %icon%
 label-empty-foreground = ${colors.dim}
-label-occupied = %name%
+label-occupied = %icon%
 label-occupied-foreground = ${colors.fg}
-label-urgent = %name%
+label-urgent = %icon%
 label-urgent-foreground = ${colors.red}
 format = <label-state>
 
@@ -67,7 +71,7 @@ format = <label-state>
 type = internal/xwindow
 label = %title:0:100:…%
 label-foreground = ${colors.em}
-label-empty = x
+label-empty = 
 format = <label>
 
 [module/date]
@@ -109,7 +113,7 @@ format = <label>
 type = internal/fs
 interval = 30.0
 mount-0 = /
-label-mounted =  %percentage_used%
+label-mounted =  %percentage_used%
 label-mounted-foreground = ${colors.d}
 format-mounted = <label-mounted>
 
@@ -119,7 +123,7 @@ interface = wlp0s20f3
 interval = 4.0
 label-connected =  %essid%
 label-connected-foreground = ${colors.w}
-label-disconnected =  x
+label-disconnected = 
 format-connected = <label-connected>
 format-disconnected = <label-disconnected>
 
@@ -137,7 +141,7 @@ format = <label>
 #interval = 4.0
 #label-volume =  %percentage%%
 #label-volume-foreground = ${colors.v}
-#label-muted =  muted
+#label-muted = 
 #format-volume = <label-volume>
 
 [module/battery]
@@ -147,9 +151,9 @@ adapter = ADP1
 poll-interval = 8.0
 ;full-at = 98
 time-format = %R
-label-charging =  %percentage%+%{F#997a8d}%consumption%(%time%)%{F-}
+label-charging =  %percentage%+%{F#997a8d}%consumption%(%time%)%{F-}
 label-discharging =  %percentage%!%{F#997a8d}%consumption%(%time%)%{F-}
-label-full =  full
+label-full = 
 label-charging-foreground = ${colors.b}
 label-discharging-foreground = ${colors.bb}
 label-full-foreground = ${colors.b}

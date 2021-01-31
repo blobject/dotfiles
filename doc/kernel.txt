@@ -1,11 +1,14 @@
  1. get kernel source
  2. `make oldconfig`, `make menuconfig`
  3. `make [CC=clang HOSTCC=clang]`
- 4. copy ./arch/x86_64/boot/bzImage to /boot/vmlinuz-VER
- 5. copy ./System.map to /boot/System.map-VER
+ 4. copy ./arch/x86_64/boot/bzImage to esp/EFI/linux/vmlinuz-VER
+ 5. copy ./System.map to esp/EFI/linux/System.map-VER
  6. `make [CC=clang HOSTCC=clang] modules_install`
- 7. `dracut --lz4 /boot/initramfs-VER.img VER`
- 8. edit /boot/EFI/refind/refind.conf
+ 7. `dracut -o "btrfs crypt dm lvm lunmask mdraid" esp/EFI/linux/initramfs-VER.img VER`
+ 8. update esp/EFI/linux/refind_linux.conf
+  - `mkrlconf`
+  - intel_iommu=igfx_off (disable iommu for gpu)
+  - intel_pstate=passive (enable schedutil cpu gov)
  9. `xbps-reconfigure -f virtualbox-ose-dkms`
   - for clang build: link /usr/bin/[g]cc to clang
 l0. cleanup in /boot, /lib/modules, /usr/src, /var/lib/dkms/virtualbox-ose

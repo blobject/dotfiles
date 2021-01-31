@@ -1,3 +1,5 @@
+pulse:
 - /etc/modprobe.d/: options snd_hda_intel model=dell-headset-multi
 - .config/pulse/daemon.conf
   - exit-idle-time = -1, regardless of device sleep, power saving, etc.
+

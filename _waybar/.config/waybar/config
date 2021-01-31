@@ -14,17 +14,11 @@
     "disk",
     "network",
     "backlight",
+    "idle_inhibitor",
     "sndio",
     "battery",
     "tray"
   ],
-  //"idle_inhibitor": {
-  //  "format": "{icon}",
-  //  "format-icons": {
-  //    "activated": "",
-  //    "deactivated": ""
-  //  }
-  //},
   "sway/workspaces": {
     "disable-click": false,
     "disable-scroll": true,
@@ -44,7 +38,7 @@
   },
   "clock": {
     "interval": 60,
-    "format": "<span foreground=\"#000000\"></span>{:%H:%M <span foreground=\"#575a61\">%a%d%b</span>}",
+    "format": "• {:<span foreground=\"#92959d\">%H:%M</span> %a%d%b}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
   "cpu": {
@@ -79,7 +73,15 @@
     "interval": 60,
     "format": " {percent}"
   },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
   "sndio": {
+    //pulseaudio
     //"scroll-step": 5,
     //"format": "{volume}"
     //"format": "{icon} {volume} {format_source}",

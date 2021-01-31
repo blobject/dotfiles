@@ -7,4 +7,4 @@ if {{relative} eq [file pathtype $::argv0]} {
 cd $::env(HOME)
 exec mkdir -p .config/qutebrowser .emacs.d .icons .local/share/applications bin
 cd $stowd
-exec stow {*}[glob _*]
+exec stow -v {*}[glob _*]

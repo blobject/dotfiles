@@ -2,7 +2,7 @@
 
 source $::env(HOME)/bin/lib.tcl
 
-need foliate imv kak libreoffice qutebrowser vlc zathura
+need foliate imv kak libreoffice mpv qutebrowser zathura
 
 set limit 64
 # Order matters, and "txt" goes last because it is not external,
@@ -12,7 +12,7 @@ dict set data 01doc {libreoffice false true
   "text/rtf application/msword application/vnd.ms-powerpoint application/vnd.openxmlformats application/vnd.oasis.opendocument"}
 dict set data 02img {imv         false true
   "image/"}
-dict set data 03med {vlc         false true
+dict set data 03med {mpv         false true
   "audio/ video/ /ogg application/vnd.rn-realmedia"}
 dict set data 04scn {zathura     true  true
   "application/pdf application/x-pdf img/vnd.djvu img/x-djvu"}
@@ -156,5 +156,6 @@ dict for {type files} [prep [dict create]] {
   }
 }
 foreach t $tasks {
-  exec {*}[lindex $t 0] {*}[lindex $t 1]
+  exec nohup {*}[lindex $t 0] {*}[lindex $t 1] &
 }
+

@@ -84,35 +84,33 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 1. *boot:* refind (remove grub)
 1. *net:* installer already set up wpa_supplicant stuff, so reuse it
   - ~wpa_supplicant -i $dev -c /etc/wpa_supplicant/wpa_supplicant-$dev.conf~
+  - use cloudflare dns servers in /etc/dhcpcd.conf
 1. *kbd:* /usr/share/{kbd/keymaps/i386,X11/xkb/symbols}
-1. *repo:* void-repo-{multilib,nonfree}[-nonfree]
+1. *repo:* void-repo-{multilib,nonfree}{-nonfree,}
 1. /immediate goodness:/ bash-completion, chronyd, socklog, tlp
   - link: /etc/tlp.d
 1. *shell/cmdline/oldconfig:* tcl, git, stow, tmux, ripgrep, fd, rlwrap, p7zip, lz4
   - note: stow will link the minimal nonexistent path, so any later addition under an over-inclusively linked dir will reside in the stowable repository (hence the mkdirs in =stow.tcl=)
-1. *hw:* various firmware, intel-ucode, intel-video-accel, mesa-dri, xf86-input-mtrack
+1. *hw:* various firmware, intel-ucode, intel-video-accel, mesa-dri, mesa-vulkan-intel, xf86-input-mtrack
 1. *sess:* elogind, dbus-elogind, sddm, sway, xwayland, xorg-minimal, cwm, setxkbmap, xrdb, xset, xterm, alacritty, qt5-wayland (for qutebrowser, etc.)
   - links: /etc/sddm.conf.d, /etc/X11/xorg.conf.d
   - ~chmod u+s /usr/bin/sway~ for seat-related headache
   - power management events handled by elogind, not acpid
 1. *edit:* emacs, vim, kakoune
-1. *util:* snooze, rsync, bemenu, wpa_gui, blueman-tray, light, acpilight, gammastep-indicator, mako, waybar, libappindicator, qt5ct, grim, slurp, jq, wev, wl-clipboard, xrandr, xwallpaper, polybar, xdg-utils, psmisc
-1. *snd:* sndio, alsa-sndio, aucatctl, alsa-utils, bluez-alsa, cmixer
-  - fix and persist: =alsamixer= then ~alsactl store~
-  - check device number in alsa, put it in /etc/sv/sndiod/conf
-  - use aucatctl for volume adjustment, amixer for muting
-  - define bluetooth devices in alsa
-1. *dev:* base-devel, clang, llvm, chez, elixir, ghc, go, guile, lua, mono, msbuild-bin, openjdk, rustup, sbcl, squeak, swi-prolog, dfu-programmer, catch2, cmake, gdb, valgrind
-1. *apps* & *fun:* gnupg2, qutebrowser, firefox-esr, imagemagick, imv, vlc, ffmpeg, zathura, pdf.js, libreoffice, foliate, texlive, gimp, inkscape, mypaint, fontforge, papirus-icon-theme, breeze-obsidian-cursor-theme, breeze-icons, cataclysm-dda, skype, steam, virtualbox-ose
+1. *util:* rsync, snooze, psmisc, ytop, bemenu, mako, waybar, libappindicator, wpa_gui, blueman-tray, light, acpilight, gammastep-indicator, qt5ct, grim, slurp, jq, wev, wl-clipboard, xrandr, xwallpaper, polybar, xdg-utils
+1. *snd:* pipewire, alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg, libspa-v4l2, libspa-vulkan, ponymix, pavucontrol
+  - ~ln -s /usr/share/alsa/alsa.conf.d/*-pipewire*.conf /etc/alsa/conf.d/~
+  - enable pipewire-pulse in /etc/pipewire/pipewire.conf
+1. *dev:* base-devel, clang, llvm, chez, elixir, ghc, go, guile, lua, mono, msbuild, openjdk, qt5-{declarative,quickcontrols2}-devel, rustup, sbcl, squeak, swi-prolog, tk, dfu-programmer, catch2, cmake, gdb, valgrind
+1. *apps* & *fun:* gnupg2, qutebrowser, firefox-esr, imagemagick, imv, mpv, ffmpeg, zathura, pdf.js, libreoffice, foliate, texlive, gimp, inkscape, mypaint, fontforge, papirus-icon-theme, breeze-obsidian-cursor-theme, breeze-icons, cataclysm-dda, skype, steam, virtualbox-ose
   - steam: some 32bit libs, sdl stuff
 1. /off repo:/ cemant, fonts, zoom
-1. *kernel:* some headers (libelf, libressl) to make =make= work
-  - keep graphics modular, wayland seems to fail otherwise
-  - dracut
-  - update refind.conf
+1. *kernel:* dracut, some headers (libelf, libressl) to make =make= work
+  - keep graphics modular, wayland fails otherwise
+  - keep sound modular, headphone mic misbehaves otherwise
   - link: /etc/sysctl.conf
 
 /groups:/ wheel, lp, audio, video, kvm, users, xbuilder, vboxusers, bluetooth, socklog
 
-/services:/ agetty-*, alsa, bluetoothd, bluez-alsa, dbus, dhcpcd, nanoklogd, ntpd, sddm, sndiod, socklog-unix, tlp, udevd, uuidd, wpa_supplicant
+/daemons:/ agetty-*, bluetoothd, dbus, dhcpcd, nanoklogd, ntpd, sddm, socklog-unix, tlp, udevd, uuidd, wpa_supplicant
 

@@ -91,17 +91,14 @@ bindsym Mod4+Shift+r         reload
 bindsym Mod4+Shift+Escape    kill
 bindsym XF86MonBrightnessDown        exec '0lum -5 &'
 bindsym XF86MonBrightnessUp          exec '0lum +5 &'
-bindsym Mod4+s                       exec '0vol s &'
 bindsym XF86AudioMute                exec '0vol x &'
-bindsym XF86AudioLowerVolume         exec '0vol -4 &'
-bindsym XF86AudioRaiseVolume         exec '0vol +4 &'
-bindsym Control+XF86AudioLowerVolume exec '0vol -12 &'
-bindsym Control+XF86AudioRaiseVolume exec '0vol +12 &'
+bindsym XF86AudioLowerVolume         exec '0vol -5 &'
+bindsym XF86AudioRaiseVolume         exec '0vol +5 &'
 bindsym XF86AudioMicMute             exec '0vol mic x &'
-#bindsym Control+XF86AudioMute       exec '0vol bt x &'
-#bindsym Control+XF86AudioLowerVolume exec '0vol bt -4 &'
-#bindsym Control+XF86AudioRaiseVolume exec '0vol bt +4 &'
-#bindsym Control+XF86AudioMicMute     exec '0vol bt mic x &'
+bindsym Control+XF86AudioMute        exec '0vol bt x &'
+bindsym Control+XF86AudioLowerVolume exec '0vol bt -5 &'
+bindsym Control+XF86AudioRaiseVolume exec '0vol bt +5 &'
+bindsym Control+XF86AudioMicMute     exec '0vol bt mic x &'
 bindsym Print                        exec '0shot screen png &'
 bindsym Control+Print                exec '0shot window png &'
 bindsym Shift+Print                  exec '0shot select png &'
@@ -114,12 +111,12 @@ bindsym Mod4+e           exec 'emacs &'
 bindsym Mod4+t           exec 'alacritty &'
 bindsym Mod4+w           exec 'qutebrowser &'
 bindsym Mod4+Shift+w     exec 'firefox &'
-bindsym Mod4+Mod1+w exec '0tcl exec firefox --private-window --profile "$::env(HOME)/p/firefox_proxy" 2>/dev/null &'
+bindsym Mod4+Mod1+w exec '0tcl firefox --private-window --profile "$::env(HOME)/p/firefox_proxy" 2>/dev/null'
 exec 0snooze &
 exec 0temper &
-exec 0vol =64 &
 exec blueman-tray &
 exec gammastep-indicator -l manual -l 50.1:14.4 -m wayland -t 6500K:5500K &
 exec mako &
+exec pipewire &
 exec waybar &
 

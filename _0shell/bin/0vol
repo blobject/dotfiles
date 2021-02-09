@@ -2,194 +2,104 @@
 
 source $::env(HOME)/bin/lib.tcl
 
-need amixer aucatctl notify-send
-
-# - This script assumes that device volumes are fixed via `sudo alsactl
-#   store` and that muting/unmuting is the responsibility of only alsa.
-#   Volume modification, on the other hand, is done (only) through
-#   sndio's master, whose target device is set at /etc/sv/sndiod/conf.
-# - Muting/unmuting is done on alsa Master. On the back end, Speaker
-#   and Headphone are unmuted, but only one of them can be unmuted at
-#   any given time. A /tmp file will help ensure this.
-# - When muting, sndio's master is set to 0, but the /tmp file remembers
-#   the previous non-0 volume to which it will return when unmuted.
+need ponymix notify-send
 
 # vars
 
-set tmpf $TMPD/0vol
-set card 3 ;# per kernel + alsa detection
-set max 127
-set dev_laptop Speaker
-set dev_lapmic Capture
-set dev_phones Headphone
-set cmd_mut "amixer -c $card"
-set cmd_vol {aucatctl master}
-set cmd {notify-send -u low -t 2000 -i}
+set devs [dict create \
+  laptop alsa_output.pci-0000:00:1f.3.analog-stereo \
+  mic    alsa_input.pci-0000:00:1f.3.analog-stereo \
+  cx     bluez_sink.00_1B_66_8C_6C_44.a2dp_sink \
+  clip   bluez_sink.00_12_6F_EE_F0_F7.a2dp_sink ]
+set dev {}
+set ismic false
+set base "ponymix --sink --device "
+set cmd {}
+set notify {notify-send -u low -t 2000 -i}
 
-# procs
+# which?
 
-proc get_mut {dev} {
-  global cmd_mut
-  set m [exec {*}$cmd_mut get $dev]
-  set mute true
-  regexp {.*([fn])]} $m -> m
-  if {{n} eq $m} { set mute false }
-  return $mute
-}
-
-proc get_vol {} {
-  global cmd_vol
-  regexp {=([0-9]+)} [exec {*}$cmd_vol] -> vol
-  return $vol
-}
-
-proc get_cur {} {
-  global tmpf dev_phones
-  set dev $dev_phones
-  set vol [get_vol]
-  if {[file exists $tmpf]} {
-    set h [open $tmpf r]
-    set cur [read $h]
-    close $h
-    set dev [lindex $cur 0]
-    if {0 == $vol} { set vol [lindex $cur 1] }
-  }
-  return "$dev $vol"
-}
-
-proc set_vol {vol} {
-  # workaround for weird aucatctl behavior, sometimes ignoring commands
-  global cmd_vol
-  set cmd "$cmd_vol=$vol"
-  exec {*}$cmd
-  while {[get_vol] ne $vol} {
-    after 500
-    exec {*}$cmd
+if {{bt} ne [lindex $::argv 0]} {
+  set dev laptop
+} else {
+  set ::argv [lrange $::argv 1 end]
+  if [catch {exec ponymix --sink list | grep {: bluez_}}] {
+    exec {*}$notify network-bluetooth vol {no bt audio}
+    exit
+  } else {
+    switch -- [exec ponymix --sink list \
+               | grep {: bluez_} | head -1 | cut {-d } -f3] \
+      [dict get $devs cx]   { set dev cx } \
+      [dict get $devs clip] { set dev clip } \
+      default { fail {unrecognised device} }
   }
 }
+append base [dict get $devs $dev]
+set cmd $base
 
-proc save_cur {dev} {
-  global tmpf
-  set cur [get_cur]
-  set h [open $tmpf w]
-  puts $h "$dev [lindex $cur 1]"
-  close $h
-}
+# mic?
 
-proc perc {vol} {
-  global max
-  return [expr [expr $vol * 100] / $max]
-}
-
-# more vars
-
-set cur [get_cur]
-set dev [lindex $cur 0]
-set vol [lindex $cur 1]
-set muted [get_mut Master]
-set mic false
 if {{mic} eq [lindex $::argv 0]} {
   set ::argv [lrange $::argv 1 end]
-  set mic true
+  set ismic true
+  set base "ponymix --source --device "
+  if ![catch {exec ponymix --source list \
+       | grep [exec echo [dict get $devs $dev] | cut -d. -f2] \
+       | grep {\(source\.\|input\.\)} \
+       | cut {-d } -f3} \
+       micdev] {
+    append base $micdev
+  } else {
+    set dev laptop
+    append base [dict get $devs mic]
+  }
+  set cmd $base
 }
 
-# modify
+# build command
 
-set arg [lindex $::argv 0]
-set op [string index $arg 0]
-switch -- $op {
+switch -- [string index [lindex $::argv 0] 0] {
   {} {}
-  s {
-    foreach d "$dev_laptop $dev_phones" {
-      exec {*}$cmd_mut -q set $d off
-    }
-    set d $dev_phones
-    if {{H} eq [string index $dev 0]} {
-      set d $dev_laptop
-    }
-    exec {*}$cmd_mut -q set $d on
-    save_cur $d
-    set dev $d
+  x { append cmd { toggle} }
+  - { append cmd " decrease [string range $::argv 1 end]" }
+  + { append cmd " increase [string range $::argv 1 end]" }
+  default { fail "Usage: $ME \[bt\] \[mic\] ''|x|-N|+N" }
+}
+
+# execute ponymix
+
+exec {*}$cmd
+
+# build notification
+
+switch -- [string index [lindex $::argv 0] 0] {
+  {} {
+    set arg " audio-ready"
+    if {$ismic} { set arg " mic-ready" }
+    append notify "$arg vol \"$dev [exec {*}$base get-volume]%\""
   }
   x {
-    if {$mic} {
-      exec {*}$cmd_mut -q set $dev_lapmic toggle
-    } else {
-      exec {*}$cmd_mut -q set Master toggle
-      set v $vol
-      if {!$muted} { set v 0 }
-      set_vol $v
-      save_cur $dev
+    set arg " audio-off vol \"$dev muted\""
+    if {$ismic} { set arg " mic-off vol \"$dev muted\"" }
+    if [catch {exec {*}$base is-muted}] {
+      set arg " audio-on vol \"$dev on\""
+      if {$ismic} { set arg " mic-on vol \"$dev on\"" }
     }
+    append notify $arg
   }
-  = - + - {-} {
-    set v [string range $::argv 1 end]
-    if {{=} ne $op} {
-      set v [expr $vol $op $v]
-    }
-    if {$max < $v} { set vol $max }
-    if {1    > $v} { set vol 1}
-    set vol $v
-    set_vol $vol
-    save_cur $dev
+  - {
+    set arg " audio-volume-medium"
+    if {$ismic} { set arg " microphone-sensitivity-medium" }
+    append notify "$arg vol \"$dev [exec {*}$base get-volume]%\""
   }
-  default {
-    fail "Usage: $ME \[bt] \[mic] ''|s|x|-N|+N" nome
+  + {
+    set arg " audio-volume-high"
+    if {$ismic} { set arg " microphone-sensitivity-high" }
+    append notify "$arg vol \"$dev [exec {*}$base get-volume]%\""
   }
 }
 
 # notify
 
-set notify true
-switch -- [string index [lindex $::argv 0] 0] {
-  {} {
-    set d $dev
-    set icon audio-ready
-    set stat [perc $vol]%
-    if {$mic} {
-      set d $dev_lapmic
-      set icon mic-ready
-      set stat on
-      if {[get_mut $d]} {
-        set stat muted
-      }
-    }
-    append cmd " $icon vol \"$d $stat\""
-  }
-  s {
-    append cmd " view-refresh vol \"using $dev\""
-  }
-  x {
-    set d $dev
-    set icon audio-off
-    set stat muted
-    if {$muted} {
-      set icon audio-on
-      set stat "on ([perc $vol]%)"
-    }
-    if {$mic} {
-      set d $dev_lapmic
-      set icon mic-on
-      set stat on
-      if {[get_mut $d]} {
-        set icon mic-off
-        set stat muted
-      }
-    }
-    append cmd " $icon vol \"$d $stat\""
-  }
-  - {
-    append cmd " audio-volume-medium vol \"$dev [perc $vol]%\""
-  }
-  + {
-    append cmd " audio-volume-high vol \"$dev [perc $vol]%\""
-  }
-  default {
-    set notify false
-  }
-}
-
-if {$notify} {
-  exec {*}$cmd
-}
+exec {*}$notify
 

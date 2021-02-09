@@ -2,7 +2,7 @@
 Type=Application
 Name=Agave tester
 Comment=Test Agave font with alacritty
-Exec=0tcl exec alacritty --config-file $::env(HOME)/cfg/unstowed/alacritty_agave.yml
+Exec=0tcl alacritty --config-file $::env(HOME)/cfg/unstowed/alacritty_agave.yml
 Icon=Alacritty
 Categories=TerminalEmulator;
 Encoding=UTF-8

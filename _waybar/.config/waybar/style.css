@@ -29,7 +29,7 @@ window#waybar.hidden { opacity: 0.2; }
   font-size: 22px;
   font-weight: 700;
 }
-#sndio {
+#pulseaudio {
   font-family: Agave, "Font Awesome 5 Pro Light", "Font Awesome 5 Pro Brands";
   font-size: 22px;
   font-weight: 700;
@@ -44,7 +44,7 @@ window#waybar.hidden { opacity: 0.2; }
 #memory,
 #disk,
 #network,
-#sndio {
+#pulseaudio {
   margin: 0 12px;
 }
 #workspaces { margin-right: 3px; }
@@ -66,6 +66,10 @@ window#waybar.hidden { opacity: 0.2; }
 #window {
   color: #92959d;
 }
+#network.disconnected,
+#pulseaudio.muted {
+  color: #575a61;
+}
 #workspaces button#sway-workspace-1.focused { color: #b9bdc5; }
 #workspaces button#sway-workspace-2.focused { color: #ba8d3b; }
 #workspaces button#sway-workspace-3.focused { color: #72a336; }
@@ -78,7 +82,7 @@ window#waybar.hidden { opacity: 0.2; }
 #network { color: #c5c950; }
 #backlight { color: #ddac4f; }
 #idle_inhibitor.activated { background-color: #ddac4f; color: #16161d; }
-#sndio { color: #dd9585; }
+#pulseaudio { color: #dd9585; }
 #battery { color: #dd6e2e; }
 #battery.charging { color: #a04611; }
 

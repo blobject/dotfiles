@@ -38,7 +38,7 @@ font-1 = "Font Awesome 5 Pro:style=Light bold:size=7;2"
 font-2 = "NanumGothicCoding:size=7:style=bold;3"
 font-3 = "Source Han Sans:size=7:style=bold;3"
 modules-left = ewmh xwindow
-modules-right = date cpu temperature memory filesystem network backlight battery
+modules-right = date cpu temperature memory filesystem network backlight pulseaudio battery
 separator = "  "
 wm-name = polybar
 tray-position = right
@@ -134,15 +134,15 @@ label =  %percentage%
 label-foreground = ${colors.l}
 format = <label>
 
-#[module/pulseaudio]
-#type = internal/pulseaudio
-#sink = alsa_output.pci-0000_00_1f.3.analog-stereo
-#use-ui-max = true
-#interval = 4.0
-#label-volume =  %percentage%%
-#label-volume-foreground = ${colors.v}
-#label-muted = 
-#format-volume = <label-volume>
+[module/pulseaudio]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_00_1f.3.analog-stereo
+use-ui-max = true
+interval = 4.0
+label-volume =  %percentage%%
+label-volume-foreground = ${colors.v}
+label-muted = 
+format-volume = <label-volume>
 
 [module/battery]
 type = internal/battery

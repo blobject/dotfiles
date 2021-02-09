@@ -15,7 +15,7 @@
     "network",
     "backlight",
     "idle_inhibitor",
-    "sndio",
+    "pulseaudio",
     "battery",
     "tray"
   ],
@@ -38,7 +38,7 @@
   },
   "clock": {
     "interval": 60,
-    "format": "• {:<span foreground=\"#92959d\">%H:%M</span> %a%d%b}",
+    "format": "<span foreground=\"#36383f\">•</span> {:<span foreground=\"#92959d\">%H:%M</span> %a%d%b}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
   "cpu": {
@@ -80,32 +80,32 @@
       "deactivated": ""
     }
   },
-  "sndio": {
-    //pulseaudio
-    //"scroll-step": 5,
-    //"format": "{volume}"
-    //"format": "{icon} {volume} {format_source}",
+  "pulseaudio": {
+    "format": "{icon} {volume} {format_source}",
     //"format-bluetooth": " {icon} {volume} {format_source}",
-    //"format-bluetooth: " {icon} {volume} {format_source}",
-    //"format-muted": " {format_source}",
-    //"format-source": " {volume}",
-    //"format-source-muted": "",
-    //"format-icons": {
-    //  "default": ["", "", "", "", ""],
-    //  "hands-free": "",
-    //  "headphone": "",
-    //  "headset": "",
-    //  "phone": "",
-    //  "portable": ""
-    //},
-    //"on-click": "pavucontrol"
-    "format": " {volume}",
-    "format-bluetooth": "  {volume}",
-    "on-click-middle": "",
-    "on-click-right": "",
+    "format-bluetooth": " {icon} {volume} {format_source}",
+    "format-muted": " {format_source}",
+    "format-source": " {volume}",
+    "format-source-muted": "<span foreground=\"#575a61\"></span>",
+    "format-icons": {
+      "default": ["", "", "", "", ""],
+      "hands-free": "",
+      "headphone": "",
+      "headset": "",
+      "phone": "",
+      "portable": ""
+    },
+    "on-click": "pavucontrol",
     "on-scroll-up": "",
-    "on-scroll-down": "",
-    "tooltip": false
+    "on-scroll-down": ""
+    //sndio
+    //"format": " {volume}",
+    //"format-bluetooth": "  {volume}",
+    //"on-click-middle": "",
+    //"on-click-right": "",
+    //"on-scroll-up": "",
+    //"on-scroll-down": "",
+    //"tooltip": false
   },
   "battery": {
     "interval": 30,

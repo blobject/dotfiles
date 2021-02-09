@@ -1,6 +1,6 @@
 max-visible=10
 sort=-time
-layer=top
+layer=overlay
 anchor=top-right
 font=Agave 24
 text-color=#d2d6deff

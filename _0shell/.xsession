@@ -1,5 +1,6 @@
 { 0snooze & } &
 { 0temper & } &
+{ pipewire & } &
 setxkbmap hsnt
 xrdb -merge $HOME/.xresources
 xset fp rehash r rate 250 30

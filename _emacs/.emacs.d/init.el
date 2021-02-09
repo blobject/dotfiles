@@ -4,6 +4,7 @@
 (require 'flycheck)
 ;(require 'flycheck-rtags)
 ;(require 'rtags)
+(ivy-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; linum
@@ -93,7 +94,7 @@
    '(("gnu" . "https://elpa.gnu.org/packages/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(cmake-mode flycheck flycheck-rtags flycheck-rust company-rtags csharp-mode elixir-mode haskell-mode markdown-mode rust-mode dot-mode expand-region multiple-cursors paredit rainbow-delimiters web-mode hlinum))
+   '(counsel swiper cmake-mode flycheck flycheck-rtags flycheck-rust company-rtags csharp-mode elixir-mode haskell-mode markdown-mode rust-mode dot-mode expand-region multiple-cursors paredit rainbow-delimiters web-mode hlinum))
  '(python-indent 2)
  '(read-quoted-char-radix 16)
  '(rust-indent-offset 2)
@@ -209,19 +210,29 @@
 (global-unset-key (kbd "<S-down-mouse-1>"))
 (global-unset-key (kbd "<S-down-mouse-2>"))
 (global-unset-key (kbd "<S-down-mouse-3>"))
+(global-unset-key (kbd "C-x ]"))
+(global-unset-key (kbd "C-z"))
+(global-unset-key (kbd "M-C-\\"))
 (global-set-key (kbd "M-n") (lambda () (interactive) (scroll-up 1)))
 (global-set-key (kbd "M-p") (lambda () (interactive) (scroll-down 1)))
 (global-set-key (kbd "C-M-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "C-M-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "C-M-<up>") 'shrink-window)
 (global-set-key (kbd "C-M-<down>") 'enlarge-window)
-;(global-set-key (kbd "M-x") 'counsel-M-x)
+
+(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "C-x b") 'counsel-switch-buffer)
+
 (global-set-key (kbd "C-,") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-;") 'my/select-current-line)
+
 ;(global-set-key (kbd "C-:") 'avy-goto-char-timer)
 (global-set-key (kbd "C-'") 'iy-go-up-to-char)
 (global-set-key (kbd "C-\"") 'iy-go-to-char-backward)
+
 (global-set-key (kbd "C-a") 'my/back-to-indentation-or-beginning)
 (global-set-key (kbd "C-o") 'my/open-next-line)
 (global-set-key (kbd "M-o") 'my/open-previous-line)
@@ -229,11 +240,9 @@
 (global-set-key (kbd "C-x /") 'my/toggle-selective-display)
 (global-set-key (kbd "C-x 2") 'my/vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'my/hsplit-last-buffer)
+
 ;(global-set-key (kbd "C-x g") 'magit-status)
 ;(global-set-key (kbd "C-x y") 'browse-kill-ring)
-(global-unset-key (kbd "C-x ]"))
-(global-unset-key (kbd "C-z"))
-(global-unset-key (kbd "M-C-\\"))
 ;(define-key c-mode-base-map (kbd "M-.")
 ;  (function rtags-find-symbol-at-point))
 ;(define-key c-mode-base-map (kbd "M-,")

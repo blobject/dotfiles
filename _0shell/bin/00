@@ -156,6 +156,6 @@ dict for {type files} [prep [dict create]] {
   }
 }
 foreach t $tasks {
-  exec nohup {*}[lindex $t 0] {*}[lindex $t 1] &
+  exec nohup {*}[lindex $t 0] {*}[lindex $t 1] >/dev/null 2>/dev/null &
 }
 

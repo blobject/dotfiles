@@ -108,7 +108,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 1. *kernel:* dracut, some headers (libelf, libressl) to make =make= work
   - keep graphics modular, wayland fails otherwise
   - keep sound modular, headphone mic misbehaves otherwise
-  - link: /etc/sysctl.conf
+  - links: /etc/modprobe.d, /etc/sysctl.conf
 
 /groups:/ wheel, lp, audio, video, kvm, users, xbuilder, vboxusers, bluetooth, socklog
 

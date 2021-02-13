@@ -1,22 +1,23 @@
-max-visible=10
+max-visible=4
 sort=-time
 layer=overlay
 anchor=top-right
-font=Agave 24
+font=Agave 22
 text-color=#d2d6deff
 background-color=#16161dff
-width=640
-margin=40
-padding=15
+height=256
+width=384
+margin=32
+padding=10
 border-size=20
 border-color=#d2d6deff
 progress-color=#3c56aaff
 icons=1
 max-icon-size=32
-icon-path=/usr/share/icons/breeze-dark:/usr/share/icons/hicolor
+icon-path=/usr/share/icons/breeze-dark
 markup=1
 actions=0
-format=%s <b>%b</b>
+format=<b>%s</b>\n%b
 default-timeout=8000
 group-by=summary
 
@@ -24,7 +25,7 @@ group-by=summary
 background-color=#a32c2dff
 
 [grouped=true]
-format=%s <b>%b</b>
+format=<b>%s</b>\n%b
 default-timeout=0
 ignore-timeout=1
 

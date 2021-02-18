@@ -6,46 +6,75 @@ source $::env(HOME)/bin/lib.tcl
 
 need rsync
 
-catch {exec cp -f $::env(HOME)/.local/share/qutebrowser/sessions/_autosave.yml $::env(HOME)/bak/qutebrowser_session.yml}
-
-set b qutebrowser
+set home $::env(HOME)
 set where $TMPD
 set flag .unpacked
-set data "\".local/share/$b webengine $b _webengine\" \
-          \".cache/$b webengine $b-cache _webengine\""
+set what qutebrowser
+set once "\"$home/.local/share/$what/sessions/default.yml \
+            $home/bak/${what}_session.yml\""
+#         parent                     link      stat       vola
+set cont "\"$home/.local/share/$what webengine _webengine $where/$what\" \
+          \"$home/.cache/$what       webengine _webengine $where/$what-cache\""
 
-proc refresh {root link vola stat} {
-  global flag
-  cd $root
+proc log {msg} {
+  global ME LOGW
 
-  if {![file readable $vola]} {
-    file mkdir $vola
+  set f [open $LOGW a]
+  puts $f "$ME: $msg"
+  close $f
+}
+
+proc to_disk {link stat flag} {
+  global LOGW
+
+  if {[catch {exec >>&$LOGW rsync --archive --verbose --delete --exclude $flag ./$link/ ./$stat/}]} {
+    log {error copying to disk}
   }
+}
+
+proc to_mem {stat link flag} {
+  log {omitting to-mem rsync messages}
+  if {[catch {exec >&/dev/null rsync --archive ./$stat/ ./$link/}]} {
+    log {error copying to mem}
+  }
+  # touch flag
+  close [open $link/$flag a]
+}
+
+proc backup {src dst} {
+  file copy -force -- $src $dst
+}
+
+proc refresh {root link stat vola} {
+  global flag
+
+  file mkdir $vola
   file attributes $vola -permissions 00700
+
+  cd $root
 
   if {{link} ne [file type $link] || $vola ne [file readlink $link]} {
     file rename $link $stat
     file link $link $vola
   }
 
-  puts "[file tail $::argv0]: $root/$link"
   if {[file exists $link/$flag]} {
-    if {[catch {exec rsync -av --delete --exclude $flag ./$link/ ./$stat/}]} {
-      puts {error copying to disk}
-    }
-  } else {
-    if {[catch {exec rsync -av ./$stat/ ./$link/}]} {
-      puts {error copying to mem}
-    }
-    close [open $link/$flag a]
+    to_disk $link $stat $flag
+    return
   }
+  to_mem $stat $link $flag
 }
 
 file mkdir $where
-foreach i $data {
-  refresh \
-    $::env(HOME)/[lindex $i 0] \
-    [lindex $i 1] \
-    $where/[lindex $i 2] \
-    [lindex $i 3]
+foreach i $once {
+  set src [lindex $i 0]
+  set dst [lindex $i 1]
+  log "(once) $src -> $dst"
+  backup $src $dst
+}
+foreach i $cont {
+  set root [lindex $i 0]
+  set link [lindex $i 1]
+  log "(cont) $root/$link"
+  refresh $root $link [lindex $i 2] [lindex $i 3]
 }

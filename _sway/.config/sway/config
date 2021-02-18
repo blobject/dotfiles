@@ -1,6 +1,6 @@
 exec_always {
   gsettings set org.gnome.desktop.interface cursor-size 64
-  gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Obsidian'
+  gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Snow'
   gsettings set org.gnome.desktop.interface font-name 'sans 18'
   gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
   gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
@@ -33,18 +33,19 @@ input 1267:12496:ELAN962C:00_04F3:30D0_Touchpad {
 output * bg ~/cfg/unstowed/back.jpg center
 output eDP-1 pos 0 1080 scale 1
 output DP-1 pos 120 0 scale 1
-seat seat0 xcursor_theme Breeze_Obsidian 64
-default_border          pixel 20
-default_floating_border pixel 20
-floating_maximum_size   2160 x 1416
-floating_minimum_size   100 x 20
-floating_modifier       Mod4 normal
-focus_follows_mouse     no
-font                    Monospace 14, Agave bold 16
-hide_edge_borders       smart
+seat seat0 xcursor_theme 'Breeze_Snow' 64
+default_border            pixel 20
+default_floating_border   pixel 20
+floating_maximum_size     2160 x 1416
+floating_minimum_size     100 x 20
+floating_modifier         Mod4 normal
+focus_follows_mouse       no
+font                      Monospace 14, Agave bold 16
+hide_edge_borders         smart
+titlebar_border_thickness 1
 client.focused          #3c56aa #3c56aa #d2d6de #667ad3 #3c56aa
 client.focused_inactive #575a61 #575a61 #d2d6de #36383f #575a61
-client.unfocused        #92959d #92959d #16161d #575a61 #92959d
+client.unfocused        #575a61 #92959d #16161d #575a61 #92959d
 client.urgent           #a32c2d #a32c2d #d2d6de #cf554d #a32c2d
 client.placeholder      #000000 #b9bdc5 #16161d #000000 #b9bdc5
 client.background       #b9bdc5
@@ -77,8 +78,7 @@ mode "resize" {
   bindsym Control+g mode "default"
 }
 bindsym Mod4+f               fullscreen
-bindsym Mod4+semicolon       splitv
-bindsym Mod4+Shift+semicolon splith
+bindsym Mod4+semicolon       splitt
 bindsym Mod4+period          layout toggle split
 bindsym Mod4+slash           layout tabbed
 bindsym Mod4+comma           floating toggle

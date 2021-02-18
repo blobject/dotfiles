@@ -23,16 +23,16 @@ scrolling:
   multiplier: 1
 font:
   normal:
-    family: monospace
-    style: Bold
+    family: Iosevka Custom
+    style: Semibold
   bold:
-    family: monospace
+    family: Iosevka Custom
     style: Bold
   italic:
-    family: monospace
+    family: Iosevka Custom
     style: Italic
   bold_italic:
-    family: monospace
+    family: Iosevka Custom
     style: Bold Italic
   size: 21.0
   #offset:

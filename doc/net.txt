@@ -9,3 +9,4 @@ bluetooth:
 5. > connect $dev
 6. > trust $dev
 7. > scan off
+

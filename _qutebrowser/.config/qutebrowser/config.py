@@ -2,7 +2,7 @@
 # config version 2
 
 config.load_autoconfig(False)
-c.confirm_quit = ['always']
+c.confirm_quit = ['never']
 c.history_gap_interval = 30
 c.new_instance_open_target = 'tab'
 c.session.lazy_restore = True

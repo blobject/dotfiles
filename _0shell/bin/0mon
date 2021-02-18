@@ -116,5 +116,5 @@ if {{} ne $cmd2} { exec {*}$cmd2 }
 
 # workaround: restart polybar on "northwest-most" monitor
 set ::env(MONITOR) [detect first]
-exec nohup polybar 0bar >>&$::env(HOME)/.xsession-errors &
+exec >>&$LOGX nohup polybar 0bar &
 

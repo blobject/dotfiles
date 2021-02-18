@@ -6,30 +6,57 @@ need 0temper pkill swaylock swaymsg
 
 set arg [lindex $::argv 0]
 
-switch -- $arg {
-  k - o - lock {}
-  default {
-    exec 0temper
-    #catch {exec pkill pulseaudio}
+proc kill {} {
+  catch {exec pkill dbus-daemon}
+  catch {exec pkill dbus-launch}
+  #catch {exec pkill pulseaudio}
+}
+
+proc save {} {
+  global LOGW LOGX
+
+  if {[file exists $LOGW]} {
+    file rename -force -- $LOGW $LOGW.old
+  }
+  if {[file exists $LOGX]} {
+    file rename -force -- $LOGX $LOGX.old
   }
 }
 
-switch -- $arg {
-  z - sleep {}
-  default {
-    catch {exec pkill dbus-daemon}
-    catch {exec pkill dbus-launch}
-  }
+proc sync {} {
+  exec 0temper
 }
 
 switch -- $arg {
-  k - o - lock { if {{w} eq $SESS} { exec swaylock -f -c 000000; } }
+
+  k - o - lock {
+    if {{w} eq $SESS} { exec swaylock -f -c 000000; }
+  }
+
   e - l - q - x - logout {
+    save
+    kill
     if {{w} eq $SESS} { exec swaymsg exit; }
     if {{x} eq $SESS} { exec pkill cwm; }
   }
-  z - sleep { exec sudo zzz }
-  b - r - reboot { exec sudo reboot }
-  h - s - shutdown { exec sudo halt }
+
+  z - sleep {
+    sync
+    exec sudo zzz
+  }
+
+  b - r - reboot {
+    save
+    sync
+    kill
+    exec sudo reboot
+  }
+
+  h - s - shutdown {
+    save
+    sync
+    kill
+    exec sudo halt
+  }
 }
 

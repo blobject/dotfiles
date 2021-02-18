@@ -1,4 +1,5 @@
 // /usr/share/X11/xkb/symbols/bow
+
 // Apply ctrl:nocaps, and make the Grave key an Escape key,
 // then make the right Alt key a Grave key.
 default partial alphanumeric_keys modifier_keys

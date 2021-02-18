@@ -1,3 +1,4 @@
+compile:
  1. get kernel source
  2. `make oldconfig`, `make menuconfig`
  3. `make [CC=clang HOSTCC=clang]`
@@ -12,4 +13,5 @@
   - `mkrlconf`
   - intel_iommu=igfx_off (disable iommu for gpu)
   - intel_pstate=passive (enable schedutil cpu gov)
-l1. cleanup in /boot, /lib/modules, /usr/src, /var/lib/dkms/virtualbox-ose
+11. cleanup in /boot, /lib/modules, /usr/src, /var/lib/dkms/virtualbox-ose
+

@@ -1,5 +1,7 @@
 #! /usr/bin/env tclsh
 
+set LOGW "$::env(HOME)/bak/wayland.log"
+set LOGX "$::env(HOME)/bak/x.log"
 set ME [file tail $::argv0]
 set TMPD "/tmp/_$::env(USER)"
 set SESS {}
@@ -17,10 +19,12 @@ proc err {s nome} {
   }
   puts stderr "$s"
 }
+
 proc fail {s nome} {
   err $s $nome
   exit 1
 }
+
 proc need {args} {
   foreach cmd $args {
     if [catch {exec which $cmd}] { fail "need $cmd"; }

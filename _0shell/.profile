@@ -19,13 +19,13 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 export GUILE_AUTO_COMPILE=0
 export QT_QPA_PLATFORMTHEME=qt5ct
-export XCURSOR_THEME=Breeze_Obsidian
+export XCURSOR_THEME=Breeze_Snow
 export XCURSOR_SIZE=64
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CONFIG_DIRS=/etc/xdg
 export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_DATA_DIRS='/usr/share:/usr/local/share'
+export XDG_DATA_DIRS=/usr/share:/usr/local/share
 export XDG_MENU_PREFIX=''
 
 ## session-specific

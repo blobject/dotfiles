@@ -67,7 +67,8 @@
     "format-ethernet": " {ipaddr}",
     "format-linked": " {ifname}",
     "format-disconnected": "",
-    "tooltip-format": "{ifname}: {ipaddr}/{cidr}"
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+    "on-click": "wpa_gui"
   },
   "backlight": {
     "interval": 60,

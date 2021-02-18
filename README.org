@@ -18,7 +18,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 |-------|-------------|
 | hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]], [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]], [[https://olkb.com/collections/planck][planck]], [[https://www.amazon.com/moko-keyboard/s?k=moko+keyboard][moko foldable]], [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]], [[https://www.logitech.com/en-us/product/m590-silent-wireless-mouse][m590]] |
 | env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://swaywm.org/][sway]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
-| look | 2160x1440, 100dpi, font size ~20pt, [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://github.com/mozilla/zilla-slab][zilla slab]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
+| look | 2160x1440, 100dpi, font size ~20pt, [[https://typeof.net/Iosevka/][iosevka]], [[https://github.com/blobject/agave][agave]], [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://rsms.me/inter/][inter]], [[https://github.com/mozilla/zilla-slab][zilla slab]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
 
 *** scripts
 
@@ -82,6 +82,8 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 
 1. *fs:* 512m vfat efi, rest xfs, swap as file
 1. *boot:* refind (remove grub)
+1. copy (not link!): /etc/sudoers.d
+  - be very careful about syntax and permissions
 1. *net:* installer already set up wpa_supplicant stuff, so reuse it
   - ~wpa_supplicant -i $dev -c /etc/wpa_supplicant/wpa_supplicant-$dev.conf~
   - use cloudflare dns servers in /etc/dhcpcd.conf
@@ -91,7 +93,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
   - link: /etc/tlp.d
 1. *shell/cmdline/oldconfig:* tcl, git, stow, tmux, ripgrep, fd, rlwrap, p7zip, lz4
   - note: stow will link the minimal nonexistent path, so any later addition under an over-inclusively linked dir will reside in the stowable repository (hence the mkdirs in =stow.tcl=)
-1. *hw:* various firmware, intel-ucode, intel-video-accel, mesa-dri, mesa-vulkan-intel, xf86-input-mtrack
+1. *hw:* various firmware, smartmontools, intel-ucode, intel-video-accel, mesa-dri, mesa-vulkan-intel, xf86-input-mtrack
 1. *sess:* elogind, dbus-elogind, sddm, sway, xwayland, xorg-minimal, cwm, setxkbmap, xrdb, xset, xterm, alacritty, qt5-wayland (for qutebrowser, etc.)
   - links: /etc/sddm.conf.d, /etc/X11/xorg.conf.d
   - ~chmod u+s /usr/bin/sway~ for seat-related headache
@@ -108,7 +110,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 1. *kernel:* dracut, some headers (libelf, libressl) to make =make= work
   - keep graphics modular, wayland fails otherwise
   - keep sound modular, headphone mic misbehaves otherwise
-  - links: /etc/modprobe.d, /etc/sysctl.conf
+  - links: /etc/modprobe.d, /etc/sysctl.d
 
 /groups:/ wheel, lp, audio, video, kvm, users, xbuilder, vboxusers, bluetooth, socklog
 

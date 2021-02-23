@@ -1,0 +1,12 @@
+dev:
+  wlroots-devel
+  tk-devel
+
+~/opt:
+  cemant
+  nuget.exe
+  zoom
+
+misc:
+  fonts
+

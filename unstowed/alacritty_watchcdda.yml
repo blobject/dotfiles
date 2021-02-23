@@ -1,28 +1,3 @@
-env:
-  TERM: xterm-color
-window:
-  dimensions:
-    columns: 129
-    lines: 52
-  dynamic_padding: false
-  title: watchcdda
-scrolling:
-  history: 64
-font:
-  normal:
-    family: Agave
-    style: Regular
-  bold:
-    family: Agave
-    style: Bold
-  italic:
-    family: Agave
-    style: Italic
-  bold_italic:
-    family: Agave
-    style: Bold Italic
-  size: 19.0
-draw_bold_text_with_bright_colors: true
 colors:
   primary:
     background: '#36383f'
@@ -45,4 +20,29 @@ colors:
     magenta: '#ba59b3'
     cyan:    '#4ea494'
     white:   '#d2d6de'
+draw_bold_text_with_bright_colors: true
+env:
+  TERM: xterm-color
+font:
+  normal:
+    family: Agave
+    style: Regular
+  bold:
+    family: Agave
+    style: Bold
+  italic:
+    family: Agave
+    style: Italic
+  bold_italic:
+    family: Agave
+    style: Bold Italic
+  size: 10.0
+scrolling:
+  history: 64
+window:
+  dimensions:
+    columns: 129
+    lines: 52
+  dynamic_padding: false
+  title: watchcdda
 

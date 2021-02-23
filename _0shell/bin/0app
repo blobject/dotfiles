@@ -7,7 +7,7 @@ need gtk-launch jq swaymsg
 set cache $TMPD/0app
 global dirs
 global apps
-set width 2160 ;# presumes laptop output
+set width 2300 ;# presumes laptop output
 set width_line [expr {[expr {$width / 16}] - 5}]
 set width_short [expr {$width_line / 2}]
 

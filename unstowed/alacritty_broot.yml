@@ -1,0 +1,21 @@
+env:
+  TERM: alacritty
+draw_bold_text_with_bright_colors: true
+font:
+  normal:
+    family: Iosevka Custom
+    style: Semibold
+  bold:
+    family: Iosevka Custom
+    style: Bold
+  italic:
+    family: Iosevka Custom
+    style: Italic
+  bold_italic:
+    family: Iosevka Custom
+    style: Bold Italic
+  size: 9
+window:
+  dynamic_padding: false
+  title: broot
+

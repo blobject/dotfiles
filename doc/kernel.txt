@@ -9,9 +9,10 @@ compile:
  8. `xbps-reconfigure -f virtualbox-ose-dkms`
   - for clang build: link /usr/bin/[g]cc to clang
  9. `dracut -o "btrfs crypt dm lvm lunmask mdraid" esp/initramfs-VER.img VER`
-10. update esp/refind_linux.conf
+10. check esp/refind_linux.conf
   - `mkrlconf`
-  - intel_iommu=igfx_off (disable iommu for gpu)
-  - intel_pstate=passive (enable schedutil cpu gov)
+  - intel_iommu=igfx_off
+  - intel_pstate=passive (enable schedutil)
+  - zswap.max_pool_percent=30
 11. cleanup in /boot, /lib/modules, /usr/src, /var/lib/dkms/virtualbox-ose
 

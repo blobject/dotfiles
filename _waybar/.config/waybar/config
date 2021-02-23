@@ -31,7 +31,7 @@
     }
   },
   "sway/mode": {
-    "format": "<span foreground=\"#000000\"></span>{}"
+    "format": "{}"
   },
   "sway/window": {
     "format": "<span foreground=\"#000000\"></span>{}"
@@ -121,7 +121,7 @@
     "format-plugged": " {capacity}"
   },
   "tray": {
-    "icon-size": 24,
+    "icon-size": 10,
     "spacing": 4
   },
 }

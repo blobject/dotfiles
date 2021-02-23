@@ -1,6 +1,3 @@
-env:
-  TERM: alacritty
-live_config_reload: false
 colors:
   primary:
     foreground: '#b9bdc5' # default
@@ -34,6 +31,8 @@ colors:
     cyan:    '#4ea494'
     white:   '#d2d6de'
 draw_bold_text_with_bright_colors: true
+env:
+  TERM: alacritty
 font:
   normal:
     family: Agave
@@ -48,6 +47,7 @@ font:
     family: Agave
     style: Bold Italic
   size: 11
+live_config_reload: false
 scrolling:
   history: 64
 window:

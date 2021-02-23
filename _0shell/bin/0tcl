@@ -1,4 +1,4 @@
 #! /usr/bin/env tclsh
 
-eval exec nohup {*}$::argv &
+catch {eval exec {*}$::argv &}
 

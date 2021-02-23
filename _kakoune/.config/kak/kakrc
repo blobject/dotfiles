@@ -1,10 +1,31 @@
-add-highlighter global/ number-lines -hlcursor
-add-highlighter global/ regex \h+$ 0:Error
-add-highlighter global/ wrap
-map global normal <c-a> '*%s<ret>' -docstring 'select all'
-map global normal <c-p> '!wl-paste<space>--no-newline<ret>' -docstring 'paste clipboard'
-map global normal <c-y> '<a-|>wl-copy<ret>' -docstring 'yank selection into clipboard'
+colorscheme cemant
+set-option global grepcmd 'rg --line-number --with-filename'
 set-option global indentwidth 2
+set-option global modelinefmt '{white,rgb:b9bdc5}%sh{printf "${kak_bufname}" | sed "s_[^/]\+\$__" | sed "s_\([^/]\{,2\}\)[^/]*/_\1/_g"}{default,rgb:b9bdc5}%sh{printf "${kak_bufname}" | sed "s_^.*/__"}{bright-black}:%val{cursor_line}:%val{cursor_char_column}{{context_info}} {{mode_info}}'
+set-option global scrolloff 2,0
 set-option global tabstop 2
-set-option global ui_options ncurses_assistant=none
+set-option global ui_options ncurses_assistant=none ncurses_enable_mouse=yes ncurses_set_title=no ncurses_status_on_top=yes
+add-highlighter global/ number-lines -hlcursor -separator ' '
+add-highlighter global/ regex \h+$ 0:Error
+add-highlighter global/ regex '(FIXME|NOTE|TODO|WIP|XXX)' 0:default+br
+add-highlighter global/ show-matching
+add-highlighter global/ wrap
+map global normal <minus> 'vk'      -docstring 'scroll up one'
+map global normal <=>     'vj'      -docstring 'scroll down one'
+map global normal <_>     '8vk'     -docstring 'scroll up eight'
+map global normal <+>     '8vj'     -docstring 'scroll down eight'
+map global normal <'>     '_'       -docstring 'trim'
+map global normal <space> ':set-register slash ""<ret>' -docstring 'empty out search register'
+map global normal <a-space> '' # unmap not working :-/
+map global normal <a-d>   'Xd'      -docstring 'delete extended line'
+map global normal <c-g>   <space>   -docstring 'remove secondary selections'
+map global normal <c-a-g> <a-space> -docstring 'remove primary selection'
+map global normal <n>     'nvc'     -docstring 'select next search pattern and center view'
+map global normal <s-n>   'Nvc'     -docstring 'extend with next search pattern and center view'
+map global normal <a-n>   '<a-n>vc' -docstring 'select previous search pattern and center view'
+map global normal <a-s-n> '<a-s-n>vc' -docstring 'extend with previous search pattern and center view'
+map global normal <c-p>   '!wl-paste<space>--no-newline<ret>' -docstring 'paste clipboard'
+map global normal <a-v>   <c-b>     -docstring 'scroll up page'
+map global normal <c-v>   <c-f>     -docstring 'scroll down page'
+map global normal <c-y>   '<a-|>wl-copy<ret>' -docstring 'yank selection into clipboard'
 

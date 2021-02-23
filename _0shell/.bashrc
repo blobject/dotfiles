@@ -46,6 +46,28 @@ c()
       && echo "skipping ls ($count entries > $lim)" \
       || ls -AF --color=auto --time-style=long-iso; }; }
 
+## opt functions
+# taken from broot setup
+function br {
+  f=$(mktemp)
+  (
+	set +e
+	broot --outcmd "$f" "$@"
+	code=$?
+	if [ "$code" != 0 ]; then
+	    rm -f "$f"
+	    exit "$code"
+	fi
+  )
+  code=$?
+  if [ "$code" != 0 ]; then
+    return "$code"
+  fi
+  d=$(<"$f")
+  rm -f "$f"
+  eval "$d"
+}
+
 ## variables
 HISTCONTROL=ignoreboth
 HISTFILESIZE=65536
@@ -83,6 +105,7 @@ alias hsnt='0key qwerty'
 alias bc='bc -l'
 alias cp='cp -iv'
 alias fd='fd --hidden --no-ignore'
+alias le='less'
 alias ls='ls --color=auto --time-style=long-iso'
 alias l='ls -AF'
 alias ll='ls -lh'
@@ -103,7 +126,6 @@ alias g='git'
 alias k='kak'
 alias m='mpv'
 alias t='tmux'
-alias v='vim'
 alias ,='c ..'
 alias ,,='c ../..'
 alias ,,,='c ../../..'

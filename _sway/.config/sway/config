@@ -1,7 +1,7 @@
 exec_always {
-  gsettings set org.gnome.desktop.interface cursor-size 64
-  gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Snow'
-  gsettings set org.gnome.desktop.interface font-name 'sans 18'
+  #gsettings set org.gnome.desktop.interface cursor-size 32
+  #gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Snow'
+  gsettings set org.gnome.desktop.interface font-name 'sans 10'
   gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
   gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
 }
@@ -27,20 +27,25 @@ input 1267:12496:ELAN962C:00_04F3:30D0_Touchpad {
   dwt enabled
   middle_emulation enabled
   natural_scroll enabled
-  pointer_accel 0.25
+  pointer_accel 0.1
   tap enabled
 }
+input 1133:45083:M585/M590_Mouse {
+  dwt enabled
+  natural_scroll disabled
+  pointer_accel -0.5
+}
 output * bg ~/cfg/unstowed/back.jpg center
-output eDP-1 pos 0 1080 scale 1
-output DP-1 pos 120 0 scale 1
-seat seat0 xcursor_theme 'Breeze_Snow' 64
-default_border            pixel 20
-default_floating_border   pixel 20
-floating_maximum_size     2160 x 1416
-floating_minimum_size     100 x 20
+output eDP-1 pos 100 720 scale 2
+output DP-1 pos 0 0 scale 1.5
+seat seat0 xcursor_theme 'Breeze_Snow' 32
+default_border            pixel 10
+default_floating_border   pixel 10
+floating_maximum_size     1060 x 688
+floating_minimum_size     50 x 10
 floating_modifier         Mod4 normal
 focus_follows_mouse       no
-font                      Monospace 14, Agave bold 16
+font                      sans bold 7.5
 hide_edge_borders         smart
 titlebar_border_thickness 1
 client.focused          #3c56aa #3c56aa #d2d6de #667ad3 #3c56aa
@@ -49,7 +54,6 @@ client.unfocused        #575a61 #92959d #16161d #575a61 #92959d
 client.urgent           #a32c2d #a32c2d #d2d6de #cf554d #a32c2d
 client.placeholder      #000000 #b9bdc5 #16161d #000000 #b9bdc5
 client.background       #b9bdc5
-for_window [app_id="qutebrowser"] inhibit_idle fullscreen
 for_window [title="^watchcdda$"] floating enable
 bindsym Mod4+1       workspace number 1
 bindsym Mod4+2       workspace number 2
@@ -67,12 +71,12 @@ bindsym Mod4+Shift+h move left
 bindsym Mod4+Shift+j move down
 bindsym Mod4+Shift+k move up
 bindsym Mod4+Shift+l move right
-bindsym Mod4+r               mode "resize"
+bindsym Mod4+r       mode "resize"
 mode "resize" {
-  bindsym h resize shrink width  16px
-  bindsym j resize grow   height 16px
-  bindsym k resize shrink height 16px
-  bindsym l resize grow   width  16px
+  bindsym h resize shrink width  10px
+  bindsym j resize grow   height 10px
+  bindsym k resize shrink height 10px
+  bindsym l resize grow   width  10px
   bindsym Escape mode "default"
   bindsym Return mode "default"
   bindsym Control+g mode "default"
@@ -103,18 +107,21 @@ bindsym Print                        exec '0shot screen png &'
 bindsym Control+Print                exec '0shot window png &'
 bindsym Shift+Print                  exec '0shot select png &'
 bindsym Mod1+Print                   exec '0shot active png &'
-bindsym Mod4+Return exec '0app | bemenu -f --fn "Agave bold 22" -i -l 16 -m 1 -n -p ">" -P "-->" --scrollbar autohide -w --tb="#000000" --tf="#575a61" --fb="#000000" --ff="#cf554d" --nb="#000000" --nf="#92959d" --hb="#000000" --hf="#667ad3" --scb="#000000" --scf="#92959d" | 0app run'
+bindsym Mod4+Return exec '0app | bemenu -f --fn "Agave bold 11" -i -l 16 -m 1 -n -p ">" -P "-->" --scrollbar autohide -w --tb="#000000" --tf="#575a61" --fb="#000000" --ff="#cf554d" --nb="#000000" --nf="#92959d" --hb="#000000" --hf="#667ad3" --scb="#000000" --scf="#92959d" | 0app run'
 bindsym Mod4+space       exec 'makoctl dismiss &'
 bindsym Mod4+Shift+space exec 'makoctl dismiss -a &'
+bindsym Mod4+b           exec 'swaymsg -t get_tree | grep -q "\\"name\\": \\"br\\"" && swaymsg [title="^br$"] focus || 0tcl alacritty --config-file "$::env(HOME)/cfg/unstowed/alacritty_broot.yml" -t br -e bash -ic br'
+bindsym Mod4+Shift+b     exec '0tcl alacritty --config-file "$::env(HOME)/cfg/unstowed/alacritty_broot.yml" -t br -e bash -ic br'
+bindsym Mod4+Mod1+b      exec 'swaymsg [title="^br$"] resize set width 164px && swaymsg [title="^br$"] splitv'
 bindsym Mod4+c           exec 'swaynag -t warning -m "$(grim -g \"$(slurp -p)\" -t ppm - | convert - -format "%[pixel:p{0,0}]" txt:-)"'
 bindsym Mod4+e           exec 'emacs &'
 bindsym Mod4+t           exec 'alacritty &'
 bindsym Mod4+w           exec 'qutebrowser &'
-bindsym Mod4+Shift+w     exec 'firefox &'
-bindsym Mod4+Mod1+w exec '0tcl firefox --private-window --profile "$::env(HOME)/p/firefox_proxy" 2>/dev/null'
+bindsym Mod4+Shift+w     exec 'firefox-wayland &'
+bindsym Mod4+Mod1+w exec '0tcl firefox-wayland --private-window --profile "$::env(HOME)/p/firefox_proxy" 2>/dev/null'
 exec 0snooze &
 exec 0temper &
-exec blueman-tray &
+exec sleep 3 && blueman-tray &
 exec gammastep-indicator -l manual -l 50.1:14.4 -m wayland -t 6500K:5500K &
 exec mako &
 exec pipewire &

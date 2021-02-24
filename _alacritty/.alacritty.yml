@@ -30,7 +30,7 @@ font:
     style: Bold
   italic:
     family: Iosevka Custom
-    style: Italic
+    style: Semibold Italic
   bold_italic:
     family: Iosevka Custom
     style: Bold Italic

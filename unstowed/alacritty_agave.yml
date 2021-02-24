@@ -48,6 +48,8 @@ font:
     style: Bold Italic
   size: 11
 live_config_reload: false
+mouse:
+  hide_when_typing: true
 scrolling:
   history: 64
 window:

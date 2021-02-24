@@ -16,7 +16,11 @@ input 1:1:AT_Translated_Set_2_keyboard {
   repeat_delay 250
   repeat_rate 30
   xkb_layout hsnt
-  xkb_options ctrl:nocaps
+}
+input 65261:24672:OLKB_Planck_Keyboard {
+  repeat_delay 250
+  repeat_rate 30
+  xkb_layout hsnt
 }
 input 1256:28705:B.O.W_Keyboard {
   repeat_delay 250
@@ -114,7 +118,7 @@ bindsym Mod4+b           exec 'swaymsg -t get_tree | grep -q "\\"name\\": \\"br\
 bindsym Mod4+Shift+b     exec '0tcl alacritty --config-file "$::env(HOME)/cfg/unstowed/alacritty_broot.yml" -t br -e bash -ic br'
 bindsym Mod4+Mod1+b      exec 'swaymsg [title="^br$"] resize set width 164px && swaymsg [title="^br$"] splitv'
 bindsym Mod4+c           exec 'swaynag -t warning -m "$(grim -g \"$(slurp -p)\" -t ppm - | convert - -format "%[pixel:p{0,0}]" txt:-)"'
-bindsym Mod4+e           exec 'emacs &'
+bindsym Mod4+e           exec 'alacritty -e kak &'
 bindsym Mod4+t           exec 'alacritty &'
 bindsym Mod4+w           exec 'qutebrowser &'
 bindsym Mod4+Shift+w     exec 'firefox-wayland &'

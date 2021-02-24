@@ -1,12 +1,45 @@
 dev:
-  wlroots-devel
+  # graphics
+  glew-devel
+  glfw-devel
+  glm
+  opencl-clhpp
+  opencl2-headers
+  # planck
+  dfu-programmer
+  # qt
+  qt5-declarative-devel
+  qt5-quickcontrols2-devel
+  qt5-wayland
+  # window management
+  gdk-pixbuf-devel
+  pango-devel
   tk-devel
+  wlroots-devel
+
+manual (/usr/local):
+  intel opencl (neo)
 
 ~/opt:
   cemant
   nuget.exe
   zoom
 
-misc:
-  fonts
+~/.fonts:
+  agave
+  arial {,unicode ms}
+  font awesome pro
+  ms fonts
+  fira
+  helvetica neue
+  inter
+  iosevka
+  nanum
+  newyork
+  roboto
+  sanfrancisco
+  sarasa gothic
+  source {code,sans,serif} pro
+  titus cyberbit
+  zilla
 

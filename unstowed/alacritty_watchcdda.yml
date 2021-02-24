@@ -37,6 +37,8 @@ font:
     family: Agave
     style: Bold Italic
   size: 10.0
+mouse:
+  hide_when_typing: true
 scrolling:
   history: 64
 window:

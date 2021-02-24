@@ -8,7 +8,7 @@ counter-clockwise from northwest:
 [[https://github.com/Alexays/Waybar][waybar]],
 [[https://github.com/alacritty/alacritty][alacritty]] ([[https://github.com/dylanaraps/neofetch][neofetch]]),
 [[http://kakoune.org/][kakoune]],
-[[https://wayland.emersion.fr/grim/][grim]]+[[https://github.com/emersion/slurp][slurp]],
+[[https://wayland.emersion.fr/grim/][grim]],
 [[https://wayland.emersion.fr/mako/][mako]].
 wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3840x2160][link]].
 
@@ -18,7 +18,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 |-------|-------------|
 | hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]], [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]], [[https://olkb.com/collections/planck][planck]], [[https://www.amazon.com/moko-keyboard/s?k=moko+keyboard][moko foldable]], [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]], [[https://www.logitech.com/en-us/product/m590-silent-wireless-mouse][m590]] |
 | env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://swaywm.org/][sway]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
-| look | 2160x1440, 200dpi, font size ~10pt, [[https://typeof.net/Iosevka/][iosevka]], [[https://github.com/blobject/agave][agave]], [[https://fonts.google.com/specimen/Roboto+Mono][roboto mono]], [[https://rsms.me/inter/][inter]], [[https://github.com/mozilla/zilla-slab][zilla slab]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
+| look | 2160x1440, 200dpi, font size ~10pt, [[https://typeof.net/Iosevka/][iosevka]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
 
 *** scripts
 
@@ -28,7 +28,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 | *[[_0shell/bin/0app][0app]]* | list and launch =.desktop= files (dmenu companion) |
 | *[[_0shell/bin/0bat][0bat]]* | alert battery level |
 | *[[_0shell/bin/0bye][0bye]]* | stop session |
-| *[[_0shell/bin/0key][0key]]* | set key layout |
+| *[[_0shell/bin/0kbd][0kbd]]* | set key layout |
 | *[[_0shell/bin/0log][0log]]* | read system logs |
 | *[[_0shell/bin/0lum][0lum]]* | control brightness |
 | *[[_0shell/bin/0mon][0mon]]* | wrap [[https://www.x.org/wiki/Projects/XRandR/][xrandr]] |
@@ -82,43 +82,66 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 
 - initial ::
 1. *fs:* 512m vfat efi, swap as file
-1. *boot:* refind
-  - remove grub
-1. copy (not link!): /etc/sudoers.d
+1. *boot:* refind, remove grub
+1. copy (not link!): =/etc/sudoers.d=
   - be wary of syntax and permissions
 1. *net:* installer already set up wpa_supplicant stuff, so reuse it
   - ~wpa_supplicant -i $dev -c /etc/wpa_supplicant/wpa_supplicant-$dev.conf~
-  - /etc/dhcpcd.conf: cloudflare dns servers
-1. *kbd:* /usr/share/{kbd/keymaps/i386,X11/xkb/symbols}
+  - =/etc/dhcpcd.conf=: cloudflare dns servers
+1. *kbd:* =/usr/share/{kbd/keymaps/i386,X11/xkb/symbols}=
 1. *repo:* void-repo-{multilib,nonfree}{-nonfree,}
 1. /immediate goodness:/ bash-completion, chronyd, socklog, tlp
   - link: /etc/tlp.d
 
 - "usable" ::
-1. *shell/cmdline/oldconfig:* tcl, git, stow, tmux, ripgrep, fd, rlwrap, p7zip, lz4
-  - note: stow will link the minimal nonexistent path, so any later addition under an over-inclusively linked dir will reside in the stowable repository (hence the mkdirs in =stow.tcl=)
-1. *hw:* various firmware, smartmontools, intel-ucode, intel-video-accel, mesa-dri, mesa-vulkan-intel, xf86-input-mtrack
-1. *sess:* elogind, dbus-elogind, sddm, sway, xwayland, xorg-minimal, cwm, setxkbmap, xrdb, xset, xterm, alacritty, qt5-wayland (for qutebrowser, etc.)
-  - links: /etc/sddm.conf.d, /etc/X11/xorg.conf.d
+1. *shell:*
+  - /cmdline:/ tcl, git, tmux, ripgrep, fd
+  - /config:/ stow
+  - /util:/ rlwrap, p7zip, lz4
+  - stow will link the maximally existent path, so any addition to an over-inclusive dir link will begin to reside in the stowed (ie. this) repository -- hence the mkdirs in =stow.tcl= to make sure only the desired subtrees (usually leaves) become links
+1. *hw:*
+  - /blob:/ various firmware, intel-ucode
+  - /driver:/ intel-video-accel, mesa-dri, mesa-vulkan-intel, xf86-input-mtrack
+  - /util:/ smartmontools
+1. *sess:*
+  - /service:/ dbus-elogind, elogind, sddm, xorg-minimal, xwayland
+  - /wm:/ cwm, sway
+  - /util, lib:/ alacritty, qt5-wayland (for qutebrowser, etc.), setxkbmap, xrdb, xset, xterm
+  - links: =/etc/sddm.conf.d=, =/etc/X11/xorg.conf.d=
   - ~chmod u+s /usr/bin/sway~: seat-related headache
   - power management events handled by elogind, not acpid
-  - /usr/share/sddm/scripts/Xsetup: login screen kbd settings
-1. *edit:* emacs, vim, kakoune
-1. *util:* broot, psmisc, rsync, snooze, ytop, bemenu, mako, waybar, libappindicator, wpa_gui, blueman-tray, light, acpilight, gammastep-indicator, qt5ct, grim, slurp, jq, wev, wl-clipboard, xrandr, xwallpaper, polybar, xdg-utils
-  - ~xdg-mime default ...~: mime handling
-1. *snd:* pipewire, alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg, libspa-v4l2, libspa-vulkan, xdg-desktop-portal-wlr, ponymix, pavucontrol
+  - =/usr/share/sddm/scripts/Xsetup=: login screen kbd settings
+1. *edit:*
+  - emacs, kakoune, vim
+1. *util:*
+  - /fs:/ exfat-fuse, jmtpfs, lftp, rsync
+  - /look:/ acpilight, light, gammastep-indicator, grim, jq, slurp, xrandr, xwallpaper
+  - /monitor:/ blueman-tray, libappindicator, mako, polybar, powertop, psmisc, snooze, waybar, wpa_gui, ytop
+  - /shell:/ bemenu, broot, wev, wl-clipboard, xdg-utils
+  - =.config/mimeapps.list=: mime handling
+1. *snd:*
+  - /service:/ pipewire
+  - /lib:/ alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg, libspa-v4l2, libspa-vulkan, xdg-desktop-portal-wlr
+  - /util:/ ponymix, pavucontrol
   - ~ln -s /usr/share/alsa/alsa.conf.d/*-pipewire*.conf /etc/alsa/conf.d/~
-  - /etc/pipewire/pipewire.conf: enable pipewire-pulse
+  - =/etc/pipewire/pipewire.conf=: enable pipewire-pulse
 
 - more ::
-1. *dev:* base-devel, clang, llvm, chez, elixir, ghc, go, guile, lua, mono, msbuild, nodejs, openjdk, qt5-{declarative,quickcontrols2}-devel, rustup, sbcl, squeak, swi-prolog, tk, dfu-programmer, catch2, cmake, gdb, valgrind
-1. *apps* & *fun:* gnupg2, qutebrowser, firefox, imagemagick, imv, mpv, ffmpeg, zathura, pdf.js, libreoffice, foliate, texlive, gimp, inkscape, mypaint, fontforge, papirus-icon-theme, breeze-obsidian-cursor-theme, breeze-icons, cataclysm-dda, lftp, skype, steam, virtualbox-ose
+1. *dev:*
+  - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, lua, mono, nodejs, octave, openjdk, rustup, sbcl, squeak, swi-prolog, tk
+  - /util:/ catch2, cmake, gdb, msbuild, valgrind
+1. *app:*
+  - /media:/ foliate, fontforge, gimp, imagemagick, imv, inkscape, libreoffice, mpv, mypaint, ffmpeg, pdf.js, texlive-most, zathura
+  - /net:/ qutebrowser, firefox, skype
+  - /sec:/ gnupg2
+  - /fun:/ cataclysm-dda, steam, virtualbox-ose
+  - /look:/ breeze-icons, breeze-snow-cursor-theme, papirus-icon-theme, qt5ct
   - steam: some 32bit libs, sdl stuff
 1. *kernel:* dracut, some headers (libelf, libressl) to make =make= work
   - keep graphics modular, wayland fails otherwise
   - keep sound modular, headphone mic misbehaves otherwise
-  - params: intel_iommu=igfx_off, intel_pstate=passive, ro, zswap.max_pool_percent=30
-  - links: /etc/modprobe.d, /etc/sysctl.d
+  - params: intel_pstate=passive, ro, zswap.max_pool_percent=30
+  - links: =/etc/modprobe.d=, =/etc/sysctl.d=
 
 - groups ::
 wheel, lp, audio, video, kvm, users, xbuilder, vboxusers, bluetooth, socklog

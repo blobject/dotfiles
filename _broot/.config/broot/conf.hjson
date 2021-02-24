@@ -88,7 +88,7 @@
 		}
 		{
 			key: alt-g
-			execution: ":toggle_git_status"
+			execution: ":toggle_git_ignore"
 		}
 		{
 			key: alt-h

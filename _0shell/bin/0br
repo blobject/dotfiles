@@ -1,4 +1,0 @@
-#! /usr/bin/env tclsh
-
-exec alacritty -e bash -ic br
-

@@ -59,6 +59,7 @@ client.urgent           #a32c2d #a32c2d #d2d6de #cf554d #a32c2d
 client.placeholder      #000000 #b9bdc5 #16161d #000000 #b9bdc5
 client.background       #b9bdc5
 for_window [title="^watchcdda$"] floating enable
+for_window [title="^QEMU \("] floating enable
 bindsym Mod4+1       workspace number 1
 bindsym Mod4+2       workspace number 2
 bindsym Mod4+3       workspace number 3
@@ -125,7 +126,7 @@ bindsym Mod4+Shift+w     exec 'firefox-wayland &'
 bindsym Mod4+Mod1+w exec '0tcl firefox-wayland --private-window --profile "$::env(HOME)/p/firefox_proxy" 2>/dev/null'
 exec 0snooze &
 exec 0temper &
-exec sleep 3 && blueman-tray &
+exec sleep 5 && blueman-tray &
 exec gammastep-indicator -l manual -l 50.1:14.4 -m wayland -t 6500K:5500K &
 exec mako &
 exec pipewire &

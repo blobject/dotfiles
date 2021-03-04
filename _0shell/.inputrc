@@ -1,0 +1,6 @@
+$include /etc/inputrc
+$if Octave
+set enable-bracketed-paste off
+$else
+set enable-bracketed-paste on
+$endif

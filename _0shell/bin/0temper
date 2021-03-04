@@ -25,9 +25,11 @@ proc log {msg} {
 }
 
 proc to_disk {link stat flag} {
-  global LOGW
+  #global LOGW
 
-  if {[catch {exec >>&$LOGW rsync --archive --verbose --delete --exclude $flag ./$link/ ./$stat/}]} {
+  log {omitting to-disk rsync messages}
+  // to emit: exec >>&$LOGW
+  if {[catch {exec >&/dev/null rsync --archive --verbose --delete --exclude $flag ./$link/ ./$stat/}]} {
     log {error copying to disk}
   }
 }

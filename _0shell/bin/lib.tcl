@@ -20,9 +20,14 @@ proc err {s nome} {
   puts stderr "$s"
 }
 
-proc fail {s nome} {
+proc fail {s {nome nome}} {
   err $s $nome
   exit 1
+}
+
+proc usage {body} {
+  global ME
+  fail "Usage: $ME $body" nome
 }
 
 proc need {args} {

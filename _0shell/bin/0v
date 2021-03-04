@@ -1,0 +1,30 @@
+#! /usr/bin/env tclsh
+
+source $::env(HOME)/bin/lib.tcl
+
+need qemu-system-x86_64
+
+switch -- [lindex $::argv 0] {
+  w - win {
+    exec qemu-system-x86_64 -enable-kvm \
+      -cpu host \
+      -boot order=d \
+      -device intel-hda -device hda-duplex \
+      -device intel-iommu \
+      -device usb-ehci,id=ehci \
+      -device usb-host,bus=ehci.0,vendorid=1452 \
+      -drive file=$::env(HOME)/vm/win/win.img,if=virtio \
+      -m 2G \
+      -machine q35 \
+      -name win \
+      -net nic,model=virtio-net-pci \
+      -net user,hostname=v \
+      -smp cores=2 \
+      -usb \
+      -vga virtio \
+      {*}$::argv
+      #-audiodev pa,id=snd0 \
+      #-display sdl,gl=on \
+  }
+  default { usage {?|w_in} }
+}

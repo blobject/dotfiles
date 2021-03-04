@@ -13,15 +13,15 @@ set cmd {grim}
 set geom {}
 set notify {notify-send -u normal -i image-x-generic}
 
-proc usage {} {
-  global ME dst
-  return "Usage: $ME \[active|*screen|select|window] \[jpg|*png] \[c]
+proc body {} {
+  global dst
+  return "\[active|*screen|select|window] \[jpg|*png] \[c]
 will save to: $dst"
 }
 
 if {3 < $argc} {
   puts stderr "wrong number of arguments"
-  fail [usage] nome
+  usage [body]
 }
 
 if {{} ne $three} {
@@ -29,7 +29,7 @@ if {{} ne $three} {
     set three {-c }
   } else {
     puts stderr "unrecognised cursor enabling: $three"
-    fail [usage] nome
+    usage [body]
   }
 }
 
@@ -52,7 +52,7 @@ switch -- $two {
   }
   default {
     puts stderr "unrecognised image type: $two"
-    fail [usage] nome
+    usage [body]
   }
 }
 
@@ -81,7 +81,7 @@ switch -- $one {
   }
   default {
     puts stderr "unrecognised command: $one"
-    fail [usage] nome
+    usage [body]
   }
 }
 

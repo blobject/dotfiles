@@ -156,7 +156,7 @@ switch -- [lindex $::argv 0] {
     catch {exec nohup gtk-launch $app.desktop &}
   }
   default {
-    fail "Usage: $ME \[run]" nome
+    usage {[run]}
   }
 }
 

@@ -134,13 +134,11 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
   - /media:/ foliate, fontforge, gimp, imagemagick, imv, inkscape, libreoffice, mpv, mypaint, ffmpeg, pdf.js, texlive-most, zathura
   - /net:/ qutebrowser, firefox, skype
   - /sec:/ gnupg2
-  - /fun:/ cataclysm-dda, steam, virtualbox-ose
+  - /fun:/ cataclysm-dda, qemu, steam
   - /look:/ breeze-icons, breeze-snow-cursor-theme, papirus-icon-theme, qt5ct
   - steam: some 32bit libs, sdl stuff
 1. *kernel:* dracut, some headers (libelf, libressl) to make =make= work
-  - keep graphics modular, wayland fails otherwise
   - keep sound modular, headphone mic misbehaves otherwise
-  - params: intel_pstate=passive, ro, zswap.max_pool_percent=30
   - links: =/etc/modprobe.d=, =/etc/sysctl.d=
 
 - groups ::

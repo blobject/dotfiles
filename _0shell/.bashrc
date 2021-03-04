@@ -86,17 +86,17 @@ if [[ ! -S "$SSH_AUTH_SOCK" ]]; then
 fi
 
 ## aliases
+alias 0cam='mpv av://v4l2:/dev/video0 --profile=low-latency --untimed'
 alias 0clock='echo "$(date +%s) $(TZ=UTC date)"; echo "Prague:    $(date)"; echo "Reykjavik: $(TZ=Atlantic/Reykjavik date)"; echo "Riyadh:    $(TZ=Asia/Riyadh date)"; echo "Seoul:     $(TZ=Asia/Seoul date)"'
-#alias 0fonts="fc-list | sed 's/^.\+: //;s/:.\+$//;s/,.*$//' | sort -u | pr -2 -T"
 alias 0fonts="pango-list | grep '^[^ ]' | sort | pr -2 -T"
 alias 0ip='wget -qO - https://ipinfo.io/ip'
 alias 0mixon='pactl load-module module-loopback'
 alias 0mixoff='pactl unload-module module-loopback'
-alias 0proxy='ssh -CND 8815 188.166.105.125' # agaric.net
+alias 0proxy='ssh -CND 8815 188.166.105.125' # aga
 alias 0sndre='sudo sv restart sndiod && 0vol =77'
 alias 0sshadd='ssh-add $HOME/.ssh/id_rsa'
-alias 0topc="ps --no-headers c -Ao pcpu,pid,cmd | sort -grk1 | head -21 | column -t -N %,pid,cmd |"' cut -c-$(tput cols)'
-alias 0topm="ps --no-headers c -Ao pmem,rss,vsize,pid,args | awk '{if (\$2 > 10240) \$2=\$2/1024\"M\"; if (\$3 > 10240) \$3=\$3/1024\"M\";}{print;}' | sort -grk1 | head -21 | column -t -N %,rss,vsz,pid,cmd |"' cut -c-$(tput cols)'
+alias 0topc='ps -Ao pcpu,pid,cmd | sort -grk1 | head -17 | column -t -N %,pid,cmd | cut -c-$(tput cols)'
+alias 0topm="ps -Ao pmem,rss,vsize,pid,args | awk '{if (\$2 > 10240) \$2=\$2/1024\"M\"; if (\$3 > 10240) \$3=\$3/1024\"M\";}{print;}' | sort -grk1 | head -25 | column -t -N %,rss,vsz,pid,cmd |"' cut -c-$(tput cols)'
 alias asdf='0kbd hsnt'
 alias asdfb='0kbd hsnt; 0kbd bow'
 alias hsnt='0kbd qwerty'
@@ -122,10 +122,14 @@ alias sudo='sudo '
 alias guile='rlwrap -ci guile'
 alias tclsh='rlwrap -ci tclsh'
 alias wish='rlwrap -ci wish'
+alias d='df -h'
+alias f='free -m'
 alias g='git'
 alias k='kak'
 alias m='mpv'
+alias p='ps ax'
 alias t='tmux'
+alias u='du -hs'
 alias ,='c ..'
 alias ,,='c ../..'
 alias ,,,='c ../../..'

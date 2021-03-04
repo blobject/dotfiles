@@ -19,7 +19,7 @@ switch -- $arg {
     exec setxkbmap -option bow
   }
   default {
-    fail "Usage: $ME h_snt|q_werty|b_ow"
+    usage {h_snt|q_werty|b_ow}
   }
 }
 

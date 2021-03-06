@@ -37,6 +37,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 | *[[_0shell/bin/0snooze][0snooze]]* | wrap [[https://github.com/leahneukirchen/snooze][snooze]] |
 | *[[_0shell/bin/0tcl][0tcl]]* | like ~sh -c~ but for tcl |
 | *[[_0shell/bin/0temper][0temper]]* | [[https://wiki.archlinux.org/index.php/Firefox/Profile_on_RAM][sync browser]] data to [[https://en.wikipedia.org/wiki/Tmpfs][tmpfs]] |
+| *[[_0shell/bin/0v][0v]]* | wrap [[https://www.qemu.org/][qemu]] |
 | *[[_0shell/bin/0vol][0vol]]* | control volume |
 | *[[_0shell/bin/lib.tcl][lib.tcl]]* | help other =0*= tcl scripts |
 
@@ -83,7 +84,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 - initial ::
 1. *fs:* 512m vfat efi, swap as file
 1. *boot:* refind, remove grub
-1. copy (not link!): =/etc/sudoers.d=
+1. *sec:* copy (not link!): =/etc/sudoers.d=
   - be wary of syntax and permissions
 1. *net:* installer already set up wpa_supplicant stuff, so reuse it
   - ~wpa_supplicant -i $dev -c /etc/wpa_supplicant/wpa_supplicant-$dev.conf~
@@ -95,9 +96,8 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 
 - "usable" ::
 1. *shell:*
-  - /cmdline:/ tcl, git, tmux, ripgrep, fd
-  - /config:/ stow
-  - /util:/ rlwrap, p7zip, lz4
+  - /cmdline:/ fd, git, mercurial, ripgrep, tmux, tcl
+  - /util:/ lz4, p7zip, rlwrap, stow
   - stow will link the maximally existent path, so any addition to an over-inclusive dir link will begin to reside in the stowed (ie. this) repository -- hence the mkdirs in =stow.tcl= to make sure only the desired subtrees (usually leaves) become links
 1. *hw:*
   - /blob:/ various firmware, intel-ucode
@@ -105,8 +105,8 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
   - /util:/ smartmontools
 1. *sess:*
   - /service:/ dbus-elogind, elogind, sddm, xorg-minimal, xwayland
+  - /util:/ alacritty, setxkbmap, xrdb, xset, xterm
   - /wm:/ cwm, sway
-  - /util, lib:/ alacritty, qt5-wayland (for qutebrowser, etc.), setxkbmap, xrdb, xset, xterm
   - links: =/etc/sddm.conf.d=, =/etc/X11/xorg.conf.d=
   - ~chmod u+s /usr/bin/sway~: seat-related headache
   - power management events handled by elogind, not acpid
@@ -119,23 +119,26 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
   - /monitor:/ blueman-tray, libappindicator, mako, polybar, powertop, psmisc, snooze, waybar, wpa_gui, ytop
   - /shell:/ bemenu, broot, wev, wl-clipboard, xdg-utils
   - =.config/mimeapps.list=: mime handling
-1. *snd:*
-  - /service:/ pipewire
+1. *av:*
+  - /audio:/ pipewire
+  - /video:/ ffmpeg, mpv
   - /lib:/ alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg, libspa-v4l2, libspa-vulkan, xdg-desktop-portal-wlr
   - /util:/ ponymix, pavucontrol
   - ~ln -s /usr/share/alsa/alsa.conf.d/*-pipewire*.conf /etc/alsa/conf.d/~
   - =/etc/pipewire/pipewire.conf=: enable pipewire-pulse
+  - of web browsers, only firefox supports screensharing at the moment
 
 - more ::
 1. *dev:*
-  - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, lua, mono, nodejs, octave, openjdk, rustup, sbcl, squeak, swi-prolog, tk
+  - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, lua, mono, nodejs, octave, openjdk, r, rustup, sbcl, squeak, swi-prolog, tk
   - /util:/ catch2, cmake, gdb, msbuild, valgrind
 1. *app:*
-  - /media:/ foliate, fontforge, gimp, imagemagick, imv, inkscape, libreoffice, mpv, mypaint, ffmpeg, pdf.js, texlive-most, zathura
-  - /net:/ qutebrowser, firefox, skype
-  - /sec:/ gnupg2
-  - /fun:/ cataclysm-dda, qemu, steam
+  - /doc:/ foliate, libreoffice, pdf.js, texlive-most, zathura
+  - /image:/ gimp, imagemagick, imv, inkscape, mypaint
   - /look:/ breeze-icons, breeze-snow-cursor-theme, papirus-icon-theme, qt5ct
+  - /net:/ firefox, skype
+  - /sec:/ gnupg2
+  - /fun:/ cataclysm-dda, fontforge, qemu, steam
   - steam: some 32bit libs, sdl stuff
 1. *kernel:* dracut, some headers (libelf, libressl) to make =make= work
   - keep sound modular, headphone mic misbehaves otherwise

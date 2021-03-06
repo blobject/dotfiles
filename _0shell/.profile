@@ -12,7 +12,7 @@ _path_prepend "$HOME/bin"
 # first lookup should be prepended last
 unset _path_prepend
 export PATH
-export BROWSER=qutebrowser
+export BROWSER=firefox-wayland
 export EDITOR=kak
 export TERMINAL=alacritty
 export _JAVA_AWT_WM_NONREPARENTING=1

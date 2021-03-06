@@ -121,8 +121,8 @@ bindsym Mod4+Mod1+b      exec 'swaymsg [title="^br$"] resize set width 164px && 
 bindsym Mod4+c           exec 'swaynag -t warning -m "$(grim -g \"$(slurp -p)\" -t ppm - | convert - -format "%[pixel:p{0,0}]" txt:-)"'
 bindsym Mod4+e           exec 'alacritty -e kak &'
 bindsym Mod4+t           exec 'alacritty &'
-bindsym Mod4+w           exec 'qutebrowser &'
-bindsym Mod4+Shift+w     exec 'firefox-wayland &'
+#bindsym Mod4+w           exec 'chromium --disable-smooth-scrolling --enable-features=UseOzonePlatform,WebRTCPipeWireCapturer --enable-gpu --ozone-platform=wayland &'
+bindsym Mod4+w           exec 'firefox-wayland &'
 bindsym Mod4+Mod1+w exec '0tcl firefox-wayland --private-window --profile "$::env(HOME)/p/firefox_proxy" 2>/dev/null'
 exec 0snooze &
 exec 0temper &

@@ -28,7 +28,7 @@ window#waybar.hidden { opacity: 0.2; }
   font-size: 12px;
 }
 #window {
-  font-family: sans;
+  font-family: sans, "FreeSans";
   font-size: 10px;
   font-weight: 700;
 }
@@ -38,7 +38,7 @@ window#waybar.hidden { opacity: 0.2; }
   font-weight: 700;
 }
 #tray {
-  font-family: sans;
+  font-family: sans, "FreeSans";
   font-size: 14px;
 }
 #mode,

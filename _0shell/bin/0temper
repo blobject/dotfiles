@@ -9,12 +9,18 @@ need rsync
 set home $::env(HOME)
 set where $TMPD
 set flag .unpacked
-set what qutebrowser
-set once "\"$home/.local/share/$what/sessions/default.yml \
-            $home/bak/${what}_session.yml\""
-#         parent                     link      stat       vola
-set cont "\"$home/.local/share/$what webengine _webengine $where/$what\" \
-          \"$home/.cache/$what       webengine _webengine $where/$what-cache\""
+set what mozilla/firefox
+set name ssmmtrb4.default-default
+
+proc base {name} {
+  return [lindex [file split $name] end]
+}
+
+#set once "\"$home/.local/share/$what/sessions/default.yml \
+#            $home/bak/${what}_session.yml\""
+#         parent               link  stat   vola
+set cont "\"$home/.$what       $name _$name $where/[base $what]\" \
+          \"$home/.cache/$what $name _$name $where/[base $what]-cache\""
 
 proc log {msg} {
   global ME LOGW
@@ -28,7 +34,7 @@ proc to_disk {link stat flag} {
   #global LOGW
 
   log {omitting to-disk rsync messages}
-  // to emit: exec >>&$LOGW
+  # to emit: exec >>&$LOGW
   if {[catch {exec >&/dev/null rsync --archive --verbose --delete --exclude $flag ./$link/ ./$stat/}]} {
     log {error copying to disk}
   }
@@ -68,12 +74,12 @@ proc refresh {root link stat vola} {
 }
 
 file mkdir $where
-foreach i $once {
-  set src [lindex $i 0]
-  set dst [lindex $i 1]
-  log "(once) $src -> $dst"
-  backup $src $dst
-}
+#foreach i $once {
+#  set src [lindex $i 0]
+#  set dst [lindex $i 1]
+#  log "(once) $src -> $dst"
+#  backup $src $dst
+#}
 foreach i $cont {
   set root [lindex $i 0]
   set link [lindex $i 1]

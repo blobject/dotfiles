@@ -99,14 +99,6 @@
     "on-click": "pavucontrol",
     "on-scroll-up": "",
     "on-scroll-down": ""
-    //sndio
-    //"format": " {volume}",
-    //"format-bluetooth": "  {volume}",
-    //"on-click-middle": "",
-    //"on-click-right": "",
-    //"on-scroll-up": "",
-    //"on-scroll-down": "",
-    //"tooltip": false
   },
   "battery": {
     "interval": 30,

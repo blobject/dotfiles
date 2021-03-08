@@ -8,8 +8,14 @@ stty -ixon
 ## custom functions and variables
 __0_pwd=$PWD
 
-__0_gitbr()
-{ git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/^\* *\(.*\)$/\1 /'; }
+__0_git()
+{ [[ -d .git ]] && git branch --no-color 2>/dev/null | sed '/^[^*]/d;s,^\* *\(.*\)$,\1 ,'; }
+
+__0_hg()
+{ if [[ -d .hg ]]; then
+    a=$(hg stat 2>/dev/null | sed 's,^\(.\).\+$,\1,' | sort -u | sed 'N;s,\n,,')
+    hg branch 2>/dev/null | sed 's/$/'"$a"' /'
+  fi; }
 
 __0_prompt()
 { local e=${PIPESTATUS[-1]}
@@ -17,9 +23,10 @@ __0_prompt()
     && e='\[\033[0;32m\]'"$e " \
     || e='\[\033[0;35m\]'"$e "
   local t='\[\033[1;37m\]\t '
-  local g='\[\033[0;33m\]'$(__0_gitbr)
+  local g='\[\033[0;33m\]'$(__0_git)
+  local h='\[\033[0;33m\]'$(__0_hg)
   local p='\[\033[1;31m\]\w'
-  PS1=$e$t$g$p'\[\033[0m\] '
+  PS1=$e$t$g$h$p'\[\033[0m\] '
   __0_pwd=$PWD; }
 
 __0_title()

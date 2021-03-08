@@ -9,28 +9,46 @@ need qemu-system-x86_64
 
 ###############################################################################
 
-switch -- [lindex $::argv 0] {
-  w - win {
-    set ::argv [lrange $::argv 1 end]
+set arg [lindex $::argv 0]
+set ::argv [lrange $::argv 1 end]
+switch -- $arg {
+  m - mint {
     exec qemu-system-x86_64 -enable-kvm \
       -cpu host \
+      -boot order=d \
+      -device virtio-balloon \
+      -device virtio-rng-pci \
+      -drive file=$::env(HOME)/vm/mint/mint.img,if=virtio \
+      -m 1G \
+      -name mint \
+      -net nic \
+      -net user,hostname=v \
+      -smp 2 \
+      -soundhw all \
+      -usb \
+      {*}$::argv
+  }
+  w - win {
+    exec qemu-system-x86_64 -enable-kvm \
+      -cpu host,hv_relaxed,hv_spinlocks=0x1fff,hv_vapic,hv_time \
       -boot order=d \
       -device intel-hda -device hda-duplex \
       -device intel-iommu \
       -device usb-ehci,id=ehci \
       -device usb-host,bus=ehci.0,vendorid=1452 \
-      -drive file=$::env(HOME)/vm/win/win.img,if=virtio \
+      -device virtio-balloon \
+      -drive file=$::env(HOME)/vm/win/win.img,if=virtio,aio=native,cache.direct=on \
       -m 2G \
       -machine q35 \
       -name win \
       -net nic,model=virtio-net-pci \
       -net user,hostname=v \
-      -smp cores=2 \
+      -smp 2 \
       -usb \
       -vga virtio \
       {*}$::argv
       #-audiodev pa,id=snd0 \
       #-display sdl,gl=on \
   }
-  default { usage {?|w_in} }
+  default { usage {?|m_int|w_in} }
 }

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Linux Mint
+Comment=Linux Mint emulation by qemu/kvm
+Exec=0v mint
+Icon=qemu
+Categories=Emulators;Virtualization;KVM;
+Encoding=UTF-8
+StartupNotify=true
+Terminal=false

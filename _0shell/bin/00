@@ -1,8 +1,13 @@
 #! /usr/bin/env tclsh
 
+###############################################################################
+# 00: commandline utility for opening a file based on its mimetype
+
 source $::env(HOME)/bin/lib.tcl
 
 need firefox-wayland foliate imv kak libreoffice mpv zathura
+
+###############################################################################
 
 set limit 64
 # Order matters, and "txt" goes last because it is not external,
@@ -94,6 +99,8 @@ proc prep {task} {
   return $task
 }
 
+###############################################################################
+
 if {0 == $::argc} { help }
 if {$limit < $::argc} { fail "too many arguments ($::argc > $limit)" }
 
@@ -101,6 +108,7 @@ puts -nonewline "processing $::argc file"
 if {1 < $::argc} { puts s } else { puts "" }
 
 set tasks {}
+
 dict for {type files} [prep [dict create]] {
   switch -- $type {
 
@@ -155,6 +163,7 @@ dict for {type files} [prep [dict create]] {
     }
   }
 }
+
 foreach t $tasks {
   catch {exec {*}[lindex $t 0] {*}[lindex $t 1]}
 }

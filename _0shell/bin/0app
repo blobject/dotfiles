@@ -1,8 +1,13 @@
 #! /usr/bin/env tclsh
 
+###############################################################################
+# 0app: desktop utility for listing and executing .desktop applications
+
 source $::env(HOME)/bin/lib.tcl
 
 need gtk-launch jq swaymsg
+
+###############################################################################
 
 set cache $TMPD/0app
 global dirs
@@ -136,6 +141,8 @@ proc trav {} {
   flush stdout
   save_cache
 }
+
+###############################################################################
 
 # an invocation is like: `0app | bemenu ... | 0app run`
 

@@ -24,21 +24,13 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 
 | name | description |
 |------|-------------|
+| *[[_0shell/bin/0s][0s]]* | bat, bye, log, save, snooze, temper |
+| *[[_0shell/bin/0k][0k]]* | lay, lum, shot, vol |
 | *[[_0shell/bin/00][00]]* | run file(s) based on mimetype (like ~xdg-open~) |
 | *[[_0shell/bin/0app][0app]]* | list and launch =.desktop= files (dmenu companion) |
-| *[[_0shell/bin/0bat][0bat]]* | alert battery level |
-| *[[_0shell/bin/0bye][0bye]]* | stop session |
-| *[[_0shell/bin/0kbd][0kbd]]* | set key layout |
-| *[[_0shell/bin/0log][0log]]* | read system logs |
-| *[[_0shell/bin/0lum][0lum]]* | control brightness |
 | *[[_0shell/bin/0mon][0mon]]* | wrap [[https://www.x.org/wiki/Projects/XRandR/][xrandr]] |
-| *[[_0shell/bin/0save][0save]]* | backup config & env |
-| *[[_0shell/bin/0shot][0shot]]* | take screenshot |
-| *[[_0shell/bin/0snooze][0snooze]]* | wrap [[https://github.com/leahneukirchen/snooze][snooze]] |
-| *[[_0shell/bin/0tcl][0tcl]]* | like ~sh -c~ but for tcl |
-| *[[_0shell/bin/0temper][0temper]]* | [[https://wiki.archlinux.org/index.php/Firefox/Profile_on_RAM][sync browser]] data to [[https://en.wikipedia.org/wiki/Tmpfs][tmpfs]] |
 | *[[_0shell/bin/0v][0v]]* | wrap [[https://www.qemu.org/][qemu]] |
-| *[[_0shell/bin/0vol][0vol]]* | control volume |
+| *[[_0shell/bin/0tcl][0tcl]]* | like ~sh -c~ but for tcl |
 | *[[_0shell/bin/lib.tcl][lib.tcl]]* | help other =0*= tcl scripts |
 
 *** keybinding

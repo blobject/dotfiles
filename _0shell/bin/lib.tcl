@@ -1,5 +1,10 @@
 #! /usr/bin/env tclsh
 
+###############################################################################
+# lib.tcl: helper variables and procedures for tcl utilities
+
+###############################################################################
+
 set LOGW "$::env(HOME)/bak/wayland.log"
 set LOGX "$::env(HOME)/bak/x.log"
 set ME [file tail $::argv0]
@@ -12,7 +17,9 @@ if {{w} ne $SESS && [info exist ::env(DISPLAY)] && {} ne $::env(DISPLAY)} {
   set SESS x
 }
 
-proc err {s nome} {
+###############################################################################
+
+proc err {s {nome {}}} {
   if {{} eq $nome} {
     global ME
     puts -nonewline stderr "$ME: "
@@ -20,7 +27,7 @@ proc err {s nome} {
   puts stderr "$s"
 }
 
-proc fail {s {nome nome}} {
+proc fail {s {nome {}}} {
   err $s $nome
   exit 1
 }
@@ -31,8 +38,13 @@ proc usage {body} {
 }
 
 proc need {args} {
+  set want false
   foreach cmd $args {
-    if [catch {exec which $cmd}] { fail "need $cmd"; }
+    if [catch {exec which $cmd}] {
+      set want true
+      err "need $cmd";
+    }
   }
+  if {$want} { exit 1; }
 }
 

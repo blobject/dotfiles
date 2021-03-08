@@ -1,8 +1,13 @@
 #! /usr/bin/env tclsh
 
+###############################################################################
+# 0mon: desktop utility for positioning monitors
+
 source $::env(HOME)/bin/lib.tcl
 
 need xrandr
+
+###############################################################################
 
 proc help {} {
   global ME
@@ -61,6 +66,8 @@ proc opt {rel dir ref} {
           --mode [subst $${rel}_res]\
           --$dir [subst $${ref}]"
 }
+
+###############################################################################
 
 set arg [lindex $::argv 0]
 set prm [detect prm]

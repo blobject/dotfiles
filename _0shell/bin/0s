@@ -1,0 +1,358 @@
+#! /usr/bin/env tclsh
+
+###############################################################################
+# 0s: desktop utilities related to the system
+
+source $::env(HOME)/bin/lib.tcl
+
+need notify-send \
+     pkill swaylock swaymsg \
+     rsync xbps-query \
+     0snooze-bat 0snooze-temper snooze
+
+###############################################################################
+
+proc bat {} {
+  set device BAT0
+  set crit 5
+  set lo 20
+  set hi 80
+  set notify {notify-send}
+
+  set dir /sys/class/power_supply/$device
+  set f [open $dir/capacity r]
+  set capacity [read -nonewline $f]; close $f
+  set f [open $dir/status r]
+  set status [read -nonewline $f]; close $f
+
+  switch -- [string index $status 0] {
+    {D} {
+      if {$capacity <= $crit} {
+        exec {*}$notify -u critical -t 1800000 -i battery-020 bat $capacity%
+      } elseif {[expr {$lo - 5}] <= $capacity && $capacity <= $lo} {
+        exec {*}$notify -u normal -t 4000 -i battery-030 bat $capacity%
+      }
+    }
+    {C} {
+      if {$hi <= $capacity && $capacity <= [expr {$hi + 2}]} {
+        exec {*}$notify -u low -t 2000 -i battery-090-charging bat $capacity%
+      }
+    }
+  }
+}
+
+###############################################################################
+
+proc bye {} {
+  global SESS
+
+  proc kill {} {
+    catch {exec pkill dbus-daemon}
+    catch {exec pkill dbus-launch}
+    #catch {exec pkill pulseaudio}
+  }
+
+  proc save {} {
+    global LOGW LOGX
+
+    foreach f "$LOGW $LOGX" {
+      if {[file exists $f]} {
+        file rename -force -- $f $f.old
+      }
+    }
+  }
+
+  proc sync {} {
+    exec 0s temper
+  }
+
+  switch -- [lindex $::argv 0] {
+    k - o - lock {
+      if {{w} eq $SESS} { exec swaylock -f -c 000000; }
+    }
+    e - l - q - x - logout {
+      save
+      kill
+      if {{w} eq $SESS} { exec swaymsg exit; }
+      if {{x} eq $SESS} { exec pkill cwm; }
+    }
+    z - sleep {
+      sync
+      exec sudo zzz
+    }
+    b - r - reboot {
+      save
+      sync
+      kill
+      exec sudo reboot
+    }
+    h - s - shutdown {
+      save
+      sync
+      kill
+      exec sudo halt
+    }
+    default {
+      usage {bye k|o|lock|e|l|q|x|logout|z|sleep|b|r|reboot|h|s|shutdown}
+    }
+  }
+}
+
+###############################################################################
+
+proc log {} {
+  # presumes socklog on void
+
+  set what daemon
+
+  proc help {} {
+    return {[?|a_ll|d_aemon|de_b_ug|e_rrors|k_ernel|m_essages|s_ecure]}
+  }
+
+  switch -- [lindex $::argv 0] {
+    ? - -? - h - -h - help - -help - --help {
+      puts [help]
+      exit
+    }
+    a - all         { set what everything }
+    {} - d - daemon {}
+    b - debug       { set what debug }
+    e - errors      { set what errors }
+    k - kernel      { set what kernel }
+    m - messages    { set what messages }
+    s - secure      { set what secure }
+    default { usage "log [help]" }
+  }
+  catch {exec >/dev/tty cat /var/log/socklog/$what/current | less}
+}
+
+###############################################################################
+
+proc save {} {
+  global TMPD
+
+  set dst $::env(HOME)/bak/save
+  set nam [exec hostname]
+  set tmp ${nam}_[clock format [clock seconds] -gmt true -format %y%m%d-%H%M%S]
+  set src $TMPD/$tmp
+  set zip $tmp.tgz
+  set want "$::env(HOME)/doc/*doc \
+            $::env(HOME)/cfg/*dotfiles \
+            $::env(HOME)/.gnupg/*gnupg \
+            $::env(HOME)/.ssh/*ssh"
+
+  proc msg {s} { puts "### $s ###" }
+
+  proc sep {} { puts "--------------------" }
+
+  proc prep {src nam tmp} {
+    if {[file isdirectory $src]} {
+      file delete -force $src
+    }
+    file mkdir $src
+    set f [open $src/LOG w]; puts $f $tmp; close $f
+    sep
+    puts "created $src\nsaving \"$nam\" customisations:"
+  }
+
+  proc copy {src} {
+    upvar 1 want want
+
+    # there cannot be asterisk (*) anywhere except as file*name separator
+    # as specified in this declaration. see copy()
+    foreach i $want {
+      lassign [split $i *] f n
+      if {{} eq $n} {
+        regsub {^\.(.+)$} [file tail $f] {\1} m
+        set n $m
+      }
+      if {![file readable $f]} {
+        msg "invalid file $f"
+        continue
+      }
+      if {[file readable $src/$n]} {
+        msg "name \"$n\" already exists"
+        continue
+      }
+      if {[file isfile $f]} {
+        if {[catch {exec cp -d $f $src/$n}]} {
+          msg "error copying $f"
+          continue
+        }
+      } elseif {[file isdirectory $f]} {
+        if {[catch {exec rsync -lr --exclude=.git $f $src/$n}]} {
+          msg "error copying $f"
+          continue
+        }
+        set n $n/
+      } else {
+        msg "$f is neither file nor dir"
+        continue
+      }
+      puts "* $f  ($n)"
+      set p [open $src/LOG a]; puts $p "$f * %n"; close $p
+    }
+  }
+
+  proc etc {src} {
+    exec lsmod >$src/lsmod
+    puts "* lsmod"
+    exec tail -n +1 {*}[glob /etc/modprobe.d/*] >$src/modprobe
+    puts "* modprobe"
+    exec ls "$::env(HOME)/opt/" >$src/opt
+    puts "* ~/opt/"
+    exec tail -n +1 {*}[glob /etc/X11/xorg.conf.d/*] >$src/xorg
+    puts "* refind"
+    exec cp /boot/EFI/refind/refind.conf $src/refind
+    exec xbps-query --list-pkgs >$src/installed
+    puts "* packages installed"
+    exec ls /var/service/ >$src/services
+    puts "* services enabled"
+  }
+
+  proc save {src nam dst} {
+    cd $src/..
+    if {[catch {exec tar czf $dst $nam}]} { fail "error zipping" }
+  }
+
+  proc fin {src zip dst} {
+    if {[file isdirectory $src]} { file delete -force $src }
+    puts "removed $src"
+    set p [open |[list du -hs $dst/$zip] r]
+    regsub {^(\S+).+$} [read $p] {\1} size
+    close $p
+    sep
+    puts "$zip ($size) saved in $dst"
+  }
+
+  prep $src $nam $tmp
+  copy $src
+  etc  $src
+  save $src $tmp $dst/$zip
+  fin  $src $zip $dst
+}
+
+###############################################################################
+
+proc snooze {} {
+  proc dream {name} {
+    set awake [catch {exec ps x \
+                      | grep "snooze .* 0s $name\$" \
+                      | grep -v grep}]
+    if {$awake} {
+      exec 0snooze-$name &
+    } else {
+      puts {snooze $name already running}
+    }
+  }
+  dream bat
+  dream temper
+}
+
+###############################################################################
+
+proc temper {} {
+  global TMPD
+  # taken from https://www.verot.net/firefox_tmpfs.htm
+
+  set home $::env(HOME)
+  set where $TMPD
+  set flag .unpacked
+  set what mozilla/firefox
+  set name ssmmtrb4.default-default
+
+  proc base {name} {
+    return [lindex [file split $name] end]
+  }
+
+  #set once "\"$home/.local/share/$what/sessions/default.yml \
+  #            $home/bak/${what}_session.yml\""
+  #         parent               link  stat   vola
+  set cont "\"$home/.$what       $name _$name $where/[base $what]\" \
+            \"$home/.cache/$what $name _$name $where/[base $what]-cache\""
+
+  proc log {msg} {
+    global ME LOGW
+
+    set f [open $LOGW a]
+    puts $f "$ME: $msg"
+    close $f
+  }
+
+  proc to_disk {link stat flag} {
+    #global LOGW
+
+    log {omitting to-disk rsync messages}
+    # to emit: exec >>&$LOGW
+    if {[catch {exec >&/dev/null rsync --archive --verbose --delete --exclude $flag ./$link/ ./$stat/}]} {
+      log {error copying to disk}
+    }
+  }
+
+  proc to_mem {stat link flag} {
+    log {omitting to-mem rsync messages}
+    if {[catch {exec >&/dev/null rsync --archive ./$stat/ ./$link/}]} {
+      log {error copying to mem}
+    }
+    # touch flag
+    close [open $link/$flag a]
+  }
+
+  proc backup {src dst} {
+    file copy -force -- $src $dst
+  }
+
+  proc refresh {root link stat vola} {
+    upvar 1 flag flag
+
+    file mkdir $vola
+    file attributes $vola -permissions 00700
+    cd $root
+    if {{link} ne [file type $link] || $vola ne [file readlink $link]} {
+      file rename $link $stat
+      file link $link $vola
+    }
+    if {[file exists $link/$flag]} {
+      to_disk $link $stat $flag
+      return
+    }
+    to_mem $stat $link $flag
+  }
+
+  file mkdir $where
+  #foreach i $once {
+  #  set src [lindex $i 0]
+  #  set dst [lindex $i 1]
+  #  log "(once) $src -> $dst"
+  #  backup $src $dst
+  #}
+  foreach i $cont {
+    set root [lindex $i 0]
+    set link [lindex $i 1]
+    log "(cont) $root/$link"
+    refresh $root $link [lindex $i 2] [lindex $i 3]
+  }
+}
+
+###############################################################################
+
+set arg [lindex $::argv 0]
+set ::argv [lrange $::argv 1 end]
+switch -- $arg {
+  bat    { bat; }
+  bye    { bye; }
+  log    { log; }
+  save   { save; }
+  snooze { snooze; }
+  temper { temper; }
+  default {
+    usage {bat|bye|log|save|snooze|temper
+  bat     battery alert
+  bye     session stop  lock|logout|sleep|reboot|shutdown
+  log     system log    a|d|b|e|k|m|s
+  save    data backup
+  snooze  scheduled exec
+  temper  data to tmpfs}
+  }
+}
+

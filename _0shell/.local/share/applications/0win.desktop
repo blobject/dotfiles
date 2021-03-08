@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Windows 10
+Comment=Windows 10 emulation by qemu/kvm
+Exec=0v win
+Icon=qemu
+Categories=Emulators;Virtualization;KVM;
+Encoding=UTF-8
+StartupNotify=true
+Terminal=false

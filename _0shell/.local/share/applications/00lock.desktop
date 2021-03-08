@@ -2,7 +2,7 @@
 Type=Application
 Name=lock
 Comment=Lock screen
-Exec=0bye lock
+Exec=0s bye lock
 Icon=system-lock-screen
 Categories=X;
 Encoding=UTF-8

@@ -2,7 +2,7 @@
 Type=Application
 Name=sleep / suspend
 Comment=Sleep computer
-Exec=0bye sleep
+Exec=0s bye sleep
 Icon=system-suspend
 Categories=X;
 Encoding=UTF-8

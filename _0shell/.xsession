@@ -1,5 +1,5 @@
-{ 0snooze & } &
-{ 0temper & } &
+{ 0s snooze & } &
+{ 0s temper & } &
 { pipewire & } &
 setxkbmap hsnt
 xrdb -merge $HOME/.xresources

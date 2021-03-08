@@ -1,4 +1,4 @@
 #! /usr/bin/env tclsh
 
-while true { exec snooze -H* -M/2 -S15 0bat }
+while true { exec snooze -H* -M/2 -S15 0s bat }
 

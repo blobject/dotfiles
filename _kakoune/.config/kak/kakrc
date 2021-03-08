@@ -9,6 +9,7 @@ add-highlighter global/ regex \h+$ 0:Error
 add-highlighter global/ regex '(FIXME|NOTE|TODO|WIP|XXX)' 0:black,bright-blue+F
 add-highlighter global/ show-matching
 add-highlighter global/ wrap
+define-command -buffer-completion d "delete-buffer" -docstring 'delete current buffer'
 map global normal <minus> vk        -docstring 'scroll up one'
 map global normal <=>     vj        -docstring 'scroll down one'
 map global normal <_>     8vk       -docstring 'scroll up eight'

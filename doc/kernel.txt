@@ -7,8 +7,6 @@ compile:
  5. copy ./arch/x86_64/boot/bzImage to esp/vmlinuz-VER
  6. copy ./System.map to esp/System.map-VER
  7. `make [CC=clang HOSTCC=clang] modules_install`
-  - for virtualbox: `xbps-reconfigure -f virtualbox-ose-dkms`
-    - for clang build: link /usr/bin/[g]cc to clang
  8. `dracut -i /lib/firmware/i915/kbl_dmc_ver1_04.bin /lib/firmware/i915/kbl_dmc_ver1_04.bin -i /lib/firmware/i915/kbl_guc_49.0.1.bin /lib/firmware/i915/kbl_guc_49.0.1.bin -i /lib/firmware/i915/kbl_huc_4.0.0.bin /lib/firmware/i915/kbl_huc_4.0.0.bin -i /lib/firmware/intel/ibt-17-16-1.ddc /lib/firmware/intel/ibt-17-16-1.ddc -i /lib/firmware/intel/ibt-17-16-1.sfi /lib/firmware/intel/ibt-17-16-1.sfi -i /lib/firmware/iwlwifi-9000-pu-b0-jf-b0-46.ucode /lib/firmware/iwlwifi-9000-pu-b0-jf-b0-46.ucode --force -o "btrfs crypt dm lvm lunmask mdraid" esp/initramfs-VER.img VER`
  9. check esp/refind_linux.conf
   - `mkrlconf`
@@ -16,5 +14,10 @@ compile:
   - intel_iommu=igfx_off
   - intel_pstate=passive (enable schedutil)
   - zswap.max_pool_percent=30
-10. cleanup in /boot, /lib/modules, /usr/src, [/var/lib/dkms/virtualbox-ose]
+10. cleanup in /boot, /lib/modules
+
+virtualbox:
+- after modules_install: `xbps-reconfigure -f virtualbox-ose-dkms`
+  - for clang build: link /usr/bin/[g]cc to clang
+- cleanup: /usr/src, /var/lib/dkms/virtualbox-ose
 

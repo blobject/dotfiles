@@ -63,7 +63,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 
 | | | /APP/ |
 |-|-|-------|
-| =print= | =_= / =A-= / =C-= / =S-= | *take picture* of *screen* / *active* / *window* / *selection* |
+| =print= | =_= / =A-= / =S-= | *take picture* of *screen* / *active* / *selection* |
 | =W-enter= | | launch *launcher* |
 | =W-= *letter* | =b= / =c= / =e= / =t= / =w= | launch *broot*, *color picker*, *editor*, *terminal*, *www* |
 
@@ -132,12 +132,12 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
   - /sec:/ gnupg2
   - /fun:/ cataclysm-dda, fontforge, qemu, steam
   - steam: some 32bit libs, sdl stuff
-1. *kernel:* dracut, some headers (libelf, libressl) to make =make= work
+1. *kernel:* dracut, some headers (libelf) to make =make= work
   - keep sound modular, headphone mic misbehaves otherwise
   - links: =/etc/modprobe.d=, =/etc/sysctl.d=
 
 - groups ::
-wheel, lp, audio, video, kvm, users, xbuilder, vboxusers, bluetooth, socklog
+wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, vboxusers, bluetooth, socklog
 
 - daemons ::
 agetty-*, bluetoothd, dbus, dhcpcd, nanoklogd, ntpd, sddm, socklog-unix, tlp, udevd, uuidd, wpa_supplicant

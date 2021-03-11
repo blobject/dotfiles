@@ -1,7 +1,7 @@
 colors:
   primary:
-    foreground: '#b9bdc5' # default
-    background: '#36383f'
+    background: '#b9bdc5' # default
+    foreground: '#36383f'
     #background: '#282a36' # ascii
     #foreground: '#c7c7c7'
     #background: '#1427b1' # term
@@ -30,7 +30,7 @@ colors:
     magenta: '#ba59b3'
     cyan:    '#4ea494'
     white:   '#d2d6de'
-draw_bold_text_with_bright_colors: true
+draw_bold_text_with_bright_colors: false
 env:
   TERM: alacritty
 font:

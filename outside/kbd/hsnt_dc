@@ -1,0 +1,20 @@
+// /usr/share/X11/xkb/symbols/hsnt_dc
+
+// apply ctrl:nocaps
+// make emoticon key a Right Ctrl key
+xkb_symbols "hsnt_dc" {
+  include "hsnt"
+  name[Group1]= "English (Hsnt, dc)";
+};
+
+//// apply ctrl:nocaps
+//// make the Grave key an Escape key
+//// make the right Alt key a Grave key
+//default partial alphanumeric_keys modifier_keys
+//xkb_symbols "bow" {
+//  include "hsnt"
+//  name[Group1]= "English (Hsnt, bow)";
+//  key <TLDE> { [ Escape ] };
+//  replace key <RALT> { [ grave, asciitilde ] };
+//};
+

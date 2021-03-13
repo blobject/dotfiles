@@ -1,3 +1,4 @@
 .hg/
 .hgignore
 /outside/kbd/hsnt*
+!/outside/kbd/hsnt_dc

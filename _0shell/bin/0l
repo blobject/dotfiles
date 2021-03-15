@@ -1,0 +1,22 @@
+#! /usr/bin/env tclsh
+
+###############################################################################
+# 0l: desktop utility for reading logs (presumes socklog on void)
+
+source $::env(HOME)/bin/lib.tcl
+
+###############################################################################
+
+set what daemon
+switch -- [lindex $::argv 0] {
+  {} - d - daemon {}
+  a - all         { set what everything }
+  b - debug       { set what debug }
+  e - errors      { set what errors }
+  k - kernel      { set what kernel }
+  m - messages    { set what messages }
+  s - secure      { set what secure }
+  default { usage {[?|a_ll|d_aemon|de_b_ug|e_rrors|k_ernel|m_essages|s_ecure]} }
+}
+catch {exec >/dev/tty cat /var/log/socklog/$what/current | less}
+

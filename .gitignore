@@ -1,4 +1,4 @@
 .hg/
 .hgignore
-/outside/kbd/hsnt*
-!/outside/kbd/hsnt_dc
+/outside/usr/share/kbd/keymaps/i386/hsnt.kmap
+/outside/usr/share/X11/xkb/symbols/hsnt

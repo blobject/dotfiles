@@ -1,7 +1,7 @@
 #! /usr/bin/env tclsh
 
 ###############################################################################
-# 0mon: desktop utility for positioning monitors
+# 0m: desktop utility for positioning monitors
 
 source $::env(HOME)/bin/lib.tcl
 

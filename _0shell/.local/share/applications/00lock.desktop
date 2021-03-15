@@ -5,6 +5,5 @@ Comment=Lock screen
 Exec=0s bye lock
 Icon=system-lock-screen
 Categories=X;
-Encoding=UTF-8
 StartupNotify=false
 Terminal=false

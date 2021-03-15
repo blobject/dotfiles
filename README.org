@@ -14,21 +14,22 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 
 *** selection
 
-| class | instance(s) |
+| class | instance |
 |-------|-------------|
-| hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]], [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]], [[https://www.microsoft.com/en-us/p/microsoft-designer-compact-keyboard/8zhrtr7zcswq][designer compact]], [[https://olkb.com/collections/planck][planck]], [[https://www.logitech.com/en-us/product/m590-silent-wireless-mouse][m590]], [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]] |
+| hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]], [[https://www.microsoft.com/en-us/p/microsoft-designer-compact-keyboard/8zhrtr7zcswq][designer compact]], [[https://olkb.com/collections/planck][planck]], [[https://www.razer.com/gaming-mice/razer-atheris][atheris]], [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]], [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]] |
 | env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://swaywm.org/][sway]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
-| look | 2160x1440, 200dpi, font size ~10pt, [[https://typeof.net/Iosevka/][iosevka]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
+| look | 2160x1440, 200dpi, font size ~11pt, [[https://typeof.net/Iosevka/][iosevka]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
 
 *** scripts
 
 | name | description |
 |------|-------------|
-| *[[_0shell/bin/0s][0s]]* | bat, bye, log, save, snooze, temper |
-| *[[_0shell/bin/0k][0k]]* | lay, lum, shot, vol |
 | *[[_0shell/bin/00][00]]* | run file(s) based on mimetype (like ~xdg-open~) |
-| *[[_0shell/bin/0app][0app]]* | list and launch =.desktop= files (dmenu companion) |
-| *[[_0shell/bin/0mon][0mon]]* | wrap [[https://www.x.org/wiki/Projects/XRandR/][xrandr]] |
+| *[[_0shell/bin/0a][0a]]* | list and launch =.desktop= files (dmenu companion) |
+| *[[_0shell/bin/0k][0k]]* | lay, lum, shot, vol |
+| *[[_0shell/bin/0l][0l]]* | read log |
+| *[[_0shell/bin/0m][0m]]* | wrap [[https://www.x.org/wiki/Projects/XRandR/][xrandr]] |
+| *[[_0shell/bin/0s][0s]]* | bat, bye, dracut, save, snooze, temper |
 | *[[_0shell/bin/0v][0v]]* | wrap [[https://www.qemu.org/][qemu]] |
 | *[[_0shell/bin/0tcl][0tcl]]* | like ~sh -c~ but for tcl |
 | *[[_0shell/bin/lib.tcl][lib.tcl]]* | help other =0*= tcl scripts |
@@ -48,7 +49,6 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 | =W-S-= *dir* | =h= / =j= / =k= / =l= | *move* window *left* / *down* / *up* / *right* |
 | =W-r= | =h= / =j= / =k= / =l= | enter *resize mode* then *shrink width* / *expand height* / *shrink height* / *expand width* |
 | =W-S-bksp= | | *move* to *scratchpad* |
-| =W-slash= | | change to *tabbed* layout |
 | =W-comma= | | toggle *float* |
 
 | | | /FOCUS/ |
@@ -56,8 +56,9 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 | =W-= *dir* | =h= / =j= / =k= / =l= | *focus* window to *left* / *below* / *above* / to *right* |
 | =W-bksp= | | toggle *scratchpad* |
 | =W-semic= | =_= / =S-= | prepare *vertical split* / *horizontal* |
-| =W-period= | | toggle *split direction* |
-| =W-quote= | | *focus parent* |
+| =W-period= | | change to *split* layout (if tabbed) or toggle *split direction* (if split) |
+| =W-slash= | | change to *tabbed* layout |
+| =W-= *dir* | =-= / ~=~ | *focus child* / *parent* |
 | =W-tab= | | toggle *focus* between tiled and floating |
 | =W-f= | | toggle window *fullscreen* |
 
@@ -65,7 +66,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 |-|-|-------|
 | =print= | =_= / =A-= / =S-= | *take picture* of *screen* / *active* / *selection* |
 | =W-enter= | | launch *launcher* |
-| =W-= *letter* | =b= / =c= / =e= / =t= / =w= | launch *broot*, *color picker*, *editor*, *terminal*, *www* |
+| =W-= *char* | ='= / =b= / =e= / =t= / =w= | launch *color picker*, *broot*, *editor*, *terminal*, *www* |
 
 | key template | key more | do, /mako/ |
 |--------------|----------|------------|
@@ -84,12 +85,13 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 1. *kbd:* =/usr/share/{kbd/keymaps/i386,X11/xkb/symbols}=
 1. *repo:* void-repo-{multilib,nonfree}{-nonfree,}
 1. /immediate goodness:/ bash-completion, chronyd, socklog, tlp
-  - link: /etc/tlp.d
+  - link: =/etc/rc.conf=
+  - link: =/etc/tlp.d=
 
 - "usable" ::
 1. *shell:*
   - /cmdline:/ fd, git, mercurial, ripgrep, tmux, tcl
-  - /util:/ lz4, p7zip, rlwrap, stow
+  - /util:/ lz4, p7zip, rlwrap, stow, zip
   - stow will link the maximally existent path, so any addition to an over-inclusive dir link will begin to reside in the stowed (ie. this) repository -- hence the mkdirs in =stow.tcl= to make sure only the desired subtrees (usually leaves) become links
 1. *hw:*
   - /blob:/ various firmware, intel-ucode

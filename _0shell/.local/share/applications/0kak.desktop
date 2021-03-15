@@ -5,6 +5,5 @@ Comment=Kakoune code editor
 Exec=0tcl alacritty -e kak %f
 Icon=text-editor
 Categories=TextEditor;
-Encoding=UTF-8
 StartupNotify=true
 Terminal=false

@@ -2,9 +2,9 @@
 Type=Application
 Name=Cataclysm
 Comment=Dark Days Ahead
+TryExec=cataclysm-tiles
 Exec=cataclysm-tiles
 Icon=cataclysm-dda
 Categories=Game;
-Encoding=UTF-8
 StartupNotify=true
 Terminal=false

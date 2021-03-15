@@ -100,30 +100,19 @@ proc bye {} {
 
 ###############################################################################
 
-proc log {} {
-  # presumes socklog on void
-
-  set what daemon
-
-  proc help {} {
-    return {[?|a_ll|d_aemon|de_b_ug|e_rrors|k_ernel|m_essages|s_ecure]}
-  }
-
-  switch -- [lindex $::argv 0] {
-    ? - -? - h - -h - help - -help - --help {
-      puts [help]
-      exit
-    }
-    a - all         { set what everything }
-    {} - d - daemon {}
-    b - debug       { set what debug }
-    e - errors      { set what errors }
-    k - kernel      { set what kernel }
-    m - messages    { set what messages }
-    s - secure      { set what secure }
-    default { usage "log [help]" }
-  }
-  catch {exec >/dev/tty cat /var/log/socklog/$what/current | less}
+proc dracut {} {
+  set ver [lindex $::argv 0]
+  set d /lib/firmware
+  exec >/dev/tty sudo dracut \
+    -i $d/i915/kbl_dmc_ver1_04.bin $d/i915/kbl_dmc_ver1_04.bin \
+    -i $d/i915/kbl_guc_49.0.1.bin $d/i915/kbl_guc_49.0.1.bin \
+    -i $d/i915/kbl_huc_4.0.0.bin $d/i915/kbl_huc_4.0.0.bin \
+    -i $d/intel/ibt-17-16-1.ddc $d/intel/ibt-17-16-1.ddc \
+    -i $d/intel/ibt-17-16-1.sfi $d/intel/ibt-17-16-1.sfi \
+    -i $d/iwlwifi-9000-pu-b0-jf-b0-46.ucode $d/iwlwifi-9000-pu-b0-jf-b0-46.ucode \
+    --force \
+    -o "btrfs crypt dm lvm lunmask mdraid" \
+    /boot/initramfs-${ver}_c.img ${ver}_c
 }
 
 ###############################################################################
@@ -341,15 +330,15 @@ set ::argv [lrange $::argv 1 end]
 switch -- $arg {
   bat    { bat; }
   bye    { bye; }
-  log    { log; }
+  dracut { dracut; }
   save   { save; }
   snooze { snooze; }
   temper { temper; }
   default {
-    usage {bat|bye|log|save|snooze|temper
+    usage {bat|bye|dracut|save|snooze|temper
   bat     battery alert
-  bye     session stop  lock|logout|sleep|reboot|shutdown
-  log     system log    a|d|b|e|k|m|s
+  bye     session stop       lock|logout|sleep|reboot|shutdown
+  dracut  compile initramfs  KERNEL_VERSION
   save    data backup
   snooze  scheduled exec
   temper  data to tmpfs}

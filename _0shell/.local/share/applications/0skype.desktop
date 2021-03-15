@@ -2,10 +2,10 @@
 Type=Application
 Name=Skype
 Comment=Skype Internet Telephony
+TryExec=skypeforlinux
 Exec=x /usr/bin/skypeforlinux %U
 Icon=skypeforlinux
 Categories=Network;Application;
-Encoding=UTF-8
 StartupNotify=true
 StartupWMClass=Skype
 Terminal=false

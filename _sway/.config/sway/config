@@ -1,7 +1,7 @@
 exec_always {
   #gsettings set org.gnome.desktop.interface cursor-size 32
   #gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Snow'
-  gsettings set org.gnome.desktop.interface font-name 'sans 10'
+  gsettings set org.gnome.desktop.interface font-name 'sans 11'
   gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
   gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
 }
@@ -17,12 +17,12 @@ input 1:1:AT_Translated_Set_2_keyboard {
   repeat_rate 30
   xkb_layout hsnt
 }
-input 65261:24672:OLKB_Planck_Keyboard {
+input 1118:2098:Designer_Compact_Keyboard {
   repeat_delay 250
   repeat_rate 30
   xkb_layout hsnt
 }
-input 1118:2098:Designer_Compact_Keyboard {
+input 65261:24672:OLKB_Planck_Keyboard {
   repeat_delay 250
   repeat_rate 30
   xkb_layout hsnt
@@ -34,15 +34,22 @@ input 1267:12496:ELAN962C:00_04F3:30D0_Touchpad {
   pointer_accel 0.1
   tap enabled
 }
-input 1133:45083:M585/M590_Mouse {
-  dwt enabled
+input 5426:97:Razer_Atheris_Mouse {
   natural_scroll disabled
-  pointer_accel -0.5
+  pointer_accel -1.0
+}
+input 1133:16500:Logitech_G305 {
+  natural_scroll disabled
+  pointer_accel -0.75
+}
+input 8526:16:ProPoint_Mouse {
+  natural_scroll disabled
+  pointer_accel -0.6
 }
 output * bg ~/cfg/unstowed/back.jpg center
-output eDP-1 pos 100 720 scale 2
-output DP-1 pos 0 0 scale 1.5
-seat seat0 xcursor_theme 'Breeze_Snow' 32
+output eDP-1 pos 0 0 scale 2
+output DP-1 pos 1080 0 scale 1.5
+seat * xcursor_theme 'Breeze_Snow' 32
 default_border            pixel 10
 default_floating_border   pixel 10
 floating_maximum_size     1060 x 688
@@ -104,6 +111,7 @@ bindsym XF86AudioMute                exec '0k vol x &'
 bindsym XF86AudioLowerVolume         exec '0k vol -5 &'
 bindsym XF86AudioRaiseVolume         exec '0k vol +5 &'
 bindsym XF86AudioMicMute             exec '0k vol mic x &'
+bindsym XF86AudioPlay                exec '0k vol mic x &'
 bindsym Control+XF86AudioMute        exec '0k vol bt x &'
 bindsym Control+XF86AudioLowerVolume exec '0k vol bt -5 &'
 bindsym Control+XF86AudioRaiseVolume exec '0k vol bt +5 &'
@@ -111,18 +119,17 @@ bindsym Control+XF86AudioMicMute     exec '0k vol bt mic x &'
 bindsym Print                        exec '0k shot screen png &'
 bindsym Mod1+Print                   exec '0k shot active png &'
 bindsym Shift+Print                  exec '0k shot select png &'
-bindsym Mod4+Return exec '0app | bemenu -f --fn "Agave bold 11" -i -l 16 -m 1 -n -p ">" -P "-->" --scrollbar autohide -w --tb="#000000" --tf="#575a61" --fb="#000000" --ff="#cf554d" --nb="#000000" --nf="#92959d" --hb="#000000" --hf="#667ad3" --scb="#000000" --scf="#92959d" | 0app run'
-bindsym Mod4+space       exec 'makoctl dismiss &'
-bindsym Mod4+Shift+space exec 'makoctl dismiss -a &'
-bindsym Mod4+b           exec 'swaymsg -t get_tree | grep -q "\\"name\\": \\"br\\"" && swaymsg [title="^br$"] focus || 0tcl alacritty --config-file "$::env(HOME)/cfg/unstowed/alacritty_broot.yml" -t br -e bash -ic br'
-bindsym Mod4+Mod1+b      exec '0tcl alacritty --config-file "$::env(HOME)/cfg/unstowed/alacritty_broot.yml" -t br -e bash -ic br'
-bindsym Mod4+Shift+b     exec 'swaymsg [title="^br$"] resize set width 164px && swaymsg [title="^br$"] splitv'
-bindsym Mod4+c           exec 'swaynag -t warning -m "$(grim -g \"$(slurp -p)\" -t ppm - | convert - -format "%[pixel:p{0,0}]" txt:-)"'
-bindsym Mod4+e           exec 'alacritty -e kak &'
-bindsym Mod4+t           exec 'alacritty &'
-#bindsym Mod4+w           exec 'chromium --disable-smooth-scrolling --enable-features=UseOzonePlatform,WebRTCPipeWireCapturer --enable-gpu --ozone-platform=wayland &'
-bindsym Mod4+w           exec 'firefox-wayland &'
-bindsym Mod4+Mod1+w exec '0tcl firefox-wayland --private-window --profile "$::env(HOME)/p/firefox_proxy" 2>/dev/null'
+bindsym --no-repeat Mod4+Return exec '0a | bemenu -f --fn "Agave bold 11" -i -l 16 -m 1 -n -p ">" -P "-->" --scrollbar autohide -w --tb="#000000" --tf="#575a61" --fb="#000000" --ff="#cf554d" --nb="#000000" --nf="#92959d" --hb="#000000" --hf="#667ad3" --scb="#000000" --scf="#92959d" | 0a run'
+bindsym --no-repeat Mod4+space       exec 'makoctl dismiss &'
+bindsym --no-repeat Mod4+Shift+space exec 'makoctl dismiss -a &'
+bindsym --no-repeat Mod4+b           exec 'swaymsg -t get_tree | grep -q "\\"name\\": \\"br\\"" && swaymsg [title="^br$"] focus || 0tcl alacritty --config-file "$::env(HOME)/cfg/unstowed/alacritty_broot.yml" -t br -e bash -ic br'
+bindsym --no-repeat Mod4+Mod1+b      exec '0tcl alacritty --config-file "$::env(HOME)/cfg/unstowed/alacritty_broot.yml" -t br -e bash -ic br'
+bindsym --no-repeat Mod4+Shift+b     exec 'swaymsg [title="^br$"] resize set width 164px && swaymsg [title="^br$"] splitv'
+bindsym --no-repeat Mod4+apostrophe  exec 'swaynag -t warning -m "$(grim -g \"$(slurp -p)\" -t ppm - | convert - -format "%[pixel:p{0,0}]" txt:-)"'
+bindsym --no-repeat Mod4+e           exec 'alacritty -e kak &'
+bindsym --no-repeat Mod4+t           exec 'alacritty &'
+bindsym --no-repeat Mod4+w           exec 'firefox-wayland &'
+bindsym --no-repeat Mod4+Mod1+w exec '0tcl firefox-wayland --private-window --profile "$::env(HOME)/p/firefox_proxy" 2>/dev/null'
 exec 0s snooze &
 exec 0s temper &
 exec sleep 5 && blueman-tray &

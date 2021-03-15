@@ -5,6 +5,5 @@ Comment=Sleep computer
 Exec=0s bye sleep
 Icon=system-suspend
 Categories=X;
-Encoding=UTF-8
 StartupNotify=false
 Terminal=false

@@ -5,8 +5,8 @@
 
 ###############################################################################
 
-set LOGW "$::env(HOME)/bak/wayland.log"
-set LOGX "$::env(HOME)/bak/x.log"
+set LOGW "$::env(HOME)/wayland.log"
+set LOGX "$::env(HOME)/x.log"
 set ME [file tail $::argv0]
 set TMPD "/tmp/_$::env(USER)"
 set SESS {}

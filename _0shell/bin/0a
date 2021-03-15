@@ -1,7 +1,7 @@
 #! /usr/bin/env tclsh
 
 ###############################################################################
-# 0app: desktop utility for listing and executing .desktop applications
+# 0a: desktop utility for listing and executing .desktop applications
 
 source $::env(HOME)/bin/lib.tcl
 
@@ -9,7 +9,7 @@ need gtk-launch jq swaymsg
 
 ###############################################################################
 
-set cache $TMPD/0app
+set cache $TMPD/0a
 global dirs
 global apps
 set width 2300 ;# presumes laptop output
@@ -52,11 +52,11 @@ proc load_cache {} {
 proc save_cache {} {
   global cache dirs apps
   set h [open $cache w]
-  puts $h "#d"
+  puts $h {#d}
   foreach path [array names dirs] {
     puts $h "$path*$dirs($path)"
   }
-  puts $h "#a"
+  puts $h {#a}
   foreach key [array names apps] {
     if {[regexp {[dnt]$} $key]} {
       continue
@@ -123,6 +123,7 @@ proc trav {} {
     if {![info exists dirs($dd)] || [expr {$mtime > $dirs($dd)}]} {
       set dirs($dd) $mtime
     }
+    # TODO: weird
     set dirs($dd) $mtime
     foreach p [lsort [glob -type f $dd/*.desktop]] {
       regsub {^.*/} $p {} f
@@ -144,7 +145,7 @@ proc trav {} {
 
 ###############################################################################
 
-# an invocation is like: `0app | bemenu ... | 0app run`
+# an invocation is like: `0a | bemenu ... | 0a run`
 
 switch -- [lindex $::argv 0] {
   # try loading cache then print all apps to stdout (to bemenu)

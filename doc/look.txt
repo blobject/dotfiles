@@ -29,5 +29,5 @@ hidpi (& font size):
 - .emacs.d/init.el
 - .config/mako/config
 - .config/waybar/config,style.css
-- bin/0app
+- bin/0a
 

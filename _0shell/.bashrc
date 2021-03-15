@@ -22,10 +22,10 @@ __0_prompt()
   [[ $e = 0 ]] \
     && e='\[\033[0;32m\]'"$e " \
     || e='\[\033[0;35m\]'"$e "
-  local t='\[\033[1;37m\]\t '
+  local t='\[\033[0;37m\]\t '
   local g='\[\033[0;33m\]'$(__0_git)
   local h='\[\033[0;33m\]'$(__0_hg)
-  local p='\[\033[1;31m\]\w'
+  local p='\[\033[0;31m\]\w'
   PS1=$e$t$g$h$p'\[\033[0m\] '
   __0_pwd=$PWD; }
 
@@ -81,8 +81,8 @@ HISTFILESIZE=65536
 HISTSIZE=65536
 PROMPT_COMMAND=__0_prompt
 export LESS=-iRS
-export SSH_AUTH_SOCK="$HOME/.ssh/agent"
-eval $(dircolors --sh)
+export SSH_AUTH_SOCK=$HOME/.ssh/agent
+eval $(dircolors --sh $HOME/opt/cemant/dircolors)
 
 ## services
 if ! pgrep -u $USER ssh-agent >/dev/null; then
@@ -101,6 +101,7 @@ alias 0ip='wget -qO - https://ipinfo.io/ip'
 #alias 0mixoff='pactl unload-module module-loopback'
 alias 0proxy='ssh -CND 8815 188.166.105.125' # aga
 alias 0sshadd='ssh-add $HOME/.ssh/id_rsa'
+alias 0stipe='ssh -t aga "cd www/stipe/db && bash"'
 alias 0topc='ps -Ao pcpu,pid,cmd | sort -grk1 | head -17 | column -t -N %,pid,cmd | cut -c-$(tput cols)'
 alias 0topm="ps -Ao pmem,rss,vsize,pid,args | awk '{if (\$2 > 10240) \$2=\$2/1024\"M\"; if (\$3 > 10240) \$3=\$3/1024\"M\";}{print;}' | sort -grk1 | head -25 | column -t -N %,rss,vsz,pid,cmd |"' cut -c-$(tput cols)'
 alias asdf='0k lay hsnt'

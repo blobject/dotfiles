@@ -59,7 +59,7 @@ proc connected {} {
 
 proc opt {rel dir ref} {
   global prm prm_res ext ext_res
-  if {[string $rel {prm}]} {
+  if {[string equal $rel {prm}]} {
     set dir "primary --orientation normal --rotate normal --$dir"
   }
   return "--auto --output [subst $${rel}]\

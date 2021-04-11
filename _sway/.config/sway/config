@@ -36,7 +36,11 @@ input 1267:12496:ELAN962C:00_04F3:30D0_Touchpad {
 }
 input 5426:97:Razer_Atheris_Mouse {
   natural_scroll disabled
-  pointer_accel -1.0
+  pointer_accel -0.95
+}
+input 5426:98:Razer_Razer_Atheris_-_Mobile_Gaming_Mouse {
+  natural_scroll disabled
+  pointer_accel -0.95
 }
 input 1133:16500:Logitech_G305 {
   natural_scroll disabled
@@ -93,43 +97,43 @@ mode "resize" {
   bindsym Return mode "default"
   bindsym Control+g mode "default"
 }
-bindsym Mod4+f               fullscreen
-bindsym Mod4+semicolon       splitt
-bindsym Mod4+period          layout toggle split
-bindsym Mod4+slash           layout tabbed
-bindsym Mod4+comma           floating toggle
-bindsym Mod4+Tab             focus mode_toggle
-bindsym Mod4+minus           focus child
-bindsym Mod4+equal           focus parent
-bindsym Mod4+BackSpace       scratchpad show
-bindsym Mod4+Shift+BackSpace move scratchpad
-bindsym Mod4+Shift+r         reload
-bindsym Mod4+Shift+Escape    kill
-bindsym XF86MonBrightnessDown        exec '0k lum -5 &'
-bindsym XF86MonBrightnessUp          exec '0k lum +5 &'
-bindsym XF86AudioMute                exec '0k vol x &'
-bindsym XF86AudioLowerVolume         exec '0k vol -5 &'
-bindsym XF86AudioRaiseVolume         exec '0k vol +5 &'
-bindsym XF86AudioMicMute             exec '0k vol mic x &'
-bindsym XF86AudioPlay                exec '0k vol mic x &'
-bindsym Control+XF86AudioMute        exec '0k vol bt x &'
-bindsym Control+XF86AudioLowerVolume exec '0k vol bt -5 &'
-bindsym Control+XF86AudioRaiseVolume exec '0k vol bt +5 &'
-bindsym Control+XF86AudioMicMute     exec '0k vol bt mic x &'
-bindsym Print                        exec '0k shot screen png &'
-bindsym Mod1+Print                   exec '0k shot active png &'
-bindsym Shift+Print                  exec '0k shot select png &'
+bindsym --no-repeat Mod4+f            fullscreen
+bindsym --no-repeat Mod4+semicolon    splitt
+bindsym --no-repeat Mod4+period       layout toggle split
+bindsym --no-repeat Mod4+slash        layout tabbed
+bindsym --no-repeat Mod4+comma        floating toggle
+bindsym Mod4+Tab                      focus mode_toggle
+bindsym Mod4+minus                    focus child
+bindsym Mod4+equal                    focus parent
+bindsym Mod4+BackSpace                scratchpad show
+bindsym Mod4+Shift+BackSpace          move scratchpad
+bindsym --no-repeat Mod4+Shift+r      reload
+bindsym --no-repeat Mod4+Shift+Escape kill
+bindsym XF86MonBrightnessDown                exec '0k lum -5 &'
+bindsym XF86MonBrightnessUp                  exec '0k lum +5 &'
+bindsym --no-repeat XF86AudioMute            exec '0k vol x &'
+bindsym XF86AudioLowerVolume                 exec '0k vol -5 &'
+bindsym XF86AudioRaiseVolume                 exec '0k vol +5 &'
+bindsym --no-repeat XF86AudioMicMute         exec '0k vol mic x &'
+bindsym --no-repeat XF86AudioPlay            exec '0k vol mic x &'
+bindsym --no-repeat Control+XF86AudioMute    exec '0k vol bt x &'
+bindsym Control+XF86AudioLowerVolume         exec '0k vol bt -5 &'
+bindsym Control+XF86AudioRaiseVolume         exec '0k vol bt +5 &'
+bindsym --no-repeat Control+XF86AudioMicMute exec '0k vol bt mic x &'
+bindsym --no-repeat Print                    exec '0k shot screen png &'
+bindsym --no-repeat Mod1+Print               exec '0k shot active png &'
+bindsym --no-repeat Shift+Print              exec '0k shot select png &'
 bindsym --no-repeat Mod4+Return exec '0a | bemenu -f --fn "Agave bold 11" -i -l 16 -m 1 -n -p ">" -P "-->" --scrollbar autohide -w --tb="#000000" --tf="#575a61" --fb="#000000" --ff="#cf554d" --nb="#000000" --nf="#92959d" --hb="#000000" --hf="#667ad3" --scb="#000000" --scf="#92959d" | 0a run'
-bindsym --no-repeat Mod4+space       exec 'makoctl dismiss &'
-bindsym --no-repeat Mod4+Shift+space exec 'makoctl dismiss -a &'
-bindsym --no-repeat Mod4+b           exec 'swaymsg -t get_tree | grep -q "\\"name\\": \\"br\\"" && swaymsg [title="^br$"] focus || 0tcl alacritty --config-file "$::env(HOME)/cfg/unstowed/alacritty_broot.yml" -t br -e bash -ic br'
-bindsym --no-repeat Mod4+Mod1+b      exec '0tcl alacritty --config-file "$::env(HOME)/cfg/unstowed/alacritty_broot.yml" -t br -e bash -ic br'
-bindsym --no-repeat Mod4+Shift+b     exec 'swaymsg [title="^br$"] resize set width 164px && swaymsg [title="^br$"] splitv'
-bindsym --no-repeat Mod4+apostrophe  exec 'swaynag -t warning -m "$(grim -g \"$(slurp -p)\" -t ppm - | convert - -format "%[pixel:p{0,0}]" txt:-)"'
-bindsym --no-repeat Mod4+e           exec 'alacritty -e kak &'
-bindsym --no-repeat Mod4+t           exec 'alacritty &'
-bindsym --no-repeat Mod4+w           exec 'firefox-wayland &'
+bindsym --no-repeat Mod4+space               exec 'makoctl dismiss &'
+bindsym --no-repeat Mod4+Shift+space         exec 'makoctl dismiss -a &'
+bindsym --no-repeat Mod4+b exec 'swaymsg -t get_tree | grep -q "\\"name\\": \\"br\\"" && swaymsg [title="^br$"] focus || 0tcl alacritty --config-file "$::env(HOME)/cfg/unstowed/alacritty_broot.yml" -t br -e bash -ic br'
+bindsym --no-repeat Mod4+Mod1+b exec '0tcl alacritty --config-file "$::env(HOME)/cfg/unstowed/alacritty_broot.yml" -t br -e bash -ic br'
+bindsym --no-repeat Mod4+Shift+b exec 'swaymsg [title="^br$"] resize set width 164px && swaymsg [title="^br$"] splitv'
+bindsym --no-repeat Mod4+e                   exec 'alacritty -e kak &'
+bindsym --no-repeat Mod4+t                   exec 'alacritty &'
+bindsym --no-repeat Mod4+w                   exec 'firefox-wayland &'
 bindsym --no-repeat Mod4+Mod1+w exec '0tcl firefox-wayland --private-window --profile "$::env(HOME)/p/firefox_proxy" 2>/dev/null'
+bindsym --no-repeat Mod4+x exec 'swaynag -t warning -m "$(grim -g \"$(slurp -p)\" -t ppm - | convert - -format "%[pixel:p{0,0}]" txt:-)"'
 exec 0s snooze &
 exec 0s temper &
 exec sleep 5 && blueman-tray &

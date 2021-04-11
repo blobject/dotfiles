@@ -66,7 +66,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 |-|-|-------|
 | =print= | =_= / =A-= / =S-= | *take picture* of *screen* / *active* / *selection* |
 | =W-enter= | | launch *launcher* |
-| =W-= *char* | ='= / =b= / =e= / =t= / =w= | launch *color picker*, *broot*, *editor*, *terminal*, *www* |
+| =W-= *char* | =b= / =e= / =x= / =t= / =w= | launch *broot*, *editor*, *color picker*, *terminal*, *www* |
 
 | key template | key more | do, /mako/ |
 |--------------|----------|------------|
@@ -120,7 +120,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
   - /util:/ ponymix, pavucontrol
   - ~ln -s /usr/share/alsa/alsa.conf.d/*-pipewire*.conf /etc/alsa/conf.d/~
   - =/etc/pipewire/pipewire.conf=: enable pipewire-pulse
-  - of web browsers, only firefox supports screensharing at the moment
+  - of web browsers, only firefox supports screensharing in wayland at the moment
 
 - more ::
 1. *dev:*

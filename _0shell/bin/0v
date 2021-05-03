@@ -19,13 +19,13 @@ switch -- $arg {
     exec qemu-system-x86_64 -enable-kvm \
       -name mint \
       -cpu host \
+      -device intel-hda -device hda-duplex \
       -device virtio-balloon \
       -device virtio-rng-pci \
       -m 1G \
       -net nic \
       -net user,hostname=v \
       -smp 2 \
-      -soundhw all \
       -usb \
       -boot order=d \
       -drive file=$::env(HOME)/vm/mint/mint.img,if=virtio \

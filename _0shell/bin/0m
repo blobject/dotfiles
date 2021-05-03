@@ -106,11 +106,11 @@ switch -- $arg {
   }
   l - left {
     set cmd2 "$cmd1 [opt prm right-of ext]"
-    append cmd1 " [opt ext {rotate left --left-of} prm]"
+    append cmd1 " [opt ext {rotate normal --left-of} prm]"
   }
   r - right {
     set cmd2 "$cmd1 [opt prm left-of ext]"
-    append cmd1 " [opt ext {rotate left --right-of} prm]"
+    append cmd1 " [opt ext {rotate normal --right-of} prm]"
   }
   default { help }
 }

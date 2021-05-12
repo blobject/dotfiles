@@ -124,11 +124,6 @@ mouse:
   #double_click: { threshold: 300 }
   #triple_click: { threshold: 300 }
   hide_when_typing: true
-  url:
-    #launcher:
-    #  program: xdg-open
-    #  args: []
-    modifiers: Control
 #key_bindings:
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }

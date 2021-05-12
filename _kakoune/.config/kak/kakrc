@@ -10,6 +10,9 @@ add-highlighter global/ regex '(FIXME|NOTE|TODO|WIP|XXX)' 0:black,bright-blue+F
 add-highlighter global/ show-matching
 add-highlighter global/ wrap
 define-command -buffer-completion d "delete-buffer" -docstring 'delete current buffer'
+map global normal C '' # unmap not working :-/
+map global normal <tab>   C         -docstring 'copy selection on next line'
+map global normal <s-tab> <a-space> -docstring 'remove primary selection'
 map global normal <minus> vk        -docstring 'scroll up one'
 map global normal <=>     vj        -docstring 'scroll down one'
 map global normal <_>     8vk       -docstring 'scroll up eight'
@@ -23,7 +26,6 @@ map global normal <space> ':set-register slash ""<ret>' -docstring 'empty out se
 map global normal <a-space> '' # unmap not working :-/
 map global normal <a-d>   Xd        -docstring 'delete extended line'
 map global normal <c-g>   <space>   -docstring 'remove secondary selections'
-map global normal <a-g>   <a-space> -docstring 'remove primary selection'
 map global normal <n>     nvc       -docstring 'select next search pattern and center view'
 map global normal <s-n>   Nvc       -docstring 'extend with next search pattern and center view'
 map global normal <a-n>   <a-n>vc   -docstring 'select previous search pattern and center view'

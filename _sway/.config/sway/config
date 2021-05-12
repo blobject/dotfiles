@@ -132,11 +132,11 @@ bindsym --no-repeat Mod4+Shift+b exec 'swaymsg [title="^br$"] resize set width 1
 bindsym --no-repeat Mod4+e                   exec 'alacritty -e kak &'
 bindsym --no-repeat Mod4+t                   exec 'alacritty &'
 bindsym --no-repeat Mod4+w                   exec 'firefox-wayland &'
-bindsym --no-repeat Mod4+Mod1+w exec '0tcl firefox-wayland --private-window --profile "$::env(HOME)/p/firefox_proxy" 2>/dev/null'
+bindsym --no-repeat Mod4+Shift+w exec '0tcl firefox-wayland --private-window --profile "$::env(HOME)/p/firefox_proxy" 2>/dev/null'
 bindsym --no-repeat Mod4+x exec 'swaynag -t warning -m "$(grim -g \"$(slurp -p)\" -t ppm - | convert - -format "%[pixel:p{0,0}]" txt:-)"'
 exec 0s snooze &
 exec 0s temper &
-exec sleep 5 && blueman-tray &
+exec sleep 5 && blueman-applet &
 exec gammastep-indicator -l manual -l 50.1:14.4 -m wayland -t 6500K:5500K &
 exec mako &
 exec pipewire &

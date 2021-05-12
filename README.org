@@ -7,7 +7,6 @@
 counter-clockwise from northwest:
 [[https://github.com/Alexays/Waybar][waybar]],
 [[https://github.com/alacritty/alacritty][alacritty]] ([[https://github.com/dylanaraps/neofetch][neofetch]]),
-[[http://kakoune.org/][kakoune]],
 [[https://wayland.emersion.fr/grim/][grim]],
 [[https://wayland.emersion.fr/mako/][mako]].
 wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3840x2160][link]].
@@ -16,7 +15,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 
 | class | instance |
 |-------|-------------|
-| hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]], [[https://www.microsoft.com/en-us/p/microsoft-designer-compact-keyboard/8zhrtr7zcswq][designer compact]], [[https://olkb.com/collections/planck][planck]], [[https://www.razer.com/gaming-mice/razer-atheris][atheris]], [[https://www.apple.com/shop/product/MRMF2/magic-trackpad-2-space-gray][magic trackpad]], [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]] |
+| hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]], [[https://www.microsoft.com/en-us/p/microsoft-designer-compact-keyboard/8zhrtr7zcswq][designer compact]], [[https://www.razer.com/gaming-mice/razer-atheris][atheris]], [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]] |
 | env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://swaywm.org/][sway]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
 | look | 2160x1440, 200dpi, font size ~11pt, [[https://typeof.net/Iosevka/][iosevka]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
 
@@ -125,7 +124,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 - more ::
 1. *dev:*
   - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, lua, mono, nodejs, octave, openjdk, r, rustup, sbcl, squeak, swi-prolog, tk
-  - /util:/ catch2, cmake, gdb, msbuild, valgrind
+  - /util:/ catch2, cmake, docker, gdb, msbuild, valgrind
 1. *app:*
   - /doc:/ foliate, libreoffice, pdf.js, texlive-most, zathura
   - /image:/ gimp, imagemagick, imv, inkscape, mypaint
@@ -139,7 +138,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
   - links: =/etc/modprobe.d=, =/etc/sysctl.d=
 
 - groups ::
-wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, vboxusers, bluetooth, socklog
+wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, docker, vboxusers, bluetooth, socklog
 
 - daemons ::
 agetty-*, bluetoothd, dbus, dhcpcd, nanoklogd, ntpd, sddm, socklog-unix, tlp, udevd, uuidd, wpa_supplicant

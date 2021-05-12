@@ -12,6 +12,7 @@ text/plain=0kak.desktop
 text/x-c=0kak.desktop
 text/x-c++=0kak.desktop
 text/x-makefile=0kak.desktop
+text/x-script.python=0kak.desktop
 text/x-shellscript=0kak.desktop
 text/x-tcl=0kak.desktop
 text/x-tex=0kak.desktop

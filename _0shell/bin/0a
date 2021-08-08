@@ -5,15 +5,15 @@
 
 source $::env(HOME)/bin/lib.tcl
 
-need gtk-launch jq swaymsg
+need gtk-launch jq
 
 ###############################################################################
 
 set cache $TMPD/0a
 global dirs
 global apps
-set width 2300 ;# presumes laptop output
-set width_line [expr {[expr {$width / 16}] - 5}]
+set width 1152 ;# presumes laptop output
+set width_line [expr {[expr {$width / 9}]}]
 set width_short [expr {$width_line / 2}]
 
 proc load_cache {} {

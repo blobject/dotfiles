@@ -1,0 +1,10 @@
+dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus &
+light -S 30 &
+xrdb -merge $HOME/.xresources &
+{ 0s snooze & } &
+{ 0s temper & } &
+{ sleep 5 && blueman-applet & } &
+{ gammastep-indicator -l manual -l 50.1:14.4 -m wayland -t 6500K:5500K & } &
+{ mako & } &
+{ pipewire & } &
+{ waybar & } &

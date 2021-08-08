@@ -18,10 +18,11 @@ cursor:
 hidpi (& font size):
 - /etc/sddm.d/*.conf
 - .profile
+- .config/hikari/hikari.conf
 - .config/sway/config
-- .alacritty.yml
+- .alacritty.yml, cfg/unstowed/alacritty_*
 - .xresources
-- firefox
+- firefox (layout.css.devPixelsPerPx)
 - .gtkrc-2.0
 - .config/gtk-3.0/settings.ini
 - qtconfig-qt4

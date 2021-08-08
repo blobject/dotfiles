@@ -2,3 +2,4 @@
 .hgignore
 /outside/usr/share/kbd/keymaps/i386/hsnt.kmap
 /outside/usr/share/X11/xkb/symbols/hsnt
+/unstowed/back.png

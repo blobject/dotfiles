@@ -36,7 +36,7 @@ font:
   bold_italic:
     family: Agave
     style: Bold Italic
-  size: 10.0
+  size: 19.0
 mouse:
   hide_when_typing: true
 scrolling:

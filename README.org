@@ -16,8 +16,8 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 | class | instance |
 |-------|-------------|
 | hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]], [[https://www.microsoft.com/en-us/p/microsoft-designer-compact-keyboard/8zhrtr7zcswq][designer compact]], [[https://www.razer.com/gaming-mice/razer-atheris][atheris]], [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]] |
-| env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://swaywm.org/][sway]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
-| look | 2160x1440, 200dpi, font size ~11pt, [[https://typeof.net/Iosevka/][iosevka]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
+| env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://hikari.acmelabs.space/][hikari]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
+| look | 2160x1440, 100dpi, font size ~20pt, [[https://www.jetbrains.com/lp/mono/][jetbrains mono]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
 
 *** scripts
 
@@ -35,53 +35,51 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 
 *** keybinding
 
-| key template | key more | do, /sway/ |
-|--------------|----------|------------|
+| key template | key more | do |
+|--------------|----------|----|
 
 | | | /GENERAL, MOVE, RESIZE/ |
 |-|-|-------------------------|
-| =W-S-r= | | *reconfigure* |
-| =W-= *mouse* | =L= / =R= | *move* window / *resize* |
-| =W-S-esc= | | *close* window |
-| =W-= *num* | =1= / =2= / =3= / =4= | *focus nth* desktop |
-| =W-S-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |
-| =W-S-= *dir* | =h= / =j= / =k= / =l= | *move* window *left* / *down* / *up* / *right* |
-| =W-r= | =h= / =j= / =k= / =l= | enter *resize mode* then *shrink width* / *expand height* / *shrink height* / *expand width* |
-| =W-S-bksp= | | *move* to *scratchpad* |
-| =W-comma= | | toggle *float* |
+| =MS-r= | | *reconfigure* |
+| =M-= *mouse* | =L= / =R= | *move* window / *resize* |
+| =MS-esc= | | *close* window |
+| =MS-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |
+| =M-= *dir* | =_= / =C-= --- =h= / =j= / =k= / =l= | *snap* / *resize* window --- *left* / *down* / *up* / *right* |
+| =MC-= *num* | =1= / =2= | maximise window *vertically* / *horizontally* |
+
+| | | /LAYOUT/ |
+|-|-|----------|
+| =M-semi= (=MA-=) *char* | =g= / =r= / =c= / =h= / =j= / =k= / =l= / =d= | *change* layout to *grid* / *rows* / *columns* / *left* main / *bottom* main / *top* main / *right* main / *dev* |
+| =M-= *char* | =equal= / =minus= / =0= | *switch* with *next* / *previous* / *main* tiled window |
+| =MA-semi= | | *reset* layout |
+| =M-quote= | | *reset* window *geometry* |
+| =M-slash= | | toggle window *float* |
 
 | | | /FOCUS/ |
 |-|-|---------|
-| =W-= *dir* | =h= / =j= / =k= / =l= | *focus* window to *left* / *below* / *above* / to *right* |
-| =W-bksp= | | toggle *scratchpad* |
-| =W-semic= | =_= / =S-= | prepare *vertical split* / *horizontal* |
-| =W-period= | | change to *split* layout (if tabbed) or toggle *split direction* (if split) |
-| =W-slash= | | change to *tabbed* layout |
-| =W-= *dir* | =-= / ~=~ | *focus child* / *parent* |
-| =W-tab= | | toggle *focus* between tiled and floating |
-| =W-f= | | toggle window *fullscreen* |
+| =M-= *num* | =1= / =2= / =3= / =4= | *focus nth* desktop |
+| =M-tab= | =_= / =S-= | *focus next* / *previous* window |
+| =M-= *punc* | =comma= / =period= | *raise* / *lower* window |
+| =M-f= | | toggle window *fullscreen* |
 
 | | | /APP/ |
 |-|-|-------|
 | =print= | =_= / =A-= / =S-= | *take picture* of *screen* / *active* / *selection* |
-| =W-enter= | | launch *launcher* |
-| =W-= *char* | =b= / =e= / =x= / =t= / =w= | launch *broot*, *editor*, *color picker*, *terminal*, *www* |
-
-| key template | key more | do, /mako/ |
-|--------------|----------|------------|
-| =W-space= | =_= / =S-= | *close* notification / *close all*
+| =M-enter= | | launch *launcher* |
+| =M-space= | =_= / =S-= | *close* notification / *close all*
+| =M-= *char* | =b= / =e= / =t= / =w= | launch *broot*, *editor*, *terminal*, *www* |
 
 *** steps
 
 - initial ::
 1. *fs:* 512m vfat efi, swap as file
 1. *boot:* refind, remove grub
-1. *sec:* copy (not link!): =/etc/sudoers.d=
+1. *sec:* copy (not link!): =/etc/sudoers.d/=
   - be wary of syntax and permissions
 1. *net:* installer already set up wpa_supplicant stuff, so reuse it
   - ~wpa_supplicant -i $dev -c /etc/wpa_supplicant/wpa_supplicant-$dev.conf~
   - =/etc/dhcpcd.conf=: cloudflare dns servers
-1. *kbd:* =/usr/share/{kbd/keymaps/i386,X11/xkb/symbols}=
+1. *kbd:* =/usr/share/{kbd/keymaps/i386,X11/xkb/symbols}/=
 1. *repo:* void-repo-{multilib,nonfree}{-nonfree,}
 1. /immediate goodness:/ bash-completion, chronyd, socklog, tlp
   - link: =/etc/rc.conf=
@@ -91,7 +89,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 1. *shell:*
   - /cmdline:/ fd, git, mercurial, ripgrep, tmux, tcl
   - /util:/ lz4, p7zip, rlwrap, stow, zip
-  - stow will link the maximally existent path, so any addition to an over-inclusive dir link will begin to reside in the stowed (ie. this) repository -- hence the mkdirs in =stow.tcl= to make sure only the desired subtrees (usually leaves) become links
+  - stow will link the maximally existent path, so any addition to an over-inclusive dir link will begin to reside in the stowed (ie. this) repository -- hence the mkdirs in =stow.tcl= to make sure only the desired subtrees (usually leaves and singletons) become links
 1. *hw:*
   - /blob:/ various firmware, intel-ucode
   - /driver:/ intel-video-accel, mesa-dri, mesa-vulkan-intel, xf86-input-mtrack
@@ -99,9 +97,10 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 1. *sess:*
   - /service:/ dbus-elogind, elogind, sddm, xorg-minimal, xwayland
   - /util:/ alacritty, setxkbmap, xrdb, xset, xterm
-  - /wm:/ cwm, sway
+  - /wm:/ cwm, hikari
   - links: =/etc/sddm.conf.d=, =/etc/X11/xorg.conf.d=
-  - ~chmod u+s /usr/bin/sway~: seat-related headache
+  - ~chmod u+s /usr/bin/hikari~: seat-related headache
+  - =/usr/share/{x,wayland-}sessions/=
   - power management events handled by elogind, not acpid
   - =/usr/share/sddm/scripts/Xsetup=: login screen kbd settings
 1. *edit:*
@@ -131,11 +130,15 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
   - /look:/ breeze-icons, breeze-snow-cursor-theme, papirus-icon-theme, qt5ct
   - /net:/ firefox, skype
   - /sec:/ gnupg2
-  - /fun:/ cataclysm-dda, fontforge, qemu, steam
-  - steam: some 32bit libs, sdl stuff
+  - /fun:/ cataclysm-dda, fontforge, qemu
 1. *kernel:* dracut, some headers (libelf) to make =make= work
   - keep sound modular, headphone mic misbehaves otherwise
   - links: =/etc/modprobe.d=, =/etc/sysctl.d=
+
+- manual ::
+  - meson, ninja
+  - move to =/usr/local/=
+  - edit in =/etc/ld.so.conf.d/=
 
 - groups ::
 wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, docker, vboxusers, bluetooth, socklog

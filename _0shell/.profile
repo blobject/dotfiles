@@ -20,7 +20,7 @@ export GTK2_RC_FILES=$HOME/.gtkrc-2.0
 export GUILE_AUTO_COMPILE=0
 export QT_QPA_PLATFORMTHEME=qt5ct
 export XCURSOR_THEME=Breeze_Snow
-export XCURSOR_SIZE=32
+export XCURSOR_SIZE=64
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CONFIG_DIRS=/etc/xdg
@@ -31,18 +31,19 @@ export XDG_MENU_PREFIX=''
 ## session-specific
 if [[ 'z' = "z$WAYLAND_DISPLAY" ]] && [[ -n $DISPLAY ]]; then
   # x
-  export QT_AUTO_SCREEN_SCALE_FACTOR=1
-  export QT_FONT_DPI=200
+  #export QT_AUTO_SCREEN_SCALE_FACTOR=1
+  #export QT_FONT_DPI=200
   export XDG_CURRENT_DESKTOP=cwm
 else
   # wayland
   export CLUTTER_BACKEND=wayland
   export GDK_BACKEND=wayland
+  export GDK_DPI_SCALE=2.0
   export MOZ_ENABLE_WAYLAND=1
-  export QT_AUTO_SCREEN_SCALE_FACTOR=1
+  #export QT_AUTO_SCREEN_SCALE_FACTOR=1
   export QT_QPA_PLATFORM=wayland
   export SDL_VIDEODRIVER=wayland
-  export XDG_CURRENT_DESKTOP=sway
+  export XDG_CURRENT_DESKTOP=hikari
 fi
 
 [[ -f $HOME/.bash_profile ]] || . $HOME/.bashrc

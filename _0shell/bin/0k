@@ -8,7 +8,7 @@ source $::env(HOME)/bin/lib.tcl
 need notify-send \
      setxkbmap \
      xbacklight light \
-     grim jq slurp swaymsg \
+     grim jq slurp \
      ponymix
 
 ###############################################################################

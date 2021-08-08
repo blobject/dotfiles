@@ -115,7 +115,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka Custom" :height 110 :weight semibold))))
+ '(default ((t (:family "JetBrains Mono NL" :height 200 :weight medium))))
  '(fill-column-indicator ((t (:foreground "#d2d6de"))))
  '(fixed-pitch-serif ((t (:family "FreeMono" :weight bold))))
  '(org-agenda-structure ((t (:inverse-video nil :underline nil :slant normal :weight bold :height 1.0))))

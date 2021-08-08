@@ -6,7 +6,6 @@
 source $::env(HOME)/bin/lib.tcl
 
 need notify-send \
-     pkill swaylock swaymsg \
      rsync xbps-query \
      0snooze-bat 0snooze-temper snooze
 
@@ -49,7 +48,7 @@ proc bye {} {
   proc kill {} {
     catch {exec pkill dbus-daemon}
     catch {exec pkill dbus-launch}
-    #catch {exec pkill pulseaudio}
+    catch {exec pkill pipewire}
   }
 
   proc save {} {
@@ -67,13 +66,14 @@ proc bye {} {
   }
 
   switch -- [lindex $::argv 0] {
-    k - o - lock {
-      if {{w} eq $SESS} { exec swaylock -f -c 000000; }
-    }
+    #k - o - lock {
+    #  if {{w} eq $SESS} { exec swaylock -f -c 000000; }
+    #}
     e - l - q - x - logout {
       save
       kill
-      if {{w} eq $SESS} { exec swaymsg exit; }
+      #if {{w} eq $SESS} { exec swaymsg exit; }
+      if {{w} eq $SESS} { exec pkill hikari; }
       if {{x} eq $SESS} { exec pkill cwm; }
     }
     z - sleep {

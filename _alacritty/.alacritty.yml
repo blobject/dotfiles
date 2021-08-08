@@ -23,18 +23,18 @@ scrolling:
   multiplier: 1
 font:
   normal:
-    family: Iosevka Custom
-    style: Semibold
+    family: JetBrains Mono NL
+    style: Medium
   bold:
-    family: Iosevka Custom
+    family: JetBrains Mono NL
     style: Bold
   italic:
-    family: Iosevka Custom
-    style: Semibold Italic
+    family: JetBrains Mono NL
+    style: Medium Italic
   bold_italic:
-    family: Iosevka Custom
+    family: JetBrains Mono NL
     style: Bold Italic
-  size: 12.0
+  size: 21.0
   #offset:
   #  x: 0
   #  y: 0

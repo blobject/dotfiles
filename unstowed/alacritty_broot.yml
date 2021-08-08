@@ -3,21 +3,24 @@ env:
 draw_bold_text_with_bright_colors: true
 font:
   normal:
-    family: Iosevka Custom
-    style: Semibold
+    family: JetBrains Mono NL
+    style: Medium
   bold:
-    family: Iosevka Custom
+    family: JetBrains Mono NL
     style: Bold
   italic:
-    family: Iosevka Custom
-    style: Italic
+    family: JetBrains Mono NL
+    style: Medium Italic
   bold_italic:
-    family: Iosevka Custom
+    family: JetBrains Mono NL
     style: Bold Italic
-  size: 9
+  size: 16
 mouse:
   hide_when_typing: true
 window:
+  dimensions:
+    columns: 64
+    lines: 47
   dynamic_padding: false
   title: broot
 

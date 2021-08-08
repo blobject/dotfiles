@@ -1,12 +1,12 @@
 {
-  "layer": "bottom",
+  "layer": "top",
   "position": "top",
-  "modules-left": [
-    "sway/workspaces",
-    "sway/mode",
-    "sway/window"
-  ],
-  "modules-right": [
+  //"modules-left": [
+  //  "sway/workspaces",
+  //  "sway/mode",
+  //  "sway/window"
+  //],
+  "modules-center": [
     "clock",
     "cpu",
     "temperature",
@@ -14,8 +14,10 @@
     "disk",
     "network",
     "backlight",
-    "idle_inhibitor",
-    "pulseaudio",
+    //"idle_inhibitor",
+    "pulseaudio"
+  ],
+  "modules-right": [
     "battery",
     "tray"
   ],
@@ -113,7 +115,7 @@
     "format-plugged": " {capacity}"
   },
   "tray": {
-    "icon-size": 10,
+    "icon-size": 22,
     "spacing": 4
   },
 }

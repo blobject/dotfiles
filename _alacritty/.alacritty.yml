@@ -23,18 +23,18 @@ scrolling:
   multiplier: 1
 font:
   normal:
-    family: JetBrains Mono NL
-    style: Medium
+    family: Sarasa Term K
+    style: Semibold
   bold:
-    family: JetBrains Mono NL
+    family: Sarasa Term K
     style: Bold
   italic:
-    family: JetBrains Mono NL
-    style: Medium Italic
+    family: Sarasa Term K
+    style: Semibold Italic
   bold_italic:
-    family: JetBrains Mono NL
+    family: Sarasa Term K
     style: Bold Italic
-  size: 21.0
+  size: 22.0
   #offset:
   #  x: 0
   #  y: 0

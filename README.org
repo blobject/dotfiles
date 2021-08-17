@@ -17,7 +17,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 |-------|-------------|
 | hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]], [[https://www.microsoft.com/en-us/p/microsoft-designer-compact-keyboard/8zhrtr7zcswq][designer compact]], [[https://www.razer.com/gaming-mice/razer-atheris][atheris]], [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]] |
 | env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://hikari.acmelabs.space/][hikari]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
-| look | 2160x1440, 100dpi, font size ~20pt, [[https://www.jetbrains.com/lp/mono/][jetbrains mono]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
+| look | 2160x1440, 100dpi, font size ~20pt, [[https://picaq.github.io/sarasa/][sarasa]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
 
 *** scripts
 
@@ -144,5 +144,5 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, docker, vboxusers, bluetooth, socklog
 
 - daemons ::
-agetty-*, bluetoothd, dbus, dhcpcd, nanoklogd, ntpd, sddm, socklog-unix, tlp, udevd, uuidd, wpa_supplicant
+agetty-*, bluetoothd, dbus, dhcpcd, elogind, nanoklogd, ntpd, sddm, socklog-unix, tlp, udevd, uuidd, wpa_supplicant
 

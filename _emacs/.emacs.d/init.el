@@ -68,7 +68,7 @@
  '(css-indent-offset 2)
  '(custom-enabled-themes '(cemant))
  '(custom-safe-themes
-   '("e489427e9bdbc4621b2c3c2647a832825382981ed74b842d51c9d735b31081d0" default))
+   '("0869260dbd9e9cd21e0ec51c6d6356eb9cc4983a43266c317f2d6eccb9f796ef" default))
  '(default-tab-width 2 t)
  '(display-fill-column-indicator t)
  '(electric-indent-inhibit t t)
@@ -115,7 +115,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "JetBrains Mono NL" :height 200 :weight medium))))
+ '(default ((t (:family "Sarasa Term K" :height 220 :weight semibold))))
  '(fill-column-indicator ((t (:foreground "#d2d6de"))))
  '(fixed-pitch-serif ((t (:family "FreeMono" :weight bold))))
  '(org-agenda-structure ((t (:inverse-video nil :underline nil :slant normal :weight bold :height 1.0))))

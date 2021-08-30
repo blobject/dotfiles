@@ -3,7 +3,7 @@ set-option global grepcmd 'rg --line-number --with-filename'
 set-option global indentwidth 2
 set-option global modelinefmt '{StatusLineInfo}%sh{expr >/dev/null "${#kak_bufname}" ">" `expr \`tput cols\` "/" 2` && printf "$kak_bufname" | sed "s_[^/]\+\$__" | sed "s_\([^/]\{,2\}\)[^/]*/_\1/_g" || printf "$kak_bufname" | sed "s_[^/]\+\$__"}{black,white}%sh{printf "$kak_bufname" | sed "s_^.*/__"}{StatusLineInfo}:%val{buf_line_count}/{black}%val{cursor_line}{StatusLineInfo}:{black}%val{cursor_char_column}{{context_info}} {{mode_info}}'
 set-option global tabstop 2
-set-option global ui_options ncurses_assistant=none ncurses_enable_mouse=yes ncurses_set_title=yes ncurses_status_on_top=yes
+set-option global ui_options terminal_assistant=none terminal_enable_mouse=yes terminal_set_title=yes terminal_status_on_top=yes
 add-highlighter global/ number-lines -hlcursor -separator ' '
 add-highlighter global/ regex \h+$ 0:Error
 add-highlighter global/ regex '(FIXME|NOTE|TODO|WIP|XXX)' 0:black,bright-blue+F

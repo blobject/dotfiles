@@ -6,7 +6,7 @@
 
 counter-clockwise from northwest:
 [[https://github.com/Alexays/Waybar][waybar]],
-[[https://github.com/alacritty/alacritty][alacritty]] ([[https://github.com/dylanaraps/neofetch][neofetch]]),
+[[https://github.com/alacritty/alacritty][alacritty]] ([[https://github.com/dylanaraps/pfetch][pfetch]]),
 [[https://wayland.emersion.fr/grim/][grim]],
 [[https://wayland.emersion.fr/mako/][mako]].
 wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3840x2160][link]].
@@ -137,8 +137,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 
 - manual ::
   - meson, ninja
-  - move to =/usr/local/=
-  - edit in =/etc/ld.so.conf.d/=
+  - move to =/usr/local/= and edit in =/etc/ld.so.conf.d/=
 
 - groups ::
 wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, docker, vboxusers, bluetooth, socklog

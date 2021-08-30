@@ -1,5 +1,5 @@
-#gtk-cursor-theme-name="Breeze_Snow"
-#gtk-cursor-theme-size=64
+gtk-cursor-theme-name="Breeze_Snow"
+gtk-cursor-theme-size=64
 gtk-font-name="sans 20"
 gtk-icon-theme-name="Papirus"
 gtk-theme-name="Adwaita"

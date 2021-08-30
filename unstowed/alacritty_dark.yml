@@ -23,16 +23,16 @@ scrolling:
   multiplier: 1
 font:
   normal:
-    family: JetBrains Mono NL
-    style: Medium
+    family: Sarasa Term K
+    style: Semibold
   bold:
-    family: JetBrains Mono NL
+    family: Sarasa Term K
     style: Bold
   italic:
-    family: JetBrains Mono NL
-    style: Medium Italic
+    family: Sarasa Term K
+    style: Semibold Italic
   bold_italic:
-    family: JetBrains Mono NL
+    family: Sarasa Term K
     style: Bold Italic
   size: 20.0
   #offset:
@@ -124,11 +124,6 @@ mouse:
   #double_click: { threshold: 300 }
   #triple_click: { threshold: 300 }
   hide_when_typing: true
-  url:
-    #launcher:
-    #  program: xdg-open
-    #  args: []
-    modifiers: Control
 #key_bindings:
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }

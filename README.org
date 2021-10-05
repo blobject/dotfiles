@@ -127,7 +127,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 1. *app:*
   - /doc:/ foliate, libreoffice, pdf.js, texlive-most, zathura
   - /image:/ gimp, imagemagick, imv, inkscape, mypaint
-  - /look:/ breeze-icons, breeze-snow-cursor-theme, papirus-icon-theme, qt5ct
+  - /look:/ breeze-snow-cursor-theme, qt5ct
   - /net:/ firefox, skype
   - /sec:/ gnupg2
   - /fun:/ cataclysm-dda, fontforge, qemu
@@ -137,7 +137,10 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 
 - manual ::
   - meson, ninja
-  - move to =/usr/local/= and edit in =/etc/ld.so.conf.d/=
+    - move to =/usr/local/= and edit in =/etc/ld.so.conf.d/=
+  - la-capitaine-icon-theme
+    - link to =.icons/=
+    - make link tree, like =opt/la-capitaine-mako/*/16=
 
 - groups ::
 wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, docker, vboxusers, bluetooth, socklog

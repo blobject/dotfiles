@@ -29,12 +29,12 @@ proc bat {} {
       if {$capacity <= $crit} {
         exec {*}$notify -u critical -t 1800000 -i battery-020 bat $capacity%
       } elseif {[expr {$lo - 5}] <= $capacity && $capacity <= $lo} {
-        exec {*}$notify -u normal -t 4000 -i battery-030 bat $capacity%
+        exec {*}$notify -u normal -t 4000 -i battery-020 bat $capacity%
       }
     }
     {C} {
       if {$hi <= $capacity && $capacity <= [expr {$hi + 2}]} {
-        exec {*}$notify -u low -t 2000 -i battery-090-charging bat $capacity%
+        exec {*}$notify -u low -t 2000 -i battery-080-charging bat $capacity%
       }
     }
   }

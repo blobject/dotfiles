@@ -79,7 +79,7 @@ proc shot {} {
   set name "shot-[exec date +%s]."
   set cmd {grim}
   set geom {}
-  set notify {notify-send -u normal -i image-x-generic-symbolic}
+  set notify {notify-send -u normal -i image-x-generic}
 
   proc help {} {
     upvar 1 dst dst
@@ -167,7 +167,7 @@ proc vol {} {
   } else {
     set ::argv [lrange $::argv 1 end]
     if [catch {exec ponymix --sink list | grep {: bluez_}}] {
-      exec {*}$notify bluetooth vol {no bt audio}
+      exec {*}$notify bluetooth-disabled vol {no bt audio}
       exit
     } else {
       switch -- [exec ponymix --sink list \

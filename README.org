@@ -136,8 +136,8 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
   - links: =/etc/modprobe.d=, =/etc/sysctl.d=
 
 - manual ::
+  - place executable-onlies in =~/bin/=, and more involved applications in =/usr/local/= and edit in =/etc/ld.so.conf.d/=
   - meson, ninja
-    - move to =/usr/local/= and edit in =/etc/ld.so.conf.d/=
 
 - groups ::
 wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, docker, vboxusers, bluetooth, socklog

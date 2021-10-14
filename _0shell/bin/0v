@@ -28,7 +28,7 @@ switch -- $arg {
       -smp 2 \
       -usb \
       -boot order=d \
-      -drive file=$::env(HOME)/vm/mint/mint.img,if=virtio \
+      -drive file=$::env(HOME)/opt/vm/mint/mint.img,if=virtio \
       {*}$::argv
   }
   #w - win {
@@ -48,7 +48,7 @@ switch -- $arg {
   #    -smp 2 \
   #    -usb \
   #    -vga virtio \
-  #    -drive file=$::env(HOME)/vm/win/win.img,if=virtio,aio=native,cache.direct=on \
+  #    -drive file=$::env(HOME)/opt/vm/win/win.img,if=virtio,aio=native,cache.direct=on \
   #    {*}$::argv
   #    #-device usb-host,bus=xhci.0,hostbus=$usbbus,hostaddr=$usbdev \
   #    #-device usb-ehci,id=ehci \

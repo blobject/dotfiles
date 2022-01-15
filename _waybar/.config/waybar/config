@@ -1,11 +1,10 @@
 {
   "layer": "top",
   "position": "top",
-  //"modules-left": [
-  //  "sway/workspaces",
-  //  "sway/mode",
-  //  "sway/window"
-  //],
+  "modules-left": [
+    "wlr/workspaces",
+    "wlr/taskbar"
+  ],
   "modules-center": [
     "clock",
     "cpu",
@@ -21,9 +20,10 @@
     "battery",
     "tray"
   ],
-  "sway/workspaces": {
-    "disable-click": false,
-    "disable-scroll": true,
+  "wlr/workspaces": {
+    "all-outputs": true,
+    "on-click": "activate",
+    "sort-by-name": false,
     "format": "{icon}",
     "format-icons": {
       "1": "",
@@ -32,10 +32,11 @@
       "4": ""
     }
   },
-  "sway/mode": {
-    "format": "{}"
-  },
-  "sway/window": {
+  "wlr/taskbar": {
+    "all-outputs": true,
+    "icon-size": 22,
+    "tooltip-format": "{title}",
+    "on-click": "minimize-raise",
     "format": "<span foreground=\"#000000\"></span>{}"
   },
   "clock": {

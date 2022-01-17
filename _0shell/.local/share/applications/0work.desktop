@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=agaric.net work
+Comment=Work terminal on agaric.net
+Exec=0tcl alacritty --config-file $::env(HOME)/cfg/unstowed/alacritty_work.yml
+Icon=Alacritty
+Categories=TerminalEmulator;
+StartupNotify=true
+Terminal=false

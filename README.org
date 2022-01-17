@@ -9,7 +9,6 @@ counter-clockwise from northwest:
 [[https://github.com/alacritty/alacritty][alacritty]] ([[https://github.com/dylanaraps/pfetch][pfetch]]),
 [[https://wayland.emersion.fr/grim/][grim]],
 [[https://wayland.emersion.fr/mako/][mako]].
-wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3840x2160][link]].
 
 *** selection
 
@@ -122,7 +121,7 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
 
 - more ::
 1. *dev:*
-  - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, lua, mono, nodejs, octave, openjdk, r, rustup, sbcl, squeak, swi-prolog, tk
+  - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, lua, mono, nodejs, octave, openjdk, python3-devel+pip, r, rustup, sbcl, squeak, swi-prolog, tk
   - /util:/ catch2, cmake, docker, gdb, msbuild, valgrind
 1. *app:*
   - /doc:/ foliate, libreoffice, pdf.js, texlive-most, zathura
@@ -136,8 +135,8 @@ wallpaper [[https://wallpaperscraft.com/download/paint_colorful_overlay_139992/3
   - links: =/etc/modprobe.d=, =/etc/sysctl.d=
 
 - manual ::
-  - place executable-onlies in =~/bin/=, and more involved applications in =/usr/local/= and edit in =/etc/ld.so.conf.d/=
-  - meson, ninja
+- place executable-onlies in =~/bin/=, and more involved applications in =/usr/local/= and edit in =/etc/ld.so.conf.d/=
+- /pip:/ meson, ninja
 
 - groups ::
 wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, docker, vboxusers, bluetooth, socklog
@@ -145,3 +144,6 @@ wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, docker, vboxusers
 - daemons ::
 agetty-*, bluetoothd, dbus, dhcpcd, elogind, nanoklogd, ntpd, sddm, socklog-unix, tlp, udevd, uuidd, wpa_supplicant
 
+- dualboot win ::
+- configure timezone to be UTC on windows
+- configure battery charge threshold via matebook applet on windows

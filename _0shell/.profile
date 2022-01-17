@@ -43,7 +43,10 @@ else
   #export QT_AUTO_SCREEN_SCALE_FACTOR=1
   export QT_QPA_PLATFORM=wayland
   export SDL_VIDEODRIVER=wayland
-  export XDG_CURRENT_DESKTOP=hikari
+  export XDG_SESSION_TYPE=wayland
+  export XDG_SESSION_DESKTOP=wlroots
+  export XDG_CURRENT_DESKTOP=wlroots
+  export XDG_CURRENT_SESSION=wlroots
 fi
 
 [[ -f $HOME/.bash_profile ]] || . $HOME/.bashrc

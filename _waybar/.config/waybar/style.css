@@ -99,17 +99,17 @@ window#waybar.hidden { opacity: 0.2; }
 #workspaces button#sway-workspace-2.focused { color: #ba59b3; }
 #workspaces button#sway-workspace-3.focused { color: #72a336; }
 #workspaces button#sway-workspace-4.focused { color: #667ad3; }
-#mode { background-color: #d2d6de; color: #16161d; }
-#cpu                                 { color: #3c56aa; }
-#temperature                         { color: #456789; margin-left: 0; }
-#memory                              { color: #4e7a67; }
-#disk                                { color: #67823d; }
-#network                             { color: #899012; }
-#backlight                           { color: #a87817; }
+#mode            { background-color: #d2d6de; color: #16161d; }
+#cpu                                        { color: #3c56aa; }
+#temperature                { margin-left: 0; color: #456789; }
+#memory                                     { color: #4e7a67; }
+#disk                                       { color: #67823d; }
+#network                                    { color: #899012; }
+#backlight                                  { color: #a87817; }
 #idle_inhibitor.activated { background-color: #a87817; color: #16161d; }
-#pulseaudio                          { color: #a46738; }
-#battery                  { background-color: #352021; color: #92959d; }
-#battery.critical:not(.charging)     { color: #d2d6de; }
+#pulseaudio                                 { color: #a46738; }
+#battery         { background-color: #36383f; color: #92959d; }
+#battery.critical:not(.charging)            { color: #d2d6de; }
 #battery.charging,
-#battery.plugged          { background-color: #000000; color: #575a61; }
+#battery.plugged { background-color: #000000; color: #575a61; }
 

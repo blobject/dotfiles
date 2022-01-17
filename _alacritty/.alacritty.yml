@@ -47,9 +47,12 @@ colors:
   primary:
     background: '#b9bdc5'
     foreground: '#36383f'
+    #foreground: '#b9bdc5'
+    #background: '#36383f'
     #dim_foreground: '#828482'
     #bright_foreground: '#e8ecf4'
   normal:
+  #bright:
     black:   '#16161d'
     red:     '#a32c2d'
     green:   '#4b7d08'
@@ -59,6 +62,7 @@ colors:
     cyan:    '#237e6f'
     white:   '#92959d'
   bright:
+  #normal:
     black:   '#575a61'
     red:     '#cf554d'
     green:   '#72a336'

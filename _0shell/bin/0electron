@@ -1,0 +1,17 @@
+#! /bin/sh
+
+opt='\
+--enable-features=UseOzonePlatform \
+--ozone-platform=wayland \
+--enable-features=WebRTCPipeWireCapturer \
+--enable-gpu \
+--ignore-gpu-blocklist \
+--enable-gpu-rasterization \
+--enable-zero-copy \
+--disable-gpu-driver-bug-workarounds \
+--enable-features=VaapiVideoDecoder \
+--disable-software-rasterizer \
+--js-flags="--max-old-space-size=5120" \
+'
+
+$1 $opt $2

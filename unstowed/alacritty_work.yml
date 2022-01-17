@@ -1,0 +1,53 @@
+env:
+  TERM: xterm-256color
+window:
+  dimensions:
+    columns: 80
+    lines: 61
+  dynamic_padding: true
+  title: alacritty
+scrolling:
+  history: 16384
+  multiplier: 1
+font:
+  normal:
+    family: Sarasa Term K
+    style: Semibold
+  bold:
+    family: Sarasa Term K
+    style: Bold
+  italic:
+    family: Sarasa Term K
+    style: Semibold Italic
+  bold_italic:
+    family: Sarasa Term K
+    style: Bold Italic
+  size: 13.0
+  use_thin_strokes: false
+draw_bold_text_with_bright_colors: true
+colors:
+  primary:
+    foreground: '#b9bdc5'
+    background: '#36383f'
+  normal:
+    black:   '#16161d'
+    red:     '#a32c2d'
+    green:   '#4b7d08'
+    yellow:  '#916814'
+    blue:    '#3c56aa'
+    magenta: '#91328c'
+    cyan:    '#237e6f'
+    white:   '#92959d'
+  bright:
+    black:   '#575a61'
+    red:     '#cf554d'
+    green:   '#72a336'
+    yellow:  '#ba8d3b'
+    blue:    '#667ad3'
+    magenta: '#ba59b3'
+    cyan:    '#4ea494'
+    white:   '#d2d6de'
+cursor:
+  thickness: 0.25
+mouse:
+  hide_when_typing: true

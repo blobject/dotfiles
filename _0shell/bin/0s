@@ -248,7 +248,7 @@ proc temper {} {
   set where $TMPD
   set flag .unpacked
   set what mozilla/firefox
-  set name ssmmtrb4.default-default
+  set name mod0pazi.default-default
 
   proc base {name} {
     return [lindex [file split $name] end]

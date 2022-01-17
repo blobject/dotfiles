@@ -99,9 +99,8 @@ alias 0fonts="pango-list | grep '^[^ ]' | sort | pr -2 -T"
 alias 0ip='wget -qO - https://ipinfo.io/ip'
 #alias 0mixon='pactl load-module module-loopback'
 #alias 0mixoff='pactl unload-module module-loopback'
-alias 0proxy='ssh -CND 8815 aga'
+alias 0proxy='ssh -CND 8815 as'
 alias 0sshadd='ssh-add $HOME/.ssh/id_rsa'
-alias 0stipe='ssh -t aga "cd www/stipe/db && bash"'
 alias 0topc='ps -Ao pcpu,pid,cmd | sort -grk1 | head -17 | column -t -N %,pid,cmd | cut -c-$(tput cols)'
 alias 0topm="ps -Ao pmem,rss,vsize,pid,args | awk '{if (\$2 > 10240) \$2=\$2/1024\"M\"; if (\$3 > 10240) \$3=\$3/1024\"M\";}{print;}' | sort -grk1 | head -25 | column -t -N %,rss,vsz,pid,cmd |"' cut -c-$(tput cols)'
 alias asdf='0k lay hsnt'
@@ -130,6 +129,7 @@ alias guile='rlwrap -ci guile'
 alias tclsh='rlwrap -ci tclsh'
 alias wish='rlwrap -ci wish'
 alias d='df -h'
+alias dk='docker'
 alias e='kak'
 alias f='free -m'
 alias g='git'
@@ -144,7 +144,9 @@ alias ,,,,='c ../../../..'
 
 ## imports
 source /usr/share/bash-completion/completions/git
+source /usr/share/bash-completion/completions/docker
 __git_complete g __git_main
+__git_complete dk _docker
 
 ## set title
 trap __0_title DEBUG

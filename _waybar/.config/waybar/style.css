@@ -1,5 +1,5 @@
 * { border: none; border-radius: 0; min-height: 0; }
-window#waybar { background-color: #000000; color: #575a61; opacity: 0.75; }
+window#waybar { background-color: #000000; color: #575a61; }
 window#waybar.hidden { opacity: 0.2; }
 #workspaces button {
   font-family: "Font Awesome 5 Pro Light";

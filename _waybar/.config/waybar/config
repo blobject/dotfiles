@@ -2,10 +2,13 @@
   "layer": "top",
   "position": "top",
   "modules-left": [
-    "wlr/workspaces",
-    "wlr/taskbar"
+    "sway/workspaces",
+    "sway/mode",
+    "sway/window"
   ],
   "modules-center": [
+  ],
+  "modules-right": [
     "clock",
     "cpu",
     "temperature",
@@ -13,14 +16,12 @@
     "disk",
     "network",
     "backlight",
-    //"idle_inhibitor",
-    "pulseaudio"
-  ],
-  "modules-right": [
+    "idle_inhibitor",
+    "pulseaudio",
     "battery",
     "tray"
   ],
-  "wlr/workspaces": {
+  "sway/workspaces": {
     "all-outputs": true,
     "on-click": "activate",
     "sort-by-name": false,
@@ -32,11 +33,10 @@
       "4": ""
     }
   },
-  "wlr/taskbar": {
+  "sway/window": {
     "all-outputs": true,
     "icon-size": 22,
     "tooltip-format": "{title}",
-    "on-click": "minimize-raise",
     "format": "<span foreground=\"#000000\"></span>{}"
   },
   "clock": {

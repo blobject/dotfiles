@@ -14,8 +14,8 @@ counter-clockwise from northwest:
 
 | class | instance |
 |-------|-------------|
-| hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]], [[https://www.microsoft.com/en-us/p/microsoft-designer-compact-keyboard/8zhrtr7zcswq][designer compact]], [[https://www.razer.com/gaming-mice/razer-atheris][atheris]], [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]] |
-| env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://hikari.acmelabs.space/][hikari]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
+| hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]], [[https://github.com/foostan/crkbd][corne]], [[https://www.razer.com/gaming-mice/razer-atheris][atheris]], [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]] |
+| env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://swaywm.org/][sway]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
 | look | 2160x1440, 100dpi, font size ~20pt, [[https://picaq.github.io/sarasa/][sarasa]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
 
 *** scripts
@@ -43,29 +43,28 @@ counter-clockwise from northwest:
 | =M-= *mouse* | =L= / =R= | *move* window / *resize* |
 | =MS-esc= | | *close* window |
 | =MS-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |
-| =M-= *dir* | =_= / =C-= --- =h= / =j= / =k= / =l= | *snap* / *resize* window --- *left* / *down* / *up* / *right* |
-| =MC-= *num* | =1= / =2= | maximise window *vertically* / *horizontally* |
-
-| | | /LAYOUT/ |
-|-|-|----------|
-| =M-semi= (=MA-=) *char* | =g= / =r= / =c= / =h= / =j= / =k= / =l= / =d= | *change* layout to *grid* / *rows* / *columns* / *left* main / *bottom* main / *top* main / *right* main / *dev* |
-| =M-= *char* | =equal= / =minus= / =0= | *switch* with *next* / *previous* / *main* tiled window |
-| =MA-semi= | | *reset* layout |
-| =M-quote= | | *reset* window *geometry* |
-| =M-slash= | | toggle window *float* |
+| =M[CS]-= *dir* | =h= / =j= / =k= / =l= | *move* window *left* / *down* / *up* / *right*, *more* / *less* |
+| =M-r= =C?-= *dir* | =h= / =j= / =k= / =l= | enter *resize mode* then *shrink/expand height/width*, *more* / *less* |
+| =MS-bksp= | | *move* to *scratchpad* |
+| =M-comma= | | toggle window *float* |
+| =M-f= | | toggle window *fullscreen* |
 
 | | | /FOCUS/ |
 |-|-|---------|
 | =M-= *num* | =1= / =2= / =3= / =4= | *focus nth* desktop |
-| =M-tab= | =_= / =S-= | *focus next* / *previous* window |
-| =M-= *punc* | =comma= / =period= | *raise* / *lower* window |
-| =M-f= | | toggle window *fullscreen* |
+| =M-= *dir* | =h= / =j= / =k= / =l= | *focus* window to *left* / *below* / *above* / to *right* |
+| =M-bksp= | | toggle *scratchpad* |
+| =M-semic= | | prepare *vertical* / *horizontal split* |
+| =M-period= | | change to *split* layout (if tabbed) or toggle *split direction* (if split) |
+| =M-slash= | | change to *tabbed* layout |
+| =M-= *dir* | =-= / ~=~ | *focus child* / *parent* |
+| =M-tab= | | toggle *focus* between tiled and floating |
 
 | | | /APP/ |
 |-|-|-------|
-| =print= | =_= / =A-= / =S-= | *take picture* of *screen* / *active* / *selection* |
+| =[AS]?-print= | | *take picture* of *screen* / *active* / *selection* |
 | =M-enter= | | launch *launcher* |
-| =M-space= | =_= / =S-= | *close* notification / *close all*
+| =MS?-space= | | *close* notification / *close all*
 | =M-= *char* | =b= / =e= / =t= / =w= | launch *broot*, *editor*, *terminal*, *www* |
 
 *** steps
@@ -96,9 +95,9 @@ counter-clockwise from northwest:
 1. *sess:*
   - /service:/ dbus-elogind, elogind, sddm, xorg-minimal, xwayland
   - /util:/ alacritty, setxkbmap, xrdb, xset, xterm
-  - /wm:/ cwm, hikari
+  - /wm:/ cwm, sway
   - links: =/etc/sddm.conf.d=, =/etc/X11/xorg.conf.d=
-  - ~chmod u+s /usr/bin/hikari~: seat-related headache
+  - ~chmod u+s /usr/bin/sway~: seat-related headache
   - =/usr/share/{x,wayland-}sessions/=
   - power management events handled by elogind, not acpid
   - =/usr/share/sddm/scripts/Xsetup=: login screen kbd settings

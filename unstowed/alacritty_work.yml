@@ -5,7 +5,7 @@ window:
     columns: 80
     lines: 61
   dynamic_padding: true
-  title: alacritty
+  title: agaric.net work
 scrolling:
   history: 16384
   multiplier: 1

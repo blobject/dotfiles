@@ -56,5 +56,4 @@ switch -- $arg {
   #    #-display sdl,gl=on \
   #}
   default { usage {?|m_int} }
-  #default { usage {?|m_int|w_in} }
 }

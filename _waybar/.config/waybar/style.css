@@ -11,15 +11,16 @@ window#waybar.hidden { opacity: 0.2; }
   font-family: "Font Awesome 5 Pro Solid";
 }
 #mode,
-#idle_inhibitor,
 #clock,
-#battery,
+#custom-weather,
 #cpu,
+#temperature,
 #memory,
 #disk,
-#temperature,
+#network,
 #backlight,
-#network {
+#idle_inhibitor,
+#battery {
   font-family: Agave, "Font Awesome 5 Pro Light";
   font-size: 22px;
   font-weight: 700;
@@ -63,10 +64,13 @@ window#waybar.hidden { opacity: 0.2; }
 #pulseaudio {
   margin: 0 12px;
 }
+#clock,
 #cpu,
 #backlight {
   margin-left: 12px;
 }
+#custom-weather { margin-right: 12px; }
+#cpu { margin-top: 1px; }
 #workspaces { margin-right: 4px; }
 #workspaces button { margin-right: 6px; padding: 0; min-width: 24px; }
 #workspaces button:hover { background: none; text-shadow: none; box-shadow: none; }

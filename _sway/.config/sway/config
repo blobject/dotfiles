@@ -38,6 +38,10 @@ input 5426:97:Razer_Atheris_Mouse {
   natural_scroll disabled
   pointer_accel -0.75
 }
+input 5426:98:Razer_Razer_Atheris_-_Mobile_Gaming_Mouse {
+  natural_scroll disabled
+  pointer_accel -0.75
+}
 input 8526:16:ProPoint_Mouse {
   natural_scroll disabled
   pointer_accel -0.75

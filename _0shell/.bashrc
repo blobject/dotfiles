@@ -35,9 +35,10 @@ __0_title()
   echo -ne "\033]0;($(echo ${__0_pwd:-$PWD} | sed s,$HOME,~,)) $c\007"; }
 
 0ftp()
-{ local phone='192.168.2.3'
-  [[ -z "$1" ]] && echo 'provide ftp password' \
-    || sudo lftp -u b,$1 -p 21000 ftp://$phone; }
+{ local net='10.0.0.'
+  local port='21000'
+  [[ $# -ne 2 ]] && echo 'provide phone address & ftp password' \
+    || sudo lftp -u "b,$2" -p $port "ftp://$net$1"; }
 
 0qmk-flash()
 { #make planck/rev4:blobject:flash \

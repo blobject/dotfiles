@@ -10,6 +10,7 @@
   ],
   "modules-right": [
     "clock",
+    "custom/weather",
     "cpu",
     "temperature",
     "memory",
@@ -44,9 +45,13 @@
     "format": "<span foreground=\"#36383f\">•</span> {:<span foreground=\"#92959d\">%H:%M</span> %a%d%b}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
+  "custom/weather": {
+    "exec": "curl -s 'wttr.in/prague?0AQT\\&format=%t%x' | sed 's_^+\\([0-9]\\+°\\)C\\(.*\\)\\s*$_\\1\\2_'",
+    "interval": 3600
+  },
   "cpu": {
     "interval": 5,
-    "format": "廊 {usage}"
+    "format": "<span rise='2000'>廊</span> {usage}"
   },
   "temperature": {
     "interval": 10,

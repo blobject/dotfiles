@@ -28,6 +28,10 @@ export XDG_DATA_HOME=$HOME/.local/share
 export XDG_DATA_DIRS=/usr/local/share:/usr/share
 export XDG_MENU_PREFIX=''
 
+## xdg_runtime_dir for wlroots, seatd
+[[ -z "$XDG_RUNTIME_DIR" ]] && \
+  export XDG_RUNTIME_DIR=/run/user/$UID
+
 ## session-specific
 if [[ 'z' = "z$WAYLAND_DISPLAY" ]] && [[ -n $DISPLAY ]]; then
   # x
@@ -41,7 +45,7 @@ else
   export GDK_DPI_SCALE=2.0
   export MOZ_ENABLE_WAYLAND=1
   #export QT_AUTO_SCREEN_SCALE_FACTOR=1
-  export QT_QPA_PLATFORM=wayland
+  export QT_QPA_PLATFORM=wayland-egl
   export SDL_VIDEODRIVER=wayland
   export XDG_SESSION_TYPE=wayland
   export XDG_SESSION_DESKTOP=sway

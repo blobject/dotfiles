@@ -8,10 +8,10 @@ exec_always {
 exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus &
 exec light -S 30 &
 exec xrdb -merge $HOME/.xresources &
-exec swayidle -w \
-  timeout 1200 'swaymsg "output * dpms off"' \
-        resume 'swaymsg "output * dpms on"' \
-  timeout 2400 '0s bye sleep' &
+#exec swayidle -w \
+#  timeout 1200 'swaymsg "output * dpms off"' \
+#        resume 'swaymsg "output * dpms on"' \
+#  timeout 2400 '0s bye sleep' &
 input 1:1:AT_Translated_Set_2_keyboard {
   repeat_delay 250
   repeat_rate 30

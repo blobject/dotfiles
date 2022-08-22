@@ -1,1 +1,1 @@
-/home/b/opt/cemant/cemant.vim
+/home/b/opt/cemant/vim/cemant.vim

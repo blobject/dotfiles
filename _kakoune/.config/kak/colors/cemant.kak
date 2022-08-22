@@ -1,1 +1,1 @@
-/home/b/opt/cemant/cemant.kak
+/home/b/opt/cemant/kakoune/cemant.kak

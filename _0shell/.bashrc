@@ -83,7 +83,7 @@ HISTSIZE=65536
 PROMPT_COMMAND=__0_prompt
 export LESS=-iRS
 export SSH_AUTH_SOCK=$HOME/.ssh/agent
-eval $(dircolors --sh $HOME/opt/cemant/dircolors)
+eval $(dircolors --sh $HOME/opt/cemant/dircolors/dircolors)
 
 ## services
 if ! pgrep -u $USER ssh-agent >/dev/null; then

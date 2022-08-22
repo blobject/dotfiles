@@ -13,21 +13,31 @@ exec xrdb -merge $HOME/.xresources &
 #        resume 'swaymsg "output * dpms on"' \
 #  timeout 2400 '0s bye sleep' &
 input 1:1:AT_Translated_Set_2_keyboard {
+  # laptop
   repeat_delay 250
   repeat_rate 30
   xkb_layout hsnt
 }
-input 1118:2098:Designer_Compact_Keyboard {
+input 7504:24926:corne_k_Keyboard {
+  # usb
+  repeat_delay 250
+  repeat_rate 30
+  xkb_layout hsnt
+}
+input 0:0:k_Keyboard {
+  # bluetooth
   repeat_delay 250
   repeat_rate 30
   xkb_layout hsnt
 }
 input 65261:24672:OLKB_Planck_Keyboard {
+  # usb
   repeat_delay 250
   repeat_rate 30
   xkb_layout hsnt
 }
 input 1267:12496:ELAN962C:00_04F3:30D0_Touchpad {
+  # laptop
   dwt enabled
   middle_emulation enabled
   natural_scroll enabled
@@ -35,14 +45,17 @@ input 1267:12496:ELAN962C:00_04F3:30D0_Touchpad {
   tap enabled
 }
 input 5426:97:Razer_Atheris_Mouse {
+  # bluetooth
   natural_scroll disabled
   pointer_accel -0.75
 }
 input 5426:98:Razer_Razer_Atheris_-_Mobile_Gaming_Mouse {
+  # usb wireless
   natural_scroll disabled
   pointer_accel -0.75
 }
 input 8526:16:ProPoint_Mouse {
+  # usb wireless
   natural_scroll disabled
   pointer_accel -0.75
 }
@@ -119,8 +132,10 @@ bindsym --no-repeat XF86AudioMicMute         exec '0k vol mic x &'
 bindsym --no-repeat XF86AudioPlay            exec '0k vol mic x &'
 bindsym --no-repeat Control+XF86AudioMute    exec '0k vol bt x &'
 bindsym --no-repeat Control+XF86AudioMicMute exec '0k vol bt mic x &'
-bindsym XF86MonBrightnessDown                exec '0k lum -2 &'
-bindsym XF86MonBrightnessUp                  exec '0k lum +2 &'
+#bindsym XF86MonBrightnessDown                exec '0k lum -2 &'
+#bindsym XF86MonBrightnessUp                  exec '0k lum +2 &'
+bindsym XF86MonBrightnessDown                exec 'sleep 0.1 && notify-send -u low -t 2000 -i redshift-status-off lum "$(light -G)" &'
+bindsym XF86MonBrightnessUp                  exec 'sleep 0.1 && notify-send -u low -t 2000 -i redshift-status-on lum "$(light -G)" &'
 bindsym XF86AudioLowerVolume                 exec '0k vol -2 &'
 bindsym XF86AudioRaiseVolume                 exec '0k vol +2 &'
 bindsym Control+XF86AudioLowerVolume         exec '0k vol bt -2 &'

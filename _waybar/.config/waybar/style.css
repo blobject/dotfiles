@@ -54,6 +54,7 @@ window#waybar.hidden { opacity: 0.2; }
 #mode,
 #idle_inhibitor,
 #battery {
+  margin: 0;
   padding: 0 4px;
 }
 #clock,
@@ -69,12 +70,16 @@ window#waybar.hidden { opacity: 0.2; }
 #backlight {
   margin-left: 12px;
 }
-#custom-weather { margin-right: 12px; }
-#cpu { margin-top: 1px; }
+#clock,
+#custom-weather,
+#cpu {
+  padding-top: 2px;
+}
 #workspaces { margin-right: 4px; }
 #workspaces button { margin-right: 6px; padding: 0; min-width: 24px; }
 #workspaces button:hover { background: none; text-shadow: none; box-shadow: none; }
 #window { margin-left: 4px; }
+#custom-weather { margin-right: 12px; }
 #backlight { margin-right: 8px; }
 #idle_inhibitor { margin-right: 10px; }
 #idle_inhibitor.deactivated { margin-left: 0; margin-right: 8px; }
@@ -86,7 +91,7 @@ window#waybar.hidden { opacity: 0.2; }
   margin: 0 12px;
   padding: 0;
 }
-#tray { margin-left: 8px; }
+#tray { margin-left: 8px; padding-bottom: 1px; }
 #workspaces button.urgent,
 #temperature.critical {
   color: #cf554d;

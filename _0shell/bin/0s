@@ -110,6 +110,8 @@ proc dracut {} {
     -i $d/intel/ibt-17-16-1.ddc $d/intel/ibt-17-16-1.ddc \
     -i $d/intel/ibt-17-16-1.sfi $d/intel/ibt-17-16-1.sfi \
     -i $d/iwlwifi-9000-pu-b0-jf-b0-46.ucode $d/iwlwifi-9000-pu-b0-jf-b0-46.ucode \
+    -i /home/b/opt/firmware/rtl8761bu_fw $d/rtl_bt/rtl8761bu_fw.bin \
+    -i /home/b/opt/firmware/rtl8761bu_config $d/rtl_bt/rtl8761bu_config.bin \
     --force \
     -o "btrfs crypt dm lvm lunmask mdraid" \
     /boot/initramfs-${ver}_c.img ${ver}_c

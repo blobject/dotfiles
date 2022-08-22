@@ -142,6 +142,9 @@ wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, _seatd, docker, v
 - daemons ::
 acpid, agetty-*, bluetoothd, dbus, dhcpcd, seatd, nanoklogd, ntpd, sddm, socklog-unix, tlp, udevd, uuidd, wpa_supplicant
 
+- modules ::
+builtin/virtual audio, ASIX usb ethernet
+
 - dualboot win ::
 - configure timezone to be UTC on windows
 - configure battery charge thresholds via matebook applet on windows

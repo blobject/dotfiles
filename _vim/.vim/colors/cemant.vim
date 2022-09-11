@@ -1,1 +1,1 @@
-/home/b/opt/cemant/vim/cemant.vim
+/home/b/opt/cemant/vim/cemant_blobject.vim

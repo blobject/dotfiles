@@ -1,1 +1,1 @@
-/home/b/opt/cemant/kakoune/cemant.kak
+/home/b/opt/cemant/kakoune/cemant_blobject.kak

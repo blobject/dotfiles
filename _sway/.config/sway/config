@@ -1,3 +1,4 @@
+set $opacity 0.75
 exec_always {
   gsettings set org.gnome.desktop.interface cursor-size 64
   gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Snow'
@@ -78,6 +79,7 @@ client.unfocused        #575a61 #92959d #16161d #575a61 #92959d
 client.urgent           #a32c2d #a32c2d #d2d6de #cf554d #a32c2d
 client.placeholder      #000000 #b9bdc5 #16161d #000000 #b9bdc5
 client.background       #b9bdc5
+for_window [con_mark=0alpha] opacity set $opacity
 for_window [title="^agaric.net work$"] floating enable
 for_window [title="^watchcdda$"] floating enable
 for_window [title="^QEMU \("] floating enable
@@ -101,8 +103,8 @@ bindsym Mod4+Control+h     move left  100px
 bindsym Mod4+Control+j     move down  100px
 bindsym Mod4+Control+k     move up    100px
 bindsym Mod4+Control+l     move right 100px
-bindsym --no-repeat Mod4+r mode "resize"
-mode "resize" {
+bindsym --no-repeat Mod4+r mode 'resize'
+mode 'resize' {
   bindsym h         resize shrink width  10px
   bindsym j         resize grow   height 10px
   bindsym k         resize shrink height 10px
@@ -111,9 +113,9 @@ mode "resize" {
   bindsym Control+j resize grow   height 100px
   bindsym Control+k resize shrink height 100px
   bindsym Control+l resize grow   width  100px
-  bindsym Escape    mode "default"
-  bindsym Return    mode "default"
-  bindsym Control+g mode "default"
+  bindsym Escape    mode 'default'
+  bindsym Return    mode 'default'
+  bindsym Control+g mode 'default'
 }
 bindsym --no-repeat Mod4+f            fullscreen
 bindsym --no-repeat Mod4+semicolon    splitt
@@ -125,6 +127,7 @@ bindsym Mod4+minus                    focus child
 bindsym Mod4+equal                    focus parent
 bindsym Mod4+BackSpace                scratchpad show
 bindsym Mod4+Shift+BackSpace          move scratchpad
+bindsym Mod4+o                        mark --toggle '0alpha'; [con_id=__focused__] opacity set 1; [con_mark=0alpha con_id=__focused__] opacity set $opacity
 bindsym --no-repeat Mod4+Shift+r      reload
 bindsym --no-repeat Mod4+Shift+Escape kill
 bindsym --no-repeat XF86AudioMute            exec '0k vol x &'

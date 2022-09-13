@@ -1,6 +1,8 @@
+/* top */
 * { border: none; border-radius: 0; min-height: 0; }
 window#waybar { background-color: #000000; color: #575a61; }
 window#waybar.hidden { opacity: 0.2; }
+/* font */
 #workspaces button {
   font-family: "Font Awesome 5 Pro Light";
   font-size: 20px;
@@ -20,6 +22,7 @@ window#waybar.hidden { opacity: 0.2; }
 #network,
 #backlight,
 #idle_inhibitor,
+#custom-usb,
 #battery {
   font-family: Agave, "Font Awesome 5 Pro Light";
   font-size: 22px;
@@ -42,56 +45,95 @@ window#waybar.hidden { opacity: 0.2; }
   font-family: sans, "FreeSans";
   font-size: 26px;
 }
+/* spacing */
+#workspaces,
+#workspaces button,
 #mode,
-#window {
-  margin-right: 0;
+#window,
+#clock,
+#custom-weather,
+#cpu,
+#temperature,
+#memory,
+#disk,
+#network,
+#backlight,
+#idle_inhibitor,
+#idle_inhibitor.deactivated,
+#pulseaudio,
+#custom-usb,
+#battery {
+  margin: 0;
+  padding: 0;
 }
+#mode,
+#idle_inhibitor,
+#battery {
+  padding: 0 4px;
+}
+#custom-usb {
+  margin: 0 11px 0 8px;
+}
+/* spacing: top */
+#clock,
+#cpu {
+  padding-top: 2px;
+}
+/* spacing: left */
 #workspaces,
 #mode,
 #idle_inhibitor {
   margin-left: 2px;
 }
-#mode,
-#idle_inhibitor,
-#battery {
-  margin: 0;
-  padding: 0 4px;
-}
+#window { margin-left: 4px; }
 #clock,
+#cpu,
+#temperature,
+#memory,
+#disk,
+#network,
+#backlight,
+#pulseaudio {
+  margin-left: 12px;
+}
+#idle_inhibitor.deactivated { margin-left: 3px; }
+#tray { margin-left: 8px; }
+/* spacing: right */
+#workspaces { margin-right: 4px; }
+#workspaces button { margin-right: 6px; min-width: 24px; }
+#clock,
+#custom-weather,
 #temperature,
 #memory,
 #disk,
 #network,
 #pulseaudio {
-  margin: 0 12px;
+  margin-right: 12px;
 }
-#clock,
-#cpu,
-#backlight {
-  margin-left: 12px;
-}
-#clock,
-#custom-weather,
-#cpu {
-  padding-top: 2px;
-}
-#workspaces { margin-right: 4px; }
-#workspaces button { margin-right: 6px; padding: 0; min-width: 24px; }
-#workspaces button:hover { background: none; text-shadow: none; box-shadow: none; }
-#window { margin-left: 4px; }
-#custom-weather { margin-right: 12px; }
-#backlight { margin-right: 8px; }
 #idle_inhibitor { margin-right: 10px; }
-#idle_inhibitor.deactivated { margin-left: 0; margin-right: 8px; }
+#idle_inhibitor.deactivated { margin-right: 14px; }
+#backlight,
 #battery {
   margin: 0 8px;
 }
 #battery.charging,
 #battery.plugged {
   margin: 0 12px;
-  padding: 0;
 }
-#tray { margin-left: 8px; padding-bottom: 1px; }
+/* spacing: bottom */
+#custom-weather,
+#cpu,
+#memory,
+#disk,
+#network,
+#backlight,
+#pulseaudio,
+#custom-usb,
+#battery,
+#tray {
+  padding-bottom: 1px;
+}
+/* color */
 #workspaces button.urgent,
 #temperature.critical {
   color: #cf554d;
@@ -104,6 +146,7 @@ window#waybar.hidden { opacity: 0.2; }
 #pulseaudio.muted {
   color: #575a61;
 }
+#workspaces button:hover { background: none; text-shadow: none; box-shadow: none; }
 #workspaces button#sway-workspace-1.focused { color: #ba8d3b; }
 #workspaces button#sway-workspace-2.focused { color: #ba59b3; }
 #workspaces button#sway-workspace-3.focused { color: #72a336; }
@@ -117,6 +160,7 @@ window#waybar.hidden { opacity: 0.2; }
 #backlight                                  { color: #a87817; }
 #idle_inhibitor.activated { background-color: #a87817; color: #16161d; }
 #pulseaudio                                 { color: #a46738; }
+#custom-usb                                 { color: #896e58; }
 #battery         { background-color: #36383f; color: #92959d; }
 #battery.critical:not(.charging)            { color: #d2d6de; }
 #battery.charging,

@@ -59,6 +59,7 @@ counter-clockwise from northwest:
 | =M-slash= | | change to *tabbed* layout |
 | =M-= *dir* | =-= / ~=~ | *focus child* / *parent* |
 | =M-tab= | | toggle *focus* between tiled and floating |
+| =M-o= | | toggle *opacity* |
 
 | | | /APP/ |
 |-|-|-------|

@@ -19,6 +19,7 @@
     "backlight",
     "idle_inhibitor",
     "pulseaudio",
+    "custom/usb",
     "battery",
     "tray"
   ],
@@ -46,8 +47,8 @@
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
   "custom/weather": {
-    "exec": "curl -s 'https://wttr.in/prague?0AQT\\&format=%t%x' | sed 's/^U.\\+$/?/;s_^+\\?\\([0-9-]\\+.\\)C\\([^\\s]*\\)_\\1\\2_'",
-    "interval": 3600
+    "interval": 3600,
+    "exec": "curl -s 'https://wttr.in/prague?0AQT\\&format=%t%x' | sed 's/^U.\\+$/?/;s_^+\\?\\([0-9-]\\+.\\)C\\([^\\s]*\\)_\\1\\2_;s_o$__;s_=$__;s_mmm$__;s_mm$__;s_m$__;s_///$__;s_//$__;s_/$__;s_\\.$__;s_x$__;s_x/$__;s_\\*\\*$__;s_\\*$__;s_\\*/\\*$__;s_\\*/$__;s_/!/$__;s_!/$__;s_\\*!\\*$__'"
   },
   "cpu": {
     "interval": 5,
@@ -107,6 +108,13 @@
     "on-click": "pavucontrol",
     "on-scroll-up": "",
     "on-scroll-down": ""
+  },
+  "custom/usb": {
+    "interval": 120,
+    "exec": "0s usb",
+    "return-type": "json",
+    "tooltip": "true",
+    "format": " {}"
   },
   "battery": {
     "interval": 30,

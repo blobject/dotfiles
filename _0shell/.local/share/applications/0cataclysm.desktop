@@ -2,8 +2,7 @@
 Type=Application
 Name=Cataclysm
 Comment=Dark Days Ahead
-TryExec=cataclysm-tiles
-Exec=cataclysm-tiles
+Exec=0tcl $::env(HOME)/opt/cdda/cataclysm-launcher
 Icon=cataclysm-dda
 Categories=Game;
 StartupNotify=true

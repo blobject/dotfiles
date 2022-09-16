@@ -147,5 +147,6 @@ acpid, agetty-*, bluetoothd, dbus, dhcpcd, seatd, nanoklogd, ntpd, sddm, socklog
 builtin/virtual audio, usb bluetooth, ASIX usb ethernet, builtin wifi
 
 - dualboot win ::
-- configure timezone to be UTC on windows
-- configure battery charge thresholds via matebook applet on windows
+- timezone: configure win to be UTC
+- battery threshold: configure thresholds via matebook applet on win
+- bluetooth profiles: either mess with link keys on both systems, or clear/repair every time

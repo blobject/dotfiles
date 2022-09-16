@@ -14,6 +14,13 @@ need notify-send \
 ###############################################################################
 
 proc lay {} {
+  global SESS
+
+  if {{x} ne $SESS} {
+    exec notify-send -u low -t 2000 -i preferences-desktop-keyboard key {xorg not running}
+    exit
+  }
+
   set arg [lindex $::argv 0]
   switch -- $arg {
     h - hsnt {
@@ -30,7 +37,7 @@ proc lay {} {
       usage {lay h_snt|q_werty}
     }
   }
-  exec notify-send -u low -t 2000 -i input-keyboard key $arg
+  exec notify-send -u low -t 2000 -i cinnamon-virtual-keyboard key $arg
 }
 
 ###############################################################################

@@ -22,5 +22,4 @@ window:
     columns: 32
     lines: 44
   dynamic_padding: false
-  title: broot
 

@@ -35,7 +35,8 @@ __0_title()
   echo -ne "\033]0;($(echo ${__0_pwd:-$PWD} | sed s,$HOME,~,)) $c\007"; }
 
 0ftp()
-{ local net='10.0.0.'
+{ local net='192.168.1.'
+  #local net='10.0.0.'
   local port='21000'
   [[ $# -ne 2 ]] && echo 'provide phone address & ftp password' \
     || sudo lftp -u "b,$2" -p $port "ftp://$net$1"; }
@@ -56,16 +57,16 @@ c()
 
 ## opt functions
 # taken from broot setup
-function br {
+function 0br {
   f=$(mktemp)
   (
-	set +e
-	broot --outcmd "$f" "$@"
-	code=$?
-	if [ "$code" != 0 ]; then
-	    rm -f "$f"
-	    exit "$code"
-	fi
+  set +e
+  broot --outcmd "$f" "$@"
+  code=$?
+  if [ "$code" != 0 ]; then
+    rm -f "$f"
+    exit "$code"
+  fi
   )
   code=$?
   if [ "$code" != 0 ]; then
@@ -121,7 +122,7 @@ alias lls='ll -S'
 alias llt='ll -t'
 #alias man='man -m /usr/lib/plan9/man'
 alias mv='mv -iv'
-alias nuget="mono $HOME/opt/nuget.exe"
+alias nuget="mono $HOME/opt/csharp/nuget.exe"
 alias pstree='pstree -hnp'
 alias rg='rg -L --hidden'
 alias rm='rm -i'
@@ -129,6 +130,7 @@ alias sudo='sudo '
 alias guile='rlwrap -ci guile'
 alias tclsh='rlwrap -ci tclsh'
 alias wish='rlwrap -ci wish'
+alias b='bluetoothctl'
 alias d='df -h'
 alias dk='docker'
 alias e='kak'

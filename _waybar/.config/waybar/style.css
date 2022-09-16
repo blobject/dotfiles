@@ -72,7 +72,7 @@ window#waybar.hidden { opacity: 0.2; }
   padding: 0 4px;
 }
 #custom-usb {
-  margin: 0 11px 0 8px;
+  margin: 0 10px 0 8px;
 }
 /* spacing: top */
 #clock,

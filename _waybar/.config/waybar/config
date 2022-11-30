@@ -42,13 +42,13 @@
     "format": "<span foreground=\"#000000\"></span>{}"
   },
   "clock": {
-    "interval": 60,
+    "interval": 30,
     //"timezone": "Europe/Prague",
     "format": "<span foreground=\"#36383f\">•</span> {:<span foreground=\"#92959d\">%H:%M</span> %a%d%b}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
   "custom/weather": {
-    "interval": 3600,
+    "interval": 2400,
     "exec": "curl -s 'https://wttr.in/prague?0AQT\\&format=%t%x' | sed 's/^U.\\+$/?/;s_^+\\?\\([0-9-]\\+.\\)C\\([^\\s]*\\)_\\1\\2_;s_o$__;s_=$__;s_mmm$__;s_mm$__;s_m$__;s_///$__;s_//$__;s_/$__;s_\\.$__;s_x$__;s_x/$__;s_\\*\\*$__;s_\\*$__;s_\\*/\\*$__;s_\\*/$__;s_/!/$__;s_!/$__;s_\\*!\\*$__'"
   },
   "cpu": {

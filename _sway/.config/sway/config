@@ -59,6 +59,10 @@ input 1267:12496:ELAN962C:00_04F3:30D0_Touchpad {
   pointer_accel 0.1
   tap enabled
 }
+input 9639:64153:Xtrfy_Xtrfy_Wireless_Receiver {
+  natural_scroll disabled
+  pointer_accel -0.5
+}
 input 5426:98:Razer_Razer_Atheris_-_Mobile_Gaming_Mouse {
   natural_scroll disabled
   pointer_accel -0.75

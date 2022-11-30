@@ -14,7 +14,7 @@ counter-clockwise from northwest:
 
 | class | instance |
 |-------|-------------|
-| hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]], [[https://github.com/foostan/crkbd][corne]], [[https://www.razer.com/gaming-mice/razer-atheris][atheris]], [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]] |
+| hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]], [[https://github.com/foostan/crkbd][corne]], [[https://xtrfy.com/mice/mz1-wireless/][mz1]], [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]] |
 | env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://swaywm.org/][sway]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
 | look | 2160x1440, 100dpi, font size ~20pt, [[https://picaq.github.io/sarasa/][sarasa]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
 

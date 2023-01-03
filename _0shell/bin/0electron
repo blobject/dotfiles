@@ -14,4 +14,6 @@ opt='\
 --js-flags="--max-old-space-size=5120" \
 '
 
-$1 $opt $2
+cmd="$1"
+shift
+$cmd $opt $@

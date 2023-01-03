@@ -116,9 +116,7 @@ proc dracut {} {
       --force \
       -o "btrfs crypt dm lvm lunmask mdraid" \
       /boot/initramfs-${ver}_c.img ${ver}_c
-  } on error e {
-    fatalError $e
-  }
+  } on error e { puts $e }
 }
 
 ###############################################################################
@@ -332,40 +330,6 @@ proc temper {} {
 
 ###############################################################################
 
-proc usb {} {
-  set ignores {1d6b:0003 13d3:56c6 1d6b:0002 8087:0aaa}
-  set lines [split [exec lsusb | sort -k7] "\n"]
-  set devices {}
-
-  foreach line $lines {
-    regexp {\s([0-9a-f]{4}:[0-9a-f]{4})\s} $line -> id
-    if {$id in $ignores} {
-      continue
-    }
-    lappend devices $line
-  }
-
-  set num [llength $devices]
-  set count 1
-
-  set out "{\"text\": \""
-  append out $num
-  append out "\", \"tooltip\": \""
-  foreach device $devices {
-    regexp {^Bus\s+([0-9]{3})\s+Device\s+([0-9]{3}):\s+ID\s+([0-9a-f]{4}:[0-9a-f]{4})\s+(.*)$} \
-      $device -> bus dev id name
-    append out "$bus.$dev\t$id\t$name"
-    if {$count < $num} {
-      append out "\\n"
-    }
-    incr count
-  }
-  append out "\"}"
-  puts $out
-}
-
-###############################################################################
-
 set arg [lindex $::argv 0]
 set ::argv [lrange $::argv 1 end]
 switch -- $arg {
@@ -375,16 +339,14 @@ switch -- $arg {
   save   { save; }
   snooze { snooze; }
   temper { temper; }
-  usb    { usb; }
   default {
-    usage {bat|bye|dracut|save|snooze|temper|usb
+    usage {bat|bye|dracut|save|snooze|temper
   bat     battery alert
   bye     session stop       lock|logout|sleep|reboot|shutdown
   dracut  compile initramfs  KERNEL_VERSION
   save    data backup
   snooze  scheduled exec
-  temper  data to tmpfs
-  usb     list usb devices}
+  temper  data to tmpfs}
   }
 }
 

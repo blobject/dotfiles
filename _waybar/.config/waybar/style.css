@@ -22,7 +22,6 @@ window#waybar.hidden { opacity: 0.2; }
 #network,
 #backlight,
 #idle_inhibitor,
-#custom-usb,
 #battery {
   font-family: Agave, "Font Awesome 5 Pro Light";
   font-size: 22px;
@@ -61,7 +60,6 @@ window#waybar.hidden { opacity: 0.2; }
 #idle_inhibitor,
 #idle_inhibitor.deactivated,
 #pulseaudio,
-#custom-usb,
 #battery {
   margin: 0;
   padding: 0;
@@ -70,9 +68,6 @@ window#waybar.hidden { opacity: 0.2; }
 #idle_inhibitor,
 #battery {
   padding: 0 4px;
-}
-#custom-usb {
-  margin: 0 10px 0 8px;
 }
 /* spacing: top */
 #clock,
@@ -106,12 +101,12 @@ window#waybar.hidden { opacity: 0.2; }
 #temperature,
 #memory,
 #disk,
-#network,
-#pulseaudio {
+#network {
   margin-right: 12px;
 }
 #idle_inhibitor { margin-right: 10px; }
 #idle_inhibitor.deactivated { margin-right: 14px; }
+#pulseaudio { margin-right: 10px; }
 #backlight,
 #battery {
   margin: 0 8px;
@@ -128,7 +123,6 @@ window#waybar.hidden { opacity: 0.2; }
 #network,
 #backlight,
 #pulseaudio,
-#custom-usb,
 #battery,
 #tray {
   padding-bottom: 1px;
@@ -160,7 +154,6 @@ window#waybar.hidden { opacity: 0.2; }
 #backlight                                  { color: #a87817; }
 #idle_inhibitor.activated { background-color: #a87817; color: #16161d; }
 #pulseaudio                                 { color: #a46738; }
-#custom-usb                                 { color: #896e58; }
 #battery         { background-color: #36383f; color: #92959d; }
 #battery.critical:not(.charging)            { color: #d2d6de; }
 #battery.charging,

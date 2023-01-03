@@ -19,7 +19,6 @@
     "backlight",
     "idle_inhibitor",
     "pulseaudio",
-    "custom/usb",
     "battery",
     "tray"
   ],
@@ -109,13 +108,6 @@
     "on-click": "pavucontrol",
     "on-scroll-up": "",
     "on-scroll-down": ""
-  },
-  "custom/usb": {
-    "interval": 120,
-    "exec": "0s usb",
-    "return-type": "json",
-    "tooltip": "true",
-    "format": " {}"
   },
   "battery": {
     "interval": 30,

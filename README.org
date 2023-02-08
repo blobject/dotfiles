@@ -110,13 +110,13 @@ counter-clockwise from northwest:
   - /shell:/ bemenu, broot, wev, wl-clipboard, xdg-utils
   - =.config/mimeapps.list=: mime handling
 1. *av:*
-  - /audio:/ pipewire
+  - /audio:/ pipewire, wireplumber
   - /video:/ ffmpeg, mpv
   - /lib:/ alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg, libspa-v4l2, libspa-vulkan, xdg-desktop-portal-wlr
   - /util:/ ponymix, pavucontrol
   - ~ln -s /usr/share/alsa/alsa.conf.d/*-pipewire*.conf /etc/alsa/conf.d/~
-  - =/etc/pipewire/pipewire.conf=: enable pipewire-pulse
-  - of web browsers, only firefox supports screensharing in wayland at the moment
+  - =~/.config/pipewire/pipewire.conf=: disable pipewire-media-session
+  - of web browsers, only firefox supports fullscreensharing in wayland at the moment
 
 - more ::
 1. *dev:*

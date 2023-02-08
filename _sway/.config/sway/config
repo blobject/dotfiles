@@ -13,7 +13,7 @@ set $cR #cf554d
 set $cB #667ad3
 set $cL #d2d6de
 
-## exec: one-off
+## exec: early & one-off
 exec_always {
   gsettings set org.gnome.desktop.interface cursor-size 64
   gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Snow'
@@ -198,4 +198,5 @@ exec mako &
 exec pipewire &
 exec pipewire-pulse &
 exec waybar &
+exec wireplumber &
 

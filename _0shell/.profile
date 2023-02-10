@@ -48,12 +48,12 @@ else
   export QT_QPA_PLATFORM=wayland
   export SDL_VIDEODRIVER=wayland
   export XDG_SESSION_TYPE=wayland
-  export XDG_SESSION_DESKTOP=sway
-  export XDG_CURRENT_DESKTOP=sway
-  export XDG_CURRENT_SESSION=sway
-  #export XDG_SESSION_DESKTOP=wlroots
-  #export XDG_CURRENT_DESKTOP=wlroots
-  #export XDG_CURRENT_SESSION=wlroots
+  #export XDG_SESSION_DESKTOP=sway
+  #export XDG_CURRENT_DESKTOP=sway
+  #export XDG_CURRENT_SESSION=sway
+  export XDG_SESSION_DESKTOP=wlroots
+  export XDG_CURRENT_DESKTOP=wlroots
+  export XDG_CURRENT_SESSION=wlroots
 fi
 
 [[ -f $HOME/.bash_profile ]] || . $HOME/.bashrc

@@ -1,0 +1,378 @@
+<?xml version="1.0"?>
+<labwc_config>
+  <core>
+    <decoration>server</decoration>
+    <gap>0</gap>
+    <adaptiveSync>no</adaptiveSync>
+    <cycleViewPreview>yes</cycleViewPreview>
+    <cycleViewOutlines>yes</cycleViewOutlines>
+  </core>
+
+  <resistance>
+    <screenEdgeStrength>27</screenEdgeStrength>
+  </resistance>
+
+  <focus>
+    <followMouse>no</followMouse>
+    <raiseOnFocus>no</raiseOnFocus>
+  </focus>
+
+  <snapping>
+    <range>1</range>
+    <topMaximize>no</topMaximize>
+  </snapping>
+
+  <desktops>
+    <popupTime>1000</popupTime>
+    <names>
+      <name>1</name>
+      <name>2</name>
+      <name>3</name>
+      <name>4</name>
+    </names>
+  </desktops>
+
+  <theme>
+    <name>0theme</name>
+    <cornerRadius>0</cornerRadius>
+    <font place="ActiveWindow">
+      <name>sans</name>
+      <size>0</size>
+      <slant>normal</slant>
+      <weight>bold</weight>
+    </font>
+    <font place="MenuItem">
+      <name>sans</name>
+      <size>15</size>
+      <slant>normal</slant>
+      <weight>normal</weight>
+    </font>
+    <font place="OnScreenDisplay">
+      <name>sans</name>
+      <size>17</size>
+      <slant>normal</slant>
+      <weight>bold</weight>
+    </font>
+  </theme>
+
+  <keyboard>
+    <repeatRate>30</repeatRate>
+    <repeatDelay>250</repeatDelay>
+    <keybind key="W-Return">
+      <action name="Execute"><command>0o bemenu</command></action>
+    </keybind>
+    <keybind key="W-t">
+      <action name="Execute"><command>alacritty</command></action>
+    </keybind>
+    <keybind key="W-e">
+      <action name="Execute"><command>alacritty -e kak</command></action>
+    </keybind>
+    <keybind key="W-w">
+      <action name="Execute"><command>firefox-wayland</command></action>
+    </keybind>
+    <keybind key="W-S-w">
+      <action name="Execute"><command>0o firefox</command></action>
+    </keybind>
+    <keybind key="W-Space">
+      <action name="Execute"><command>makoctl dismiss</command></action>
+    </keybind>
+    <keybind key="W-S-Space">
+      <action name="Execute"><command>makoctl dismiss -a</command></action>
+    </keybind>
+    <keybind key="Print">
+      <action name="Execute"><command>0k shot screen png</command></action>
+    </keybind>
+    <keybind key="A-Print">
+      <action name="Execute"><command>0k shot active png</command></action>
+    </keybind>
+    <keybind key="S-Print">
+      <action name="Execute"><command>0k shot select png</command></action>
+    </keybind>
+    <keybind key="XF86_MonBrightnessDown">
+      <action name="Execute"><command>0o lum-</command></action>
+      <!-- <action name="Execute"><command>0k lum -2</command></action> -->
+    </keybind>
+    <keybind key="XF86_MonBrightnessUp">
+      <action name="Execute"><command>0o lum+</command></action>
+      <!-- <action name="Execute"><command>0k lum +2</command></action> -->
+    </keybind>
+    <keybind key="XF86_AudioMute">
+      <action name="Execute"><command>0k vol x</command></action>
+    </keybind>
+    <keybind key="XF86_AudioLowerVolume">
+      <action name="Execute"><command>0k vol -2</command></action>
+    </keybind>
+    <keybind key="XF86_AudioRaiseVolume">
+      <action name="Execute"><command>0k vol +2</command></action>
+    </keybind>
+    <keybind key="XF86_AudioMicMute">
+      <action name="Execute"><command>0k vol mic x</command></action>
+    </keybind>
+    <keybind key="XF86_AudioPlay">
+      <action name="Execute"><command>0k vol mic x</command></action>
+    </keybind>
+    <keybind key="C-XF86_AudioMute">
+      <action name="Execute"><command>0k vol bt x</command></action>
+    </keybind>
+    <keybind key="C-XF86_AudioLowerVolume">
+      <action name="Execute"><command>0k vol bt -2</command></action>
+    </keybind>
+    <keybind key="C-XF86_AudioRaiseVolume">
+      <action name="Execute"><command>0k vol bt +2</command></action>
+    </keybind>
+    <keybind key="C-XF86_AudioMicMute">
+      <action name="Execute"><command>0k vol bt mic x</command></action>
+    </keybind>
+    <keybind key="W-1">
+      <action name="GoToDesktop"><to>1</to></action>
+    </keybind>
+    <keybind key="W-2">
+      <action name="GoToDesktop"><to>2</to></action>
+    </keybind>
+    <keybind key="W-3">
+      <action name="GoToDesktop"><to>3</to></action>
+    </keybind>
+    <keybind key="W-4">
+      <action name="GoToDesktop"><to>4</to></action>
+    </keybind>
+    <keybind key="A-1">
+      <action name="SendToDesktop"><to>1</to></action>
+    </keybind>
+    <keybind key="A-2">
+      <action name="SendToDesktop"><to>2</to></action>
+    </keybind>
+    <keybind key="A-3">
+      <action name="SendToDesktop"><to>3</to></action>
+    </keybind>
+    <keybind key="A-4">
+      <action name="SendToDesktop"><to>4</to></action>
+    </keybind>
+    <keybind key="A-Tab">
+      <action name="NextWindow"/>
+    </keybind>
+    <keybind key="A-S-Tab">
+      <action name="PreviousWindow"/>
+    </keybind>
+    <keybind key="W-S-Escape">
+      <action name="Close"/>
+    </keybind>
+    <keybind key="W-a">
+      <action name="ToggleAlwaysOnTop"/>
+    </keybind>
+    <keybind key="W-f">
+      <action name="ToggleFullscreen"/>
+    </keybind>
+    <keybind key="W-S-f">
+      <action name="ToggleMaximize"/>
+    </keybind>
+    <keybind key="W-h">
+      <action name="MoveToEdge"><direction>left</direction></action>
+    </keybind>
+    <keybind key="W-j">
+      <action name="MoveToEdge"><direction>down</direction></action>
+    </keybind>
+    <keybind key="W-k">
+      <action name="MoveToEdge"><direction>up</direction></action>
+    </keybind>
+    <keybind key="W-l">
+      <action name="MoveToEdge"><direction>right</direction></action>
+    </keybind>
+    <keybind key="W-y">
+      <action name="MoveToEdge"><direction>left</direction></action>
+      <action name="MoveToEdge"><direction>up</direction></action>
+    </keybind>
+    <keybind key="W-u">
+      <action name="MoveToEdge"><direction>right</direction></action>
+      <action name="MoveToEdge"><direction>up</direction></action>
+    </keybind>
+    <keybind key="W-b">
+      <action name="MoveToEdge"><direction>left</direction></action>
+      <action name="MoveToEdge"><direction>down</direction></action>
+    </keybind>
+    <keybind key="W-n">
+      <action name="MoveToEdge"><direction>right</direction></action>
+      <action name="MoveToEdge"><direction>down</direction></action>
+    </keybind>
+    <keybind key="W-S-h">
+      <action name="SnapToEdge"><direction>left</direction></action>
+    </keybind>
+    <keybind key="W-S-j">
+      <action name="SnapToEdge"><direction>down</direction></action>
+    </keybind>
+    <keybind key="W-S-k">
+      <action name="SnapToEdge"><direction>up</direction></action>
+    </keybind>
+    <keybind key="W-S-l">
+      <action name="SnapToEdge"><direction>right</direction></action>
+    </keybind>
+    <!--
+    <keybind key="">
+      <action name="ShowMenu"><menu>client-menu</menu></action>
+    </keybind>
+    -->
+    <keybind key="W-S-r">
+      <action name="Reconfigure"/>
+    </keybind>
+    <keybind key="C-A-BackSpace">
+      <action name="Execute"><command>0s bye lock</command></action>
+    </keybind>
+  </keyboard>
+
+  <mouse>
+    <doubleClickTime>200</doubleClickTime>
+    <context name="Frame">
+      <mousebind button="W-Left" action="Press">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind button="W-Left" action="Drag">
+        <action name="Move"/>
+      </mousebind>
+      <mousebind button="W-Right" action="Press">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind button="W-Right" action="Drag">
+        <action name="Resize"/>
+      </mousebind>
+    </context>
+    <context name="Top">
+      <mousebind button="Left" action="Press">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind button="Left" action="Drag">
+        <action name="Resize"/>
+      </mousebind>
+    </context>
+    <context name="Left">
+      <mousebind button="Left" action="Press">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind button="Left" action="Drag">
+        <action name="Resize"/>
+      </mousebind>
+    </context>
+    <context name="Right">
+      <mousebind button="Left" action="Press">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind button="Left" action="Drag">
+        <action name="Resize"/>
+      </mousebind>
+    </context>
+    <context name="Bottom">
+      <mousebind button="Left" action="Press">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind button="Left" action="Drag">
+        <action name="Resize"/>
+      </mousebind>
+    </context>
+    <context name="TRCorner">
+      <mousebind button="Left" action="Press">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind button="Left" action="Drag">
+        <action name="Resize"/>
+      </mousebind>
+    </context>
+    <context name="BRCorner">
+      <mousebind button="Left" action="Press">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind button="Left" action="Drag">
+        <action name="Resize"/>
+      </mousebind>
+    </context>
+    <context name="TLCorner">
+      <mousebind button="Left" action="Press">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind button="Left" action="Drag">
+        <action name="Resize"/>
+      </mousebind>
+    </context>
+    <context name="BLCorner">
+      <mousebind button="Left" action="Press">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind button="Left" action="Drag">
+        <action name="Resize"/>
+      </mousebind>
+    </context>
+    <!--
+    <context name="TitleBar">
+      <mousebind button="Left" action="Press">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind button="Right" action="Click">
+        <action name="Focus" />
+        <action name="Raise" />
+        <action name="ShowMenu">
+          <menu>client-menu</menu>
+        </action>
+      </mousebind>
+    </context>
+    <context name="Title">
+      <mousebind button="Left" action="Drag">
+        <action name="Move"/>
+      </mousebind>
+    </context>
+    -->
+    <context name="Client">
+      <mousebind button="Left" action="Press">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind button="Middle" action="Press">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind button="Right" action="Press">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+    </context>
+    <!--
+    <context name="Root">
+      <mousebind button="Right" action="Press">
+        <action name="ShowMenu"><menu>root-menu</menu></action>
+      </mousebind>
+    </context>
+    -->
+  </mouse>
+
+  <libinput>
+    <device category="default">
+      <accelProfile>flat</accelProfile>
+      <disableWhileTyping>yes</disableWhileTyping>
+      <leftHanded>no</leftHanded>
+      <middleEmulation>no</middleEmulation>
+      <naturalScroll>no</naturalScroll>
+      <pointerSpeed>0.1</pointerSpeed>
+      <tap>yes</tap>
+      <tapButtonMap>lmr</tapButtonMap>
+    </device>
+    <device category="ELAN962C:00 04F3:30D0 Mouse">
+      <naturalScroll>yes</naturalScroll>
+    </device>
+    <device category="ELAN962C:00 04F3:30D0 Touchpad">
+      <naturalScroll>yes</naturalScroll>
+    </device>
+    <device category="Xtrfy Xtrfy Wireless Receiver">
+      <pointerSpeed>-0.1</pointerSpeed>
+    </device>
+    <device category="Xtrfy Xtrfy Wireless Receiver Keyboard">
+      <pointerSpeed>-0.1</pointerSpeed>
+    </device>
+  </libinput>
+</labwc_config>

@@ -15,7 +15,7 @@ counter-clockwise from northwest:
 | class | instance |
 |-------|-------------|
 | hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]], [[https://github.com/foostan/crkbd][corne]], [[https://xtrfy.com/mice/mz1-wireless/][mz1]], [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]] |
-| env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://swaywm.org/][sway]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
+| env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://labwc.github.io/][labwc]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
 | look | 2160x1440, 100dpi, font size ~20pt, [[https://picaq.github.io/sarasa/][sarasa]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
 
 *** scripts
@@ -27,6 +27,7 @@ counter-clockwise from northwest:
 | *[[_0shell/bin/0k][0k]]* | lay, lum, shot, vol |
 | *[[_0shell/bin/0l][0l]]* | read log |
 | *[[_0shell/bin/0m][0m]]* | wrap [[https://www.x.org/wiki/Projects/XRandR/][xrandr]] |
+| *[[_0shell/bin/0o][0o]]* | simplified executions |
 | *[[_0shell/bin/0s][0s]]* | bat, bye, dracut, save, snooze, temper |
 | *[[_0shell/bin/0v][0v]]* | wrap [[https://www.qemu.org/][qemu]] |
 | *[[_0shell/bin/0tcl][0tcl]]* | like ~sh -c~ but for tcl |
@@ -40,33 +41,26 @@ counter-clockwise from northwest:
 | | | /GENERAL, MOVE, RESIZE/ |
 |-|-|-------------------------|
 | =MS-r= | | *reconfigure* |
-| =M-= *mouse* | =L= / =R= | *move* window / *resize* |
+| =CA-back= | | *lock* |
+| =M-= *mouse* | =L= / =R= | *move* / *resize* window |
 | =MS-esc= | | *close* window |
-| =MS-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |
-| =M[CS]-= *dir* | =h= / =j= / =k= / =l= | *move* window *left* / *down* / *up* / *right*, *more* / *less* |
-| =M-r= =C?-= *dir* | =h= / =j= / =k= / =l= | enter *resize mode* then *shrink/expand height/width*, *more* / *less* |
-| =MS-bksp= | | *move* to *scratchpad* |
-| =M-comma= | | toggle window *float* |
-| =M-f= | | toggle window *fullscreen* |
+| =A-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |
+| =M[S]-= *dir* | =h= / =j= / =k= / =l= / =y= / =u= / =b= / =n= | *move* [ *snap* ] window |
+| =M-f= | | *fullscreen* toggle |
+| =MS-f= | | *maximise* toggle |
 
 | | | /FOCUS/ |
 |-|-|---------|
 | =M-= *num* | =1= / =2= / =3= / =4= | *focus nth* desktop |
-| =M-= *dir* | =h= / =j= / =k= / =l= | *focus* window to *left* / *below* / *above* / to *right* |
-| =M-bksp= | | toggle *scratchpad* |
-| =M-semic= | | prepare *vertical* / *horizontal split* |
-| =M-period= | | change to *split* layout (if tabbed) or toggle *split direction* (if split) |
-| =M-slash= | | change to *tabbed* layout |
-| =M-= *dir* | =-= / ~=~ | *focus child* / *parent* |
-| =M-tab= | | toggle *focus* between tiled and floating |
-| =M-o= | | toggle *opacity* |
+| =A[S]-tab= | | cycle *focus* [ *backwards* ] |
+| =M-a= | | *always on top* toggle |
 
 | | | /APP/ |
 |-|-|-------|
-| =[AS]?-print= | | *take picture* of *screen* / *active* / *selection* |
+| =[A][S]-print= | | *take picture* of *screen* / *active* / *selection* |
+| =M[S]-space= | | *close* [ *all* ] notification |
 | =M-enter= | | launch *launcher* |
-| =MS?-space= | | *close* notification / *close all*
-| =M-= *char* | =b= / =e= / =t= / =w= | launch *broot*, *editor*, *terminal*, *www* |
+| =M-= *char* | =e= / =t= / =w= | launch *editor* / *terminal* / *www* |
 
 *** steps
 
@@ -96,11 +90,11 @@ counter-clockwise from northwest:
 1. *sess:*
   - /service:/ sddm, seatd, xorg-minimal, xwayland
   - /util:/ alacritty, setxkbmap, xrdb, xset, xterm
-  - /wm:/ cwm, sway
+  - /wm:/ cwm, labwc
   - links: =/etc/sddm.conf.d=, =/etc/X11/xorg.conf.d=
   - =/usr/share/{x,wayland-}sessions/=
   - =/usr/share/sddm/scripts/Xsetup=: login screen kbd settings
-  - to run sway without logind or pam's help, create =/run/user/$UID= using =/etc/rc.local=, then set =$XDG_RUNTIME_DIR= to it in =~/.profile=
+  - to start sessions without logind or pam's help, create =/run/user/$UID= using =/etc/rc.local=, then set =$XDG_RUNTIME_DIR= to it in =~/.profile=
 1. *edit:*
   - emacs, kakoune, vim
 1. *util:*
@@ -126,7 +120,7 @@ counter-clockwise from northwest:
   - /doc:/ foliate, libreoffice, pdf.js, texlive-most, zathura
   - /image:/ gimp, imagemagick, imv, inkscape, mypaint
   - /look:/ breeze-snow-cursor-theme, papirus-icon-theme, qt5ct
-  - /net:/ firefox, skype
+  - /net:/ firefox
   - /sec:/ gnupg2
   - /fun:/ cataclysm-dda, fontforge, qemu
 1. *kernel:* dracut, some headers (libelf) to make =make= work

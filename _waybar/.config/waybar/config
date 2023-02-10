@@ -2,9 +2,11 @@
   "layer": "top",
   "position": "top",
   "modules-left": [
-    "sway/workspaces",
-    "sway/mode",
-    "sway/window"
+    //"sway/workspaces",
+    //"sway/mode",
+    //"sway/window",
+    "wlr/workspaces",
+    "wlr/taskbar",
   ],
   "modules-center": [
   ],
@@ -20,7 +22,7 @@
     "idle_inhibitor",
     "pulseaudio",
     "battery",
-    "tray"
+    "tray",
   ],
   "sway/workspaces": {
     "all-outputs": true,
@@ -31,24 +33,41 @@
       "1": "",
       "2": "",
       "3": "",
-      "4": ""
-    }
+      "4": "",
+    },
   },
   "sway/window": {
     "all-outputs": true,
     "icon-size": 22,
     "tooltip-format": "{title}",
-    "format": "<span foreground=\"#000000\"></span>{}"
+    "format": "<span foreground=\"#000000\"></span>{}",
+  },
+  "wlr/workspaces": {
+    "active-only": true,
+    "sort-by-name": false,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+    },
+  },
+  "wlr/taskbar": {
+    "active-first": true,
+    "icon-size": 22,
+    "on-click": "activate",
+    "format": "{icon}{title:.16}",
   },
   "clock": {
     "interval": 30,
     //"timezone": "Europe/Prague",
     "format": "<span foreground=\"#36383f\">•</span> {:<span foreground=\"#92959d\">%H:%M</span> %a%d%b}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
   },
   "custom/weather": {
     "interval": 2400,
-    "exec": "curl -s 'https://wttr.in/prague?0AQT\\&format=%t%x' | sed 's/^U.\\+$/?/;s_^+\\?\\([0-9-]\\+.\\)C\\([^\\s]*\\)_\\1\\2_;s_o$__;s_=$__;s_mmm$__;s_mm$__;s_m$__;s_///$__;s_//$__;s_/$__;s_\\.$__;s_x$__;s_x/$__;s_\\*\\*$__;s_\\*$__;s_\\*/\\*$__;s_\\*/$__;s_/!/$__;s_!/$__;s_\\*!\\*$__'"
+    "exec": "curl -s 'https://wttr.in/prague?0AQT\\&format=%t%x' | sed 's/^U.\\+$/?/;s_^+\\?\\([0-9-]\\+.\\)C\\([^\\s]*\\)_\\1\\2_;s_o$__;s_=$__;s_mmm$__;s_mm$__;s_m$__;s_///$__;s_//$__;s_/$__;s_\\.$__;s_x$__;s_x/$__;s_\\*\\*$__;s_\\*$__;s_\\*/\\*$__;s_\\*/$__;s_/!/$__;s_!/$__;s_\\*!\\*$__'",
   },
   "cpu": {
     "interval": 5,
@@ -59,15 +78,15 @@
     "thermal-zone": 0,
     "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input",
     "critical-threshold": 60,
-    "format": "<span foreground=\"#000000\"></span>{temperatureC}°"
+    "format": "<span foreground=\"#000000\"></span>{temperatureC}°",
   },
   "memory": {
     "interval": 5,
-    "format": " {percentage}"
+    "format": " {percentage}",
   },
   "disk": {
     "interval": 90,
-    "format": " {percentage_used}"
+    "format": " {percentage_used}",
   },
   "network": {
     "interval": 30,
@@ -77,17 +96,17 @@
     "format-linked": " {ifname}",
     "format-disconnected": "",
     "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
-    "on-click": "wpa_gui"
+    "on-click": "wpa_gui",
   },
   "backlight": {
     "interval": 60,
-    "format": " {percent}"
+    "format": " {percent}",
   },
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
       "activated": "",
-      "deactivated": ""
+      "deactivated": "",
     }
   },
   "pulseaudio": {
@@ -103,26 +122,26 @@
       "headphone": "",
       "headset": "",
       "phone": "",
-      "portable": ""
+      "portable": "",
     },
     "on-click": "pavucontrol",
     "on-scroll-up": "",
-    "on-scroll-down": ""
+    "on-scroll-down": "",
   },
   "battery": {
     "interval": 30,
     "states": {
       "warning": 30,
-      "critical": 15
+      "critical": 15,
     },
     "format": "{icon} {capacity}",
     "format-alt": "{icon} {time}",
     "format-icons": ["", "", "", "", ""],
     "format-charging": " {capacity}",
-    "format-plugged": " {capacity}"
+    "format-plugged": " {capacity}",
   },
   "tray": {
     "icon-size": 22,
-    "spacing": 4
+    "spacing": 4,
   },
 }

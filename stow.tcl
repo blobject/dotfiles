@@ -10,6 +10,10 @@ exec mkdir -p \
   .emacs.d \
   .icons \
   .local/share/applications \
+  .themes/0theme/openbox-3 \
   bin
 cd $stowd
-exec stow -v {*}[glob _*]
+try {
+  exec >/dev/tty stow -v {*}[glob _*]
+} on error e { puts $e }
+

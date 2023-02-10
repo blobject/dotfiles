@@ -6,6 +6,7 @@
 source $::env(HOME)/bin/lib.tcl
 
 need notify-send \
+     swaylock \
      rsync xbps-query \
      0snooze-bat 0snooze-temper snooze
 
@@ -50,6 +51,7 @@ proc bye {} {
     catch {exec pkill dbus-launch}
     catch {exec pkill pipewire-pulse}
     catch {exec pkill pipewire}
+    catch {exec pkill wireplumber}
   }
 
   proc save {} {
@@ -66,6 +68,8 @@ proc bye {} {
     exec 0s temper
   }
 
+  set desk [lindex [split $::env(DESKTOP_SESSION) /] end]
+
   switch -- [lindex $::argv 0] {
     k - o - lock {
       if {{w} eq $SESS} { exec swaylock -f -c 000000; }
@@ -73,8 +77,9 @@ proc bye {} {
     e - l - q - x - logout {
       save
       kill
-      if {{w} eq $SESS} { exec swaymsg exit; }
-      if {{x} eq $SESS} { exec pkill cwm; }
+      if {{cwm} eq $desk} { exec pkill cwm; }
+      if {{labwc} eq $desk} { exec pkill labwc; }
+      if {{sway} eq $desk} { exec swaymsg exit; }
     }
     z - sleep {
       sync

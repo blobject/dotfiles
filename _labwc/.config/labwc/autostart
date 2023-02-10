@@ -1,0 +1,30 @@
+# Lock screen after 5 minutes; turn off display after another 5 minutes.
+#
+# Note that in the context of idle system power management, it is *NOT* a good
+# idea to turn off displays by 'disabling outputs' for example by
+# `wlr-randr --output <whatever> --off` because this re-arranges views
+# (since a837fef). Instead use a wlr-output-power-management client such as
+# https://git.sr.ht/~leon_plickat/wlopm
+#swayidle -w \
+#	timeout 300 'swaylock -f -c 000000' \
+#	timeout 600 'wlopm --off \*' \
+#	resume 'wlopm --on \*' \
+#	before-sleep 'swaylock -f -c 000000' >/dev/null 2>&1 &
+
+## early & one-off
+dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus &
+light -S 30 &
+xrdb -merge $HOME/.xresources &
+
+## daemon
+0s snooze &
+0s temper &
+{ sleep 3; blueman-applet & } &
+gammastep-indicator -l manual -l 50.1:14.4 -m wayland -t 5500K:5000K &
+kanshi &
+mako &
+pipewire &
+{ sleep 1; pipewire-pulse & } &
+waybar &
+{ sleep 2; wireplumber & } &
+

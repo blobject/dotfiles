@@ -1,0 +1,39 @@
+#! /usr/bin/env tclsh
+
+###############################################################################
+# 0o: simplify executions
+
+source $::env(HOME)/bin/lib.tcl
+
+###############################################################################
+
+proc bemenu {} {
+  try {
+    exec 0a | bemenu --fn {Agave bold 22} -i -l 16 -m 1 -n -p { } -P {-->} --scrollbar autohide -w --tb=\#000000 --tf=\#575a61 --fb=\#000000 --ff=\#cf554d --nb=\#000000 --nf=\#92959d --hb=\#000000 --hf=\#667ad3 --scb=\#000000 --scf=\#92959d --af=\#92959d | 0a run
+  } on error e { puts $e }
+}
+
+proc firefox {} {
+  try {
+    exec firefox-wayland --private-window --profile "$::env(HOME)/opt/firefox_proxy"
+  } on error e { puts $e }
+}
+
+proc lum- {} {
+  exec sleep 0.1
+  exec notify-send -u low -t 2000 -i redshift-status-off lum "[exec light -G]"
+}
+
+proc lum+ {} {
+  exec sleep 0.1
+  exec notify-send -u low -t 2000 -i redshift-status-on lum "[exec light -G]"
+}
+
+switch -- [lindex $::argv 0] {
+  bemenu  { bemenu; }
+  firefox { firefox; }
+  lum-    { lum-; }
+  lum+    { lum+; }
+  default { usage {bemenu|firefox} }
+}
+

@@ -194,6 +194,7 @@ exec 0s snooze &
 exec 0s temper &
 exec sleep 5 && blueman-applet &
 exec gammastep-indicator -l manual -l 50.1:14.4 -m wayland -t 5500K:5000K &
+exec kanshi &
 exec mako &
 exec pipewire &
 exec pipewire-pulse &

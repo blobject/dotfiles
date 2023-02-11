@@ -1,5 +1,6 @@
 wifi:
-- /etc/modprobe.d/: options iwlwifi 11n_disable=8
+- sluggish?
+  - /etc/modprobe.d/: options iwlwifi 11n_disable=8 [11n_disable=1] [bt_coex_active=N]
 
 bluetooth:
 1. bluetoothctl

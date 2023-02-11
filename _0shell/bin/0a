@@ -5,7 +5,7 @@
 
 source $::env(HOME)/bin/lib.tcl
 
-need gtk-launch jq
+need gtk-launch
 
 ###############################################################################
 

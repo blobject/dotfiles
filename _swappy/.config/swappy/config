@@ -1,0 +1,4 @@
+[Default]
+save_dir=$HOME/got
+save_filename_format=editedshot-%s.png
+show_panel=true

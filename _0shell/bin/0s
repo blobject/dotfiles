@@ -77,9 +77,9 @@ proc bye {} {
     e - l - q - x - logout {
       save
       kill
-      if {{cwm} eq $desk} { exec pkill cwm; }
-      if {{labwc} eq $desk} { exec pkill labwc; }
-      if {{sway} eq $desk} { exec swaymsg exit; }
+      #if {{cwm} eq $desk} { exec pkill cwm; }
+      #if {{labwc} eq $desk} { exec pkill labwc; }
+      exec pkill $desk
     }
     z - sleep {
       sync

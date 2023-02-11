@@ -42,12 +42,11 @@ counter-clockwise from northwest:
 |-|-|-------------------------|
 | =MS-r= | | *reconfigure* |
 | =CA-back= | | *lock* |
-| =M-= *mouse* | =L= / =R= | *move* / *resize* window |
+| =M/A-L= *mouse* | | *resize* / *move* window |
 | =MS-esc= | | *close* window |
-| =A-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |
-| =M[S]-= *dir* | =h= / =j= / =k= / =l= / =y= / =u= / =b= / =n= | *move* [ *snap* ] window |
-| =M-f= | | *fullscreen* toggle |
-| =MS-f= | | *maximise* toggle |
+| =MA-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |
+| =M[S]-= *dir* | =h= / =j= / =k= / =l= / =y= / =u= / =b= / =n= | *move* [ *snap* ] window to edge |
+| =M[S]-f= | | *fullscreen* [ *maximise* ] toggle |
 
 | | | /FOCUS/ |
 |-|-|---------|
@@ -57,8 +56,8 @@ counter-clockwise from northwest:
 
 | | | /APP/ |
 |-|-|-------|
-| =[A][S]-print= | | *take picture* of *screen* / *active* / *selection* |
-| =M[S]-space= | | *close* [ *all* ] notification |
+| =[S]-print= | | *take picture* of *screen* [then *edit*] |
+| =M[S]-space= | | *close* [ *all* ] notification[s] |
 | =M-enter= | | launch *launcher* |
 | =M-= *char* | =e= / =t= / =w= | launch *editor* / *terminal* / *www* |
 
@@ -99,11 +98,11 @@ counter-clockwise from northwest:
   - emacs, kakoune, vim
 1. *util:*
   - /fs:/ exfat-fuse, jmtpfs, lftp, rsync
-  - /look:/ acpilight, light, gammastep-indicator, grim, jq, slurp, xrandr, xwallpaper
-  - /monitor:/ blueman-tray, libappindicator, mako, polybar, powertop, psmisc, snooze, waybar, wpa_gui, ytop
-  - /shell:/ bemenu, broot, wev, wl-clipboard, xdg-utils
+  - /look:/ acpilight, light, gammastep-indicator, kanshi, xrandr
+  - /monitor:/ blueman-tray, libappindicator, mako, polybar, psmisc, snooze, waybar, wpa_gui
+  - /shell:/ bemenu, swaylock, wev, wl-clipboard, xdg-utils
   - =.config/mimeapps.list=: mime handling
-1. *av:*
+1. *media:*
   - /audio:/ pipewire, wireplumber
   - /video:/ ffmpeg, mpv
   - /lib:/ alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg, libspa-v4l2, libspa-vulkan, xdg-desktop-portal-wlr
@@ -115,11 +114,11 @@ counter-clockwise from northwest:
 - more ::
 1. *dev:*
   - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, lua, mono, nodejs, octave, openjdk, python3-devel+pip, r, rustup, sbcl, squeak, swi-prolog, tk
-  - /util:/ catch2, cmake, docker, gdb, msbuild, valgrind
+  - /util:/ broot, catch2, cmake, docker, gdb, msbuild, powertop, valgrind, ytop
 1. *app:*
-  - /doc:/ foliate, libreoffice, pdf.js, texlive-most, zathura
-  - /image:/ gimp, imagemagick, imv, inkscape, mypaint
-  - /look:/ breeze-snow-cursor-theme, papirus-icon-theme, qt5ct
+  - /doc:/ foliate, gnuplot, libreoffice, pdf.js, texlive-most, zathura
+  - /image:/ blender, gimp, imagemagick, imv, inkscape, mypaint, grim, slurp, swappy, wf-recorder
+  - /look:/ breeze-snow-cursor-theme, papirus-icon-theme, qt5ct, xwallpaper
   - /net:/ firefox
   - /sec:/ gnupg2
   - /fun:/ cataclysm-dda, fontforge, qemu

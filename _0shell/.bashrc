@@ -95,6 +95,7 @@ if [[ ! -S "$SSH_AUTH_SOCK" ]]; then
 fi
 
 ## aliases
+alias 0bt='bluetoothctl connect B0:F1:A3:63:0A:66'
 alias 0cam='mpv av://v4l2:/dev/video0 --profile=low-latency --untimed'
 alias 0clock='echo "$(date +%s) $(TZ=UTC date)"; echo "Prague:    $(date)"; echo "Reykjavik: $(TZ=Atlantic/Reykjavik date)"; echo "Riyadh:    $(TZ=Asia/Riyadh date)"; echo "Seoul:     $(TZ=Asia/Seoul date)"'
 alias 0fonts="pango-list | grep '^[^ ]' | sort | pr -2 -T"

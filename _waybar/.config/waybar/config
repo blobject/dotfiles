@@ -2,9 +2,6 @@
   "layer": "top",
   "position": "top",
   "modules-left": [
-    //"sway/workspaces",
-    //"sway/mode",
-    //"sway/window",
     "wlr/workspaces",
     "wlr/taskbar",
   ],
@@ -24,24 +21,6 @@
     "battery",
     "tray",
   ],
-  "sway/workspaces": {
-    "all-outputs": true,
-    "on-click": "activate",
-    "sort-by-name": false,
-    "format": "{icon}",
-    "format-icons": {
-      "1": "",
-      "2": "",
-      "3": "",
-      "4": "",
-    },
-  },
-  "sway/window": {
-    "all-outputs": true,
-    "icon-size": 22,
-    "tooltip-format": "{title}",
-    "format": "<span foreground=\"#000000\"></span>{}",
-  },
   "wlr/workspaces": {
     "active-only": true,
     "sort-by-name": false,

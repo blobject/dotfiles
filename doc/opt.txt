@@ -23,23 +23,14 @@ manual (/usr/local):
 ~/opt:
   cemant
   nuget.exe
-  zoom
 
 ~/.fonts:
-  agave
-  arial {,unicode ms}
-  font awesome pro
-  ms fonts
-  fira
-  helvetica neue
-  inter
-  iosevka
-  nanum
-  newyork
-  roboto
-  sanfrancisco
-  sarasa gothic
-  source {code,sans,serif} pro
-  titus cyberbit
-  zilla
+  mono:
+    agave, consolas, courier, inconsolata, input, iosevka, jetbrains, plex, sanfrancisco, ubuntu, umtypewriter
+  sans:
+    apercu, arial {,unicode ms}, avenir, calibri, candara, cascadia, comic, corbel, cyberbit, google, helvetica, inter, lexend, segoe, selawik, tahoma, trebuchet, verdana
+  serif:
+    bookerly, cambria, constantia, newyork, times, zilla
+  other:
+    awesome, fira, free, nanum, noto, roboto, sarasa, source
 

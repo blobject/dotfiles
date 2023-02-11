@@ -8,7 +8,7 @@ source $::env(HOME)/bin/lib.tcl
 need notify-send \
      setxkbmap \
      xbacklight light \
-     grim jq slurp \
+     grim slurp swappy \
      ponymix
 
 ###############################################################################
@@ -82,16 +82,16 @@ proc shot {} {
   set one [lindex $::argv 0]
   set two [lindex $::argv 1]
   set three [lindex $::argv 2]
-  set dst $::env(HOME)/got
-  set name "shot-[exec date +%s]."
-  set cmd {grim}
-  set geom {}
+  set dir $::env(HOME)/got
+  set opt {}
+  set dst {}
+  set desc {}
   set notify {notify-send -u normal -i image-x-generic}
 
   proc help {} {
-    upvar 1 dst dst
-    return "\[active|*screen|select] \[jpg|*png] \[c]
-  will save to: $dst"
+    upvar 1 dir dir
+    return "\[e_dited|*s_creen] \[j_pg|*p_ng] \[c]
+  will save to: $dir"
   }
 
   if {3 < $argc - 1} {
@@ -101,27 +101,24 @@ proc shot {} {
 
   if {{} ne $three} {
     if {{c} eq $three} {
-      set three {-c }
+      append opt { -c}
     } else {
       puts stderr "unrecognised cursor enabling: $three"
       usage "shot [help]"
     }
   }
+
   if {{} eq $two} {
     set two png
   }
-  if {{} eq $one} {
-    set one screen
-  }
-
   switch -- $two {
     j - jpg {
-      append name jpg
-      set two "$three-t jpeg -q 90"
+      set two jpg
+      append opt { -t jpeg -q 90}
     }
     p - png {
-      append name png
-      set two "$three-t png"
+      set two png
+      append opt { -t png}
     }
     default {
       puts stderr "unrecognised image type: $two"
@@ -129,28 +126,33 @@ proc shot {} {
     }
   }
 
+  if {{} eq $one} {
+    set one screen
+  }
   switch -- $one {
-    active {
-      set foc [exec swaymsg -t get_tree | jq -r {recurse(.nodes[]?, .floating_nodes[]?) | select(.focused)}]
-      set geom [exec echo $foc | jq -r {.rect | "\(.x),\(.y) \(.width)x\(.height)"}]
-      set geom [list -g $geom]
+    e - edited {
+      set one e
+      append opt " -g"
+      set desc "editing... editedshot-?.$two"
+      set dst [list [exec slurp] - | swappy -f -]
     }
-    screen {}
-    select {
-      catch {set geom [exec swaymsg -t get_tree | jq -r {.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"} | slurp]}
-      if {{} eq $geom} {
-        puts "$ME: select shot canceled"
-        exit
-      }
-      set geom [list -g $geom]
+    s - screen {
+      set desc screenshot-[exec date +%s].$two
+      set dst $dir/$desc
     }
     default {
       puts stderr "unrecognised command: $one"
       usage "shot [help]"
     }
   }
-  exec {*}$cmd {*}$two {*}$geom $dst/$one$name
-  exec {*}$notify shot $one$name
+
+  if {{e} eq $one} {
+    exec {*}$notify shot $desc
+    exec grim {*}$opt {*}$dst
+  } else {
+    exec grim {*}$opt {*}$dst
+    exec {*}$notify shot $desc
+  }
 }
 
 ###############################################################################

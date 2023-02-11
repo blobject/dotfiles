@@ -156,10 +156,6 @@ window#waybar.hidden { opacity: 0.2; }
   box-shadow: none;
   text-shadow: none;
 }
-#workspaces button#sway-workspace-1.focused { color: #ba8d3b; }
-#workspaces button#sway-workspace-2.focused { color: #ba59b3; }
-#workspaces button#sway-workspace-3.focused { color: #72a336; }
-#workspaces button#sway-workspace-4.focused { color: #667ad3; }
 #workspaces button#wlr-workspace-1.active { color: #ba8d3b; }
 #workspaces button#wlr-workspace-2.active { color: #ba59b3; }
 #workspaces button#wlr-workspace-3.active { color: #72a336; }

@@ -1,7 +1,15 @@
 kbd:
-- copy keymap to /usr/share/X11/xkb/symbols
-- swaymsg "input [swaymsg -t get_inputs > KBD_ID] xkb_layout KEYMAP"
-- swaymsg "input KBD_ID xkb_options ctrl:nocaps"
+  - copy keymap to /usr/share/X11/xkb/symbols/
+  console:
+    - copy keymap to /usr/share/kbd/keymaps/i386/
+    - loadkeys KEYMAP.kmap
+  x:
+    - setxkbmap KEYMAP
+  sway:
+    - swaymsg "input [swaymsg -t get_inputs > KBD_ID] xkb_layout KEYMAP"
+    - swaymsg "input KBD_ID xkb_options ctrl:nocaps"
+  wlroots:
+    - env: XKB_DEFAULT_LAYOUT=KEYMAP
 
 mouse:
 - sudo v /var/lib/bluetooth/*/*/info

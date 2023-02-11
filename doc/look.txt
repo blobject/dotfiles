@@ -1,10 +1,9 @@
 colors:
-- .alacritty.yml
-- cfg/unstowed/alacritty_*.yml
-- .emacs.d/init.el
-- .config/waybar/style.css
+- .alacritty.yml, cfg/unstowed/alacritty_*.yml
 - .config/mako/config
-- .config/sway/config
+- .config/waybar/style.css
+- .emacs.d/init.el
+- .themes/0theme/openbox-3/themerc
 - .xresources
 
 cursor:
@@ -13,22 +12,16 @@ cursor:
 - .profile
 - .gtkrc-2.0
 - .config/gtk-3.0/settings.ini
-- .config/sway/config
 
 hidpi (& font size):
 - /etc/sddm.d/*.conf
-- .profile
-- .config/hikari/hikari.conf
-- .config/sway/config
 - .alacritty.yml, cfg/unstowed/alacritty_*
-- .xresources
-- firefox (layout.css.devPixelsPerPx)
-- .gtkrc-2.0
-- .config/gtk-3.0/settings.ini
-- qtconfig-qt4
-- qt5ct
-- .emacs.d/init.el
+- .config/gtk-3.0/settings.ini,  .gtkrc-2.0
 - .config/mako/config
 - .config/waybar/config,style.css
+- qt5ct
+- .emacs.d/init.el
+- .profile
+- .xresources
 - bin/0a
 

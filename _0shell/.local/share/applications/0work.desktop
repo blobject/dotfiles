@@ -2,8 +2,8 @@
 Type=Application
 Name=agaric.net work
 Comment=Work terminal on agaric.net
-Exec=0tcl alacritty --config-file $::env(HOME)/cfg/unstowed/alacritty_work.yml
-Icon=Alacritty
+Exec=0tcl foot --config='$::env(HOME)/.config/foot/foot_work.ini'
+Icon=Foot
 Categories=TerminalEmulator;
 StartupNotify=true
 Terminal=false

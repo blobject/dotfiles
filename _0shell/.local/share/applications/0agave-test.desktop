@@ -1,9 +1,9 @@
 [Desktop Entry]
 Type=Application
 Name=Agave tester
-Comment=Test Agave font with alacritty
-Exec=0tcl alacritty --config-file $::env(HOME)/cfg/unstowed/alacritty_agave.yml
-Icon=Alacritty
+Comment=Test Agave font with terminal
+Exec=0tcl foot --config='$::env(HOME)/.config/foot/foot_agave.ini'
+Icon=Foot
 Categories=TerminalEmulator;
 StartupNotify=true
 Terminal=false

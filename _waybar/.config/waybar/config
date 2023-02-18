@@ -2,7 +2,7 @@
   "layer": "top",
   "position": "top",
   "modules-left": [
-    "wlr/workspaces",
+    //"wlr/workspaces",
     "wlr/taskbar",
   ],
   "modules-center": [
@@ -36,7 +36,8 @@
     "active-first": true,
     "icon-size": 22,
     "on-click": "activate",
-    "format": "{icon}{title:.16}",
+    "on-click-right": "activate",
+    "format": "{icon}",
   },
   "clock": {
     "interval": 30,

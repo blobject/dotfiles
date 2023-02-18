@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Kakoune
-Comment=Kakoune code editor
-Exec=0tcl alacritty -e kak %f
-Icon=text-editor
-Categories=TextEditor;
-StartupNotify=true
-Terminal=false

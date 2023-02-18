@@ -1,7 +1,7 @@
 #! /usr/bin/env tclsh
 
 ###############################################################################
-# 0s: desktop utilities related to the system
+# 0s: utilities/shortcuts for the system
 
 source $::env(HOME)/bin/lib.tcl
 

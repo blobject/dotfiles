@@ -25,13 +25,13 @@ proc detect {which} {
   catch {exec xrandr --query | grep -A1 primary} grep_prm
   set prm [lindex $grep_prm 0]
   switch -regexp -- $which {
-    ^prm* {
+    ^prm.* {
       if {{prm} eq $which} {
         return $prm
       }
       return [lindex [exec echo $grep_prm | tail -1] 0]
     }
-    ^ext* {
+    ^ext.* {
       catch {exec xrandr --query | grep -v $prm | grep -A1 " connected"} grep_ext
       if {{ext} eq $which} {
         return [lindex $grep_ext 0]

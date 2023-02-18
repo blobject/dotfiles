@@ -6,7 +6,7 @@
 
 counter-clockwise from northwest:
 [[https://github.com/Alexays/Waybar][waybar]],
-[[https://github.com/alacritty/alacritty][alacritty]] ([[https://github.com/dylanaraps/pfetch][pfetch]]),
+[[https://codeberg.org/dnkl/foot][foot]] ([[https://github.com/dylanaraps/pfetch][pfetch]]),
 [[https://wayland.emersion.fr/grim/][grim]],
 [[https://wayland.emersion.fr/mako/][mako]].
 
@@ -24,11 +24,10 @@ counter-clockwise from northwest:
 |------|-------------|
 | *[[_0shell/bin/00][00]]* | run file(s) based on mimetype (like ~xdg-open~) |
 | *[[_0shell/bin/0a][0a]]* | list and launch =.desktop= files (dmenu companion) |
-| *[[_0shell/bin/0k][0k]]* | lay, lum, shot, vol |
 | *[[_0shell/bin/0l][0l]]* | read log |
 | *[[_0shell/bin/0m][0m]]* | wrap [[https://www.x.org/wiki/Projects/XRandR/][xrandr]] |
-| *[[_0shell/bin/0o][0o]]* | simplified executions |
-| *[[_0shell/bin/0s][0s]]* | bat, bye, dracut, save, snooze, temper |
+| *[[_0shell/bin/0s][0s]]* | system utilities |
+| *[[_0shell/bin/0t][0t]]* | graphical shell utilities |
 | *[[_0shell/bin/0v][0v]]* | wrap [[https://www.qemu.org/][qemu]] |
 | *[[_0shell/bin/0tcl][0tcl]]* | like ~sh -c~ but for tcl |
 | *[[_0shell/bin/lib.tcl][lib.tcl]]* | help other =0*= tcl scripts |
@@ -88,7 +87,7 @@ counter-clockwise from northwest:
   - /util:/ smartmontools
 1. *sess:*
   - /service:/ sddm, seatd, xorg-minimal, xwayland
-  - /util:/ alacritty, setxkbmap, xrdb, xset, xterm
+  - /util:/ foot, setxkbmap, xrdb, xset, xterm
   - /wm:/ cwm, labwc
   - links: =/etc/sddm.conf.d=, =/etc/X11/xorg.conf.d=
   - =/usr/share/{x,wayland-}sessions/=

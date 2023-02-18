@@ -31,7 +31,7 @@ __0_prompt()
 
 __0_title()
 { local c=$(history 1 | sed 's/^ *[0-9]\+ *//')
-  [[ -z $__0_pwd ]] && c=alacritty
+  [[ -z $__0_pwd ]] && c=$TERMINAL
   echo -ne "\033]0;($(echo ${__0_pwd:-$PWD} | sed s,$HOME,~,)) $c\007"; }
 
 0ftp()
@@ -95,9 +95,9 @@ if [[ ! -S "$SSH_AUTH_SOCK" ]]; then
 fi
 
 ## aliases
-alias 0bt='bluetoothctl connect B0:F1:A3:63:0A:66'
 alias 0cam='mpv av://v4l2:/dev/video0 --profile=low-latency --untimed'
 alias 0clock='echo "$(date +%s) $(TZ=UTC date)"; echo "Prague:    $(date)"; echo "Reykjavik: $(TZ=Atlantic/Reykjavik date)"; echo "Riyadh:    $(TZ=Asia/Riyadh date)"; echo "Seoul:     $(TZ=Asia/Seoul date)"'
+alias 0ear='bluetoothctl connect B0:F1:A3:63:0A:66'
 alias 0fonts="pango-list | grep '^[^ ]' | sort | pr -2 -T"
 alias 0ip='wget -qO - https://ipinfo.io/ip'
 #alias 0mixon='pactl load-module module-loopback'
@@ -107,11 +107,8 @@ alias 0sshadd='ssh-add $HOME/.ssh/id_rsa'
 alias 0topc='ps -Ao pcpu,pid,cmd | sort -grk1 | head -17 | column -t -N %,pid,cmd | cut -c-$(tput cols)'
 alias 0topm="ps -Ao pmem,rss,vsize,pid,args | awk '{if (\$2 > 10240) \$2=\$2/1024\"M\"; if (\$3 > 10240) \$3=\$3/1024\"M\";}{print;}' | sort -grk1 | head -25 | column -t -N %,rss,vsz,pid,cmd |"' cut -c-$(tput cols)'
 alias 0usb='lsusb | sort -k7 | rg -v 1d6b: | rg -v 8087:0aaa | rg -v 13d3:56c6'
-alias asdf='0k lay hsnt'
-alias asdfb='0k lay hsnt; 0k lay bow'
-alias hsnt='0k lay qwerty'
-alias hsntb='0k lay qwerty; 0k lay bow'
-alias hsnt='0k lay qwerty'
+alias asdf='0t lay hsnt'
+alias hsnt='0t lay qwerty'
 alias bc='bc -l'
 alias cp='cp -iv'
 alias fd='fd --hidden --no-ignore'

@@ -12,9 +12,8 @@ need gtk-launch
 set cache $TMPD/0a
 global dirs
 global apps
-set width 1152 ;# presumes laptop output
-set width_line [expr {[expr {$width / 9}]}]
-set width_short [expr {$width_line / 2}]
+set w 128 ;# presumes laptop output
+set ws [expr {$w / 2}]
 
 proc load_cache {} {
   global cache dirs apps
@@ -54,7 +53,7 @@ proc save_cache {} {
   set h [open $cache w]
   puts $h {#d}
   foreach path [array names dirs] {
-    puts $h "$path*$dirs($path)"
+    puts $h "$path***$dirs($path)"
   }
   puts $h {#a}
   foreach key [array names apps] {
@@ -94,15 +93,15 @@ proc parse {f} {
 
 # print to stdout
 proc pass {f} {
-  global apps width_line width_short
+  global apps w ws
   set short $apps($f,e)
-  set w $width_short
-  if {$w < [string length $short]} {
-    incr w -1
-    set short "[string range $apps($f,e) 0 $w]…"
-    incr w
+  set s $ws
+  if {$s < [string length $short]} {
+    incr s -1
+    set short "[string range $apps($f,e) 0 $s]…"
+    incr s
   }
-  set diff [expr {$width_line - [::tcl::mathop::+ \
+  set diff [expr {$w - [::tcl::mathop::+ \
     {*}[list [string length $apps($f,n)] \
              [string length $f] \
              [string length $short]]]}]
@@ -112,6 +111,7 @@ proc pass {f} {
 # traverse directories
 proc trav {} {
   global dirs apps
+  set changed false
   set ds [split $::env(XDG_DATA_DIRS) :]
   append ds " [split $::env(XDG_DATA_HOME) :]"
   foreach d [lsort $ds] {
@@ -121,6 +121,7 @@ proc trav {} {
     }
     set mtime [file mtime $dd]
     if {![info exists dirs($dd)] || [expr {$mtime > $dirs($dd)}]} {
+      set changed true
       set dirs($dd) $mtime
     }
     # TODO: weird
@@ -130,6 +131,7 @@ proc trav {} {
       regsub {\.desktop$} $f {} f
       set mtime [file mtime $p]
       if {![info exists apps($f,t)] || [expr {$mtime > $apps($f,t)}]} {
+        set changed true
         set parsed [parse $p]
         set apps($f,t) $mtime
         set apps($f,n) [lindex $parsed 0]
@@ -140,7 +142,9 @@ proc trav {} {
     }
   }
   flush stdout
-  save_cache
+  if {changed} {
+    save_cache
+  }
 }
 
 ###############################################################################

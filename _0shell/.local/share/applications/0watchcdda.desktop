@@ -2,7 +2,7 @@
 Type=Application
 Name=WatchCDDA
 Comment=watchcdda.net
-Exec=0tcl alacritty --config-file $::env(HOME)/cfg/unstowed/alacritty_watchcdda.yml -e ssh cdda
+Exec=0tcl foot --config='$::env(HOME)/.config/foot/foot_watchcdda.ini ssh cdda'
 Icon=cataclysm-dda
 Categories=Game;
 StartupNotify=true

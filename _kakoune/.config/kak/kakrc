@@ -9,7 +9,11 @@ add-highlighter global/ regex \h+$ 0:Error
 add-highlighter global/ regex '(FIXME|NOTE|TODO|WIP|XXX)' 0:black,bright-blue+F
 add-highlighter global/ show-matching
 add-highlighter global/ wrap
-define-command -buffer-completion d "delete-buffer" -docstring 'delete current buffer'
+define-command -buffer-completion 0sh 'set-option buffer filetype sh' -docstring 'set filetype to sh'
+define-command -buffer-completion d 'delete-buffer' -docstring 'delete current buffer'
+hook global BufCreate .*\.tcl %{
+  set-option buffer filetype sh
+}
 map global normal <C> ''
 map global normal <a-space> ''
 map global insert <c-v> ''

@@ -1,9 +1,9 @@
 [Desktop Entry]
 Type=Application
 Name=Dark terminal
-Comment=Run alacritty with dark colorscheme
-Exec=0tcl alacritty --config-file $::env(HOME)/cfg/unstowed/alacritty_dark.yml
-Icon=Alacritty
+Comment=Run terminal with dark colorscheme
+Exec=0tcl foot --config='$::env(HOME)/.config/foot/foot_dark.ini'
+Icon=Foot
 Categories=TerminalEmulator;
 StartupNotify=true
 Terminal=false

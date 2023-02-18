@@ -35,184 +35,83 @@
   <theme>
     <name>0theme</name>
     <cornerRadius>0</cornerRadius>
-    <font place="ActiveWindow">
-      <name>sans</name>
-      <size>1</size>
-      <slant>normal</slant>
-      <weight>bold</weight>
-    </font>
-    <font place="MenuItem">
-      <name>sans</name>
-      <size>15</size>
-      <slant>normal</slant>
-      <weight>normal</weight>
-    </font>
-    <font place="OnScreenDisplay">
-      <name>sans</name>
-      <size>17</size>
-      <slant>normal</slant>
-      <weight>bold</weight>
-    </font>
+    <font place="ActiveWindow" name="sans" size="15" weight="bold"/>
+    <font place="MenuItem" name="sans" size="15"/>
+    <font place="OnScreenDisplay" name="sans" size="17" weight="bold"/>
   </theme>
 
   <keyboard>
     <repeatRate>30</repeatRate>
     <repeatDelay>250</repeatDelay>
-    <keybind key="W-Return">
-      <action name="Execute"><command>0o bemenu</command></action>
-    </keybind>
-    <keybind key="W-t">
-      <action name="Execute"><command>alacritty</command></action>
-    </keybind>
-    <keybind key="W-e">
-      <action name="Execute"><command>alacritty -e kak</command></action>
-    </keybind>
-    <keybind key="W-w">
-      <action name="Execute"><command>firefox-wayland</command></action>
-    </keybind>
-    <keybind key="W-S-w">
-      <action name="Execute"><command>0o firefox</command></action>
-    </keybind>
-    <keybind key="W-Space">
-      <action name="Execute"><command>makoctl dismiss</command></action>
-    </keybind>
-    <keybind key="W-S-Space">
-      <action name="Execute"><command>makoctl dismiss -a</command></action>
-    </keybind>
-    <keybind key="Print">
-      <action name="Execute"><command>0k shot s png</command></action>
-    </keybind>
-    <keybind key="S-Print">
-      <action name="Execute"><command>0k shot e png</command></action>
-    </keybind>
+    <keybind key="W-Return"><action name="Execute" command="0t _bemenu"/></keybind>
+    <keybind key="W-t"><action name="Execute" command="footclient"/></keybind>
+    <keybind key="W-e"><action name="Execute" command="footclient kak"/></keybind>
+    <keybind key="W-w"><action name="Execute" command="firefox-wayland"/></keybind>
+    <keybind key="W-S-w"><action name="Execute" command="0t _firefox"/></keybind>
+    <keybind key="W-Space"><action name="Execute" command="makoctl dismiss"/></keybind>
+    <keybind key="W-S-Space"><action name="Execute" command="makoctl dismiss -a"/></keybind>
+    <keybind key="Print"><action name="Execute" command="0t shot s png"/></keybind>
+    <keybind key="S-Print"><action name="Execute" command="0t shot e png"/></keybind>
     <keybind key="XF86_MonBrightnessDown">
-      <action name="Execute"><command>0o lum-</command></action>
-      <!-- <action name="Execute"><command>0k lum -2</command></action> -->
+      <action name="Execute"><command>0t _lum-</command></action>
+      <!-- <action name="Execute"><command>0t lum -2</command></action> -->
     </keybind>
     <keybind key="XF86_MonBrightnessUp">
-      <action name="Execute"><command>0o lum+</command></action>
-      <!-- <action name="Execute"><command>0k lum +2</command></action> -->
+      <action name="Execute"><command>0t _lum+</command></action>
+      <!-- <action name="Execute"><command>0t lum +2</command></action> -->
     </keybind>
-    <keybind key="XF86_AudioMute">
-      <action name="Execute"><command>0k vol x</command></action>
-    </keybind>
-    <keybind key="XF86_AudioLowerVolume">
-      <action name="Execute"><command>0k vol -2</command></action>
-    </keybind>
-    <keybind key="XF86_AudioRaiseVolume">
-      <action name="Execute"><command>0k vol +2</command></action>
-    </keybind>
-    <keybind key="XF86_AudioMicMute">
-      <action name="Execute"><command>0k vol mic x</command></action>
-    </keybind>
-    <keybind key="XF86_AudioPlay">
-      <action name="Execute"><command>0k vol mic x</command></action>
-    </keybind>
-    <keybind key="C-XF86_AudioMute">
-      <action name="Execute"><command>0k vol bt x</command></action>
-    </keybind>
-    <keybind key="C-XF86_AudioLowerVolume">
-      <action name="Execute"><command>0k vol bt -2</command></action>
-    </keybind>
-    <keybind key="C-XF86_AudioRaiseVolume">
-      <action name="Execute"><command>0k vol bt +2</command></action>
-    </keybind>
-    <keybind key="C-XF86_AudioMicMute">
-      <action name="Execute"><command>0k vol bt mic x</command></action>
-    </keybind>
-    <keybind key="W-1">
-      <action name="GoToDesktop"><to>1</to></action>
-    </keybind>
-    <keybind key="W-2">
-      <action name="GoToDesktop"><to>2</to></action>
-    </keybind>
-    <keybind key="W-3">
-      <action name="GoToDesktop"><to>3</to></action>
-    </keybind>
-    <keybind key="W-4">
-      <action name="GoToDesktop"><to>4</to></action>
-    </keybind>
-    <keybind key="W-A-1">
-      <action name="SendToDesktop"><to>1</to></action>
-    </keybind>
-    <keybind key="W-A-2">
-      <action name="SendToDesktop"><to>2</to></action>
-    </keybind>
-    <keybind key="W-A-3">
-      <action name="SendToDesktop"><to>3</to></action>
-    </keybind>
-    <keybind key="W-A-4">
-      <action name="SendToDesktop"><to>4</to></action>
-    </keybind>
-    <keybind key="A-Tab">
-      <action name="NextWindow"/>
-    </keybind>
-    <keybind key="A-S-Tab">
-      <action name="PreviousWindow"/>
-    </keybind>
-    <keybind key="W-S-Escape">
-      <action name="Close"/>
-    </keybind>
-    <keybind key="W-a">
-      <action name="ToggleAlwaysOnTop"/>
-    </keybind>
-    <keybind key="W-f">
-      <action name="ToggleFullscreen"/>
-    </keybind>
-    <keybind key="W-S-f">
-      <action name="ToggleMaximize"/>
-    </keybind>
-    <keybind key="W-h">
-      <action name="MoveToEdge"><direction>left</direction></action>
-    </keybind>
-    <keybind key="W-j">
-      <action name="MoveToEdge"><direction>down</direction></action>
-    </keybind>
-    <keybind key="W-k">
-      <action name="MoveToEdge"><direction>up</direction></action>
-    </keybind>
-    <keybind key="W-l">
-      <action name="MoveToEdge"><direction>right</direction></action>
-    </keybind>
+    <keybind key="XF86_AudioMute"><action name="Execute" command="0t vol x"/></keybind>
+    <keybind key="XF86_AudioLowerVolume"><action name="Execute" command="0t vol -2"/></keybind>
+    <keybind key="XF86_AudioRaiseVolume"><action name="Execute" command="0t vol +2"/></keybind>
+    <keybind key="XF86_AudioMicMute"><action name="Execute" command="0t vol mic x"/></keybind>
+    <keybind key="XF86_AudioPlay"><action name="Execute" command="0t vol mic x"/></keybind>
+    <keybind key="C-XF86_AudioMute"><action name="Execute" command="0t vol bt x"/></keybind>
+    <keybind key="C-XF86_AudioLowerVolume"><action name="Execute" command="0t vol bt -2"/></keybind>
+    <keybind key="C-XF86_AudioRaiseVolume"><action name="Execute" command="0t vol bt +2"/></keybind>
+    <keybind key="C-XF86_AudioMicMute"><action name="Execute" command="0t vol bt mic x"/></keybind>
+    <keybind key="W-S-r"><action name="Reconfigure"/></keybind>
+    <keybind key="C-A-BackSpace"><action name="Execute" command="0s bye lock"/></keybind>
+    <keybind key="A-Tab"><action name="NextWindow"/></keybind>
+    <keybind key="A-S-Tab"><action name="PreviousWindow"/></keybind>
+    <keybind key="W-S-Escape"><action name="Close"/></keybind>
+    <keybind key="W-a"><action name="ToggleAlwaysOnTop"/></keybind>
+    <keybind key="W-f"><action name="ToggleFullscreen"/></keybind>
+    <keybind key="W-S-f"><action name="ToggleMaximize"/></keybind>
+    <keybind key="W-1"><action name="GoToDesktop" to="1"/></keybind>
+    <keybind key="W-2"><action name="GoToDesktop" to="2"/></keybind>
+    <keybind key="W-3"><action name="GoToDesktop" to="3"/></keybind>
+    <keybind key="W-4"><action name="GoToDesktop" to="4"/></keybind>
+    <keybind key="W-A-1"><action name="SendToDesktop" to="1"/></keybind>
+    <keybind key="W-A-2"><action name="SendToDesktop" to="2"/></keybind>
+    <keybind key="W-A-3"><action name="SendToDesktop" to="3"/></keybind>
+    <keybind key="W-A-4"><action name="SendToDesktop" to="4"/></keybind>
+    <keybind key="W-h"><action name="MoveToEdge" direction="left"/></keybind>
+    <keybind key="W-j"><action name="MoveToEdge" direction="down"/></keybind>
+    <keybind key="W-k"><action name="MoveToEdge" direction="up"/></keybind>
+    <keybind key="W-l"><action name="MoveToEdge" direction="right"/></keybind>
     <keybind key="W-y">
-      <action name="MoveToEdge"><direction>left</direction></action>
-      <action name="MoveToEdge"><direction>up</direction></action>
+      <action name="MoveToEdge" direction="left"/>
+      <action name="MoveToEdge" direction="up"/>
     </keybind>
     <keybind key="W-u">
-      <action name="MoveToEdge"><direction>right</direction></action>
-      <action name="MoveToEdge"><direction>up</direction></action>
+      <action name="MoveToEdge" direction="right"/>
+      <action name="MoveToEdge" direction="up"/>
     </keybind>
     <keybind key="W-b">
-      <action name="MoveToEdge"><direction>left</direction></action>
-      <action name="MoveToEdge"><direction>down</direction></action>
+      <action name="MoveToEdge" direction="left"/>
+      <action name="MoveToEdge" direction="down"/>
     </keybind>
     <keybind key="W-n">
-      <action name="MoveToEdge"><direction>right</direction></action>
-      <action name="MoveToEdge"><direction>down</direction></action>
+      <action name="MoveToEdge" direction="right"/>
+      <action name="MoveToEdge" direction="down"/>
     </keybind>
-    <keybind key="W-S-h">
-      <action name="SnapToEdge"><direction>left</direction></action>
-    </keybind>
-    <keybind key="W-S-j">
-      <action name="SnapToEdge"><direction>down</direction></action>
-    </keybind>
-    <keybind key="W-S-k">
-      <action name="SnapToEdge"><direction>up</direction></action>
-    </keybind>
-    <keybind key="W-S-l">
-      <action name="SnapToEdge"><direction>right</direction></action>
-    </keybind>
+    <keybind key="W-S-h"><action name="SnapToEdge" direction="left"/></keybind>
+    <keybind key="W-S-j"><action name="SnapToEdge" direction="down"/></keybind>
+    <keybind key="W-S-k"><action name="SnapToEdge" direction="up"/></keybind>
+    <keybind key="W-S-l"><action name="SnapToEdge" direction="right"/></keybind>
     <!--
-    <keybind key="">
-      <action name="ShowMenu"><menu>client-menu</menu></action>
-    </keybind>
+    <keybind key=""><action name="ShowMenu" menu="client-menu"/></keybind>
     -->
-    <keybind key="W-S-r">
-      <action name="Reconfigure"/>
-    </keybind>
-    <keybind key="C-A-BackSpace">
-      <action name="Execute"><command>0s bye lock</command></action>
-    </keybind>
   </keyboard>
 
   <mouse>
@@ -305,18 +204,14 @@
         <action name="Resize"/>
       </mousebind>
     </context>
-    <!--
     <context name="TitleBar">
       <mousebind button="Left" action="Press">
         <action name="Focus"/>
         <action name="Raise"/>
       </mousebind>
       <mousebind button="Right" action="Click">
-        <action name="Focus" />
-        <action name="Raise" />
-        <action name="ShowMenu">
-          <menu>client-menu</menu>
-        </action>
+        <action name="Focus"/>
+        <action name="Raise"/>
       </mousebind>
     </context>
     <context name="Title">
@@ -324,7 +219,6 @@
         <action name="Move"/>
       </mousebind>
     </context>
-    -->
     <context name="Client">
       <mousebind button="Left" action="Press">
         <action name="Focus"/>

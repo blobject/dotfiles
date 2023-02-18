@@ -31,7 +31,6 @@ window#waybar.hidden { opacity: 0.2; }
 #mode {
   font-size: 22px;
 }
-#window,
 #taskbar button {
   font-family: sans, "FreeSans";
   font-size: 20px;
@@ -50,7 +49,6 @@ window#waybar.hidden { opacity: 0.2; }
 #workspaces,
 #workspaces button,
 #mode,
-#window,
 #taskbar button,
 #clock,
 #custom-weather,
@@ -72,6 +70,7 @@ window#waybar.hidden { opacity: 0.2; }
 #battery {
   padding: 0 4px;
 }
+#taskbar button image { padding: 1px 4px; }
 /* spacing: top */
 #clock,
 #cpu {
@@ -83,8 +82,8 @@ window#waybar.hidden { opacity: 0.2; }
 #idle_inhibitor {
   margin-left: 2px;
 }
-#window { margin-left: 4px; }
-#taskbar button { margin-left: 16px; }
+#taskbar { margin-left: 4px; }
+#taskbar button { margin-right: 12px; }
 #clock,
 #cpu,
 #temperature,
@@ -99,10 +98,6 @@ window#waybar.hidden { opacity: 0.2; }
 #tray { margin-left: 8px; }
 /* spacing: right */
 #workspaces,
-#taskbar button image {
-  margin-right: 4px;
-}
-#taskbar button image { margin-top: 2px; }
 #workspaces button { margin-right: 6px; min-width: 24px; }
 #clock,
 #custom-weather,
@@ -141,7 +136,6 @@ window#waybar.hidden { opacity: 0.2; }
   color: #cf554d;
 }
 #workspaces button,
-#window,
 #taskbar button.active {
   color: #92959d;
 }
@@ -165,9 +159,14 @@ window#waybar.hidden { opacity: 0.2; }
 #workspaces button#wlr-workspace-3.focused { color: #72a336; }
 #workspaces button#wlr-workspace-4.focused { color: #667ad3; }
 #taskbar button image { opacity: 0.4; }
-#taskbar button.active image { opacity: 0.8; }
 #taskbar button:hover { color: #d2d6de; }
 #taskbar button:hover image { opacity: 1; }
+#taskbar button.active image { opacity: 0.8; }
+#taskbar button.maximized image { background-color: #575a61; }
+#taskbar button.active.maximized image,
+#taskbar button.maximized:hover image {
+  background-color: #36383f;
+}
 #mode            { background-color: #d2d6de; color: #16161d; }
 #cpu                                        { color: #3c56aa; }
 #temperature                { margin-left: 0; color: #456789; }

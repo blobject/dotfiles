@@ -1,5 +1,5 @@
 colors:
-- .alacritty.yml, cfg/unstowed/alacritty_*.yml
+- .config/foot/foot*.ini
 - .config/mako/config
 - .config/waybar/style.css
 - .emacs.d/init.el
@@ -15,8 +15,8 @@ cursor:
 
 hidpi (& font size):
 - /etc/sddm.d/*.conf
-- .alacritty.yml, cfg/unstowed/alacritty_*
-- .config/gtk-3.0/settings.ini,  .gtkrc-2.0
+- .config/foot/foot*.ini
+- .config/gtk-3.0/settings.ini, .gtkrc-2.0
 - .config/mako/config
 - .config/waybar/config,style.css
 - qt5ct

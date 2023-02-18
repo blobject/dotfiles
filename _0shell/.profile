@@ -14,7 +14,7 @@ unset _path_prepend
 export PATH
 export BROWSER=firefox-wayland
 export EDITOR=kak
-export TERMINAL=alacritty
+export TERMINAL=foot
 export _JAVA_AWT_WM_NONREPARENTING=1
 export GTK2_RC_FILES=$HOME/.gtkrc-2.0
 export GUILE_AUTO_COMPILE=0

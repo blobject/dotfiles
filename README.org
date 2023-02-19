@@ -2,7 +2,7 @@
 
 *** screenshot
 
-[[/unstowed/screenshot.jpg]]
+[[/ext/screenshot.jpg]]
 
 counter-clockwise from northwest:
 [[https://github.com/Alexays/Waybar][waybar]],
@@ -65,12 +65,12 @@ counter-clockwise from northwest:
 - initial ::
 1. *fs:* 512m vfat efi, swap as file
 1. *boot:* refind, remove grub
-1. *sec:* copy (not link!): =/etc/sudoers.d/=
+1. *sec:* copy (not link!): =/etc/sudoers.d/*=
   - be wary of syntax and permissions
 1. *net:* installer already set up wpa_supplicant stuff, so reuse it
   - ~wpa_supplicant -i $dev -c /etc/wpa_supplicant/wpa_supplicant-$dev.conf~
   - =/etc/dhcpcd.conf=: cloudflare dns servers
-1. *kbd:* =/usr/share/{kbd/keymaps/i386,X11/xkb/symbols}/=
+1. *kbd:* =/usr/share/{kbd/keymaps/i386,X11/xkb/symbols}/*=
 1. *repo:* void-repo-{multilib,nonfree}{-nonfree,}
 1. /immediate goodness:/ bash-completion, chronyd, socklog, tlp
   - link: =/etc/rc.conf=
@@ -89,9 +89,7 @@ counter-clockwise from northwest:
   - /service:/ sddm, seatd, xorg-minimal, xwayland
   - /util:/ foot, setxkbmap, xrdb, xset, xterm
   - /wm:/ cwm, labwc
-  - links: =/etc/sddm.conf.d=, =/etc/X11/xorg.conf.d=
-  - =/usr/share/{x,wayland-}sessions/=
-  - =/usr/share/sddm/scripts/Xsetup=: login screen kbd settings
+  - links: =/etc/sddm.conf.d/*=, =/etc/X11/xorg.conf.d/*=, =/usr/share/sddm/scripts/Xsetup=
   - to start sessions without logind or pam's help, create =/run/user/$UID= using =/etc/rc.local=, then set =$XDG_RUNTIME_DIR= to it in =~/.profile=
 1. *edit:*
   - emacs, kakoune, vim
@@ -123,7 +121,7 @@ counter-clockwise from northwest:
   - /fun:/ cataclysm-dda, fontforge, qemu
 1. *kernel:* dracut, some headers (libelf) to make =make= work
   - keep sound modular, headphone mic misbehaves otherwise
-  - links: =/etc/modprobe.d=, =/etc/sysctl.d=
+  - links: =/etc/modprobe.d/*=, =/etc/sysctl.d/*=
 
 - manual ::
 - place executable-onlies in =~/bin/=, and more involved applications in =~/.local/bin/= or =/usr/local/= with edited =/etc/ld.so.conf.d/=

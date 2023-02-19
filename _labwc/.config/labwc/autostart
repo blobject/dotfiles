@@ -26,6 +26,6 @@ kanshi &
 mako &
 pipewire &
 { sleep 1; pipewire-pulse & } &
-waybar &
-{ sleep 2; wireplumber & } &
+{ sleep 4; waybar & } &
+{ sleep 3; wireplumber & } &
 

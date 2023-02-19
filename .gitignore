@@ -1,5 +1,5 @@
 .hg/
 .hgignore
-/outside/usr/share/kbd/keymaps/i386/hsnt.kmap
-/outside/usr/share/X11/xkb/symbols/hsnt
-/unstowed/back.png
+/ext/usr/share/kbd/keymaps/i386/hsnt.kmap
+/ext/usr/share/X11/xkb/symbols/hsnt
+/ext/back.*

@@ -6,6 +6,7 @@ if {{relative} eq [file pathtype $::argv0]} {
 }
 cd $::env(HOME)
 exec mkdir -p \
+  .config/broot \
   .config/mpv \
   .emacs.d \
   .icons \

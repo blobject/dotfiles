@@ -1,4 +1,7 @@
-profile {
+profile laptop {
   output eDP-1 position 0,0
-  output DP-1 mode 1920x1080 position 2160,0
+}
+profile extrot {
+  output eDP-1 position 0,0
+  output DP-1 position 2160,0 scale 0.8 transform 90
 }

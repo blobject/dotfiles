@@ -37,7 +37,7 @@
     "icon-size": 22,
     "on-click": "activate",
     "on-click-right": "activate",
-    "format": "{icon}",
+    "format": "{icon}{title:.8}",
   },
   "clock": {
     "interval": 30,

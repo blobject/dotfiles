@@ -50,8 +50,8 @@ bind-key 4-slash   menu-window
 bind-key 4S-slash  menu-cmd
 bind-key 4S-r      restart
 bind-key CM-BackSpace "0s bye logout"
-bind-key XF86MonBrightnessDown "0t lum -5"
-bind-key XF86MonBrightnessUp   "0t lum +5"
+bind-key XF86MonBrightnessDown "0t _lum-"
+bind-key XF86MonBrightnessUp   "0t _lum+"
 bind-key XF86AudioMute         "0t vol x"
 bind-key XF86AudioLowerVolume  "0t vol -5"
 bind-key XF86AudioRaiseVolume  "0t vol +5"

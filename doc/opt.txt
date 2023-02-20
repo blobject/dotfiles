@@ -28,7 +28,7 @@ manual (/usr/local):
   mono:
     agave, consolas, courier, inconsolata, input, iosevka, jetbrains, plex, sanfrancisco, ubuntu, umtypewriter
   sans:
-    apercu, arial {,unicode ms}, avenir, calibri, candara, cascadia, comic, corbel, cyberbit, google, helvetica, inter, lexend, segoe, selawik, tahoma, trebuchet, verdana
+    apercu, arial {,unicode ms}, avenir, calibri, candara, cascadia, comic, corbel, cyberbit, google, helvetica, inter, lexend, open, segoe, selawik, tahoma, trebuchet, verdana
   serif:
     bookerly, cambria, constantia, newyork, times, zilla
   other:

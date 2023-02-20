@@ -16,7 +16,6 @@
     "disk",
     "network",
     "backlight",
-    "idle_inhibitor",
     "pulseaudio",
     "battery",
     "tray",
@@ -81,13 +80,6 @@
   "backlight": {
     "interval": 60,
     "format": " {percent}",
-  },
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-      "activated": "",
-      "deactivated": "",
-    }
   },
   "pulseaudio": {
     "format": "{icon} {volume} {format_source}",

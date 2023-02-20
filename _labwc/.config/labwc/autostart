@@ -13,7 +13,7 @@
 
 ## early & one-off
 dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus &
-light -S 30 &
+sudo light -S 30 &
 xrdb -merge $HOME/.xresources &
 
 ## daemon

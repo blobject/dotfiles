@@ -7,14 +7,14 @@
 counter-clockwise from northwest:
 [[https://github.com/Alexays/Waybar][waybar]],
 [[https://codeberg.org/dnkl/foot][foot]] ([[https://github.com/dylanaraps/pfetch][pfetch]]),
-[[https://wayland.emersion.fr/grim/][grim]],
+[[https://wayland.emersion.fr/grim/][grim]]+[[https://wayland.emersion.fr/slurp/][slurp]],
 [[https://wayland.emersion.fr/mako/][mako]].
 
 *** selection
 
 | class | instance |
 |-------|-------------|
-| hw | [[https://consumer.huawei.com/en/laptops/matebook-13/][matebook 13]], [[https://github.com/foostan/crkbd][corne]], [[https://xtrfy.com/mice/mz1-wireless/][mz1]], [[https://us.aoc.com/en/monitors/i1601fwux][i1601fwux]] |
+| hw | [[https://github.com/nekr0z/linux-on-huawei-matebook-13-2019][matebook 13]], [[https://github.com/foostan/crkbd][corne]], [[https://xtrfy.com/mice/mz1-wireless/][mz1]], [[https://us.aoc.com/en-US/products/monitors/i1601fwux][i1601fwux]] |
 | env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://labwc.github.io/][labwc]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
 | look | 2160x1440, 100dpi, font size ~20pt, [[https://picaq.github.io/sarasa/][sarasa]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
 
@@ -22,15 +22,15 @@ counter-clockwise from northwest:
 
 | name | description |
 |------|-------------|
-| *[[_0shell/bin/00][00]]* | run file(s) based on mimetype (like ~xdg-open~) |
-| *[[_0shell/bin/0a][0a]]* | list and launch =.desktop= files (dmenu companion) |
-| *[[_0shell/bin/0l][0l]]* | read log |
-| *[[_0shell/bin/0m][0m]]* | wrap [[https://www.x.org/wiki/Projects/XRandR/][xrandr]] |
-| *[[_0shell/bin/0s][0s]]* | system utilities |
-| *[[_0shell/bin/0t][0t]]* | graphical shell utilities |
-| *[[_0shell/bin/0v][0v]]* | wrap [[https://www.qemu.org/][qemu]] |
-| *[[_0shell/bin/0tcl][0tcl]]* | like ~sh -c~ but for tcl |
-| *[[_0shell/bin/lib.tcl][lib.tcl]]* | help other =0*= tcl scripts |
+| *[[__shell/bin/00][00]]* | *run* file(s) based on mimetype (like =xdg-open=) |
+| *[[__shell/bin/0a][0a]]* | *list* and *launch* =.desktop= files (dmenu companion) |
+| *[[__shell/bin/0l][0l]]* | read *log* |
+| *[[__shell/bin/0m][0m]]* | wrap [[https://www.x.org/wiki/Projects/XRandR/][xrandr]] |
+| *[[__shell/bin/0s][0s]]* | *system* utilities |
+| *[[__shell/bin/0t][0t]]* | graphical *shell* utilities |
+| *[[__shell/bin/0v][0v]]* | wrap [[https://www.qemu.org/][qemu]] |
+| *[[__shell/bin/0tcl][0tcl]]* | like =sh -c= but for tcl |
+| *[[__shell/bin/lib.tcl][lib.tcl]]* | *help* other =0*= tcl scripts |
 
 *** keybinding
 
@@ -41,24 +41,23 @@ counter-clockwise from northwest:
 |-|-|-------------------------|
 | =MS-r= | | *reconfigure* |
 | =CA-back= | | *lock* |
-| =M/A-L= *mouse* | | *resize* / *move* window |
+| =M/A-L= | | *resize* / *move* window |
 | =MS-esc= | | *close* window |
-| =MA-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |
-| =M[S]-= *dir* | =h= / =j= / =k= / =l= / =y= / =u= / =b= / =n= | *move* [ *snap* ] window to edge |
-| =M[S]-f= | | *fullscreen* [ *maximise* ] toggle |
+| =MS-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |
+| =M[S]-= *dir* | =h= / =j= / =k= / =l= / =y= / =u= / =b= / =n= | *move* [ and *snap* ] window to edge |
+| =M[S]-f= | | *maximise* [ *fullscreen* ] toggle |
 
 | | | /FOCUS/ |
 |-|-|---------|
 | =M-= *num* | =1= / =2= / =3= / =4= | *focus nth* desktop |
 | =A[S]-tab= | | cycle *focus* [ *backwards* ] |
-| =M-a= | | *always on top* toggle |
+| =M-a= | | toggle *always on top* |
 
 | | | /APP/ |
 |-|-|-------|
-| =[S]-print= | | *take picture* of *screen* [then *edit*] |
+| =[S]-print= | | *take picture* of *screen* [ then *edit* ] |
 | =M[S]-space= | | *close* [ *all* ] notification[s] |
-| =M-enter= | | launch *launcher* |
-| =M-= *char* | =e= / =t= / =w= | launch *editor* / *terminal* / *www* |
+| =M-= *char* | =enter= / =e= / =t= / =w= | launch *launcher* / *editor* / *terminal* / *www* |
 
 *** steps
 
@@ -78,6 +77,7 @@ counter-clockwise from northwest:
 
 - "usable" ::
 1. *shell:*
+  - ~touch /etc/sv/agetty-tty[3-6]/down~, remove from =/var/service/=
   - /cmdline:/ fd, git, mercurial, ripgrep, tmux, tcl
   - /util:/ lz4, p7zip, rlwrap, stow, zip
   - stow will link the maximally existent path, so any addition to an over-inclusive dir link will begin to reside in the stowed (ie. this) repository -- hence the mkdirs in =stow.tcl= to make sure only the desired subtrees (usually leaves and singletons) become links
@@ -95,27 +95,26 @@ counter-clockwise from northwest:
   - emacs, kakoune, vim
 1. *util:*
   - /fs:/ exfat-fuse, jmtpfs, lftp, rsync
-  - /look:/ acpilight, light, gammastep-indicator, kanshi, xrandr
+  - /look:/ gammastep-indicator, kanshi, light, xrandr
   - /monitor:/ blueman-tray, libappindicator, mako, polybar, psmisc, snooze, waybar, wpa_gui
   - /shell:/ bemenu, swaylock, wev, wl-clipboard, xdg-utils
-  - =.config/mimeapps.list=: mime handling
+  - =~/.config/mimeapps.list=: mime handling
 1. *media:*
   - /audio:/ pipewire, wireplumber
   - /video:/ ffmpeg, mpv
   - /lib:/ alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg, libspa-v4l2, libspa-vulkan, xdg-desktop-portal-wlr
   - /util:/ ponymix, pavucontrol
   - ~ln -s /usr/share/alsa/alsa.conf.d/*-pipewire*.conf /etc/alsa/conf.d/~
-  - =~/.config/pipewire/pipewire.conf=: disable pipewire-media-session
-  - of web browsers, only firefox supports fullscreensharing in wayland at the moment
+  - ~cp /usr/share/pipewire/pipewire.conf ~/.config/pipewire/~ and disable pipewire-media-session
 
 - more ::
 1. *dev:*
   - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, lua, mono, nodejs, octave, openjdk, python3-devel+pip, r, rustup, sbcl, squeak, swi-prolog, tk
-  - /util:/ broot, catch2, cmake, docker, gdb, msbuild, powertop, valgrind, ytop
+  - /util:/ broot, catch2, cmake, docker, gdb, msbuild, powertop, valgrind
 1. *app:*
   - /doc:/ foliate, gnuplot, libreoffice, pdf.js, texlive-most, zathura
-  - /image:/ blender, gimp, imagemagick, imv, inkscape, mypaint, grim, slurp, swappy, wf-recorder
-  - /look:/ breeze-snow-cursor-theme, papirus-icon-theme, qt5ct, xwallpaper
+  - /image:/ blender, gimp, imagemagick, imv, inkscape, grim, slurp, swappy, wf-recorder
+  - /look:/ breeze-snow-cursor-theme, hsetroot, papirus-icon-theme, qt5ct
   - /net:/ firefox
   - /sec:/ gnupg2
   - /fun:/ cataclysm-dda, fontforge, qemu
@@ -128,10 +127,10 @@ counter-clockwise from northwest:
 - /pip:/ meson, ninja
 
 - groups ::
-wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, _seatd, docker, vboxusers, bluetooth, socklog
+wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, _seatd, docker, bluetooth, socklog
 
 - daemons ::
-acpid, agetty-*, bluetoothd, dbus, dhcpcd, seatd, nanoklogd, ntpd, sddm, socklog-unix, tlp, udevd, uuidd, wpa_supplicant
+acpid, agetty-*, bluetoothd, dbus, dhcpcd, nanoklogd, ntpd, sddm, seatd, socklog-unix, tlp, udevd, uuidd, wpa_supplicant
 
 - kernel modules ::
 builtin/virtual audio, usb bluetooth, ASIX usb ethernet, builtin wifi

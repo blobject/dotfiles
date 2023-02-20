@@ -22,7 +22,6 @@ window#waybar.hidden { opacity: 0.2; }
 #disk,
 #network,
 #backlight,
-#idle_inhibitor,
 #battery {
   font-family: Agave, "Font Awesome 5 Pro Light";
   font-size: 22px;
@@ -58,15 +57,12 @@ window#waybar.hidden { opacity: 0.2; }
 #disk,
 #network,
 #backlight,
-#idle_inhibitor,
-#idle_inhibitor.deactivated,
 #pulseaudio,
 #battery {
   margin: 0;
   padding: 0;
 }
 #mode,
-#idle_inhibitor,
 #battery {
   padding: 0 4px;
 }
@@ -78,8 +74,7 @@ window#waybar.hidden { opacity: 0.2; }
 }
 /* spacing: left */
 #workspaces,
-#mode,
-#idle_inhibitor {
+#mode {
   margin-left: 2px;
 }
 #taskbar { margin-left: 4px; }
@@ -94,7 +89,6 @@ window#waybar.hidden { opacity: 0.2; }
 #pulseaudio {
   margin-left: 12px;
 }
-#idle_inhibitor.deactivated { margin-left: 3px; }
 #tray { margin-left: 8px; }
 /* spacing: right */
 #workspaces,
@@ -107,8 +101,6 @@ window#waybar.hidden { opacity: 0.2; }
 #network {
   margin-right: 12px;
 }
-#idle_inhibitor { margin-right: 10px; }
-#idle_inhibitor.deactivated { margin-right: 14px; }
 #pulseaudio { margin-right: 10px; }
 #backlight,
 #battery {
@@ -174,7 +166,6 @@ window#waybar.hidden { opacity: 0.2; }
 #disk                                       { color: #67823d; }
 #network                                    { color: #899012; }
 #backlight                                  { color: #a87817; }
-#idle_inhibitor.activated { background-color: #a87817; color: #16161d; }
 #pulseaudio                                 { color: #a46738; }
 #battery         { background-color: #36383f; color: #92959d; }
 #battery.critical:not(.charging)            { color: #d2d6de; }

@@ -75,16 +75,16 @@
     <keybind key="A-S-Tab"><action name="PreviousWindow"/></keybind>
     <keybind key="W-S-Escape"><action name="Close"/></keybind>
     <keybind key="W-a"><action name="ToggleAlwaysOnTop"/></keybind>
-    <keybind key="W-f"><action name="ToggleFullscreen"/></keybind>
-    <keybind key="W-S-f"><action name="ToggleMaximize"/></keybind>
+    <keybind key="W-f"><action name="ToggleMaximize"/></keybind>
+    <keybind key="W-S-f"><action name="ToggleFullscreen"/></keybind>
     <keybind key="W-1"><action name="GoToDesktop" to="1"/></keybind>
     <keybind key="W-2"><action name="GoToDesktop" to="2"/></keybind>
     <keybind key="W-3"><action name="GoToDesktop" to="3"/></keybind>
     <keybind key="W-4"><action name="GoToDesktop" to="4"/></keybind>
-    <keybind key="W-A-1"><action name="SendToDesktop" to="1"/></keybind>
-    <keybind key="W-A-2"><action name="SendToDesktop" to="2"/></keybind>
-    <keybind key="W-A-3"><action name="SendToDesktop" to="3"/></keybind>
-    <keybind key="W-A-4"><action name="SendToDesktop" to="4"/></keybind>
+    <keybind key="W-S-exclam"><action name="SendToDesktop" to="1"/></keybind>
+    <keybind key="W-S-at"><action name="SendToDesktop" to="2"/></keybind>
+    <keybind key="W-S-numbersign"><action name="SendToDesktop" to="3"/></keybind>
+    <keybind key="W-S-dollar"><action name="SendToDesktop" to="4"/></keybind>
     <keybind key="W-h"><action name="MoveToEdge" direction="left"/></keybind>
     <keybind key="W-j"><action name="MoveToEdge" direction="down"/></keybind>
     <keybind key="W-k"><action name="MoveToEdge" direction="up"/></keybind>
@@ -260,10 +260,10 @@
       <naturalScroll>yes</naturalScroll>
     </device>
     <device category="Xtrfy Xtrfy Wireless Receiver">
-      <pointerSpeed>-0.1</pointerSpeed>
+      <pointerSpeed>-0.4</pointerSpeed>
     </device>
     <device category="Xtrfy Xtrfy Wireless Receiver Keyboard">
-      <pointerSpeed>-0.1</pointerSpeed>
+      <pointerSpeed>-0.4</pointerSpeed>
     </device>
   </libinput>
 </labwc_config>

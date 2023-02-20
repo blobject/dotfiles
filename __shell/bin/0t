@@ -7,7 +7,7 @@ source $::env(HOME)/bin/lib.tcl
 
 need notify-send \
      setxkbmap \
-     xbacklight light \
+     light \
      grim slurp swappy \
      ponymix
 
@@ -76,18 +76,11 @@ proc lum {} {
   global SESS
 
   set arg [lindex $::argv 0]
-  set cmd {light}
+  set cmd {sudo light}
   set cmd_set {-S}
   set cmd_dec {-U}
   set cmd_inc {-A}
   set cmd_get {-G}
-  if {{x} eq $SESS} {
-    set cmd {xbacklight}
-    set cmd_set {-set}
-    set cmd_dec {-dec}
-    set cmd_inc {-inc}
-    set cmd_get {-get}
-  }
   set cmd_sub $cmd
   set notify {notify-send -u low -t 2000 -i redshift-status-}
 
@@ -101,7 +94,7 @@ proc lum {} {
     set arg [string range $arg 1 end]
     exec {*}$cmd_sub $arg
   }
-  exec {*}$notify lum [exec $cmd $cmd_get]%
+  exec {*}$notify lum [exec {*}$cmd $cmd_get]%
 }
 
 ###############################################################################

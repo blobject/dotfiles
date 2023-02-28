@@ -97,7 +97,7 @@ counter-clockwise from northwest:
   - /fs:/ exfat-fuse, jmtpfs, lftp, rsync
   - /look:/ gammastep-indicator, kanshi, light, xrandr
   - /monitor:/ blueman-tray, libappindicator, mako, polybar, psmisc, snooze, waybar, wpa_gui
-  - /shell:/ bemenu, swaylock, wev, wl-clipboard, xdg-utils
+  - /shell:/ swaylock, tofi, wev, wl-clipboard, xdg-utils
   - =~/.config/mimeapps.list=: mime handling
 1. *media:*
   - /audio:/ pipewire, wireplumber

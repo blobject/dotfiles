@@ -142,7 +142,7 @@ proc trav {} {
     }
   }
   flush stdout
-  if {changed} {
+  if {$changed} {
     save_cache
   }
 }

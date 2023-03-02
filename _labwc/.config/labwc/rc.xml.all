@@ -35,21 +35,20 @@
   <theme>
     <name>0theme</name>
     <cornerRadius>0</cornerRadius>
-    <font place="ActiveWindow" name="sans" size="15" weight="bold"/>
-    <font place="MenuItem" name="sans" size="15"/>
-    <font place="OnScreenDisplay" name="sans" size="17" weight="bold"/>
+    <font place="ActiveWindow" name="Inter" size="15" weight="bold"/>
+    <font place="MenuItem" name="Inter" size="15"/>
+    <font place="OnScreenDisplay" name="Inter" size="17" weight="bold"/>
   </theme>
 
   <keyboard>
     <repeatRate>30</repeatRate>
     <repeatDelay>250</repeatDelay>
-    <keybind key="W-Return"><action name="Execute" command="tofi-drun --font ~/.local/share/fonts/agave/Agave-Bold-slashed.ttf --hint-font=false --height=100% --width=100% --padding-left=40% --padding-top=25% --border-width=0 --outline-width=0 --result-spacing=16 --num-results=16 --background-color=0009 --text-color=b9bdc5 --input-color=d2d6de --prompt-color=d2d6de --selection-color=ffffff --late-keyboard-init --drun-launch=true --fuzzy-match=true --prompt-text='> '"/></keybind>
+    <keybind key="W-Return"><action name="Execute" command="tofi-drun --font ~/.local/share/fonts/agave/Agave-Bold-slashed.ttf --hint-font=false --height=100% --width=100% --padding-left=40% --padding-top=25% --border-width=0 --outline-width=0 --result-spacing=16 --num-results=16 --background-color=000000a0 --text-color=b9bdc5ff --input-color=d2d6deff --prompt-color=d2d6deff --selection-color=ffffffff --late-keyboard-init --drun-launch=true --fuzzy-match=true --prompt-text='> '"/></keybind>
     <keybind key="W-t"><action name="Execute" command="footclient"/></keybind>
     <keybind key="W-e"><action name="Execute" command="footclient kak"/></keybind>
     <keybind key="W-w"><action name="Execute" command="firefox-wayland"/></keybind>
     <keybind key="W-S-w"><action name="Execute" command="0t _firefox"/></keybind>
-    <keybind key="W-Space"><action name="Execute" command="makoctl dismiss"/></keybind>
-    <keybind key="W-S-Space"><action name="Execute" command="makoctl dismiss -a"/></keybind>
+    <keybind key="W-Space"><action name="Execute" command="fnottctl dismiss"/></keybind>
     <keybind key="Print"><action name="Execute" command="0t shot s png"/></keybind>
     <keybind key="S-Print"><action name="Execute" command="0t shot e png"/></keybind>
     <keybind key="XF86_MonBrightnessDown">

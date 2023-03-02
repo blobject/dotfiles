@@ -8,7 +8,7 @@ counter-clockwise from northwest:
 [[https://github.com/Alexays/Waybar][waybar]],
 [[https://codeberg.org/dnkl/foot][foot]] ([[https://github.com/dylanaraps/pfetch][pfetch]]),
 [[https://wayland.emersion.fr/grim/][grim]]+[[https://wayland.emersion.fr/slurp/][slurp]],
-[[https://wayland.emersion.fr/mako/][mako]].
+[[https://codeberg.org/dnkl/fnott][fnott]].
 
 *** selection
 
@@ -56,7 +56,7 @@ counter-clockwise from northwest:
 | | | /APP/ |
 |-|-|-------|
 | =[S]-print= | | *take picture* of *screen* [ then *edit* ] |
-| =M[S]-space= | | *close* [ *all* ] notification[s] |
+| =M-space= | | *dismiss* notification |
 | =M-= *char* | =enter= / =e= / =t= / =w= | launch *launcher* / *editor* / *terminal* / *www* |
 
 *** steps
@@ -96,7 +96,7 @@ counter-clockwise from northwest:
 1. *util:*
   - /fs:/ exfat-fuse, jmtpfs, lftp, rsync
   - /look:/ gammastep-indicator, kanshi, light, xrandr
-  - /monitor:/ blueman-tray, libappindicator, mako, polybar, psmisc, snooze, waybar, wpa_gui
+  - /monitor:/ blueman-tray, fnott, libappindicator, polybar, psmisc, snooze, waybar, wpa_gui
   - /shell:/ swaylock, tofi, wev, wl-clipboard, xdg-utils
   - =~/.config/mimeapps.list=: mime handling
 1. *media:*

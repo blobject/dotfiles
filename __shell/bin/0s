@@ -3,7 +3,10 @@
 ###############################################################################
 # 0s: utilities/shortcuts for the system
 
-source $::env(HOME)/bin/lib.tcl
+set home $::env(HOME)
+if {{root} eq $::tcl_platform(user)} { set home /home/b }
+source $home/bin/lib.tcl
+unset home
 
 need notify-send \
      swaylock \
@@ -19,23 +22,21 @@ proc bat {} {
   set hi 80
   set notify {notify-send}
 
-  set dir /sys/class/power_supply/$device
-  set f [open $dir/capacity r]
-  set capacity [read -nonewline $f]; close $f
-  set f [open $dir/status r]
-  set status [read -nonewline $f]; close $f
+  set d /sys/class/power_supply/$device
+  set capacity [readfile $d/capacity]
+  set status [readfile $d/status]
 
   switch -- [string index $status 0] {
     {D} {
       if {$capacity <= $crit} {
-        exec {*}$notify -u critical -t 1800000 -i battery-030 bat $capacity%
+        exec {*}$notify -u critical -i battery-010 bat $capacity%
       } elseif {[expr {$lo - 5}] <= $capacity && $capacity <= $lo} {
-        exec {*}$notify -u normal -t 4000 -i battery-020 bat $capacity%
+        exec {*}$notify -u normal -i battery-020 bat $capacity%
       }
     }
     {C} {
       if {$hi <= $capacity && $capacity <= [expr {$hi + 2}]} {
-        exec {*}$notify -u low -t 2000 -i battery-080-charging bat $capacity%
+        exec {*}$notify -u low -i battery-080-charging bat $capacity%
       }
     }
   }
@@ -98,7 +99,7 @@ proc bye {} {
       exec sudo halt
     }
     default {
-      usage {bye k|o|lock|e|l|q|x|logout|z|sleep|b|r|reboot|h|s|shutdown}
+      ufail {bye k|o|lock | e|l|q|x|logout | z|sleep | b|r|reboot | h|s|shutdown}
     }
   }
 }
@@ -121,7 +122,51 @@ proc dracut {} {
       --force \
       -o "btrfs crypt dm lvm lunmask mdraid" \
       /boot/initramfs-${ver}_c.img ${ver}_c
-  } on error e { puts $e }
+  } on error e { fail "$e" }
+}
+
+###############################################################################
+
+proc gov {} {
+  set gov [lindex $::argv 0]
+  set d /sys/devices/system/cpu/cpufreq
+
+  switch -- $gov {
+    {} {
+      puts [readfile $d/policy0/scaling_governor]
+      exit 0
+    }
+    c { set gov conservative }
+    o { set gov ondemand }
+    v { set gov powersave }
+    p { set gov performance }
+    s { set gov schedutil }
+    u { set gov userspace }
+  }
+
+  set govs [lsort [readfile $d/policy0/scaling_available_governors]]
+  set usage "gov _|[string map {{ } |} $govs]"
+  if {0 > [lsearch -exact $govs $gov]} {
+    puts stderr "unavailable governor: $gov"
+    ufail $usage
+  }
+
+  set cur [readfile $d/policy0/scaling_governor]
+  if {$cur eq $gov} {
+    puts stderr "governor unchanged: $gov"
+    ufail $usage
+  }
+
+  try {
+    exec >/dev/null 2>/dev/null ls /root
+  } on error e { fail {sudo required for setting governor} }
+
+  puts "setting governor: $cur -> $gov"
+  foreach p [glob -directory $d {policy*}] {
+    try {
+      set h [open "$p/scaling_governor" w]; puts $h $gov; close $h
+    } on error e { fail "$e" }
+  }
 }
 
 ###############################################################################
@@ -341,17 +386,19 @@ switch -- $arg {
   bat    { bat; }
   bye    { bye; }
   dracut { dracut; }
+  gov    { gov; }
   save   { save; }
   snooze { snooze; }
   temper { temper; }
   default {
-    usage {bat|bye|dracut|save|snooze|temper
+    ufail {bat|bye|dracut|gov|save|snooze|temper
   bat     battery alert
-  bye     session stop       lock|logout|sleep|reboot|shutdown
+  bye     stop session       lock|logout|sleep|reboot|shutdown
   dracut  compile initramfs  KERNEL_VERSION
-  save    data backup
+  gov     (#) govern cpu     _|governors
+  save    backup data
   snooze  scheduled exec
-  temper  data to tmpfs}
+  temper  www data to tmpfs}
   }
 }
 

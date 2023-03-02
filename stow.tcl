@@ -1,6 +1,6 @@
 #! /usr/bin/env tclsh
 
-set d {
+set fend {
   .config/broot
   .config/mpv
   .emacs.d
@@ -14,7 +14,7 @@ if {{relative} eq [file pathtype $::argv0]} {
   set stowd [file normalize "[pwd]/$stowd"]
 }
 cd $::env(HOME)
-exec mkdir -p {*}$d
+exec mkdir -p {*}$fend
 cd $stowd
 try {
   exec >/dev/tty stow -v {*}[glob _*]

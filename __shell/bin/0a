@@ -20,9 +20,7 @@ proc load_cache {} {
   if {![file isfile $cache]} {
     return
   }
-  set h [open $cache r]
-  set lines [split [read $h] "\n"]
-  close $h
+  set lines [split [readfile $cache] "\n"]
   set load_apps false
   foreach line $lines {
     if {{#a} eq $line} {
@@ -72,9 +70,7 @@ proc save_cache {} {
 
 # extract application Name and Exec
 proc parse {f} {
-  set h [open $f]
-  set lines [split [read $h] "\n"]
-  close $h
+  set lines [split [readfile $f] "\n"]
   set n {}
   set e {}
   foreach line $lines {
@@ -168,7 +164,7 @@ switch -- [lindex $::argv 0] {
     catch {exec nohup gtk-launch $app.desktop &}
   }
   default {
-    usage {[run]}
+    ufail {[run]}
   }
 }
 

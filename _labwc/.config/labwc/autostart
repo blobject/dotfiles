@@ -20,10 +20,11 @@ xrdb -merge $HOME/.xresources &
 0s snooze &
 0s temper &
 { sleep 3; blueman-applet & } &
+fnott &
 foot --server --log-level=warning &
 gammastep-indicator -l manual -l 50.1:14.4 -m wayland -t 5500K:5000K &
 kanshi &
-mako &
+#mako &
 pipewire &
 { sleep 1; pipewire-pulse & } &
 { sleep 4; waybar & } &

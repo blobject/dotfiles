@@ -32,7 +32,7 @@ proc fail {s {nome {}}} {
   exit 1
 }
 
-proc usage {body} {
+proc ufail {body} {
   global ME
   fail "Usage: $ME $body" nome
 }
@@ -42,9 +42,17 @@ proc need {args} {
   foreach cmd $args {
     if [catch {exec which $cmd}] {
       set want true
-      err "need $cmd";
+      err "need $cmd"
     }
   }
-  if {$want} { exit 1; }
+  if {$want} {
+    exit 1
+  }
 }
 
+proc readfile {f} {
+  set h [open $f r]
+  set c [read -nonewline $h]
+  close $h
+  return $c
+}

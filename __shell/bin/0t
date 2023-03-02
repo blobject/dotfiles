@@ -13,32 +13,24 @@ need notify-send \
 
 ###############################################################################
 
-proc _bemenu {} {
-  try {
-    exec 0a | bemenu --fn {Agave bold 22} -i -l 16 -m 1 -n -p { } -P {-->} --scrollbar autohide -w --tb=\#000000 --tf=\#575a61 --fb=\#000000 --ff=\#cf554d --nb=\#000000 --nf=\#92959d --hb=\#000000 --hf=\#667ad3 --scb=\#000000 --scf=\#92959d --af=\#92959d | 0a run
-  } on error e { puts $e }
-}
-
-###############################################################################
-
 proc _firefox {} {
   try {
     exec firefox-wayland --private-window --profile "$::env(HOME)/opt/firefox_proxy"
-  } on error e { puts $e }
+  } on error e { fail "$e" }
 }
 
 ###############################################################################
 
 proc _lum- {} {
   exec sleep 0.1
-  exec notify-send -u low -t 2000 -i redshift-status-off lum "[exec light -G]"
+  exec notify-send -u low -i redshift-status-off lum "[exec light -G]"
 }
 
 ###############################################################################
 
 proc _lum+ {} {
   exec sleep 0.1
-  exec notify-send -u low -t 2000 -i redshift-status-on lum "[exec light -G]"
+  exec notify-send -u low -i redshift-status-on lum "[exec light -G]"
 }
 
 ###############################################################################
@@ -47,7 +39,7 @@ proc lay {} {
   global SESS
 
   if {{x} ne $SESS} {
-    exec notify-send -u low -t 2000 -i preferences-desktop-keyboard key {xorg not running}
+    exec notify-send -u low -i preferences-desktop-keyboard key {xorg not running}
     exit
   }
 
@@ -64,10 +56,10 @@ proc lay {} {
       exec xset r rate 250 30
     }
     default {
-      usage {lay h_snt|q_werty}
+      ufail {lay h_snt|q_werty}
     }
   }
-  exec notify-send -u low -t 2000 -i cinnamon-virtual-keyboard key $arg
+  exec notify-send -u low -i cinnamon-virtual-keyboard key $arg
 }
 
 ###############################################################################
@@ -82,7 +74,7 @@ proc lum {} {
   set cmd_inc {-A}
   set cmd_get {-G}
   set cmd_sub $cmd
-  set notify {notify-send -u low -t 2000 -i redshift-status-}
+  set notify {notify-send -u low -i redshift-status-}
 
   switch -- [string index $arg 0] {
     {} { append notify on }
@@ -119,7 +111,7 @@ proc shot {} {
 
   if {3 < $argc - 1} {
     puts stderr "wrong number of arguments"
-    usage "shot [help]"
+    ufail "shot [help]"
   }
 
   if {{} ne $three} {
@@ -127,7 +119,7 @@ proc shot {} {
       append opt { -c}
     } else {
       puts stderr "unrecognised cursor enabling: $three"
-      usage "shot [help]"
+      ufail "shot [help]"
     }
   }
 
@@ -145,7 +137,7 @@ proc shot {} {
     }
     default {
       puts stderr "unrecognised image type: $two"
-      usage "shot [help]"
+      ufail "shot [help]"
     }
   }
 
@@ -165,7 +157,7 @@ proc shot {} {
     }
     default {
       puts stderr "unrecognised command: $one"
-      usage "shot [help]"
+      ufail "shot [help]"
     }
   }
 
@@ -191,7 +183,7 @@ proc vol {} {
   set ismic false
   set base "ponymix --sink --device "
   set cmd {}
-  set notify {notify-send -u low -t 2000 -i}
+  set notify {notify-send -u low -i}
 
   # which?
   if {{bt} ne [lindex $::argv 0]} {
@@ -236,7 +228,7 @@ proc vol {} {
     x { append cmd { toggle} }
     - { append cmd " decrease [string range $::argv 1 end]" }
     + { append cmd " increase [string range $::argv 1 end]" }
-    default { usage {vol [bt] [mic] |x|-N|+N}}
+    default { ufail {vol [bt] [mic] |x|-N|+N} }
   }
 
   # execute ponymix
@@ -283,7 +275,7 @@ switch -regexp -- $arg {
   ^shot$ { shot; }
   ^vol$  { vol; }
   default {
-    usage {lay|lum|shot|vol
+    ufail {lay|lum|shot|vol
   lay   keyboard layout    |h_hsnt|q_werty|b_ow
   lum   monitor luminance  |-N|+N
   shot  screenshot         |active|*screen*|select |jpg|*png* |c

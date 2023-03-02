@@ -55,5 +55,5 @@ switch -- $arg {
   #    #-audiodev pa,id=snd0 \
   #    #-display sdl,gl=on \
   #}
-  default { usage {?|m_int} }
+  default { ufail {?|m_int} }
 }

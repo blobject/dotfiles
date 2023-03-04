@@ -9,7 +9,7 @@ source $home/bin/lib.tcl
 unset home
 
 need notify-send \
-     swaylock \
+     waylock \
      rsync xbps-query \
      0snooze-bat 0snooze-temper snooze
 
@@ -73,7 +73,7 @@ proc bye {} {
 
   switch -- [lindex $::argv 0] {
     k - o - lock {
-      if {{w} eq $SESS} { exec swaylock -f -c 000000; }
+      if {{w} eq $SESS} { exec waylock --fail-color {#a32c2d} --init-color {#16161d} --input-color {#575a61}; }
     }
     e - l - q - x - logout {
       save
@@ -106,13 +106,77 @@ proc bye {} {
 
 ###############################################################################
 
+proc cpu {} {
+  set gov [lindex $::argv 0]
+  set epb [lindex $::argv 1]
+  set d /sys/devices/system/cpu
+  set fgov cpufreq/scaling_governor
+  set fepb power/energy_perf_bias
+  set govs [lsort [readfile $d/cpu0/cpufreq/scaling_available_governors]]
+  set usage "cpu _|[string map {{ } |} $govs] \[0-15\]"
+
+  switch -- $gov {
+    {} {
+      puts "[readfile $d/cpu0/$fgov] [readfile $d/cpu0/$fepb]"
+      exit 0
+    }
+    c { set gov conservative }
+    o { set gov ondemand }
+    w { set gov powersave }
+    p { set gov performance }
+    s { set gov schedutil }
+    u { set gov userspace }
+  }
+  if {0 > [lsearch -exact $govs $gov]} {
+    puts stderr "bad gov: $gov"
+    ufail $usage
+  }
+  if {{} ne $epb && (![string is integer $epb] || $epb < 0 || 15 < $epb)} {
+    puts stderr "bad epb: $epb"
+    ufail $usage
+  }
+
+  try {
+    exec -- >/dev/null 2>/dev/null ls /root
+  } on error e { fail {sudo required} }
+
+  set cur [readfile $d/cpu0/$fgov]
+  if {$cur eq $gov} {
+    puts "gov (NO CHANGE): $gov"
+  } else {
+    puts "gov: $cur -> $gov"
+    foreach p [glob -directory $d {cpu[0-7]}] {
+      try {
+        set h [open "$p/$fgov" w]; puts $h $gov; close $h
+      } on error e { fail "$e" }
+    }
+  }
+
+  if {{} eq $epb} {
+    exit
+  }
+  set cur [readfile $d/cpu0/$fepb]
+  if {$cur eq $epb} {
+    puts "epb (NO CHANGE): $epb"
+  } else {
+    puts "epb: $cur -> $epb"
+    foreach p [glob -directory $d {cpu[0-7]}] {
+      try {
+        set h [open "$p/$fepb" w]; puts $h $epb; close $h
+      } on error e { fail "$e" }
+    }
+  }
+}
+
+###############################################################################
+
 proc dracut {} {
   set ver [lindex $::argv 0]
   set d /lib/firmware
   try {
-    exec >/dev/tty sudo dracut \
+    exec -- >/dev/tty sudo dracut \
       -i $d/i915/kbl_dmc_ver1_04.bin $d/i915/kbl_dmc_ver1_04.bin \
-      -i $d/i915/kbl_guc_49.0.1.bin $d/i915/kbl_guc_49.0.1.bin \
+      -i $d/i915/kbl_guc_70.1.1.bin $d/i915/kbl_guc_70.1.1.bin \
       -i $d/i915/kbl_huc_4.0.0.bin $d/i915/kbl_huc_4.0.0.bin \
       -i $d/intel/ibt-17-16-1.ddc $d/intel/ibt-17-16-1.ddc \
       -i $d/intel/ibt-17-16-1.sfi $d/intel/ibt-17-16-1.sfi \
@@ -123,50 +187,6 @@ proc dracut {} {
       -o "btrfs crypt dm lvm lunmask mdraid" \
       /boot/initramfs-${ver}_c.img ${ver}_c
   } on error e { fail "$e" }
-}
-
-###############################################################################
-
-proc gov {} {
-  set gov [lindex $::argv 0]
-  set d /sys/devices/system/cpu/cpufreq
-
-  switch -- $gov {
-    {} {
-      puts [readfile $d/policy0/scaling_governor]
-      exit 0
-    }
-    c { set gov conservative }
-    o { set gov ondemand }
-    v { set gov powersave }
-    p { set gov performance }
-    s { set gov schedutil }
-    u { set gov userspace }
-  }
-
-  set govs [lsort [readfile $d/policy0/scaling_available_governors]]
-  set usage "gov _|[string map {{ } |} $govs]"
-  if {0 > [lsearch -exact $govs $gov]} {
-    puts stderr "unavailable governor: $gov"
-    ufail $usage
-  }
-
-  set cur [readfile $d/policy0/scaling_governor]
-  if {$cur eq $gov} {
-    puts stderr "governor unchanged: $gov"
-    ufail $usage
-  }
-
-  try {
-    exec >/dev/null 2>/dev/null ls /root
-  } on error e { fail {sudo required for setting governor} }
-
-  puts "setting governor: $cur -> $gov"
-  foreach p [glob -directory $d {policy*}] {
-    try {
-      set h [open "$p/scaling_governor" w]; puts $h $gov; close $h
-    } on error e { fail "$e" }
-  }
 }
 
 ###############################################################################
@@ -385,17 +405,17 @@ set ::argv [lrange $::argv 1 end]
 switch -- $arg {
   bat    { bat; }
   bye    { bye; }
+  cpu    { cpu; }
   dracut { dracut; }
-  gov    { gov; }
   save   { save; }
   snooze { snooze; }
   temper { temper; }
   default {
-    ufail {bat|bye|dracut|gov|save|snooze|temper
+    ufail {bat|bye|dracut|cpu|save|snooze|temper
   bat     battery alert
   bye     stop session       lock|logout|sleep|reboot|shutdown
+  cpu     (#) scale cpu      _|governors [0-15]
   dracut  compile initramfs  KERNEL_VERSION
-  gov     (#) govern cpu     _|governors
   save    backup data
   snooze  scheduled exec
   temper  www data to tmpfs}

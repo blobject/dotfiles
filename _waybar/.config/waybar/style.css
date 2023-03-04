@@ -17,6 +17,7 @@ window#waybar.hidden { opacity: 0.2; }
 #clock,
 #custom-weather,
 #cpu,
+#custom-cpufreq,
 #temperature,
 #memory,
 #disk,
@@ -31,7 +32,7 @@ window#waybar.hidden { opacity: 0.2; }
   font-size: 22px;
 }
 #taskbar button {
-  font-family: sans-serif, "FreeSans";
+  font-family: Inter;
   font-size: 20px;
   font-weight: 700;
 }
@@ -41,7 +42,7 @@ window#waybar.hidden { opacity: 0.2; }
   font-weight: 700;
 }
 #tray {
-  font-family: sans-serif, "FreeSans";
+  font-family: Inter;
   font-size: 26px;
 }
 /* spacing */
@@ -52,6 +53,7 @@ window#waybar.hidden { opacity: 0.2; }
 #clock,
 #custom-weather,
 #cpu,
+#custom-cpufreq,
 #temperature,
 #memory,
 #disk,
@@ -69,7 +71,8 @@ window#waybar.hidden { opacity: 0.2; }
 #taskbar button image { padding: 1px 4px; }
 /* spacing: top */
 #clock,
-#cpu {
+#cpu,
+#custom-cpufreq {
   padding-top: 2px;
 }
 /* spacing: left */
@@ -95,12 +98,12 @@ window#waybar.hidden { opacity: 0.2; }
 #workspaces button { margin-right: 6px; min-width: 24px; }
 #clock,
 #custom-weather,
-#temperature,
 #memory,
 #disk,
 #network {
   margin-right: 12px;
 }
+#temperature,
 #pulseaudio { margin-right: 10px; }
 #backlight,
 #battery {
@@ -160,7 +163,8 @@ window#waybar.hidden { opacity: 0.2; }
   background-color: #36383f;
 }
 #mode            { background-color: #d2d6de; color: #16161d; }
-#cpu                                        { color: #3c56aa; }
+#cpu,
+#custom-cpufreq                             { color: #3c56aa; }
 #temperature                { margin-left: 0; color: #456789; }
 #memory                                     { color: #4e7a67; }
 #disk                                       { color: #67823d; }

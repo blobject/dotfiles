@@ -9,10 +9,13 @@ stty -ixon
 __0_pwd=$PWD
 
 __0_git()
-{ [[ -d .git ]] && git branch --no-color 2>/dev/null | sed '/^[^*]/d;s,^\* *\(.*\)$,\1 ,'; }
+{ if git rev-parse --is-inside-work-tree &>/dev/null; then
+    git symbolic-ref --short HEAD 2>/dev/null | sed 's/$/ /'
+  fi; }
 
 __0_hg()
-{ if [[ -d .hg ]]; then
+{ #if hg id &>/dev/null; then
+  if [[ -d .hg ]]; then
     a=$(hg stat 2>/dev/null | sed 's,^\(.\).\+$,\1,' | sort -u | sed 'N;s,\n,,')
     hg branch 2>/dev/null | sed 's/$/'"$a"' /'
   fi; }
@@ -136,7 +139,7 @@ alias e='kak'
 alias f='free -m'
 alias g='git'
 alias m='mpv'
-alias p='ps x'
+alias p='ps aux'
 alias t='tmux'
 alias u='du -hs'
 alias ,='c ..'

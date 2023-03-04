@@ -84,7 +84,7 @@ counter-clockwise from northwest:
 1. *hw:*
   - /blob:/ various firmware, intel-ucode
   - /driver:/ intel-video-accel, mesa-dri, mesa-vulkan-intel, xf86-input-mtrack
-  - /util:/ smartmontools
+  - /util:/ acpid, smartmontools, upower
 1. *sess:*
   - /service:/ sddm, seatd, xorg-minimal, xwayland
   - /util:/ foot, setxkbmap, xrdb, xset, xterm
@@ -97,7 +97,7 @@ counter-clockwise from northwest:
   - /fs:/ exfat-fuse, jmtpfs, lftp, rsync
   - /look:/ gammastep-indicator, kanshi, light, xrandr
   - /monitor:/ blueman-tray, fnott, libappindicator, polybar, psmisc, snooze, waybar, wpa_gui
-  - /shell:/ swaylock, tofi, wev, wl-clipboard, xdg-utils
+  - /shell:/ waylock, tofi, wev, wl-clipboard, xdg-utils
   - =~/.config/mimeapps.list=: mime handling
 1. *media:*
   - /audio:/ pipewire, wireplumber
@@ -131,6 +131,15 @@ wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, _seatd, docker, b
 
 - daemons ::
 acpid, agetty-*, bluetoothd, dbus, dhcpcd, nanoklogd, ntpd, sddm, seatd, socklog-unix, tlp, udevd, uuidd, wpa_supplicant
+
+  - silence weird acpi events; add near the top of =/etc/acpi/handler.sh=:
+#+BEGIN_SRC sh
+case "$1" in
+  ac_adapter) case "$2" in ACPI0003:00) exit ;; esac ;;
+  battery) case "$2" in PNP0C0A:00) exit ;; esac ;;
+  processor) case "$2" in LNXCPU:*) exit ;; esac ;;
+esac
+#+END_SRC
 
 - kernel modules ::
 builtin/virtual audio, usb bluetooth, ASIX usb ethernet, builtin wifi

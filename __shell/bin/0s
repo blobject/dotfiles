@@ -78,8 +78,6 @@ proc bye {} {
     e - l - q - x - logout {
       save
       kill
-      #if {{cwm} eq $desk} { exec pkill cwm; }
-      #if {{labwc} eq $desk} { exec pkill labwc; }
       exec pkill $desk
     }
     z - sleep {
@@ -137,7 +135,7 @@ proc cpu {} {
   }
 
   try {
-    exec -- >/dev/null 2>/dev/null ls /root
+    exec -- >/dev/null 2>/dev/null /usr/bin/ls /root
   } on error e { fail {sudo required} }
 
   set cur [readfile $d/cpu0/$fgov]
@@ -173,16 +171,18 @@ proc cpu {} {
 proc dracut {} {
   set ver [lindex $::argv 0]
   set d /lib/firmware
+      #-i /home/b/opt/firmware/rtl8761bu_fw $d/rtl_bt/rtl8761bu_fw.bin \
+      #-i /home/b/opt/firmware/rtl8761bu_config $d/rtl_bt/rtl8761bu_config.bin \
   try {
-    exec -- >/dev/tty sudo dracut \
+    exec -- >/dev/tty /usr/bin/sudo /usr/bin/dracut \
       -i $d/i915/kbl_dmc_ver1_04.bin $d/i915/kbl_dmc_ver1_04.bin \
       -i $d/i915/kbl_guc_70.1.1.bin $d/i915/kbl_guc_70.1.1.bin \
       -i $d/i915/kbl_huc_4.0.0.bin $d/i915/kbl_huc_4.0.0.bin \
       -i $d/intel/ibt-17-16-1.ddc $d/intel/ibt-17-16-1.ddc \
       -i $d/intel/ibt-17-16-1.sfi $d/intel/ibt-17-16-1.sfi \
       -i $d/iwlwifi-9000-pu-b0-jf-b0-46.ucode $d/iwlwifi-9000-pu-b0-jf-b0-46.ucode \
-      -i /home/b/opt/firmware/rtl8761bu_fw $d/rtl_bt/rtl8761bu_fw.bin \
-      -i /home/b/opt/firmware/rtl8761bu_config $d/rtl_bt/rtl8761bu_config.bin \
+      -i $d/rtl_bt/rtl8761bu_fw.bin $d/rtl_bt/rtl8761bu_fw.bin \
+      -i $d/rtl_bt/rtl8761bu_config.bin $d/rtl_bt/rtl8761bu_config.bin \
       --force \
       -o "btrfs crypt dm lvm lunmask mdraid" \
       /boot/initramfs-${ver}_c.img ${ver}_c

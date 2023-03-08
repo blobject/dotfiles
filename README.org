@@ -96,7 +96,7 @@ counter-clockwise from northwest:
 1. *util:*
   - /fs:/ exfat-fuse, jmtpfs, lftp, rsync
   - /look:/ gammastep-indicator, kanshi, light, xrandr
-  - /monitor:/ blueman-tray, fnott, libappindicator, polybar, psmisc, snooze, waybar, wpa_gui
+  - /monitor:/ blueman-tray, fnott, libappindicator, polybar, psmisc, snooze, waybar, wpa-cute
   - /shell:/ waylock, tofi, wev, wl-clipboard, xdg-utils
   - =~/.config/mimeapps.list=: mime handling
 1. *media:*
@@ -112,14 +112,14 @@ counter-clockwise from northwest:
   - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, lua, mono, nodejs, octave, openjdk, python3-devel+pip, r, rustup, sbcl, squeak, swi-prolog, tk
   - /util:/ broot, catch2, cmake, docker, gdb, msbuild, powertop, valgrind
 1. *app:*
-  - /doc:/ foliate, gnuplot, libreoffice, pdf.js, texlive-most, zathura
+  - /doc:/ foliate, gnuplot, libreoffice, pdf.js, texlive-most, zathura, zathura-ps
   - /image:/ blender, gimp, imagemagick, imv, inkscape, grim, slurp, swappy, wf-recorder
   - /look:/ breeze-snow-cursor-theme, hsetroot, papirus-icon-theme, qt5ct
   - /net:/ firefox
+    - to customise look, edit =profile/chrome/userChrome.css=; set "toolkit.legacyUserProfileCustomizations.stylesheets" to true in about:config
   - /sec:/ gnupg2
   - /fun:/ cataclysm-dda, fontforge, qemu
 1. *kernel:* dracut, some headers (libelf) to make =make= work
-  - keep sound modular, headphone mic misbehaves otherwise
   - links: =/etc/modprobe.d/*=, =/etc/sysctl.d/*=
 
 - manual ::
@@ -138,11 +138,13 @@ case "$1" in
   ac_adapter) case "$2" in ACPI0003:00) exit ;; esac ;;
   battery) case "$2" in PNP0C0A:00) exit ;; esac ;;
   processor) case "$2" in LNXCPU:*) exit ;; esac ;;
+  ABBC0F5C*) exit ;;
 esac
 #+END_SRC
 
 - kernel modules ::
-builtin/virtual audio, usb bluetooth, ASIX usb ethernet, builtin wifi
+audio, bluetooth (usb, bnep, rfcomm, etc.), ASIX usb ethernet, builtin wifi
+  - important for avoiding any hardware booting issues
 
 - dualboot win ::
 - timezone: configure win to be UTC

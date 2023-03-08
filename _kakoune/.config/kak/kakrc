@@ -30,12 +30,17 @@ hook global BufCreate .*\.tcl %{
 hook global BufWritePost .* %{
   # backup files on write
   evaluate-commands %sh{
+    case "${kak_buffile#$HOME/}" in
+      log/*|p/*|*.*_history|*.log|*.log.old) exit;;
+    esac
+    size="$(du -Lk ${kak_buffile})"; set -- $size; size=$1
+    test 2048 -lt $size && exit
     bakd="${HOME}/bak/kak"
     test -d "${bakd}" && test -w "${bakd}" \
     || (printf "info %%{cannot write to backup directory\n${bakd}}" && exit)
-    bakf="${bakd}/"$(/usr/bin/basename "${kak_buffile}")"~"
+    bakf="${bakd}/"$(basename ${kak_bufname})"~" # basename needed for links
     /usr/bin/diff >/dev/null 2>&1 -q "${kak_buffile}" "${bakf}" && exit
-    /usr/bin/cp >/dev/null -f "${kak_buffile}" "${bakf}"
+    /usr/bin/cp >/dev/null -fL "${kak_buffile}" "${bakf}"
   }
 }
 

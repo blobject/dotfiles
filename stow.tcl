@@ -6,6 +6,7 @@ set fend {
   .emacs.d
   .icons
   .local/share/applications
+  .mozilla/firefox
   .themes/0theme/openbox-3
   bin
 }

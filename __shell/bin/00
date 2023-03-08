@@ -16,7 +16,7 @@ set limit 64
 dict set data 01doc {libreoffice     false true
   "text/rtf application/msword application/vnd.ms-powerpoint application/vnd.openxmlformats application/vnd.oasis.opendocument"}
 dict set data 02scn {zathura         true  true
-  "application/pdf application/x-pdf image/vnd.djvu image/x-djvu"}
+  "application/pdf application/postscript application/x-pdf image/vnd.djvu image/x-djvu"}
 dict set data 03img {{imv -b checks} false true
   "image/"}
 dict set data 04med {mpv             false true

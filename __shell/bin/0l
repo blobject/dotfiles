@@ -9,7 +9,24 @@ source $::env(HOME)/bin/lib.tcl
 
 set dir /var/log/socklog
 set what wayland.log
-switch -- [lindex $::argv 0] {
+set dmesg false
+set arg [lindex $::argv 0]
+
+proc help {} {
+  ufail {[shortname|longname]
+  a all
+  b debug
+  d daemon
+  e errors
+  k kernel
+  l dmesg
+  m messages
+  s secure
+  u user
+  x xbps}
+}
+
+switch -- $arg {
   {} - w - x - wayland - wm - xorg {
     set dir $::env(HOME)/log
     if {{x} eq $SESS} { set what x.log }
@@ -19,10 +36,19 @@ switch -- [lindex $::argv 0] {
   d - daemon   { set what daemon/current}
   e - errors   { set what errors/current }
   k - kernel   { set what kernel/current }
+  l - dmesg    { set dmesg true }
   m - messages { set what messages/current }
   s - secure   { set what secure/current }
-  default { ufail {[?|a_ll|d_aemon|de_b_ug|e_rrors|k_ernel|m_essages|s_ecure|w_m]} }
+  u - user     { set what user/current }
+  x - xbps     { set what xbps/current }
+  default      { help }
 }
 
-catch {exec -- >/dev/tty cat $dir/$what | less}
+try {
+  if {$dmesg} {
+    exec -- >/dev/tty 2>/dev/tty /usr/bin/sudo /usr/bin/dmesg | less
+  } else {
+    exec -- >/dev/tty 2>/dev/tty less $dir/$what
+  }
+} on error e { puts stderr "$e"; help }
 

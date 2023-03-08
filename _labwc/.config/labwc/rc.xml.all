@@ -43,6 +43,7 @@
   <keyboard>
     <repeatRate>30</repeatRate>
     <repeatDelay>250</repeatDelay>
+    <keybind key="W-BackSpace"><action name="Execute" command="000"/></keybind>
     <keybind key="W-Return"><action name="Execute" command="tofi-drun --font ~/.local/share/fonts/agave/Agave-Bold-slashed.ttf --hint-font=false --height=100% --width=100% --padding-left=40% --padding-top=25% --border-width=0 --outline-width=0 --result-spacing=16 --num-results=16 --background-color=000000a0 --text-color=b9bdc5ff --input-color=d2d6deff --prompt-color=d2d6deff --selection-color=ffffffff --late-keyboard-init --drun-launch=true --fuzzy-match=true --prompt-text='> '"/></keybind>
     <keybind key="W-t"><action name="Execute" command="footclient"/></keybind>
     <keybind key="W-e"><action name="Execute" command="footclient kak"/></keybind>
@@ -248,20 +249,14 @@
       <leftHanded>no</leftHanded>
       <middleEmulation>no</middleEmulation>
       <naturalScroll>no</naturalScroll>
-      <pointerSpeed>0.1</pointerSpeed>
-      <tap>yes</tap>
-      <tapButtonMap>lmr</tapButtonMap>
-    </device>
-    <device category="ELAN962C:00 04F3:30D0 Mouse">
-      <naturalScroll>yes</naturalScroll>
+      <pointerSpeed>0.5</pointerSpeed>
     </device>
     <device category="ELAN962C:00 04F3:30D0 Touchpad">
       <naturalScroll>yes</naturalScroll>
+      <tap>yes</tap>
+      <tapButtonMap>lrm</tapButtonMap>
     </device>
     <device category="Xtrfy Xtrfy Wireless Receiver">
-      <pointerSpeed>-0.4</pointerSpeed>
-    </device>
-    <device category="Xtrfy Xtrfy Wireless Receiver Keyboard">
       <pointerSpeed>-0.4</pointerSpeed>
     </device>
   </libinput>

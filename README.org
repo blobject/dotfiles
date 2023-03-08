@@ -66,14 +66,14 @@ counter-clockwise from northwest:
 1. *boot:* refind, remove grub
 1. *sec:* copy (not link!): =/etc/sudoers.d/*=
   - be wary of syntax and permissions
-1. *net:* installer already set up wpa_supplicant stuff, so reuse it
-  - ~wpa_supplicant -i $dev -c /etc/wpa_supplicant/wpa_supplicant-$dev.conf~
-  - =/etc/dhcpcd.conf=: cloudflare dns servers
+1. *net:* dhcpcd, iwd
+  - installer already set up wpa_supplicant stuff, so reuse it: ~wpa_supplicant -i $dev -c /etc/wpa_supplicant/wpa_supplicant-$dev.conf~
+  - alternatively, use iwd right away
+  - links: =/etc/dhcpcd.conf=, =/etc/resolv.conf.head= (cloudflare), =/etc/iwd/main.conf=
 1. *kbd:* =/usr/share/{kbd/keymaps/i386,X11/xkb/symbols}/*=
 1. *repo:* void-repo-{multilib,nonfree}{-nonfree,}
 1. /immediate goodness:/ bash-completion, chronyd, socklog, tlp
-  - link: =/etc/rc.conf=
-  - link: =/etc/tlp.d=
+  - links: =/etc/rc.conf=, =/etc/tlp.d=
 
 - "usable" ::
 1. *shell:*
@@ -96,9 +96,10 @@ counter-clockwise from northwest:
 1. *util:*
   - /fs:/ exfat-fuse, jmtpfs, lftp, rsync
   - /look:/ gammastep-indicator, kanshi, light, xrandr
-  - /monitor:/ blueman-tray, fnott, libappindicator, polybar, psmisc, snooze, waybar, wpa-cute
+  - /monitor:/ blueman-tray, fnott, iwgtk, libappindicator, polybar, psmisc, snooze, waybar
   - /shell:/ waylock, tofi, wev, wl-clipboard, xdg-utils
   - =~/.config/mimeapps.list=: mime handling
+  - for bluetooth battery status, set "Experimental" to "true" in =/etc/bluetooth/main.conf=
 1. *media:*
   - /audio:/ pipewire, wireplumber
   - /video:/ ffmpeg, mpv
@@ -130,7 +131,7 @@ counter-clockwise from northwest:
 wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, _seatd, docker, bluetooth, socklog
 
 - daemons ::
-acpid, agetty-*, bluetoothd, dbus, dhcpcd, nanoklogd, ntpd, sddm, seatd, socklog-unix, tlp, udevd, uuidd, wpa_supplicant
+acpid, agetty-*, bluetoothd, dbus, dhcpcd, docker, iwd, nanoklogd, ntpd, sddm, seatd, socklog-unix, tlp, udevd, uuidd
 
   - silence weird acpi events; add near the top of =/etc/acpi/handler.sh=:
 #+BEGIN_SRC sh

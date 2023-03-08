@@ -10,6 +10,7 @@ xrdb -merge $HOME/.xresources &
 fnott &
 foot --server --log-level=warning &
 gammastep-indicator -l manual -l 50.1:14.4 -m wayland -t 5500K:5000K &
+iwgtk -i &
 kanshi &
 pipewire &
 { sleep 1; pipewire-pulse & } &

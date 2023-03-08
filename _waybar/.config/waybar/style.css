@@ -21,7 +21,6 @@ window#waybar.hidden { opacity: 0.2; }
 #temperature,
 #memory,
 #disk,
-#network,
 #backlight,
 #battery {
   font-family: Agave, "Font Awesome 5 Pro Light";
@@ -57,7 +56,6 @@ window#waybar.hidden { opacity: 0.2; }
 #temperature,
 #memory,
 #disk,
-#network,
 #backlight,
 #pulseaudio,
 #battery {
@@ -87,7 +85,6 @@ window#waybar.hidden { opacity: 0.2; }
 #temperature,
 #memory,
 #disk,
-#network,
 #backlight,
 #pulseaudio {
   margin-left: 12px;
@@ -99,8 +96,7 @@ window#waybar.hidden { opacity: 0.2; }
 #clock,
 #custom-weather,
 #memory,
-#disk,
-#network {
+#disk {
   margin-right: 12px;
 }
 #temperature,
@@ -118,7 +114,6 @@ window#waybar.hidden { opacity: 0.2; }
 #cpu,
 #memory,
 #disk,
-#network,
 #backlight,
 #pulseaudio,
 #battery,
@@ -135,7 +130,6 @@ window#waybar.hidden { opacity: 0.2; }
   color: #92959d;
 }
 #taskbar button,
-#network.disconnected,
 #pulseaudio.muted {
   color: #575a61;
 }
@@ -163,13 +157,12 @@ window#waybar.hidden { opacity: 0.2; }
   background-color: #36383f;
 }
 #mode            { background-color: #d2d6de; color: #16161d; }
-#cpu,
-#custom-cpufreq                             { color: #3c56aa; }
-#temperature                { margin-left: 0; color: #456789; }
+#cpu                                        { color: #705ab1; }
+#custom-cpufreq                             { color: #5858bf; }
+#temperature                { margin-left: 0; color: #425fbb; }
 #memory                                     { color: #4e7a67; }
 #disk                                       { color: #67823d; }
-#network                                    { color: #899012; }
-#backlight                                  { color: #a87817; }
+#backlight                                  { color: #899012; }
 #pulseaudio                                 { color: #a46738; }
 #battery         { background-color: #36383f; color: #92959d; }
 #battery.critical:not(.charging)            { color: #d2d6de; }

@@ -4,12 +4,11 @@
     <decoration>server</decoration>
     <gap>0</gap>
     <adaptiveSync>no</adaptiveSync>
-    <cycleViewPreview>yes</cycleViewPreview>
-    <cycleViewOutlines>yes</cycleViewOutlines>
+    <windowSwitcher show="yes" preview="yes" outlines="yes" />
   </core>
 
   <resistance>
-    <screenEdgeStrength>27</screenEdgeStrength>
+    <screenEdgeStrength>16</screenEdgeStrength>
   </resistance>
 
   <focus>
@@ -18,9 +17,20 @@
   </focus>
 
   <snapping>
-    <range>1</range>
+    <range>0</range>
     <topMaximize>no</topMaximize>
   </snapping>
+
+  <regions>
+    <region name="nw" x="0%"  y="0%"  width="50%"  height="50%"/>
+    <region name="ne" x="50%" y="0%"  width="50%"  height="50%"/>
+    <region name="sw" x="0%"  y="50%" width="50%"  height="50%"/>
+    <region name="se" x="50%" y="50%" width="50%"  height="50%"/>
+    <region name="c"  x="20%" y="16%" width="60%"  height="68%"/>
+    <region name="cc" x="25%" y="25%" width="50%"  height="50%"/>
+    <region name="ch" x="0%"  y="25%" width="100%" height="50%"/>
+    <region name="cv" x="25%" y="0%"  width="50%"  height="100%"/>
+  </regions>
 
   <desktops>
     <popupTime>1000</popupTime>
@@ -35,19 +45,18 @@
   <theme>
     <name>0theme</name>
     <cornerRadius>0</cornerRadius>
-    <font place="ActiveWindow" name="Inter" size="15" weight="bold"/>
-    <font place="MenuItem" name="Inter" size="15"/>
-    <font place="OnScreenDisplay" name="Inter" size="17" weight="bold"/>
+    <font place="ActiveWindow" name="sans" size="15" slant="normal" weight="bold"/>
+    <font place="MenuItem" name="sans" size="15" slant="normal" weight="normal"/>
+    <font place="OnScreenDisplay" name="sans" size="17" slant="normal" weight="bold"/>
   </theme>
 
   <keyboard>
     <repeatRate>30</repeatRate>
     <repeatDelay>250</repeatDelay>
-    <keybind key="W-BackSpace"><action name="Execute" command="000"/></keybind>
-    <keybind key="W-Return"><action name="Execute" command="tofi-drun --font ~/.local/share/fonts/agave/Agave-Bold-slashed.ttf --hint-font=false --height=100% --width=100% --padding-left=40% --padding-top=25% --border-width=0 --outline-width=0 --result-spacing=16 --num-results=16 --background-color=000000a0 --text-color=b9bdc5ff --input-color=d2d6deff --prompt-color=d2d6deff --selection-color=ffffffff --late-keyboard-init --drun-launch=true --fuzzy-match=true --prompt-text='> '"/></keybind>
+    <keybind key="W-Return"><action name="Execute" command="0t _run"/></keybind>
     <keybind key="W-t"><action name="Execute" command="footclient"/></keybind>
     <keybind key="W-e"><action name="Execute" command="footclient kak"/></keybind>
-    <keybind key="W-w"><action name="Execute" command="firefox-wayland"/></keybind>
+    <keybind key="W-w"><action name="Execute" command="firefox"/></keybind>
     <keybind key="W-S-w"><action name="Execute" command="0t _firefox"/></keybind>
     <keybind key="W-Space"><action name="Execute" command="fnottctl dismiss"/></keybind>
     <keybind key="Print"><action name="Execute" command="0t shot s png"/></keybind>
@@ -73,7 +82,8 @@
     <keybind key="C-A-BackSpace"><action name="Execute" command="0s bye lock"/></keybind>
     <keybind key="A-Tab"><action name="NextWindow"/></keybind>
     <keybind key="A-S-Tab"><action name="PreviousWindow"/></keybind>
-    <keybind key="W-S-Escape"><action name="Close"/></keybind>
+    <keybind key="W-Escape"><action name="Close"/></keybind>
+    <keybind key="W-S-Escape"><action name="Kill"/></keybind>
     <keybind key="W-a"><action name="ToggleAlwaysOnTop"/></keybind>
     <keybind key="W-f"><action name="ToggleMaximize"/></keybind>
     <keybind key="W-S-f"><action name="ToggleFullscreen"/></keybind>
@@ -109,6 +119,14 @@
     <keybind key="W-S-j"><action name="SnapToEdge" direction="down"/></keybind>
     <keybind key="W-S-k"><action name="SnapToEdge" direction="up"/></keybind>
     <keybind key="W-S-l"><action name="SnapToEdge" direction="right"/></keybind>
+    <keybind key="W-S-y"><action name="SnapToRegion" region="nw"/></keybind>
+    <keybind key="W-S-u"><action name="SnapToRegion" region="ne"/></keybind>
+    <keybind key="W-S-b"><action name="SnapToRegion" region="sw"/></keybind>
+    <keybind key="W-S-n"><action name="SnapToRegion" region="se"/></keybind>
+    <keybind key="W-c"><action name="SnapToRegion" region="c"/></keybind>
+    <keybind key="W-S-c"><action name="SnapToRegion" region="cc"/></keybind>
+    <keybind key="W-period"><action name="SnapToRegion" region="ch"/></keybind>
+    <keybind key="W-slash"><action name="SnapToRegion" region="cv"/></keybind>
     <!--
     <keybind key=""><action name="ShowMenu" menu="client-menu"/></keybind>
     -->

@@ -3,5 +3,5 @@ profile laptop {
 }
 profile extrot {
   output eDP-1 position 0,0
-  output DP-1 position 2160,0 scale 0.8 transform 90
+  output DP-1 position 2160,0 scale 0.75 transform 90
 }

@@ -12,7 +12,7 @@ _path_prepend $HOME/bin
 # first lookup should be prepended last
 unset _path_prepend
 export PATH
-export BROWSER=firefox-wayland
+export BROWSER=firefox
 export EDITOR=kak
 export TERMINAL=foot
 export _JAVA_AWT_WM_NONREPARENTING=1

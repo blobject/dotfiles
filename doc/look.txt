@@ -16,12 +16,14 @@ cursor:
 hidpi (& font size):
 - /etc/sddm.d/*.conf
 - .config/foot/foot*.ini
-- .config/gtk-3.0/settings.ini, .gtkrc-2.0
-- .config/mako/config
+- .config/fnott/fnott.ini
+- .config/labwc/autostart
 - .config/waybar/config,style.css
-- qt5ct
+- .gtkrc-2.0
 - .emacs.d/init.el
 - .profile
 - .xresources
+- .xsession
 - bin/0a
+- qt5ct
 

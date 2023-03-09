@@ -1,6 +1,8 @@
 [Desktop Entry]
-Type=Application
 Name=_FontForge
+Exec=x fontforge %U
+TryExec=fontforge
+Type=Application
 Name[zh_TW]=字型鍛造廠
 GenericName=Font Editor
 GenericName[hr]=Uređivač za fontove
@@ -16,8 +18,6 @@ Comment[es]=Un editor de fuentes
 Comment[hr]=Uređivač za fontove
 Comment[it]=Un profilo editor di font
 Comment[pt]=Um editor de fontes
-TryExec=fontforge
-Exec=x fontforge %U
 Icon=org.fontforge.FontForge
 Categories=Graphics;
 StartupNotify=true

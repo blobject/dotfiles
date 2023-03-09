@@ -19,6 +19,6 @@
   rl = reflog
   rs = reset
   s  = status --branch --short
-  st = status --branch
+  st = status
 [log]
   date = format:%y-%m-%d %H:%M:%S

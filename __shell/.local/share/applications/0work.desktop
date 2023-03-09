@@ -1,8 +1,9 @@
 [Desktop Entry]
+Name=_agaric.net work
+Exec=0c foot --config='$::env(HOME)/.config/foot/foot_work.ini'
+TryExec=foot
 Type=Application
-Name=agaric.net work
 Comment=Work terminal on agaric.net
-Exec=0tcl foot --config='$::env(HOME)/.config/foot/foot_work.ini'
 Icon=Foot
 Categories=TerminalEmulator;
 StartupNotify=true

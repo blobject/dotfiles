@@ -5,37 +5,132 @@
 
 source $::env(HOME)/bin/lib.tcl
 
-need notify-send \
-     setxkbmap \
+need notify-send rg \
+     fnottctl \
+     firefox-wayland \
+     bluetoothctl \
      light \
+     tofi-drun \
+     setxkbmap \
      grim slurp swappy \
      ponymix
 
 ###############################################################################
 
+proc __nrep {name} {
+  # helper: replacement id for notify-send
+  catch {exec fnottctl list | rg ": $name" -r {}} id ret
+  if {0 != [dict get $ret -code]} {
+    return {}
+  }
+  return "-r $id"
+}
+
+###############################################################################
+
 proc _firefox {} {
+  # for wm
   try {
-    exec firefox-wayland --private-window --profile "$::env(HOME)/opt/firefox_proxy"
+    exec firefox --private-window --profile "$::env(HOME)/opt/firefox_proxy"
   } on error e { fail "$e" }
 }
 
 ###############################################################################
 
 proc _lum- {} {
+  # for wm, replaces lum
   exec sleep 0.1
-  exec notify-send -u low -i redshift-status-off lum "[exec light -G]"
+  exec notify-send {*}[__nrep lum] -u low -i redshift-status-off lum "[exec light -G]"
 }
 
 ###############################################################################
 
 proc _lum+ {} {
+  # for wm, replaces lum
   exec sleep 0.1
-  exec notify-send -u low -i redshift-status-on lum "[exec light -G]"
+  exec notify-send {*}[__nrep lum] -u low -i redshift-status-on lum "[exec light -G]"
 }
 
 ###############################################################################
 
-proc lay {} {
+proc _run {} {
+  # for wm
+  try {
+    exec tofi-drun \
+--font $::env(XDG_DATA_HOME)/fonts/agave/Agave-Bold-slashed.ttf \
+--hint-font=false \
+{--height=100%} {--width=100%} \
+{--padding-left=40%} {--padding-top=25%} \
+--border-width=0 --outline-width=0 \
+--num-results=16 \
+--result-spacing=16 \
+--background-color=000000a0 \
+--input-color=d2d6deff \
+--prompt-color=d2d6deff \
+--selection-color=ffffffff \
+--text-color=b9bdc5ff \
+--drun-launch=true \
+--fuzzy-match=true \
+--late-keyboard-init \
+{--prompt-text=> }
+  } on error e { fail "$e" }
+}
+
+###############################################################################
+
+proc btbat {{id {}}} {
+  # for waybar
+  if {{} eq $id} {
+    global ME
+
+    puts stderr "$ME: mac address required
+  available devices:
+  EarFun Free Pro 2    00:12:6F:EE:F0:F7
+  Sennheiser CX 6.00BT 00:1B:66:8C:6C:44
+  JBL Clip 2           B0:F1:A3:63:0A:66
+  Corne keyboard       DD:A5:E3:61:B3:96"
+    puts {}
+    exit
+  }
+  catch {exec bluetoothctl info $id | rg {Connected: yes}} {} ret
+  if {0 != [dict get $ret -code]} {
+    puts {}
+    exit
+  }
+  set icon { }
+  if {{DD:A5:E3:61:B3:96} eq $id} { set icon { } }
+  regsub -all {:} $id {_} id
+  set blue "dbus-send \
+--print-reply=literal \
+--system \
+--dest=org.bluez \
+/org/bluez/hci0/dev_$id"
+  catch {exec {*}$blue org.freedesktop.DBus.Introspectable.Introspect | rg {Battery1}} {} ret
+  if {0 != [dict get $ret -code]} {
+    puts {}
+    exit
+  }
+  puts "$icon[lindex [exec {*}$blue org.freedesktop.DBus.Properties.Get string:org.bluez.Battery1 string:Percentage] end]"
+}
+
+###############################################################################
+
+proc cpu {} {
+  # for waybar
+  set dir /sys/devices/system/cpu/cpu0
+  set gov [readfile $dir/cpufreq/scaling_governor]
+  set epb [readfile $dir/power/energy_perf_bias]
+  switch -- [string index $gov 1] {
+    e { set gov {^}}
+    o { set gov {_}}
+    default { set gov {?}}
+  }
+  puts "$gov$epb"
+}
+
+###############################################################################
+
+proc lay {arg} {
   global SESS
 
   if {{x} ne $SESS} {
@@ -43,7 +138,6 @@ proc lay {} {
     exit
   }
 
-  set arg [lindex $::argv 0]
   switch -- $arg {
     h - hsnt {
       set arg hsnt
@@ -64,11 +158,9 @@ proc lay {} {
 
 ###############################################################################
 
-proc lum {} {
-  global SESS
-
-  set arg [lindex $::argv 0]
-  set cmd {sudo light}
+proc lum {arg} {
+  # for wm
+  set cmd {/usr/bin/sudo light}
   set cmd_set {-S}
   set cmd_dec {-U}
   set cmd_inc {-A}
@@ -78,25 +170,23 @@ proc lum {} {
 
   switch -- [string index $arg 0] {
     {} { append notify on }
-    - { append cmd_sub " $cmd_dec"; append notify off; }
-    + { append cmd_sub " $cmd_inc"; append notify on; }
+    - { append cmd_sub " $cmd_dec"; append notify off }
+    + { append cmd_sub " $cmd_inc"; append notify on }
     default { append cmd_sub " $cmd_set"; append notify on }
   }
   if {[string length $arg]} {
     set arg [string range $arg 1 end]
     exec {*}$cmd_sub $arg
   }
-  exec {*}$notify lum [exec {*}$cmd $cmd_get]%
+  exec {*}$notify {*}[__nrep lum] lum [exec {*}$cmd $cmd_get]%
 }
 
 ###############################################################################
 
-proc shot {} {
-  global argc
-
-  set one [lindex $::argv 0]
-  set two [lindex $::argv 1]
-  set three [lindex $::argv 2]
+proc shot {args} {
+  set one [lindex $args 0]
+  set two [lindex $args 1]
+  set three [lindex $args 2]
   set dir $::env(HOME)/got
   set opt {}
   set dst {}
@@ -109,7 +199,7 @@ proc shot {} {
   will save to: $dir"
   }
 
-  if {3 < $argc - 1} {
+  if {3 < [llength $args]} {
     puts stderr "wrong number of arguments"
     ufail "shot [help]"
   }
@@ -172,7 +262,8 @@ proc shot {} {
 
 ###############################################################################
 
-proc vol {} {
+proc vol {args} {
+  # for wm
   # vars
   set devs [dict create \
     laptop alsa_output.pci-0000_00_1f.3.analog-stereo \
@@ -183,19 +274,19 @@ proc vol {} {
   set ismic false
   set base "ponymix --sink --device "
   set cmd {}
-  set notify {notify-send -u low -i}
+  set notify "notify-send [__nrep vol] -u low -i"
 
   # which?
-  if {{bt} ne [lindex $::argv 0]} {
+  if {{bt} ne [lindex $args 0]} {
     set dev laptop
   } else {
-    set ::argv [lrange $::argv 1 end]
-    if [catch {exec ponymix --sink list | grep {: bluez_}}] {
+    set args [lrange $args 1 end]
+    if [catch {exec ponymix --sink list | rg {: bluez_}}] {
       exec {*}$notify bluetooth-disabled vol {no bt audio}
       exit
     } else {
       switch -- [exec ponymix --sink list \
-                 | grep {: bluez_} | head -1 | cut {-d } -f3] \
+                 | rg {: bluez_} | head -1 | cut {-d } -f3] \
         [dict get $devs cx]   { set dev cx } \
         [dict get $devs clip] { set dev clip } \
         default { fail {unrecognised device} }
@@ -205,13 +296,13 @@ proc vol {} {
   set cmd $base
 
   # mic?
-  if {{mic} eq [lindex $::argv 0]} {
-    set ::argv [lrange $::argv 1 end]
+  if {{mic} eq [lindex $args 0]} {
+    set args [lrange $args 1 end]
     set ismic true
     set base "ponymix --source --device "
     if ![catch {exec ponymix --source list \
-         | grep [exec echo [dict get $devs $dev] | cut -d. -f2] \
-         | grep {\(source\.\|input\.\)} \
+         | rg [exec echo [dict get $devs $dev] | cut -d. -f2] \
+         | rg {\(source\.\|input\.\)} \
          | cut {-d } -f3} \
          micdev] {
       append base $micdev
@@ -223,11 +314,11 @@ proc vol {} {
   }
 
   # build command
-  switch -- [string index [lindex $::argv 0] 0] {
+  switch -- [string index [lindex $args 0] 0] {
     {} {}
     x { append cmd { toggle} }
-    - { append cmd " decrease [string range $::argv 1 end]" }
-    + { append cmd " increase [string range $::argv 1 end]" }
+    - { append cmd " decrease [string range $args 1 end]" }
+    + { append cmd " increase [string range $args 1 end]" }
     default { ufail {vol [bt] [mic] |x|-N|+N} }
   }
 
@@ -235,7 +326,7 @@ proc vol {} {
   exec {*}$cmd
 
   # build notification
-  switch -- [string index [lindex $::argv 0] 0] {
+  switch -- [string index [lindex $args 0] 0] {
     {} {
       set arg " audio-ready"
       if {$ismic} { set arg " mic-ready" }
@@ -266,20 +357,53 @@ proc vol {} {
 
 ###############################################################################
 
-set arg [lindex $::argv 0]
-set ::argv [lrange $::argv 1 end]
-switch -regexp -- $arg {
-  ^_.*  { $arg; }
-  ^lay$  { lay; }
-  ^lum$  { lum; }
-  ^shot$ { shot; }
-  ^vol$  { vol; }
-  default {
-    ufail {lay|lum|shot|vol
-  lay   keyboard layout    |h_hsnt|q_werty|b_ow
-  lum   monitor luminance  |-N|+N
-  shot  screenshot         |active|*screen*|select |jpg|*png* |c
-  vol   audio volume       |bt |mic |x|-N|+N}
+proc weather {} {
+  # for waybar
+  catch {exec curl -s {https://wttr.in/prague?0AQT&format=%t%x}} weather ret
+  if {0 != [dict get $ret -code]} {
+    puts {}
+    exit
   }
+  if {{U} eq [string index $weather 0]} {
+    puts {?}
+    exit
+  }
+  regexp {^\+?([0-9]+.)C(.*)$} $weather weather deg sky
+  switch -- $sky {
+    o   { set sky  }
+    =   { set sky  }
+    mmm { set sky  }
+    mm  { set sky  }
+    m   { set sky  }
+    /// { set sky  }
+    //  { set sky  }
+    /   { set sky  }
+    .   { set sky  }
+    x   { set sky  }
+    x/  { set sky  }
+    **  { set sky  }
+    *   { set sky  }
+    */* { set sky  }
+    */  { set sky  }
+    /!/ { set sky  }
+    !/  { set sky  }
+    *!* { set sky  }
+  }
+  puts "$deg$sky"
 }
+
+###############################################################################
+
+set arg [lindex $::argv 0]
+if {[expr {0 eq [llength [info procs $arg]]}]} {
+  ufail {btbat|cpu|lay|lum|shot|vol|weather
+  btbat   get bluetooth device battery level
+  cpu     get cpu governor
+  lay     [gs]et keyboard layout   |h_hsnt|q_werty
+  lum     [gs]et screen brightness |-N|+N
+  shot    take screenshot          |active|*screen*|select |jpg|*png* |c
+  vol     [gs]et audio volume      |bt |mic |x|-N|+N
+  weather get weather report}
+}
+$arg {*}[lrange $::argv 1 end];
 

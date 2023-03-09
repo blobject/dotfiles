@@ -1,8 +1,9 @@
 [Desktop Entry]
-Type=Application
-Name=logout / exit / quit
-Comment=Logout of session
+Name=_logout / exit / quit
 Exec=0s bye logout
+TryExec=0s
+Type=Application
+Comment=Logout of session
 Icon=system-log-out
 Categories=X;
 StartupNotify=false

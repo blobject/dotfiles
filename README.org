@@ -16,7 +16,7 @@ counter-clockwise from northwest:
 |-------|-------------|
 | hw | [[https://github.com/nekr0z/linux-on-huawei-matebook-13-2019][matebook 13]], [[https://github.com/foostan/crkbd][corne]], [[https://xtrfy.com/mice/mz1-wireless/][mz1]], [[https://us.aoc.com/en-US/products/monitors/i1601fwux][i1601fwux]] |
 | env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://labwc.github.io/][labwc]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
-| look | 2160x1440, 100dpi, font size ~20pt, [[https://picaq.github.io/sarasa/][sarasa]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]], [[https://github.com/blobject/cemant][cemant]] |
+| look | 2160x1440, [[https://github.com/blobject/cemant][cemant]], [[https://picaq.github.io/sarasa/][sarasa]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]] |
 
 *** scripts
 
@@ -24,12 +24,12 @@ counter-clockwise from northwest:
 |------|-------------|
 | *[[__shell/bin/00][00]]* | *run* file(s) based on mimetype (like =xdg-open=) |
 | *[[__shell/bin/0a][0a]]* | *list* and *launch* =.desktop= files (dmenu companion) |
+| *[[__shell/bin/0c][0c]]* | pass *command* string to tcl |
 | *[[__shell/bin/0l][0l]]* | read *log* |
 | *[[__shell/bin/0m][0m]]* | wrap [[https://www.x.org/wiki/Projects/XRandR/][xrandr]] |
 | *[[__shell/bin/0s][0s]]* | *system* utilities |
 | *[[__shell/bin/0t][0t]]* | graphical *shell* utilities |
 | *[[__shell/bin/0v][0v]]* | wrap [[https://www.qemu.org/][qemu]] |
-| *[[__shell/bin/0tcl][0tcl]]* | like =sh -c= but for tcl |
 | *[[__shell/bin/lib.tcl][lib.tcl]]* | *help* other =0*= tcl scripts |
 
 *** keybinding
@@ -42,10 +42,11 @@ counter-clockwise from northwest:
 | =MS-r= | | *reconfigure* |
 | =CA-back= | | *lock* |
 | =M/A-L= | | *resize* / *move* window |
-| =MS-esc= | | *close* window |
+| =M[S]-esc= | | *close* [ or  *kill* ] window |
 | =MS-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |
-| =M[S]-= *dir* | =h= / =j= / =k= / =l= / =y= / =u= / =b= / =n= | *move* [ and *snap* ] window to edge |
-| =M[S]-f= | | *maximise* [ *fullscreen* ] toggle |
+| =M[S]-= *dir* | =h= / =j= / =k= / =l= / =y= / =u= / =b= / =n= | *move* [ and *snap* ] window to *edge* |
+| =M-= *char* | =c= / =.= / =/= | *snap* window to variations of *center* |
+| =M[S]-f= | | toggle *maximise* [ or *fullscreen* ] |
 
 | | | /FOCUS/ |
 |-|-|---------|
@@ -61,93 +62,85 @@ counter-clockwise from northwest:
 
 *** steps
 
-- initial ::
-1. *fs:* 512m vfat efi, swap as file
-1. *boot:* refind, remove grub
-1. *sec:* copy (not link!): =/etc/sudoers.d/*=
+- level 0 ::
+- link: dhcpcd, iwd, rc.conf, resolv.conf, tlp
+- *fs:* root xfs, 512m vfat efi, swap as file, refind, remove grub
+- *sec:* copy (not link!): =/etc/sudoers.d/*=
   - be wary of syntax and permissions
-1. *net:* dhcpcd, iwd
-  - installer already set up wpa_supplicant stuff, so reuse it: ~wpa_supplicant -i $dev -c /etc/wpa_supplicant/wpa_supplicant-$dev.conf~
+- *net:* dhcpcd, iwd
+  - void installer already set up wpa_supplicant stuff, so reuse it: ~wpa_supplicant -i $dev -c /etc/wpa_supplicant/wpa_supplicant-$dev.conf~
   - alternatively, use iwd right away
-  - links: =/etc/dhcpcd.conf=, =/etc/resolv.conf.head= (cloudflare), =/etc/iwd/main.conf=
-1. *kbd:* =/usr/share/{kbd/keymaps/i386,X11/xkb/symbols}/*=
-1. *repo:* void-repo-{multilib,nonfree}{-nonfree,}
-1. /immediate goodness:/ bash-completion, chronyd, socklog, tlp
-  - links: =/etc/rc.conf=, =/etc/tlp.d=
+- *repo:* void-repo-{multilib,nonfree}{-nonfree,}
+- *kbd:* =/usr/share/{kbd/keymaps/i386,X11/xkb/symbols}/*=
+- *util:* bash-completion, chronyd, socklog-void, tlp
 
-- "usable" ::
-1. *shell:*
-  - ~touch /etc/sv/agetty-tty[3-6]/down~, remove from =/var/service/=
+- level 1 ::
+- link: modprobe, sddm, =/usr/share/sddm/scripts/Xsetup=, sysctl, xorg
+- *shell:*
+  - ~touch /etc/sv/agetty-tty[3-6]/down~, remove service
   - /cmdline:/ fd, git, mercurial, ripgrep, tmux, tcl
   - /util:/ lz4, p7zip, rlwrap, stow, zip
-  - stow will link the maximally existent path, so any addition to an over-inclusive dir link will begin to reside in the stowed (ie. this) repository -- hence the mkdirs in =stow.tcl= to make sure only the desired subtrees (usually leaves and singletons) become links
-1. *hw:*
+  - (stow:) stow will link the maximally existent path, so any addition to an over-inclusive dir link will begin to reside in the stowed (ie. this) repository -- hence the mkdirs in =stow.tcl= to make sure only the desired subtrees (usually leaves and singletons) become links
+- *hw:*
   - /blob:/ various firmware, intel-ucode
   - /driver:/ intel-video-accel, mesa-dri, mesa-vulkan-intel, xf86-input-mtrack
-  - /util:/ acpid, smartmontools, upower
-1. *sess:*
+  - /util:/ acpid
+- *sess:*
   - /service:/ sddm, seatd, xorg-minimal, xwayland
   - /util:/ foot, setxkbmap, xrdb, xset, xterm
   - /wm:/ cwm, labwc
-  - links: =/etc/sddm.conf.d/*=, =/etc/X11/xorg.conf.d/*=, =/usr/share/sddm/scripts/Xsetup=
-  - to start sessions without logind or pam's help, create =/run/user/$UID= using =/etc/rc.local=, then set =$XDG_RUNTIME_DIR= to it in =~/.profile=
-1. *edit:*
+  - (sddm,labwc:) to start sessions without logind or pam's help, create =/run/user/$UID= using =/etc/rc.local=, then set =$XDG_RUNTIME_DIR= to it in =~/.profile=
+- *edit:*
   - emacs, kakoune, vim
-1. *util:*
+- *util:*
   - /fs:/ exfat-fuse, jmtpfs, lftp, rsync
   - /look:/ gammastep-indicator, kanshi, light, xrandr
   - /monitor:/ blueman-tray, fnott, iwgtk, libappindicator, polybar, psmisc, snooze, waybar
-  - /shell:/ waylock, tofi, wev, wl-clipboard, xdg-utils
-  - =~/.config/mimeapps.list=: mime handling
-  - for bluetooth battery status, set "Experimental" to "true" in =/etc/bluetooth/main.conf=
-1. *media:*
+    - (bluez:) for bluetooth battery status, enable =Experimental= in =/etc/bluetooth/main.conf=
+  - /shell:/ waylock, tofi, wl-clipboard, xdg-utils
+- *media:*
   - /audio:/ pipewire, wireplumber
+    - ~ln -s /usr/share/alsa/alsa.conf.d/*-pipewire*.conf /etc/alsa/conf.d/~
+    - ~cp /usr/share/pipewire/pipewire.conf ~/.config/pipewire/~, disable pipewire-media-session
   - /video:/ ffmpeg, mpv
   - /lib:/ alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg, libspa-v4l2, libspa-vulkan, xdg-desktop-portal-wlr
   - /util:/ ponymix, pavucontrol
-  - ~ln -s /usr/share/alsa/alsa.conf.d/*-pipewire*.conf /etc/alsa/conf.d/~
-  - ~cp /usr/share/pipewire/pipewire.conf ~/.config/pipewire/~ and disable pipewire-media-session
 
-- more ::
-1. *dev:*
+- level 2 ::
+- *shell:*
+  - /hw:/ lshw, powertop, upower, wev, xprop
+  - /sess:/ lswt
+  - /pkg:/ xtools
+- *dev:*
   - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, lua, mono, nodejs, octave, openjdk, python3-devel+pip, r, rustup, sbcl, squeak, swi-prolog, tk
-  - /util:/ broot, catch2, cmake, docker, gdb, msbuild, powertop, valgrind
-1. *app:*
-  - /doc:/ foliate, gnuplot, libreoffice, pdf.js, texlive-most, zathura, zathura-ps
-  - /image:/ blender, gimp, imagemagick, imv, inkscape, grim, slurp, swappy, wf-recorder
+  - /util:/ broot, catch2, cmake, docker, gdb, msbuild, perf, valgrind
+- *app:*
+  - /doc:/ foliate, gnuplot, libreoffice, pdf.js, texlive-most, zathura{djvu,pdf-mupdf,ps)
+  - /media:/ blender, gimp, imagemagick, imv, inkscape, grim, screenkey, slurp, swappy, wf-recorder
   - /look:/ breeze-snow-cursor-theme, hsetroot, papirus-icon-theme, qt5ct
-  - /net:/ firefox
-    - to customise look, edit =profile/chrome/userChrome.css=; set "toolkit.legacyUserProfileCustomizations.stylesheets" to true in about:config
+  - /net:/ firefox, wget
+    - (firefox:) to customise look, edit =profile/chrome/userChrome.css=; enable =toolkit.legacyUserProfileCustomizations.stylesheets= in =about:config=
   - /sec:/ gnupg2
-  - /fun:/ cataclysm-dda, fontforge, qemu
-1. *kernel:* dracut, some headers (libelf) to make =make= work
-  - links: =/etc/modprobe.d/*=, =/etc/sysctl.d/*=
+  - /fun:/ cataclysm-dda, fontforge, qemu, ttfautohint
+- *kernel:*
+  - dracut, libelf, etc.
 
-- manual ::
-- place executable-onlies in =~/bin/=, and more involved applications in =~/.local/bin/= or =/usr/local/= with edited =/etc/ld.so.conf.d/=
-- /pip:/ meson, ninja
-
-- groups ::
-wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, _seatd, docker, bluetooth, socklog
-
-- daemons ::
-acpid, agetty-*, bluetoothd, dbus, dhcpcd, docker, iwd, nanoklogd, ntpd, sddm, seatd, socklog-unix, tlp, udevd, uuidd
-
-  - silence weird acpi events; add near the top of =/etc/acpi/handler.sh=:
-#+BEGIN_SRC sh
-case "$1" in
-  ac_adapter) case "$2" in ACPI0003:00) exit ;; esac ;;
-  battery) case "$2" in PNP0C0A:00) exit ;; esac ;;
-  processor) case "$2" in LNXCPU:*) exit ;; esac ;;
-  ABBC0F5C*) exit ;;
-esac
-#+END_SRC
-
-- kernel modules ::
-audio, bluetooth (usb, bnep, rfcomm, etc.), ASIX usb ethernet, builtin wifi
-  - important for avoiding any hardware booting issues
-
-- dualboot win ::
-- timezone: configure win to be UTC
-- battery threshold: configure thresholds via matebook applet on win
-- bluetooth profiles: either mess with link keys on both systems, or clear/repair every time
+- notes ::
+- local
+  - place executable-onlies in =~/bin/=, and more involved applications in =~/.local/bin/= or =/usr/local/= with edited =/etc/ld.so.conf.d/=
+  - /pip:/ meson, ninja
+- group
+  - wheel, lp, audio, video, cdrom, optical, kvm, users, xbuilder, _seatd, docker, bluetooth, socklog
+- daemon
+  - acpid, agetty-*, bluetoothd, dbus, dhcpcd, docker, iwd, nanoklogd, ntpd, sddm, seatd, socklog-unix, tlp, udevd, uuidd
+    - silence weird acpi events in =/etc/acpi/handler.sh=: =ac_adapter ACPI0003:00=, =battery PNP0C0A:00=, =processor LNXCPU:*=, =ABBC0F5C*=, =button/volumedown VOLDN=, =button/volumeup VOLUP=
+- kernel
+  - module
+    - audio, bluetooth (usb, bnep, rfcomm, etc.), ASIX usb ethernet, builtin wifi
+      - important to modularise for avoiding any hardware booting issues
+  - boot option
+    - =PARTUUID... i915.enable_fbc=1 i915.enable_guc=2 ipv6.disable=1 ro=
+- win dualboot
+  - timezone: configure win to be UTC
+  - battery threshold: configure thresholds via matebook applet on win
+  - bluetooth profiles: either mess with link keys on both systems, or clear/repair every time ([[https://unix.stackexchange.com/questions/568521/simpler-method-of-pairing-bluetooth-devices-for-both-windows-linux][link1]])

@@ -1,8 +1,9 @@
 [Desktop Entry]
+Name=_dark terminal
+Exec=0c foot --config='$::env(HOME)/.config/foot/foot_dark.ini'
+TryExec=foot
 Type=Application
-Name=Dark terminal
 Comment=Run terminal with dark colorscheme
-Exec=0tcl foot --config='$::env(HOME)/.config/foot/foot_dark.ini'
 Icon=Foot
 Categories=TerminalEmulator;
 StartupNotify=true

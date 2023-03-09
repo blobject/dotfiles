@@ -1,8 +1,9 @@
 [Desktop Entry]
-Type=Application
-Name=sleep / suspend
-Comment=Sleep computer
+Name=_sleep / suspend
 Exec=0s bye sleep
+TryExec=0s
+Type=Application
+Comment=Sleep computer
 Icon=system-suspend
 Categories=X;
 StartupNotify=false

@@ -1,8 +1,9 @@
 [Desktop Entry]
+Name=_agave tester
+Exec=0c foot --config='$::env(HOME)/.config/foot/foot_agave.ini'
+TryExec=foot
 Type=Application
-Name=Agave tester
 Comment=Test Agave font with terminal
-Exec=0tcl foot --config='$::env(HOME)/.config/foot/foot_agave.ini'
 Icon=Foot
 Categories=TerminalEmulator;
 StartupNotify=true

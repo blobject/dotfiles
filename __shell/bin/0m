@@ -5,7 +5,8 @@
 
 source $::env(HOME)/bin/lib.tcl
 
-need xrandr
+need rg \
+     xrandr
 
 ###############################################################################
 
@@ -22,7 +23,7 @@ proc help {} {
 }
 
 proc detect {which} {
-  catch {exec xrandr --query | grep -A1 primary} grep_prm
+  catch {exec xrandr --query | rg -A1 primary} grep_prm
   set prm [lindex $grep_prm 0]
   switch -regexp -- $which {
     ^prm.* {
@@ -32,7 +33,7 @@ proc detect {which} {
       return [lindex [exec echo $grep_prm | tail -1] 0]
     }
     ^ext.* {
-      catch {exec xrandr --query | grep -v $prm | grep -A1 " connected"} grep_ext
+      catch {exec xrandr --query | rg -v $prm | rg -A1 " connected"} grep_ext
       if {{ext} eq $which} {
         return [lindex $grep_ext 0]
       }
@@ -40,7 +41,7 @@ proc detect {which} {
       return [lindex [exec echo $grep_ext | tail -1] 0]
     }
     ^first$ {
-      catch {exec xrandr --query | grep "\+0\+0 ("} grep_first
+      catch {exec xrandr --query | rg {\+0\+0 \(}} grep_first
       return [lindex $grep_first 0]
     }
   }
@@ -50,7 +51,7 @@ proc detect {which} {
 proc connected {} {
   global ext
   if {[string length $::env(DISPLAY)] \
-      && ![catch {exec xrandr -q | grep "^$ext connected "}]} {
+      && ![catch {exec xrandr -q | rg "^$ext connected "}]} {
       return true
   } else {
     return false

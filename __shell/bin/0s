@@ -8,10 +8,23 @@ if {{root} eq $::tcl_platform(user)} { set home /home/b }
 source $home/bin/lib.tcl
 unset home
 
-need notify-send \
+need notify-send rg \
+     fnottctl \
      waylock \
+     dracut \
      rsync xbps-query \
      0snooze-bat 0snooze-temper snooze
+
+###############################################################################
+
+proc _nrep {name} {
+  # helper: replacement id for notify-send
+  catch {exec fnottctl list | rg ": $name" -r {}} id ret
+  if {0 != [dict get $ret -code]} {
+    return {}
+  }
+  return "-r $id"
+}
 
 ###############################################################################
 
@@ -20,11 +33,11 @@ proc bat {} {
   set crit 5
   set lo 20
   set hi 80
-  set notify {notify-send}
+  set notify "notify-send [_nrep bat]"
 
-  set d /sys/class/power_supply/$device
-  set capacity [readfile $d/capacity]
-  set status [readfile $d/status]
+  set dir /sys/class/power_supply/$device
+  set capacity [readfile $dir/capacity]
+  set status [readfile $dir/status]
 
   switch -- [string index $status 0] {
     {D} {
@@ -44,7 +57,7 @@ proc bat {} {
 
 ###############################################################################
 
-proc bye {} {
+proc bye {arg} {
   global SESS
 
   proc kill {} {
@@ -71,7 +84,7 @@ proc bye {} {
 
   set desk [lindex [split $::env(DESKTOP_SESSION) /] end]
 
-  switch -- [lindex $::argv 0] {
+  switch -- $arg {
     k - o - lock {
       if {{w} eq $SESS} { exec waylock --fail-color {#a32c2d} --init-color {#16161d} --input-color {#575a61}; }
     }
@@ -82,19 +95,19 @@ proc bye {} {
     }
     z - sleep {
       sync
-      exec sudo zzz
+      exec /usr/bin/sudo zzz
     }
     b - r - reboot {
       save
       sync
       kill
-      exec sudo reboot
+      exec /usr/bin/sudo reboot
     }
     h - s - shutdown {
       save
       sync
       kill
-      exec sudo halt
+      exec /usr/bin/sudo halt
     }
     default {
       ufail {bye k|o|lock | e|l|q|x|logout | z|sleep | b|r|reboot | h|s|shutdown}
@@ -104,20 +117,22 @@ proc bye {} {
 
 ###############################################################################
 
-proc cpu {} {
-  set gov [lindex $::argv 0]
-  set epb [lindex $::argv 1]
-  set d /sys/devices/system/cpu
+proc cpu {args} {
+  set gov [lindex $args 0]
+  set epb [lindex $args 1]
+  set dir /sys/devices/system/cpu
   set fgov cpufreq/scaling_governor
   set fepb power/energy_perf_bias
-  set govs [lsort [readfile $d/cpu0/cpufreq/scaling_available_governors]]
-  set usage "cpu _|[string map {{ } |} $govs] \[0-15\]"
+  set govs [lsort [readfile $dir/cpu0/cpufreq/scaling_available_governors]]
+  set usage "cpu _|high|low|[string map {{ } |} $govs] \[0-15\]"
 
   switch -- $gov {
     {} {
-      puts "[readfile $d/cpu0/$fgov] [readfile $d/cpu0/$fepb]"
+      puts "[readfile $dir/cpu0/$fgov] [readfile $dir/cpu0/$fepb]"
       exit 0
     }
+    h - hi - high - fast - top { set gov performance; set epb 0 }
+    l - lo - low  - slow - bot { set gov powersave; set epb 15 }
     c { set gov conservative }
     o { set gov ondemand }
     w { set gov powersave }
@@ -138,12 +153,12 @@ proc cpu {} {
     exec -- >/dev/null 2>/dev/null /usr/bin/ls /root
   } on error e { fail {sudo required} }
 
-  set cur [readfile $d/cpu0/$fgov]
+  set cur [readfile $dir/cpu0/$fgov]
   if {$cur eq $gov} {
     puts "gov (NO CHANGE): $gov"
   } else {
     puts "gov: $cur -> $gov"
-    foreach p [glob -directory $d {cpu[0-7]}] {
+    foreach p [glob -directory $dir {cpu[0-7]}] {
       try {
         set h [open "$p/$fgov" w]; puts $h $gov; close $h
       } on error e { fail "$e" }
@@ -153,12 +168,12 @@ proc cpu {} {
   if {{} eq $epb} {
     exit
   }
-  set cur [readfile $d/cpu0/$fepb]
+  set cur [readfile $dir/cpu0/$fepb]
   if {$cur eq $epb} {
     puts "epb (NO CHANGE): $epb"
   } else {
     puts "epb: $cur -> $epb"
-    foreach p [glob -directory $d {cpu[0-7]}] {
+    foreach p [glob -directory $dir {cpu[0-7]}] {
       try {
         set h [open "$p/$fepb" w]; puts $h $epb; close $h
       } on error e { fail "$e" }
@@ -168,21 +183,20 @@ proc cpu {} {
 
 ###############################################################################
 
-proc dracut {} {
-  set ver [lindex $::argv 0]
-  set d /lib/firmware
-      #-i /home/b/opt/firmware/rtl8761bu_fw $d/rtl_bt/rtl8761bu_fw.bin \
-      #-i /home/b/opt/firmware/rtl8761bu_config $d/rtl_bt/rtl8761bu_config.bin \
+proc dracut {ver} {
+  set dir /lib/firmware
+      #-i $::env(HOME)/opt/firmware/rtl8761bu_fw $d/rtl_bt/rtl8761bu_fw.bin \
+      #-i $::env(HOME)/opt/firmware/rtl8761bu_config $d/rtl_bt/rtl8761bu_config.bin \
   try {
-    exec -- >/dev/tty /usr/bin/sudo /usr/bin/dracut \
-      -i $d/i915/kbl_dmc_ver1_04.bin $d/i915/kbl_dmc_ver1_04.bin \
-      -i $d/i915/kbl_guc_70.1.1.bin $d/i915/kbl_guc_70.1.1.bin \
-      -i $d/i915/kbl_huc_4.0.0.bin $d/i915/kbl_huc_4.0.0.bin \
-      -i $d/intel/ibt-17-16-1.ddc $d/intel/ibt-17-16-1.ddc \
-      -i $d/intel/ibt-17-16-1.sfi $d/intel/ibt-17-16-1.sfi \
-      -i $d/iwlwifi-9000-pu-b0-jf-b0-46.ucode $d/iwlwifi-9000-pu-b0-jf-b0-46.ucode \
-      -i $d/rtl_bt/rtl8761bu_fw.bin $d/rtl_bt/rtl8761bu_fw.bin \
-      -i $d/rtl_bt/rtl8761bu_config.bin $d/rtl_bt/rtl8761bu_config.bin \
+    exec -- >@stdout /usr/bin/sudo /usr/bin/dracut \
+      -i $dir/i915/kbl_dmc_ver1_04.bin $dir/i915/kbl_dmc_ver1_04.bin \
+      -i $dir/i915/kbl_guc_70.1.1.bin $dir/i915/kbl_guc_70.1.1.bin \
+      -i $dir/i915/kbl_huc_4.0.0.bin $dir/i915/kbl_huc_4.0.0.bin \
+      -i $dir/intel/ibt-17-16-1.ddc $dir/intel/ibt-17-16-1.ddc \
+      -i $dir/intel/ibt-17-16-1.sfi $dir/intel/ibt-17-16-1.sfi \
+      -i $dir/iwlwifi-9000-pu-b0-jf-b0-46.ucode $dir/iwlwifi-9000-pu-b0-jf-b0-46.ucode \
+      -i $dir/rtl_bt/rtl8761bu_fw.bin $dir/rtl_bt/rtl8761bu_fw.bin \
+      -i $dir/rtl_bt/rtl8761bu_config.bin $dir/rtl_bt/rtl8761bu_config.bin \
       --force \
       -o "btrfs crypt dm lvm lunmask mdraid" \
       /boot/initramfs-${ver}_c.img ${ver}_c
@@ -301,8 +315,8 @@ proc save {} {
 proc snooze {} {
   proc dream {name} {
     set awake [catch {exec ps x \
-                      | grep "snooze .* 0s $name\$" \
-                      | grep -v grep}]
+                      | rg "snooze .* 0s $name\$" \
+                      | rg -v { rg }}]
     if {$awake} {
       exec 0snooze-$name &
     } else {
@@ -319,7 +333,6 @@ proc temper {} {
   global TMPD
   # taken from https://www.verot.net/firefox_tmpfs.htm
 
-  set home $::env(HOME)
   set where $TMPD
   set flag .unpacked
   set what mozilla/firefox
@@ -329,11 +342,11 @@ proc temper {} {
     return [lindex [file split $name] end]
   }
 
-  #set once "\"$home/.local/share/$what/sessions/default.yml \
-  #            $home/bak/${what}_session.yml\""
+  #set once "\"$::env(XDG_DATA_HOME)/$what/sessions/default.yml \
+  #            $::env(XDG_DATA_HOME)/bak/${what}_session.yml\""
   #         parent               link  stat   vola
-  set cont "\"$home/.$what       $name _$name $where/[base $what]\" \
-            \"$home/.cache/$what $name _$name $where/[base $what]-cache\""
+  set cont "\"$::env(HOME)/.$what          $name _$name $where/[base $what]\" \
+            \"$::env(XDG_CACHE_HOME)/$what $name _$name $where/[base $what]-cache\""
 
   proc log {msg} {
     global ME LOGW
@@ -401,24 +414,15 @@ proc temper {} {
 ###############################################################################
 
 set arg [lindex $::argv 0]
-set ::argv [lrange $::argv 1 end]
-switch -- $arg {
-  bat    { bat; }
-  bye    { bye; }
-  cpu    { cpu; }
-  dracut { dracut; }
-  save   { save; }
-  snooze { snooze; }
-  temper { temper; }
-  default {
-    ufail {bat|bye|dracut|cpu|save|snooze|temper
+if {[expr {0 eq [llength [info procs $arg]]}]} {
+  ufail {bat|bye|dracut|cpu|save|snooze|temper
   bat     battery alert
   bye     stop session       lock|logout|sleep|reboot|shutdown
-  cpu     (#) scale cpu      _|governors [0-15]
+  cpu     (#) scale cpu      _|high|low|governors [0-15]
   dracut  compile initramfs  KERNEL_VERSION
   save    backup data
   snooze  scheduled exec
   temper  www data to tmpfs}
-  }
 }
+$arg {*}[lrange $::argv 1 end]
 

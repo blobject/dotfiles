@@ -1,6 +1,6 @@
 /* top */
 * { border: none; border-radius: 0; min-height: 0; }
-window#waybar { background-color: #000000; color: #575a61; }
+window#waybar { background-color: #000; color: #575a61; }
 window#waybar.hidden { opacity: 0.2; }
 /* font */
 #workspaces button {
@@ -13,7 +13,6 @@ window#waybar.hidden { opacity: 0.2; }
 #workspaces button.visible {
   font-family: "Font Awesome 5 Pro Solid";
 }
-#mode,
 #clock,
 #custom-weather,
 #cpu,
@@ -22,16 +21,15 @@ window#waybar.hidden { opacity: 0.2; }
 #memory,
 #disk,
 #backlight,
+#custom-btbatkbd,
+#custom-btbatear,
 #battery {
   font-family: Agave, "Font Awesome 5 Pro Light";
   font-size: 22px;
   font-weight: 700;
 }
-#mode {
-  font-size: 22px;
-}
 #taskbar button {
-  font-family: Inter;
+  font-family: sans;
   font-size: 20px;
   font-weight: 700;
 }
@@ -41,13 +39,12 @@ window#waybar.hidden { opacity: 0.2; }
   font-weight: 700;
 }
 #tray {
-  font-family: Inter;
+  font-family: sans;
   font-size: 26px;
 }
 /* spacing */
 #workspaces,
 #workspaces button,
-#mode,
 #taskbar button,
 #clock,
 #custom-weather,
@@ -57,12 +54,13 @@ window#waybar.hidden { opacity: 0.2; }
 #memory,
 #disk,
 #backlight,
+#custom-btbatkbd,
+#custom-btbatear,
 #pulseaudio,
 #battery {
   margin: 0;
   padding: 0;
 }
-#mode,
 #battery {
   padding: 0 4px;
 }
@@ -70,25 +68,24 @@ window#waybar.hidden { opacity: 0.2; }
 /* spacing: top */
 #clock,
 #cpu,
-#custom-cpufreq {
+#custom-cpufreq,
+#custom-btbatkbd,
+#custom-btbatear,
+#pulseaudio {
   padding-top: 2px;
 }
 /* spacing: left */
-#workspaces,
-#mode {
-  margin-left: 2px;
-}
+#workspaces { margin-left: 2px; }
 #taskbar { margin-left: 4px; }
 #taskbar button { margin-right: 12px; }
 #clock,
 #cpu,
-#temperature,
 #memory,
 #disk,
-#backlight,
-#pulseaudio {
+#backlight {
   margin-left: 12px;
 }
+#temperature { margin-left: 0; }
 #tray { margin-left: 8px; }
 /* spacing: right */
 #workspaces,
@@ -96,15 +93,19 @@ window#waybar.hidden { opacity: 0.2; }
 #clock,
 #custom-weather,
 #memory,
-#disk {
+#disk,
+#pulseaudio {
   margin-right: 12px;
 }
-#temperature,
-#pulseaudio { margin-right: 10px; }
-#backlight,
+#custom-btbatkbd,
+#custom-btbatear {
+  margin-right: 8px;
+}
+#temperature { margin-right: 10px; }
 #battery {
   margin: 0 8px;
 }
+#backlight { margin-right: 24px; }
 #battery.charging,
 #battery.plugged {
   margin: 0 12px;
@@ -148,7 +149,6 @@ window#waybar.hidden { opacity: 0.2; }
 #workspaces button#wlr-workspace-3.focused { color: #72a336; }
 #workspaces button#wlr-workspace-4.focused { color: #667ad3; }
 #taskbar button image { opacity: 0.4; }
-#taskbar button:hover { color: #d2d6de; }
 #taskbar button:hover image { opacity: 1; }
 #taskbar button.active image { opacity: 0.8; }
 #taskbar button.maximized image { background-color: #575a61; }
@@ -156,16 +156,25 @@ window#waybar.hidden { opacity: 0.2; }
 #taskbar button.maximized:hover image {
   background-color: #36383f;
 }
-#mode            { background-color: #d2d6de; color: #16161d; }
-#cpu                                        { color: #705ab1; }
-#custom-cpufreq                             { color: #5858bf; }
-#temperature                { margin-left: 0; color: #425fbb; }
+#battery.charging,
+#battery.plugged,
+#battery.warning:not(.charging),
+#battery.critical:not(.charging) {
+  background-color: #000;
+}
+#taskbar button:hover                       { color: #d2d6de; }
+#cpu                                        { color: #7764b5; }
+#custom-cpufreq                             { color: #6060c1; }
+#temperature                                { color: #425fbb; }
 #memory                                     { color: #4e7a67; }
 #disk                                       { color: #67823d; }
 #backlight                                  { color: #899012; }
+#custom-btbatkbd,
+#custom-btbatear,
 #pulseaudio                                 { color: #a46738; }
 #battery         { background-color: #36383f; color: #92959d; }
-#battery.critical:not(.charging)            { color: #d2d6de; }
+#battery.warning:not(.charging)             { color: #d2d6de; }
+#battery.critical:not(.charging)            { color: #cf554d; }
 #battery.charging,
-#battery.plugged { background-color: #000000; color: #575a61; }
+#battery.plugged                            { color: #575a61; }
 

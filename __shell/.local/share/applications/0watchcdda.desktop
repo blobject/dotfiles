@@ -1,8 +1,9 @@
 [Desktop Entry]
+Name=_WatchCDDA
+Exec=0c foot --config='$::env(HOME)/.config/foot/foot_watchcdda.ini ssh cdda'
+TryExec=foot
 Type=Application
-Name=WatchCDDA
 Comment=watchcdda.net
-Exec=0tcl foot --config='$::env(HOME)/.config/foot/foot_watchcdda.ini ssh cdda'
 Icon=cataclysm-dda
 Categories=Game;
 StartupNotify=true

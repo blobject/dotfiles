@@ -1,8 +1,8 @@
 [Desktop Entry]
+Name=_Cataclysm
+Exec=0c '$::env(HOME)/opt/cdda/cataclysm-launcher'
 Type=Application
-Name=Cataclysm
 Comment=Dark Days Ahead
-Exec=0tcl '$::env(HOME)/opt/cdda/cataclysm-launcher'
 Icon=cataclysm-dda
 Categories=Game;
 StartupNotify=true

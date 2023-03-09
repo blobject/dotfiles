@@ -2,7 +2,7 @@ colorscheme cemant
 
 set-option global grepcmd 'rg --line-number --with-filename'
 set-option global indentwidth 2
-set-option global modelinefmt '{StatusLineInfo}%sh{expr >/dev/null "${#kak_bufname}" ">" `expr \`tput cols\` "/" 2` && printf "${kak_bufname}" | sed "s_[^/]\+\$__" | sed "s_\([^/]\{,2\}\)[^/]*/_\1/_g" || printf "${kak_bufname}" | sed "s_[^/]\+\$__"}{black,white}%sh{printf "${kak_bufname}" | sed "s_^.*/__"}{StatusLineInfo}:%val{buf_line_count}/{black}%val{cursor_line}{StatusLineInfo}:{black}%val{cursor_char_column}{{context_info}} {{mode_info}}'
+set-option global modelinefmt '{StatusLineInfo}%sh{test "${#kak_bufname}" ">" $(expr $(tput cols) "/" 2) && printf "${kak_bufname}" | sed "s_[^/]\+\$__" | sed "s_\([^/]\{,2\}\)[^/]*/_\1/_g" || printf "${kak_bufname}" | sed "s_[^/]\+\$__"}{black,white}%sh{printf "${kak_bufname##*/}"}{StatusLineInfo} %val{buf_line_count}/{black}%val{cursor_line}{StatusLineInfo}:{black}%val{cursor_char_column}{{context_info}} {{mode_info}}'
 set-option global tabstop 2
 set-option global ui_options terminal_assistant=none terminal_enable_mouse=yes terminal_set_title=yes terminal_status_on_top=yes
 
@@ -12,8 +12,6 @@ add-highlighter global/ regex '(FIXME|NOTE|TODO|WIP|XXX)' 0:black,bright-blue+F
 add-highlighter global/ show-matching
 add-highlighter global/ wrap
 
-define-command -buffer-completion 0sh 'set-option buffer filetype sh' -docstring 'set filetype to sh'
-define-command -buffer-completion 0xml 'set-option buffer filetype xml' -docstring 'set filetype to xml'
 define-command -buffer-completion d 'delete-buffer' -docstring 'delete current buffer'
 
 hook global BufCreate .* %{ evaluate-commands %sh{
@@ -24,6 +22,9 @@ hook global BufCreate .* %{ evaluate-commands %sh{
     esac
   fi
 } }
+hook global BufCreate .*\.conf %{
+  set-option buffer filetype conf
+}
 hook global BufCreate .*\.tcl %{
   set-option buffer filetype sh
 }
@@ -31,7 +32,12 @@ hook global BufWritePost .* %{
   # backup files on write
   evaluate-commands %sh{
     case "${kak_buffile#$HOME/}" in
-      log/*|p/*|*.*_history|*.log|*.log.old) exit;;
+      *~| \
+      *[._]log|*[._]log.old| \
+      *[._]hist|*[._]history| \
+      .gnupg/*| \
+      .ssh/*| \
+      p/*) exit;;
     esac
     size="$(du -Lk ${kak_buffile})"; set -- $size; size=$1
     test 2048 -lt $size && exit
@@ -47,34 +53,35 @@ hook global BufWritePost .* %{
 map global normal <C> ''
 map global normal <a-space> ''
 map global insert <c-v> ''
-map global normal <tab>   'C'         -docstring 'copy selection on next line'
-map global normal <s-tab> <a-,>       -docstring 'remove primary selection'
-map global normal <minus> 'vk'        -docstring 'scroll up one'
-map global normal <=>     'vj'        -docstring 'scroll down one'
-map global normal <_>     '8vk'       -docstring 'scroll up eight'
-map global normal <+>     '8vj'       -docstring 'scroll down eight'
-map global normal <'>     '_'         -docstring 'trim'
-map global normal </>     '/(?i)'     -docstring 'uncased search'
-map global normal <a-/>   <a-/>'(?i)' -docstring 'uncased reverse search'
-map global normal <?>     '?(?i)'     -docstring 'uncased extended search'
-map global normal <a-?>   <a-?>'(?i)' -docstring 'uncased extended reverse search'
-map global normal <space> ':set-register slash ""<ret>' -docstring 'empty out search register'
-map global normal <X>     'Jx'        -docstring 'extend to next line'
-map global normal <a-d>   'Glxd'      -docstring 'delete extended line'
-map global normal <c-g>   ','         -docstring 'remove secondary selections'
-map global normal <n>     'nvc'       -docstring 'select next search pattern and center view'
-map global normal <s-n>   'Nvc'       -docstring 'extend with next search pattern and center view'
-map global normal <a-n>   <a-n>'vc'   -docstring 'select previous search pattern and center view'
-map global normal <a-s-n> <a-s-n>'vc' -docstring 'extend with previous search pattern and center view'
+map global normal <tab>   'C'          -docstring 'copy selection on next line'
+map global normal <s-tab> <a-,>        -docstring 'remove primary selection'
+map global normal <minus> 'vk'         -docstring 'scroll up one'
+map global normal <=>     'vj'         -docstring 'scroll down one'
+map global normal <_>     '8vk'        -docstring 'scroll up eight'
+map global normal <+>     '8vj'        -docstring 'scroll down eight'
+map global normal <'>     '_'          -docstring 'trim'
+map global normal </>     '/(?i)'      -docstring 'uncased search'
+map global normal <a-/>   <a-/>'(?i)'  -docstring 'uncased reverse search'
+map global normal <?>     '?(?i)'      -docstring 'uncased extended search'
+map global normal <a-?>   <a-?>'(?i)'  -docstring 'uncased extended reverse search'
+map global normal <space> 'h/(?i)<ret>' -docstring 'empty out search register'
+map global normal <X>     'Jx'         -docstring 'extend to next line'
+map global normal <s-d>   'Glxd'       -docstring 'delete extended line'
+map global normal <c-g>   ','          -docstring 'remove secondary selections'
+map global normal <n>     'nvc'        -docstring 'select next search pattern and center view'
+map global normal <s-n>   'Nvc'        -docstring 'extend with next search pattern and center view'
+map global normal <a-n>   <a-n>'vc'    -docstring 'select previous search pattern and center view'
+map global normal <a-s-n> <a-s-n>'vc'  -docstring 'extend with previous search pattern and center view'
 map global normal <c-p> '!wl-paste<space>--no-newline<ret>:echo -markup "{Information}pasted from clipboard"<ret>' -docstring 'paste clipboard'
-map global normal <a-v>   <c-b>       -docstring 'scroll up page'
-map global normal <c-v>   <c-f>       -docstring 'scroll down page'
+map global normal <a-v>   <c-b>        -docstring 'scroll up page'
+map global normal <c-v>   <c-f>        -docstring 'scroll down page'
 map global normal <c-y> '<a-|>wl-copy<ret>:echo -markup "{Information}yanked to clipboard"<ret>' -docstring 'yank selection into clipboard'
 map global insert <a-d> <esc>'Glxd'    -docstring 'delete extended line'
 map global insert <c-g> <esc><space>   -docstring 'remove secondary selections'
 map global insert <a-g> <esc><a-space> -docstring 'remove primary selection'
-map global insert <a-v> <esc><c-b>     -docstring 'scroll up page'
+map global insert <c-p> '<esc>!wl-paste<space>--no-newline<ret>:echo -markup "{Information}pasted from clipboard"<ret>' -docstring 'paste clipboard'
 map global insert <c-q> <c-v>          -docstring 'raw insert'
+map global insert <a-v> <esc><c-b>     -docstring 'scroll up page'
 map global insert <c-v> <esc><c-f>     -docstring 'scroll down page'
 
 # rainbow.kak

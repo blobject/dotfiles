@@ -47,28 +47,18 @@
 ;; M-x customize
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(backup-directory-alist '((".*" . "~/bak/emacs/")))
  '(blink-cursor-mode nil)
  '(browse-url-browser-function 'browse-url-generic)
  '(browse-url-generic-program "firefox")
  '(c-basic-offset 2)
- '(c-default-style
-   '((c-mode . "bsd")
-     (c++-mode . "bsd")
-     (java-mode . "java")
-     (awk-mode . "awk")
-     (other . "gnu")))
+ '(c-default-style '((c-mode . "bsd") (c++-mode . "bsd") (java-mode . "java") (awk-mode . "awk") (other . "gnu")))
  '(column-number-mode t)
  '(compilation-message-face 'default)
  '(create-lockfiles nil)
  '(css-indent-offset 2)
  '(custom-enabled-themes '(cemant))
- '(custom-safe-themes
-   '("c6f0edfa1c0a59305b33b7a1c941f2a653437054dd2f745f560f875b9b412d8a" default))
+ '(custom-safe-themes '("b1bdefd1177d33003f3923961fbf01c334190e87b7954eca2150414d0d0ac4ec" default))
  '(default-tab-width 2 t)
  '(display-fill-column-indicator t)
  '(electric-indent-inhibit t t)
@@ -90,9 +80,7 @@
  '(mode-line-format my/mode-line)
  '(mouse-wheel-progressive-speed nil)
  '(mouse-wheel-scroll-amount '(1 ((shift) . 5) ((control) . 10)))
- '(package-archives
-   '(("gnu" . "https://elpa.gnu.org/packages/")
-     ("melpa" . "https://melpa.org/packages/")))
+ '(package-archives '(("gnu" . "https://elpa.gnu.org/packages/") ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
    '(counsel swiper cmake-mode flycheck flycheck-rtags flycheck-rust company-rtags csharp-mode elixir-mode haskell-mode markdown-mode rust-mode dot-mode expand-region multiple-cursors paredit rainbow-delimiters web-mode hlinum))
  '(python-indent 2)

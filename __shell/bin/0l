@@ -7,48 +7,45 @@ source $::env(HOME)/bin/lib.tcl
 
 ###############################################################################
 
-set dir /var/log/socklog
-set what wayland.log
-set dmesg false
 set arg [lindex $::argv 0]
+set dir /var/log/socklog
+set what {_}
+set dmesg false
 
 proc help {} {
-  ufail {[shortname|longname]
-  a all
-  b debug
-  d daemon
-  e errors
-  k kernel
-  l dmesg
-  m messages
-  s secure
-  u user
-  x xbps}
+  ufail {[what]
+  _             o
+  user session  old user session
+  a   b     d      e      k      l     m    s      u    p
+  all debug daemon errors kernel dmesg msgs secure user xbps}
 }
 
 switch -- $arg {
-  {} - w - x - wayland - wm - xorg {
+  {} - w - wayland - x - xorg - wm - o - old {
     set dir $::env(HOME)/log
+    set what wayland.log
     if {{x} eq $SESS} { set what x.log }
+    if {{o} eq [string index $arg 0]} { set what "$what.old" }
   }
-  a - all      { set what everything/current }
-  b - debug    { set what debug/current }
-  d - daemon   { set what daemon/current}
-  e - errors   { set what errors/current }
-  k - kernel   { set what kernel/current }
   l - dmesg    { set dmesg true }
-  m - messages { set what messages/current }
-  s - secure   { set what secure/current }
-  u - user     { set what user/current }
-  x - xbps     { set what xbps/current }
-  default      { help }
+  a - all      { set what everything }
+  b - debug    { set what debug }
+  d - daemon   { set what daemon }
+  e - errors   { set what errors }
+  k - kernel   { set what kernel }
+  m - messages { set what messages }
+  p - xbps     { set what xbps }
+  s - secure   { set what secure }
+  u - user     { set what user }
 }
 
-try {
-  if {$dmesg} {
-    exec -- >/dev/tty 2>/dev/tty /usr/bin/sudo /usr/bin/dmesg | less
-  } else {
-    exec -- >/dev/tty 2>/dev/tty less $dir/$what
-  }
-} on error e { puts stderr "$e"; help }
+if {[string match "*/$::env(USER)/log" $dir]} {
+  exec -- >@stdout 2>@stdout less $dir/$what
+} elseif {$dmesg} {
+  exec -- >@stdout 2>@stdout /usr/bin/sudo /usr/bin/dmesg | less
+} elseif {[file isdirectory $dir/$what]} {
+  exec -- >@stdout 2>@stdout less $dir/$what/current
+} else {
+  help
+}
 

@@ -183,6 +183,27 @@ proc cpu {args} {
 
 ###############################################################################
 
+proc doze {{sec 60}} {
+  set threshold 10
+  if {[expr {5 > $sec}]} {
+    fail {check interval too low}
+  }
+  if {[expr {1800 < $sec}]} {
+    fail {check interval too high}
+  }
+  set f /sys/class/power_supply/BAT0/capacity
+  while true {
+    exec sleep $sec
+    set perc [readfile $f]
+    if {[expr {$perc < $threshold}]} {
+      exec sudo zzz
+      return
+    }
+  }
+}
+
+###############################################################################
+
 proc dracut {ver} {
   set dir /lib/firmware
       #-i $::env(HOME)/opt/firmware/rtl8761bu_fw $d/rtl_bt/rtl8761bu_fw.bin \
@@ -415,10 +436,11 @@ proc temper {} {
 
 set arg [lindex $::argv 0]
 if {[expr {0 eq [llength [info procs $arg]]}]} {
-  ufail {bat|bye|dracut|cpu|save|snooze|temper
+  ufail {bat|bye|doze|dracut|cpu|save|snooze|temper
   bat     battery alert
   bye     stop session       lock|logout|sleep|reboot|shutdown
-  cpu     (#) scale cpu      _|high|low|governors [0-15]
+ #cpu     scale cpu          _|high|low|governors [0-15]
+  doze    auto sleep         [5-1800]
   dracut  compile initramfs  KERNEL_VERSION
   save    backup data
   snooze  scheduled exec

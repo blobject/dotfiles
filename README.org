@@ -113,6 +113,7 @@ counter-clockwise from northwest:
   - /pkg:/ xtools
 - *dev:*
   - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, lua, mono, nodejs, octave, openjdk, python3-devel+pip, r, rustup, sbcl, squeak, swi-prolog, tk
+  - /db:/ postgresql{,-client}, sqlite
   - /util:/ broot, catch2, cmake, docker, gdb, msbuild, perf, valgrind
 - *app:*
   - /doc:/ foliate, gnuplot, libreoffice, pdf.js, texlive-most, zathura{djvu,pdf-mupdf,ps)

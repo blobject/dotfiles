@@ -359,7 +359,7 @@ proc vol {args} {
 
 proc weather {} {
   # for waybar
-  catch {exec curl -s {https://wttr.in/prague?0AQT&format=%t%x}} weather ret
+  catch {exec curl -s {https://wttr.in/?0AQT&format=%t%x}} weather ret
   if {0 != [dict get $ret -code]} {
     puts {}
     exit
@@ -397,12 +397,12 @@ proc weather {} {
 set arg [lindex $::argv 0]
 if {[expr {0 eq [llength [info procs $arg]]}]} {
   ufail {btbat|cpu|lay|lum|shot|vol|weather
-  btbat   get bluetooth device battery level
+  btbat   get battery level of bluetooth device
   cpu     get cpu governor
-  lay     [gs]et keyboard layout   |h_hsnt|q_werty
-  lum     [gs]et screen brightness |-N|+N
-  shot    take screenshot          |active|*screen*|select |jpg|*png* |c
-  vol     [gs]et audio volume      |bt |mic |x|-N|+N
+  lay     [gs]et keyboard layout   _|h_hsnt|q_werty
+  lum     [gs]et screen brightness _|-N|+N
+  shot    take screenshot          _|active|*screen*|select |jpg|*png* |c
+  vol     [gs]et audio volume      _|bt |mic |x|-N|+N
   weather get weather report}
 }
 $arg {*}[lrange $::argv 1 end];

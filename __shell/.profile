@@ -7,6 +7,7 @@ _path_prepend()
 
 ## vars
 _path_prepend $HOME/.local/bin
+#_path_prepend $HOME/opt/dotnet
 _path_prepend $HOME/.cargo/bin
 _path_prepend $HOME/bin
 # first lookup should be prepended last
@@ -15,9 +16,10 @@ export PATH
 export BROWSER=firefox
 export EDITOR=kak
 export TERMINAL=foot
-export _JAVA_AWT_WM_NONREPARENTING=1
+#export DOTNET_ROOT=$HOME/opt/dotnet
 export GTK2_RC_FILES=$HOME/.gtkrc-2.0
 export GUILE_AUTO_COMPILE=0
+export _JAVA_AWT_WM_NONREPARENTING=1
 export QT_QPA_PLATFORMTHEME=qt5ct
 export XCURSOR_THEME=Breeze_Snow
 export XCURSOR_SIZE=64
@@ -53,5 +55,4 @@ else
   export XDG_CURRENT_SESSION=wlroots
 fi
 
-[[ -f $HOME/.bash_profile ]] || . $HOME/.bashrc
-
+[[ -f $HOME/.bash_profile ]] || source $HOME/.bashrc

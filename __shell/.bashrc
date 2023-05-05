@@ -110,8 +110,6 @@ alias 0sshadd='ssh-add $HOME/.ssh/id_rsa'
 alias 0topc='ps -Ao pcpu,pid,cmd | sort -grk1 | head -17 | column -t -N %,pid,cmd | cut -c-$(tput cols)'
 alias 0topm="ps -Ao pmem,rss,vsize,pid,args | awk '{if (\$2 > 10240) \$2=\$2/1024\"M\"; if (\$3 > 10240) \$3=\$3/1024\"M\";}{print;}' | sort -grk1 | head -25 | column -t -N %,rss,vsz,pid,cmd |"' cut -c-$(tput cols)'
 alias 0usb='lsusb | sort -k7 | rg -v 1d6b: | rg -v 8087:0aaa | rg -v 13d3:56c6'
-alias asdf='0t lay hsnt'
-alias hsnt='0t lay qwerty'
 alias bc='bc -l'
 alias cp='cp -iv'
 alias fd='fd --hidden --no-ignore'
@@ -124,7 +122,6 @@ alias lls='ll -S'
 alias llt='ll -t'
 #alias man='man -m /usr/lib/plan9/man'
 alias mv='mv -iv'
-alias nuget="mono $HOME/opt/csharp/nuget.exe"
 alias pstree='pstree -hnp'
 alias rg='rg -L --hidden'
 alias rm='rm -i'
@@ -152,6 +149,8 @@ source /usr/share/bash-completion/completions/git
 source /usr/share/bash-completion/completions/docker
 __git_complete g __git_main
 __git_complete dk _docker
+#source $HOME/opt/asdf/asdf.sh
+#source $HOME/opt/asdf/completions/asdf.bash
 
 ## set title
 trap __0_title DEBUG

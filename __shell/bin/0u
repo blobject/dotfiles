@@ -1,0 +1,131 @@
+#! /usr/bin/env tclsh
+
+###############################################################################
+# 0u: general utilities for the user
+
+package require cmdline
+package require json
+
+## helpers ####################################################################
+
+set ME [file tail $::argv0]
+set USAGE "usage: $ME UTIL ?ARG ...?
+  utilities             arguments              example
+  cc, currency_convert  from_cur to_cur value  cc usd eur 42"
+
+proc err {msg {noproc {}} {nome {}}} {
+  puts stderr $nome$noproc$msg
+}
+
+proc fail {msg {noproc {}} {nome {}}} {
+  global ME
+  if {{} ne $nome} { set nome {} } \
+  else             { set nome "$ME: " }
+  if {{} ne $noproc} { set noproc {} } \
+  else               { set noproc "[lindex [info level 1] 0]: "}
+  err $msg $noproc $nome
+  exit 1
+}
+
+proc dep {args} {
+  set missing {}
+  foreach d $args {
+    if [catch {exec which $d}] {
+      lappend missing "$d"
+    }
+  }
+  if {0 != [llength $missing]} {
+    fail "missing dependencies: $missing"
+  }
+}
+
+#proc setd {dst src {level 1}} {
+#  foreach {k v} $dst {
+#    if {[string match $* $v]} {
+#      uplevel $level [list set [string range $v 1 end] [dict get $src $k]]
+#    } else {
+#      setd $v [dict get $src $key] [expr {$level + 1}]
+#    }
+#  }
+#}
+
+## dependencies ###############################################################
+
+dep curl
+
+## utilities ##################################################################
+
+proc currency_convert {args} {
+  global ME
+  set api https://open.er-api.com/v6/latest
+
+  # housekeeping
+  set me [lindex [info level 0] 0]
+  set usage "usage: $me ?-q? FROM TO VALUE
+  FROM   source currency
+  TO     target currency
+  VALUE  money value (in FROM currency)
+  `$ME cc usd foo 0` for a list of currencies"
+  set optlist {
+    {q {output only the conversion result}}
+  }
+  try {
+    array set opts [::cmdline::getoptions args $optlist "$me options:"]
+  } trap {CMDLINE USAGE} {msg} {
+    puts -nonewline stderr $msg
+    exit 0
+  } trap {CMDLINE ERROR} {msg} {
+    fail $msg _
+    exit 1
+  }
+
+  # input
+  if {3 != [llength $args]} {
+    fail $usage _
+  }
+  set get   {curl -s}
+  set from  [lindex $args 0]
+  set to    [lindex $args 1]
+  set value [lindex $args 2]
+  catch {exec {*}$get $api/$from} res ret
+  if {0 != [dict get $ret -code] || [string match {*404 Not Found*} $res]} {
+    fail {error accessing exchange rate api}
+  }
+  set res [::json::json2dict $res]
+  if {{success} ne [dict get $res result]} {
+    fail {error getting exchange rate json}
+  }
+
+  # output
+  set to    [string toupper $to]
+  set from  [dict get $res base_code]
+  set rates [dict get $res rates]
+  if {![dict exists $rates $to]} {
+    fail "$to currency does not exist: [dict keys $rates]"
+  }
+  set rate  [dict get $rates $to]
+
+  if {!$opts(q)} {
+    puts -nonewline "[dict get $res provider]
+[dict get $res time_last_update_utc]
+----
+$value \[$from -> $to\] "
+  }
+  puts [expr {$value * $rate}]
+}
+
+## start ######################################################################
+
+set arg [lindex $::argv 0]
+set cmd {}
+
+switch -- $arg {
+  cc - currency_convert { set cmd currency_convert }
+}
+
+if {{} eq $cmd || 0 == [llength [info procs $cmd]]} {
+  err "unknown utility: '$arg'\n"
+  fail $USAGE _ _
+}
+$cmd {*}[lrange $::argv 1 end]
+

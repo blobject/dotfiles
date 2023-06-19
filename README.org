@@ -29,6 +29,7 @@ counter-clockwise from northwest:
 | *[[__shell/bin/0m][0m]]* | wrap [[https://www.x.org/wiki/Projects/XRandR/][xrandr]] |
 | *[[__shell/bin/0s][0s]]* | *system* utilities |
 | *[[__shell/bin/0t][0t]]* | graphical *shell* utilities |
+| *[[__shell/bin/0u][0u]]* | general utilities |
 | *[[__shell/bin/0v][0v]]* | wrap [[https://www.qemu.org/][qemu]] |
 | *[[__shell/bin/lib.tcl][lib.tcl]]* | *help* other =0*= tcl scripts |
 
@@ -112,7 +113,7 @@ counter-clockwise from northwest:
   - /sess:/ lswt
   - /pkg:/ xtools
 - *dev:*
-  - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, lua, mono, nodejs, octave, openjdk, python3-devel+pip, r, rustup, sbcl, squeak, swi-prolog, tk
+  - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, lua, mono, nodejs, octave, openjdk, python3-devel+pip, r, rustup, sbcl, squeak, swi-prolog, tcllib, tk
   - /db:/ postgresql{,-client}, sqlite
   - /util:/ broot, catch2, cmake, docker, gdb, msbuild, perf, valgrind
 - *app:*

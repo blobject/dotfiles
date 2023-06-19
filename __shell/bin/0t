@@ -405,5 +405,5 @@ if {[expr {0 eq [llength [info procs $arg]]}]} {
   vol     [gs]et audio volume      _|bt |mic |x|-N|+N
   weather get weather report}
 }
-$arg {*}[lrange $::argv 1 end];
+$arg {*}[lrange $::argv 1 end]
 

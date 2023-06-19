@@ -1,2 +1,2 @@
 #navigator-toolbox { border-bottom: 0 !important; }
-.tabbrowser-tab { text-shadow: none; }
+.tabbrowser-tab, .findbar-container { text-shadow: none; }

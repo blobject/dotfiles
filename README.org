@@ -117,6 +117,7 @@ counter-clockwise from northwest:
   - /db:/ postgresql{,-client}, sqlite
   - /util:/ broot, catch2, cmake, docker, gdb, msbuild, perf, valgrind
 - *app:*
+  - /life:/ gnucash
   - /doc:/ foliate, gnuplot, libreoffice, pdf.js, texlive-most, zathura{djvu,pdf-mupdf,ps)
   - /media:/ blender, gimp, imagemagick, imv, inkscape, grim, screenkey, slurp, swappy, wf-recorder
   - /look:/ breeze-snow-cursor-theme, hsetroot, papirus-icon-theme, qt5ct

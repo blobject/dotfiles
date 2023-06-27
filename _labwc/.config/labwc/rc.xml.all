@@ -277,5 +277,8 @@
     <device category="Xtrfy Xtrfy Wireless Receiver">
       <pointerSpeed>-0.4</pointerSpeed>
     </device>
+    <device category="Razer Razer Atheris - Mobile Gaming Mouse">
+      <pointerSpeed>-0.2</pointerSpeed>
+    </device>
   </libinput>
 </labwc_config>

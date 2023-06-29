@@ -1,3 +1,10 @@
+normal use:
+- update: xbps-install -Su
+- install: xbps-install -S PKG
+- search: xbps-query -Rs STR (f=files,x=deps,X=revdeps)
+- remove: xbps-remove -R PKG
+- remove orphans: xbps-remove -Oo
+
 downgrade:
 - clone void-linux/void-packages
 - ./xbps-src binary-bootstrap

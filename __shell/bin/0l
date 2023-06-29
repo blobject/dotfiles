@@ -14,10 +14,10 @@ set dmesg false
 
 proc help {} {
   ufail {[what]
-  _             o
-  user session  old user session
-  a   b     d      e      k      l     m    s      u    p
-  all debug daemon errors kernel dmesg msgs secure user xbps}
+  _  user session    o  old user session
+  a  all       b  debug    d  daemon    e  errors
+  k  kernel    l  dmesg    m  msgs      s  secure
+  u  user      p  xbps}
 }
 
 switch -- $arg {
@@ -39,12 +39,17 @@ switch -- $arg {
   u - user     { set what user }
 }
 
+set log $dir/$what
 if {[string match "*/$::env(USER)/log" $dir]} {
-  exec -- >@stdout 2>@stdout less $dir/$what
+  if {[file readable $log]} {
+    exec -- >@stdout 2>@stdout less $log
+  } else {
+    fail "$log unreadable"
+  }
 } elseif {$dmesg} {
-  exec -- >@stdout 2>@stdout /usr/bin/sudo /usr/bin/dmesg | less
-} elseif {[file isdirectory $dir/$what]} {
-  exec -- >@stdout 2>@stdout less $dir/$what/current
+  exec -- >@stdout 2>@stdout /usr/bin/sudo /usr/bin/dmesg --color=always | less
+} elseif {[file isdirectory $log]} {
+  exec -- >@stdout 2>@stdout less $log/current
 } else {
   help
 }

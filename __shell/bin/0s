@@ -15,6 +15,8 @@ need notify-send rg \
      rsync xbps-query \
      0snooze-bat 0snooze-temper snooze
 
+set SUDO /usr/bin/sudo
+
 ###############################################################################
 
 proc _nrep {name} {
@@ -58,7 +60,7 @@ proc bat {} {
 ###############################################################################
 
 proc bye {arg} {
-  global SESS
+  global SESS SUDO
 
   proc kill {} {
     catch {exec pkill dbus-daemon}
@@ -82,32 +84,30 @@ proc bye {arg} {
     exec 0s temper
   }
 
-  set desk [lindex [split $::env(DESKTOP_SESSION) /] end]
-
   switch -- $arg {
     k - o - lock {
-      if {{w} eq $SESS} { exec waylock --fail-color {#a32c2d} --init-color {#16161d} --input-color {#575a61}; }
+      if {{w} eq $SESS} { exec waylock -fail-color {0xa32c2d} -init-color {0x16161d} -input-color {0x575a61}; }
     }
     e - l - q - x - logout {
       save
       kill
-      exec pkill $desk
+      exec pkill [lindex [split $::env(DESKTOP_SESSION) /] end]
     }
     z - sleep {
       sync
-      exec /usr/bin/sudo zzz
+      exec $SUDO /bin/zzz
     }
     b - r - reboot {
       save
       sync
       kill
-      exec /usr/bin/sudo reboot
+      exec $SUDO /bin/reboot
     }
     h - s - shutdown {
       save
       sync
       kill
-      exec /usr/bin/sudo halt
+      exec $SUDO /bin/halt
     }
     default {
       ufail {bye k|o|lock | e|l|q|x|logout | z|sleep | b|r|reboot | h|s|shutdown}
@@ -184,6 +184,7 @@ proc cpu {args} {
 ###############################################################################
 
 proc doze {{sec 60}} {
+  global SUDO
   set threshold 10
   if {[expr {5 > $sec}]} {
     fail {check interval too low}
@@ -196,7 +197,7 @@ proc doze {{sec 60}} {
     exec sleep $sec
     set perc [readfile $f]
     if {[expr {$perc < $threshold}]} {
-      exec sudo zzz
+      exec $SUDO /bin/zzz
       return
     }
   }
@@ -205,11 +206,12 @@ proc doze {{sec 60}} {
 ###############################################################################
 
 proc dracut {ver} {
+  global SUDO
   set dir /lib/firmware
+  try {
       #-i $::env(HOME)/opt/firmware/rtl8761bu_fw $d/rtl_bt/rtl8761bu_fw.bin \
       #-i $::env(HOME)/opt/firmware/rtl8761bu_config $d/rtl_bt/rtl8761bu_config.bin \
-  try {
-    exec -- >@stdout /usr/bin/sudo /usr/bin/dracut \
+    exec -- >@stdout $SUDO /usr/bin/dracut \
       -i $dir/i915/kbl_dmc_ver1_04.bin $dir/i915/kbl_dmc_ver1_04.bin \
       -i $dir/i915/kbl_guc_70.1.1.bin $dir/i915/kbl_guc_70.1.1.bin \
       -i $dir/i915/kbl_huc_4.0.0.bin $dir/i915/kbl_huc_4.0.0.bin \
@@ -219,7 +221,8 @@ proc dracut {ver} {
       -i $dir/rtl_bt/rtl8761bu_fw.bin $dir/rtl_bt/rtl8761bu_fw.bin \
       -i $dir/rtl_bt/rtl8761bu_config.bin $dir/rtl_bt/rtl8761bu_config.bin \
       --force \
-      -o "btrfs crypt dm lvm lunmask mdraid" \
+      -a "crypt dm lvm resume" \
+      -o "btrfs" \
       /boot/initramfs-${ver}_c.img ${ver}_c
   } on error e { fail "$e" }
 }
@@ -292,17 +295,22 @@ proc save {} {
   }
 
   proc etc {src} {
+    exec cp /etc/fstab >$src/fstab
+    puts "* fstab"
     exec lsmod >$src/lsmod
     puts "* lsmod"
     exec tail -n +1 {*}[glob /etc/modprobe.d/*] >$src/modprobe
     puts "* modprobe"
     exec tail -n +1 {*}[glob /etc/wpa_supplicant/wpa_supplicant-wl*] >$src/wpa
     puts "* wpa"
+    exec tail -n +1 {*}[glob /etc/X11/xorg.conf.d/*] >$src/xorg
+    puts "* xorg"
     exec ls "$::env(HOME)/opt/" >$src/opt
     puts "* ~/opt/"
-    exec tail -n +1 {*}[glob /etc/X11/xorg.conf.d/*] >$src/xorg
-    puts "* refind"
+    exec ls "$::env(HOME)/opt/" >$src/opt
+    puts "* ~/opt/"
     exec cp /boot/EFI/refind/refind.conf $src/refind
+    puts "* refind"
     exec xbps-query --list-pkgs >$src/installed
     puts "* packages installed"
     exec ls /var/service/ >$src/services
@@ -357,7 +365,7 @@ proc temper {} {
   set where $TMPD
   set flag .unpacked
   set what mozilla/firefox
-  set name mod0pazi.default-default
+  set name g5dqc9ek.default-default
 
   proc base {name} {
     return [lindex [file split $name] end]

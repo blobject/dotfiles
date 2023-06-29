@@ -1,5 +1,0 @@
-# /etc/sudoers.d/custom-sudoers
-
-%wheel ALL=(ALL) ALL
-b ALL=(ALL:ALL) NOPASSWD: /bin/halt, /bin/reboot, /bin/shutdown, /bin/zzz
-

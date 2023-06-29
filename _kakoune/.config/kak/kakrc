@@ -13,6 +13,8 @@ add-highlighter global/ show-matching
 add-highlighter global/ wrap
 
 define-command -buffer-completion d 'delete-buffer' -docstring 'delete current buffer'
+define-command 0wrap 'add-highlighter global/ wrap' -docstring 'wrap lines'
+define-command 0nowrap 'remove-highlighter global/wrap' -docstring 'do not wrap lines'
 
 hook global BufCreate .* %{ evaluate-commands %sh{
   # recognise filetypes that snuck past detection/file.kak

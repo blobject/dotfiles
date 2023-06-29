@@ -160,7 +160,7 @@ proc lay {arg} {
 
 proc lum {arg} {
   # for wm
-  set cmd {/usr/bin/sudo light}
+  set cmd {/usr/bin/sudo /usr/bin/light}
   set cmd_set {-S}
   set cmd_dec {-U}
   set cmd_inc {-A}

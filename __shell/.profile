@@ -55,4 +55,5 @@ else
   export XDG_CURRENT_SESSION=wlroots
 fi
 
-[[ -f $HOME/.bash_profile ]] || source $HOME/.bashrc
+source $HOME/.bashrc # may be redundant with .bash_profile
+

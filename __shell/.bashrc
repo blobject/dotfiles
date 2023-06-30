@@ -152,8 +152,6 @@ source /usr/share/bash-completion/completions/git
 source /usr/share/bash-completion/completions/docker
 __git_complete g __git_main
 __git_complete dk _docker
-#source $HOME/opt/asdf/asdf.sh
-#source $HOME/opt/asdf/completions/asdf.bash
 
 ## set title
 trap __0_title DEBUG

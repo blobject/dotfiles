@@ -36,7 +36,7 @@
 | =M[S]-esc= | | *close* [ or  *kill* ] window |
 | =MS-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |
 | =M[S]-= *dir* | =h= / =j= / =k= / =l= / =y= / =u= / =b= / =n= | *move* [ and *snap* ] window to *edge* |
-| =M-= *char* | =c= / =.= / =/= | *snap* window to variations of *center* |
+| =M-= *char* | =c= / =.= / =/= / =;= | *snap* window to variations of *center* |
 | =M[S]-f= | | toggle *maximise* [ or *fullscreen* ] |
 
 | | | /FOCUS/ |
@@ -101,10 +101,10 @@
 - level 2 ::
 - *shell:*
   - /hw:/ lshw, wev, xprop
-  - /sess:/ lswt, xeyes
+  - /sess:/ qt5-wayland, lswt, xeyes
   - /pkg:/ xtools
 - *dev:*
-  - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, mono, nodejs, octave, openjdk, pip, r, rustup, sbcl, squeak, swi-prolog, tcllib, tk
+  - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, mono, n, octave, openjdk, pip, r, rustup, sbcl, squeak, swi-prolog, tcllib, tk
   - /db:/ postgresql{,-client}, sqlite
   - /util:/ broot, catch2, cmake, docker, gdb, msbuild, perf, tree, valgrind
 - *app:*
@@ -116,7 +116,7 @@
     - to customise look, edit =profile.../chrome/userChrome.css=; =about:config=: enable =toolkit.legacyUserProfileCustomizations.stylesheets=
     - =about:config=: set =browser.uidensity= to =1=
   - /sec:/ encfs, gnupg
-  - /fun:/ cataclysm-dda, fontforge, qemu, ttfautohint
+  - /fun:/ cataclysm-dda, fontforge, fontmatrix, qemu, ttfautohint
 - *kernel:*
   - {elfutils,xfsprogs,openssl,ncurses}-devel
 

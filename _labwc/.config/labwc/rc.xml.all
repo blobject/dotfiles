@@ -30,6 +30,7 @@
     <region name="cc" x="25%" y="25%" width="50%"  height="50%"/>
     <region name="ch" x="0%"  y="25%" width="100%" height="50%"/>
     <region name="cv" x="25%" y="0%"  width="50%"  height="100%"/>
+    <region name="g"  x="20%" y="0%"  width="60%"  height="100%"/>
   </regions>
 
   <desktops>
@@ -128,6 +129,7 @@
     <keybind key="W-S-c"><action name="SnapToRegion" region="cc"/></keybind>
     <keybind key="W-period"><action name="SnapToRegion" region="ch"/></keybind>
     <keybind key="W-slash"><action name="SnapToRegion" region="cv"/></keybind>
+    <keybind key="W-semicolon"><action name="SnapToRegion" region="g"/></keybind>
     <!--
     <keybind key=""><action name="ShowMenu" menu="client-menu"/></keybind>
     -->

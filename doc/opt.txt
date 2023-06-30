@@ -1,36 +1,31 @@
+work:
+- poetry
+  - curl -sSL https://install.python-poetry.org | python -
+    - https://python-poetry.org/docs/#installing-with-the-official-installer
+
 dev:
-  # graphics
-  glew-devel
-  glfw-devel
-  glm
-  opencl-clhpp
-  opencl2-headers
-  # planck
-  dfu-programmer
-  # qt
-  qt5-declarative-devel
-  qt5-quickcontrols2-devel
-  qt5-wayland
-  # window management
-  gdk-pixbuf-devel
-  pango-devel
-  tk-devel
-  wlroots-devel
+- keyboard
+  - dfu-programmer
+- graphics
+  - glew-devel
+  - glfw-devel
+  - glm
+  - opencl-clhpp
+  - opencl2-headers
+- node
+  - package manager install n
+  - sudo n lts
+- rust
+  - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    - https://www.rust-lang.org/tools/install
 
 manual (/usr/local):
-  intel opencl (neo)
+- intel opencl (neo)
 
-~/opt:
-  cemant
-  nuget.exe
-
-~/.fonts:
-  mono:
-    agave, consolas, courier, inconsolata, input, iosevka, jetbrains, plex, sanfrancisco, ubuntu, umtypewriter
-  sans:
-    apercu, arial {,unicode ms}, avenir, calibri, candara, cascadia, comic, corbel, cyberbit, google, helvetica, inter, lexend, open, segoe, selawik, tahoma, trebuchet, verdana
-  serif:
-    bookerly, cambria, constantia, newyork, times, zilla
-  other:
-    awesome, fira, free, nanum, noto, roboto, sarasa, source
+opt:
+- look
+  - cemant
+- fonts
+  - kept: agave apercu arial avenir awesome bookerly calibri cambria candara cascadia comic consolas constantia corbel courier cyberbit fira google helvetica input inter iosevka jetbrains lexend nanum newyork noto plex roboto sanfrancisco segoe selawik tahoma times trebuchet ubuntu umtypewriter verdana zilla
+  - package: freefont inconsolata opensans sarasa source
 

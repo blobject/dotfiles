@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=cwm
+Comment=A minimalist stacking X window manager based on XCB
+Exec=/usr/bin/cwm
+TryExec=/usr/bin/cwm
+Type=Application

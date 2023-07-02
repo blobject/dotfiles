@@ -7,7 +7,7 @@ source $::env(HOME)/bin/lib.tcl
 
 need notify-send rg \
      fnottctl \
-     firefox-wayland \
+     firefox \
      bluetoothctl \
      light \
      tofi-drun \

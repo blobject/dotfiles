@@ -82,6 +82,7 @@
     <keybind key="C-XF86_AudioMicMute"><action name="Execute" command="0t vol bt mic x"/></keybind>
     <keybind key="W-S-r"><action name="Reconfigure"/></keybind>
     <keybind key="C-A-BackSpace"><action name="Execute" command="0s bye lock"/></keybind>
+    <keybind key="C-A-Delete"><action name="Execute" command="0s bye sleep"/></keybind>
     <keybind key="A-Tab"><action name="NextWindow"/></keybind>
     <keybind key="A-S-Tab"><action name="PreviousWindow"/></keybind>
     <keybind key="W-Escape"><action name="Close"/></keybind>
@@ -281,6 +282,9 @@
       <pointerSpeed>-0.4</pointerSpeed>
     </device>
     <device category="Razer Razer Atheris - Mobile Gaming Mouse">
+      <pointerSpeed>-0.2</pointerSpeed>
+    </device>
+    <device category="Razer Atheris Mouse">
       <pointerSpeed>-0.2</pointerSpeed>
     </device>
   </libinput>

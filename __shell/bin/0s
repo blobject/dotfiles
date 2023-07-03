@@ -3,17 +3,15 @@
 ###############################################################################
 # 0s: utilities/shortcuts for the system
 
-set home $::env(HOME)
-if {{root} eq $::tcl_platform(user)} { set home /home/b }
-source $home/bin/lib.tcl
-unset home
-
-need notify-send rg \
-     fnottctl \
-     waylock \
-     dracut \
-     rsync xbps-query \
-     0snooze-bat 0snooze-temper snooze
+if {{b} eq $::env(USER)} {
+  source $::env(HOME)/bin/lib.tcl
+  need notify-send rg \
+       fnottctl \
+       waylock \
+       dracut \
+       rsync xbps-query \
+       0snooze-bat 0snooze-temper snooze
+}
 
 set SUDO /usr/bin/sudo
 
@@ -88,7 +86,7 @@ proc bye {arg} {
     k - o - lock {
       puts {0s: locking...}
       if {{w} eq $SESS} {
-        catch {exec waylock -fork-on-lock -fail-color {0xa32c2d} -init-color {0x16161d} -input-color {0x575a61} &}
+        catch {exec waylock -fork-on-lock -fail-color {0xa32c2d} -init-color {0x16161d} -input-color {0x575a61}}
       }
     }
     e - l - q - x - logout {
@@ -192,6 +190,7 @@ proc cpu {args} {
 
 proc doze {{sec 60}} {
   global SUDO
+
   set threshold 10
   if {[expr {5 > $sec}]} {
     fail {check interval too low}
@@ -214,10 +213,11 @@ proc doze {{sec 60}} {
 
 proc dracut {ver} {
   global SUDO
+
   set dir /lib/firmware
-  try {
       #-i $::env(HOME)/opt/firmware/rtl8761bu_fw $d/rtl_bt/rtl8761bu_fw.bin \
       #-i $::env(HOME)/opt/firmware/rtl8761bu_config $d/rtl_bt/rtl8761bu_config.bin \
+  try {
     exec -- >@stdout $SUDO /usr/bin/dracut \
       -i $dir/i915/kbl_dmc_ver1_04.bin $dir/i915/kbl_dmc_ver1_04.bin \
       -i $dir/i915/kbl_guc_70.1.1.bin $dir/i915/kbl_guc_70.1.1.bin \

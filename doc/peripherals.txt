@@ -12,6 +12,7 @@ kbd:
     - env: XKB_DEFAULT_LAYOUT=KEYMAP
 
 mouse:
+- libinput list-devices
 - sudo v /var/lib/bluetooth/*/*/info
   - remove [IdentityResolvingKey]\nKey=
 

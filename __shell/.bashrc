@@ -8,16 +8,27 @@ stty -ixon
 ## custom functions and variables
 __0_pwd=$PWD
 
+__0_conda()
+{ if [[ $CONDA_SHLVL -gt 1 ]]; then
+    echo "c\[\033[0;36m\]$CONDA_DEFAULT_ENV "
+  fi; }
+
+__0_poetry()
+{ if [[ -v VIRTUAL_ENV ]]; then
+    local a=$(basename $VIRTUAL_ENV)
+    echo "p\[\033[0;36m\]${a%-*-*} "
+  fi; }
+
 __0_git()
 { if git rev-parse --is-inside-work-tree &>/dev/null; then
-    git symbolic-ref --short HEAD 2>/dev/null | sed 's/$/ /'
+    git symbolic-ref --short HEAD 2>/dev/null | sed 's/$/ /;s/^/g\\[\\033[0;33m\\]/'
   fi; }
 
 __0_hg()
 { #if hg id &>/dev/null; then
   if [[ -d .hg ]]; then
-    a=$(hg stat 2>/dev/null | sed 's,^\(.\).\+$,\1,' | sort -u | sed 'N;s,\n,,')
-    hg branch 2>/dev/null | sed 's/$/'"$a"' /'
+    local a=$(hg stat 2>/dev/null | sed 's,^\(.\).\+$,\1,' | sort -u | sed 'N;s,\n,,')
+    hg branch 2>/dev/null | sed 's/$/'"$a"' /;s/^/h\\[\\033[0;33m\\]/'
   fi; }
 
 __0_prompt()
@@ -25,11 +36,13 @@ __0_prompt()
   [[ $e = 0 ]] \
     && e='\[\033[0;32m\]'"$e " \
     || e='\[\033[0;35m\]'"$e "
-  local t='\[\033[02;37m\]\t '
-  local g='\[\033[0;33m\]'$(__0_git)
-  local h='\[\033[0;33m\]'$(__0_hg)
-  local p='\[\033[0;31m\]\w'
-  PS1=$e$t$g$h$p'\[\033[0m\] '
+  local t='\[\033[2;37m\]\t\[\033[0m\] '
+  local c='\[\033[1;36m\]'$(__0_conda)
+  local p='\[\033[1;36m\]'$(__0_poetry)
+  local g='\[\033[1;33m\]'$(__0_git)
+  local h='\[\033[1;33m\]'$(__0_hg)
+  local d='\[\033[0;31m\]\w'
+  PS1='\[\033[0;37m\]╭╴'$e$t$c$p$g$h$d'\n\[\033[0;37m\]╰╴\[\033[0m\]'
   __0_pwd=$PWD; }
 
 __0_title()
@@ -82,8 +95,8 @@ function 0br {
 
 ## variables
 HISTCONTROL=ignoreboth
-HISTFILESIZE=65536
-HISTSIZE=65536
+HISTFILESIZE=131072
+HISTSIZE=131072
 PROMPT_COMMAND=__0_prompt
 export LESS=-iRS
 export SSH_AUTH_SOCK=$HOME/.ssh/agent
@@ -156,4 +169,15 @@ __git_complete dk _docker
 ## set title
 trap __0_title DEBUG
 unset __0_pwd
+
+## work
+alias _='cd /home/work'
+function 0conda {
+  if [[ 'base' != "$1" && ! -d "$HOME/opt/miniconda3/envs/$1" ]]; then
+    echo "bad conda env: $1"
+    return
+  fi
+  eval "$(command conda 'shell.bash' 'hook')"
+  conda activate $1
+}
 

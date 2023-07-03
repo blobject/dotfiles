@@ -1,7 +1,11 @@
 profile laptop {
   output eDP-1 position 0,0
 }
-profile extrot {
-  output eDP-1 position 0,0
-  output DP-1 position 2160,0 scale 0.75 transform 90
+#profile extrot {
+#  output eDP-1 enable position 0,0
+#  output DP-1 enable position 2160,0 scale 0.75 transform 90
+#}
+profile extup {
+  output eDP-1 enable position 840,2160
+  output DP-1 enable position 0,0 scale 1 transform normal
 }

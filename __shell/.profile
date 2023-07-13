@@ -6,8 +6,9 @@ _path_prepend()
   esac }
 
 ## vars
-_path_prepend $HOME/.local/bin
+_path_prepend $HOME/opt/miniconda3/condabin
 #_path_prepend $HOME/opt/dotnet
+_path_prepend $HOME/.local/bin
 _path_prepend $HOME/.cargo/bin
 _path_prepend $HOME/bin
 # first lookup should be prepended last
@@ -21,8 +22,6 @@ export GTK2_RC_FILES=$HOME/.gtkrc-2.0
 export GUILE_AUTO_COMPILE=0
 export _JAVA_AWT_WM_NONREPARENTING=1
 export QT_QPA_PLATFORMTHEME=qt5ct
-export XCURSOR_THEME=Breeze_Snow
-export XCURSOR_SIZE=64
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CONFIG_DIRS=/etc/xdg
@@ -39,6 +38,8 @@ if [[ 'z' = "z$WAYLAND_DISPLAY" ]] && [[ -n $DISPLAY ]]; then
   # x
   #export QT_AUTO_SCREEN_SCALE_FACTOR=1
   #export QT_FONT_DPI=200
+  export XCURSOR_THEME=Breeze_Snow
+  export XCURSOR_SIZE=64
   export XDG_CURRENT_DESKTOP=cwm
 else
   # wayland

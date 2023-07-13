@@ -1,9 +1,9 @@
 #! /usr/bin/env tclsh
 
+#.emacs.d
 set fend {
   .config/broot
   .config/mpv
-  .emacs.d
   .icons
   .local/share/applications
   .mozilla/firefox

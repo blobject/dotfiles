@@ -1,20 +1,58 @@
 * dotfiles
 
+*** usage
+
+**** keep a user configuration file
+
+1. Let's say this repository is saved as =dotfiles= and you are in it.
+2. Create a directory with a name of your choice, prepending =_=.
+3. ~cd~ inside the new directory.
+4. Pretending that you are at =$HOME=, recreate the location of the configuration file.
+  - For example, say you want to back up [[https://wiki.archlinux.org/title/XDG_MIME_Applications#mimeapps.list][mimeapps.list]]. Create the path of folders =...dotfiles/_mime/.config=, and write the file =...dotfiles/_mime/.config/mimeapps.list=.
+
+*Note*: Sometimes, a subpath may not exist, and that will affect both keeping and loading. Say you want to keep =$HOME/.config/foo/bar.txt=, but =$HOME/.config= doesn't exist yet. If you call ~./stow.tcl~ now to load everything, a link called =$HOME/.config= will be created referencing somewhere in =dotfiles=. When other files get put into =$HOME/.config=, all those files (even those you don't want to keep) will actually reside in this repository!
+
+For this reason, edit the =fend= list inside =stow.tcl=. For the above example, add =.config= to the list (to link =foo/=) or add =.config/foo= (to link =bar.txt=).
+
+**** load/restore all user configuration files
+
+*Note*: If you don't want to load some =_configuration=, place it in =disabled= first.
+
+1. Go to the =dotfiles= root directory.
+2. ~./stow.tcl~
+
+**** load entire system configuration
+
+*IMPORTANT*: Customised to my system. Will most likely bork your system.
+
+/WIP/
+
+1. Go to the =dotfiles= root directory.
+2. ~./load.tcl~
+  - presumes: drives prepped; base system and tcl installed; internet available
+
+**** remove a user configuration file.
+
+/WIP/
+
+1. Find the link and manually ~rm~ it.
+
 *** selection
 
 | class | instance |
-|-------|----------|
+|-|-|
 | hw | [[https://github.com/nekr0z/linux-on-huawei-matebook-13-2019][matebook 13]], [[https://github.com/foostan/crkbd][corne]], [[https://xtrfy.com/mice/mz1-wireless/][mz1]], [[https://us.aoc.com/en-US/products/monitors/i1601fwux][i1601fwux]] |
 | env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://labwc.github.io/][labwc]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
 | look | 2160x1440, [[https://github.com/blobject/cemant][cemant]], [[https://picaq.github.io/sarasa/][sarasa]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]] |
 
 *** scripts
 
-*[[stow.tcl]]*: prep and link all user files \\
-*[[load.tcl]]*: setup entire system + user configuration from scratch (presumes: drives mounted; base system and tcl installed; internet available)
+| *[[stow.tcl]]* | prep and link all user files |
+| *[[load.tcl]]* | setup entire system + user configuration from scratch |
+
 
 | name | description |
-|------|-------------|
+|-|-|
 | *[[__shell/bin/00][00]]* | *run* file(s) based on mimetype (like =xdg-open=) |
 | *[[__shell/bin/0a][0a]]* | *list* and *launch* =.desktop= files (dmenu companion) |
 | *[[__shell/bin/0c][0c]]* | pass *command* string to tcl |
@@ -29,28 +67,28 @@
 *** keybinding
 
 | key template | key more | do |
-|--------------|----------|----|
+|-|-|-|
 
 | | | /GENERAL, MOVE, RESIZE/ |
-|-|-|-------------------------|
+|-|-|-|
 | =MS-r= | | *reconfigure* |
-| =CA-back= | | *lock* |
+| =CA-\b= | | *lock* |
 | =M/A-L= | | *resize* / *move* window |
-| =M[S]-esc= | | *close* [ or  *kill* ] window |
+| =M[S]-\e= | | *close* [ or  *kill* ] window |
 | =MS-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |
 | =M[S]-= *dir* | =h= / =j= / =k= / =l= / =y= / =u= / =b= / =n= | *move* [ and *snap* ] window to *edge* |
-| =M-= *char* | =c= / =.= / =/= / =;= | *snap* window to variations of *center* |
+| =M-= *char* | =c= / =comma= / =.= / =/= / =;= | *snap* window to variations of *center* |
 | =M[S]-f= | | toggle *maximise* [ or *fullscreen* ] |
 
 | | | /FOCUS/ |
-|-|-|---------|
+|-|-|-|
 | =M-= *num* | =1= / =2= / =3= / =4= | *focus nth* desktop |
-| =A[S]-tab= | | cycle *focus* [ *backwards* ] |
+| =A[S]-\t= | | cycle *focus* [ *backwards* ] |
 | =M-a= | | toggle *always on top* |
 
 | | | /APP/ |
-|-|-|-------|
+|-|-|-|
 | =[S]-print= | | *take picture* of *screen* [ then *edit* ] |
-| =M-space= | | *dismiss* notification |
-| =M-= *char* | =enter= / =e= / =t= / =w= | launch *launcher* / *editor* / *terminal* / *www* |
+| =M-\s= | | *dismiss* notification |
+| =M-= *char* | =\n= / =`= / =e= / =t= / =w= | launch *launcher* / *treeview* / *editor* / *terminal* / *www* |
 

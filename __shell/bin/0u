@@ -11,7 +11,9 @@ package require json
 set ME [file tail $::argv0]
 set USAGE "usage: $ME UTIL ?ARG ...?
   utilities             arguments              example
-  cc, currency_convert  from_cur to_cur value  cc usd eur 42"
+  cc, currency_convert  from_cur to_cur value  cc usd eur 42
+  rgb, hex_to_rgb       hex_value              rgb ff8023
+  hex, num_to_hex       num_value              hex 123"
 
 proc err {msg {noproc {}} {nome {}}} {
   puts stderr $nome$noproc$msg
@@ -76,7 +78,6 @@ proc currency_convert {args} {
     exit 0
   } trap {CMDLINE ERROR} {msg} {
     fail $msg _
-    exit 1
   }
 
   # input
@@ -114,6 +115,43 @@ $value \[$from -> $to\] "
   puts [expr {$value * $rate}]
 }
 
+proc hex_to_rgb {hex} {
+  global ME
+
+  # housekeeping
+  set me [lindex [info level 0] 0]
+  set usage "usage: $me HEX
+  HEX  hexadecimal color value"
+
+  proc s {val start {stop {}}} {
+    if {{} eq $stop} {
+      set d [string index $val $start]
+      return [expr 0x$d$d]
+    }
+    return [expr 0x[string range $val $start $stop]]
+  }
+
+  set out {}
+  switch -- [string length $hex] {
+    3 { set out "r:[s $hex 0] g:[s $hex 1] b:[s $hex 2]" }
+    6 { set out "r:[s $hex 0 1] g:[s $hex 2 3] b:[s $hex 4 5]" }
+    8 { set out "r:[s $hex 0 1] g:[s $hex 2 3] b:[s $hex 4 5] a:[s $hex 6 7]" }
+    default { fail {bad hexadecimal color value} _ }
+  }
+  puts $out
+}
+
+proc num_to_hex {num} {
+  global ME
+
+  # housekeeping
+  set me [lindex [info level 0] 0]
+  set usage "usage: $me NUM
+  NUM  decimal value"
+
+  puts [format %x $num]
+}
+
 ## start ######################################################################
 
 set arg [lindex $::argv 0]
@@ -121,6 +159,8 @@ set cmd {}
 
 switch -- $arg {
   cc - currency_convert { set cmd currency_convert }
+  rgb - hex_to_rgb { set cmd hex_to_rgb }
+  hex - num_to_hex { set cmd num_to_hex }
 }
 
 if {{} eq $cmd || 0 == [llength [info procs $cmd]]} {

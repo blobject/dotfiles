@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=_agaric.net work
-Exec=0c foot --config='$::env(HOME)/.config/foot/foot_work.ini'
+Exec=0c foot --config='$::env(HOME)/.config/foot/foot_aga.ini'
 TryExec=foot
 Type=Application
 Comment=Work terminal on agaric.net

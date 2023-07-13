@@ -6,25 +6,30 @@ bind '"\ep": menu-complete-backward'
 stty -ixon
 
 ## custom functions and variables
-__0_pwd=$PWD
+__0_prompt_pwd=$PWD
 
-__0_conda()
+__0_prompt_conda()
 { if [[ $CONDA_SHLVL -gt 1 ]]; then
     echo "c\[\033[0;36m\]$CONDA_DEFAULT_ENV "
   fi; }
 
-__0_poetry()
+__0_prompt_poetry()
 { if [[ -v VIRTUAL_ENV ]]; then
     local a=$(basename $VIRTUAL_ENV)
     echo "p\[\033[0;36m\]${a%-*-*} "
   fi; }
 
-__0_git()
+__0_prompt_git()
 { if git rev-parse --is-inside-work-tree &>/dev/null; then
-    git symbolic-ref --short HEAD 2>/dev/null | sed 's/$/ /;s/^/g\\[\\033[0;33m\\]/'
+    local a=$(git symbolic-ref --short HEAD 2>/dev/null)
+    if [[ x = x$a ]]; then
+      echo 'g\[\033[0;33m\]*detached* '
+      return
+    fi
+    echo $a | sed 's/$/ /;s/^/g\\[\\033[0;33m\\]/'
   fi; }
 
-__0_hg()
+__0_prompt_hg()
 { #if hg id &>/dev/null; then
   if [[ -d .hg ]]; then
     local a=$(hg stat 2>/dev/null | sed 's,^\(.\).\+$,\1,' | sort -u | sed 'N;s,\n,,')
@@ -37,18 +42,26 @@ __0_prompt()
     && e='\[\033[0;32m\]'"$e " \
     || e='\[\033[0;35m\]'"$e "
   local t='\[\033[2;37m\]\t\[\033[0m\] '
-  local c='\[\033[1;36m\]'$(__0_conda)
-  local p='\[\033[1;36m\]'$(__0_poetry)
-  local g='\[\033[1;33m\]'$(__0_git)
-  local h='\[\033[1;33m\]'$(__0_hg)
+  local c='\[\033[1;36m\]'$(__0_prompt_conda)
+  local p='\[\033[1;36m\]'$(__0_prompt_poetry)
+  local g='\[\033[1;33m\]'$(__0_prompt_git)
+  local h='\[\033[1;33m\]'$(__0_prompt_hg)
   local d='\[\033[0;31m\]\w'
   PS1='\[\033[0;37m\]╭╴'$e$t$c$p$g$h$d'\n\[\033[0;37m\]╰╴\[\033[0m\]'
-  __0_pwd=$PWD; }
+  __0_prompt_pwd=$PWD; }
 
 __0_title()
 { local c=$(history 1 | sed 's/^ *[0-9]\+ *//')
-  [[ -z $__0_pwd ]] && c=$TERMINAL
-  echo -ne "\033]0;($(echo ${__0_pwd:-$PWD} | sed s,$HOME,~,)) $c\007"; }
+  [[ -z $__0_prompt_pwd ]] && c=$TERMINAL
+  echo -ne "\033]0;($(echo ${__0_prompt_pwd:-$PWD} | sed s,$HOME,~,)) $c\007"; }
+
+0conda()
+{ if [[ 'base' != "$1" && ! -d "$HOME/opt/miniconda3/envs/$1" ]]; then
+    echo "bad conda env: $1"
+    return
+  fi
+  eval "$(command $HOME/opt/miniconda3/condabin/conda 'shell.bash' 'hook')"
+  conda activate $1; }
 
 0ftp()
 { local net=$(ip a | rg -o 'inet.*global dynamic' | cut -d' ' -f2)
@@ -70,28 +83,6 @@ c()
     [[ $count -gt $lim ]] \
       && echo "skipping ls ($count entries > $lim)" \
       || ls -AF --color=auto --time-style=long-iso; }; }
-
-## opt functions
-# taken from broot setup
-function 0br {
-  f=$(mktemp)
-  (
-  set +e
-  broot --outcmd "$f" "$@"
-  code=$?
-  if [ "$code" != 0 ]; then
-    rm -f "$f"
-    exit "$code"
-  fi
-  )
-  code=$?
-  if [ "$code" != 0 ]; then
-    return "$code"
-  fi
-  d=$(<"$f")
-  rm -f "$f"
-  eval "$d"
-}
 
 ## variables
 HISTCONTROL=ignoreboth
@@ -131,6 +122,7 @@ alias dmesg='dmesg --color=always'
 alias fd='fd --hidden --no-ignore'
 alias le='less'
 alias ls='ls --color=auto --time-style=long-iso'
+alias lsn='fd . --exclude "\\.git/" --ignore --print0 --type file | xargs -0 stat --format "%Y :%y %n" | sort -nr | cut -d: -f2-'
 alias l='ls -AF'
 alias ll='ls -lh'
 alias lla='ll -a'
@@ -139,7 +131,7 @@ alias llt='ll -t'
 #alias man='man -m /usr/lib/plan9/man'
 alias mv='mv -iv'
 alias pstree='pstree -hnp'
-alias rg='rg -L --hidden'
+alias rg='rg -L --hidden -g!*.min.js'
 alias rm='rm -i'
 alias sudo='sudo '
 alias guile='rlwrap -ci guile'
@@ -152,6 +144,7 @@ alias e='kak'
 alias f='free -m'
 alias g='git'
 alias m='mpv'
+alias ma='mpv --audio=no'
 alias p='ps aux'
 alias t='tmux'
 alias u='du -hs'
@@ -159,25 +152,55 @@ alias ,='c ..'
 alias ,,='c ../..'
 alias ,,,='c ../../..'
 alias ,,,,='c ../../../..'
+alias ,,,,,='c ../../../../..'
+alias ,,,,,,='c ../../../../../..'
+alias ,,,,,,,='c ../../../../../../..'
+alias ,,,,,,,,='c ../../../../../../../..'
 
 ## imports
-source /usr/share/bash-completion/completions/git
 source /usr/share/bash-completion/completions/docker
-__git_complete g __git_main
+source /usr/share/bash-completion/completions/git
+source /usr/share/bash-completion/completions/mpv
 __git_complete dk _docker
+__git_complete g __git_main
+__git_complete m _mpv
+__git_complete ma _mpv
 
 ## set title
 trap __0_title DEBUG
-unset __0_pwd
+unset __0_prompt_pwd
 
 ## work
-alias _='cd /home/work'
-function 0conda {
-  if [[ 'base' != "$1" && ! -d "$HOME/opt/miniconda3/envs/$1" ]]; then
-    echo "bad conda env: $1"
-    return
-  fi
-  eval "$(command conda 'shell.bash' 'hook')"
-  conda activate $1
-}
+__0_work()
+{ local e=$(cat /home/work/src/_env/$1)
+  case "$1" in
+    0)
+      local n="node /home/work/src/$e/node_modules"
+      alias black="black --diff"
+      alias eslint="$n/eslint/bin/eslint.js"
+      #alias prettier="$n/prettier/bin-prettier.js --check"
+      alias sass="$n/sass/sass.js"
+      alias _py="cd $HOME/opt/miniconda3/envs/$e/lib/$(basename $(find $HOME/opt/miniconda3/envs/$e/lib -maxdepth 1 -type d -name 'python*' | head -1))/site-packages"
+      cd /home/work/src/$e
+      source ../_env/env$e.sh
+      0conda $e
+      ;;
+    1)
+      alias _py="cd $HOME/opt/miniconda3/envs/$e/lib/$(basename $(find $HOME/opt/miniconda3/envs/$e/lib -maxdepth 1 -type d -name 'python*' | head -1))/site-packages"
+      cd /home/work/src/$e
+      source ../_env/env$e.sh
+      0conda $e
+      ;;
+    2)
+      local n="node /home/work/src/$e/node_modules"
+      alias eslint="$n/eslint/bin/eslint.js"
+      alias prettier="$n/prettier/bin-prettier.js --check"
+      alias vitest="$n/vitest/vitest.mjs"
+      cd /home/work/src/$e
+      ;;
+  esac; }
 
+alias _='cd /home/work/src'
+alias work='__0_work 0'
+alias work_='__0_work 1'
+alias work__='__0_work 2'

@@ -22,15 +22,17 @@
   </snapping>
 
   <regions>
-    <region name="nw" x="0%"  y="0%"  width="50%"  height="50%"/>
-    <region name="ne" x="50%" y="0%"  width="50%"  height="50%"/>
-    <region name="sw" x="0%"  y="50%" width="50%"  height="50%"/>
-    <region name="se" x="50%" y="50%" width="50%"  height="50%"/>
-    <region name="c"  x="20%" y="16%" width="60%"  height="68%"/>
-    <region name="cc" x="25%" y="25%" width="50%"  height="50%"/>
-    <region name="ch" x="0%"  y="25%" width="100%" height="50%"/>
-    <region name="cv" x="25%" y="0%"  width="50%"  height="100%"/>
-    <region name="g"  x="20%" y="0%"  width="60%"  height="100%"/>
+    <region name="nw"    x="0%"  y="0%"  width="50%"  height="50%"/>
+    <region name="ne"    x="50%" y="0%"  width="50%"  height="50%"/>
+    <region name="sw"    x="0%"  y="50%" width="50%"  height="50%"/>
+    <region name="se"    x="50%" y="50%" width="50%"  height="50%"/>
+    <region name="c"     x="20%" y="16%" width="60%"  height="68%"/>
+    <region name="cc"    x="25%" y="25%" width="50%"  height="50%"/>
+    <region name="ch50"  x="0%"  y="25%" width="100%" height="50%"/>
+    <region name="cv25l" x="25%" y="0%"  width="25%"  height="100%"/>
+    <region name="cv25r" x="50%" y="0%"  width="25%"  height="100%"/>
+    <region name="cv50"  x="25%" y="0%"  width="50%"  height="100%"/>
+    <region name="cv75"  x="13%" y="0%"  width="75%"  height="100%"/>
   </regions>
 
   <desktops>
@@ -55,6 +57,7 @@
     <repeatRate>30</repeatRate>
     <repeatDelay>250</repeatDelay>
     <keybind key="W-Return"><action name="Execute" command="0t _run"/></keybind>
+    <keybind key="W-grave"><action name="Execute" command="0c nautilus -w /home/work/src/[exec cat /home/work/src/_env/0]/app"/></keybind>
     <keybind key="W-t"><action name="Execute" command="footclient"/></keybind>
     <keybind key="W-e"><action name="Execute" command="footclient kak"/></keybind>
     <keybind key="W-S-e"><action name="Execute" command="gtk-launch jetbrains-pycharm-ce"/></keybind>
@@ -128,9 +131,11 @@
     <keybind key="W-S-n"><action name="SnapToRegion" region="se"/></keybind>
     <keybind key="W-c"><action name="SnapToRegion" region="c"/></keybind>
     <keybind key="W-S-c"><action name="SnapToRegion" region="cc"/></keybind>
-    <keybind key="W-period"><action name="SnapToRegion" region="ch"/></keybind>
-    <keybind key="W-slash"><action name="SnapToRegion" region="cv"/></keybind>
-    <keybind key="W-semicolon"><action name="SnapToRegion" region="g"/></keybind>
+    <keybind key="W-semicolon"><action name="SnapToRegion" region="cv75"/></keybind>
+    <keybind key="W-apostrophe"><action name="SnapToRegion" region="ch50"/></keybind>
+    <keybind key="W-comma"><action name="SnapToRegion" region="cv25l"/></keybind>
+    <keybind key="W-period"><action name="SnapToRegion" region="cv25r"/></keybind>
+    <keybind key="W-slash"><action name="SnapToRegion" region="cv50"/></keybind>
     <!--
     <keybind key=""><action name="ShowMenu" menu="client-menu"/></keybind>
     -->
@@ -285,7 +290,7 @@
       <pointerSpeed>-0.2</pointerSpeed>
     </device>
     <device category="Razer Atheris Mouse">
-      <pointerSpeed>-0.2</pointerSpeed>
+      <pointerSpeed>-0.6</pointerSpeed>
     </device>
   </libinput>
 </labwc_config>

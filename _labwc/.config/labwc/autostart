@@ -6,13 +6,15 @@ gsettings set org.gnome.desktop.interface cursor-size 64
 gsettings set org.gnome.desktop.interface font-name 'sans 10'
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita
 gsettings set org.gnome.desktop.interface icon-theme Papirus
+gsettings set org.gnome.nautilus.list-view default-visible-columns '["name"]'
 sudo light -S 30 &
 xrdb -merge $HOME/.xresources &
 
 # daemon
 0s snooze &
 0s temper &
-swaybg -m center -i $HOME/cfg/ext/back.png &
+swaybg -m center -i $HOME/cfg/external/back.png &
+swayidle -w timeout 300 '0s bye lock' &
 fnott &
 gammastep-indicator -l manual -l 50.1:14.4 -m wayland -t 5500K:5000K &
 iwgtk -i &

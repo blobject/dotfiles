@@ -238,9 +238,9 @@ outro
 #*** steps
 #
 #- level 0 ::
-#- link: dhcpcd, iwd, rc.conf, resolv.conf, tlp
+#- link: dhcpcd, iwd, rc.conf, resolv.conf, sudoers.d, tlp
 #- *fs:* root xfs, 512m vfat efi, swap as file, refind, remove grub
-#- *sec:* copy (not link!): =/etc/sudoers.d/*=
+#- *sec:* ~chmod root:root~ on =sudoers.d/* before linking
 #  - be wary of syntax and permissions
 #- *net:* dhcpcd, iwd
 #  - void installer already set up wpa_supplicant stuff, so reuse it: ~wpa_supplicant -i $dev -c /etc/wpa_supplicant/wpa_supplicant-$dev.conf~
@@ -288,7 +288,7 @@ outro
 #- *dev:*
 #  - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, mono, n, octave, openjdk, pip, r, rustup, sbcl, squeak, swi-prolog, tcllib, tk
 #  - /db:/ postgresql{,-client}, sqlite
-#  - /util:/ broot, catch2, cmake, docker, gdb, msbuild, perf, tree, valgrind
+#  - /util:/ broot, catch2, cmake, docker, gdb, msbuild, perf, rpm, tree, valgrind
 #- *app:*
 #  - /life:/ gnucash
 #  - /doc:/ foliate, gnuplot, libreoffice, pdf.js, texlive-most, zathura{djvu,pdf-mupdf,ps)

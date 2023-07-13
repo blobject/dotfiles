@@ -3,15 +3,17 @@
 ###############################################################################
 # 0s: utilities/shortcuts for the system
 
-if {{b} eq $::env(USER)} {
-  source $::env(HOME)/bin/lib.tcl
-  need notify-send rg \
-       fnottctl \
-       waylock \
-       dracut \
-       rsync xbps-query \
-       0snooze-bat 0snooze-temper snooze
-}
+set home $::env(HOME)
+if {{root} eq $::tcl_platform(user)} { set home /home/b }
+source $home/bin/lib.tcl
+unset home
+
+need notify-send rg \
+     fnottctl \
+     waylock \
+     dracut \
+     rsync xbps-query \
+     0snooze-bat 0snooze-temper snooze
 
 set SUDO /usr/bin/sudo
 
@@ -86,7 +88,18 @@ proc bye {arg} {
     k - o - lock {
       puts {0s: locking...}
       if {{w} eq $SESS} {
-        catch {exec waylock -fork-on-lock -fail-color {0xa32c2d} -init-color {0x16161d} -input-color {0x575a61}}
+        set locker waylock
+        catch {exec ps a | rg $locker | rg -qv " rg .*$locker"} _ ret
+        if {0 == [dict get $ret -code]} {
+          return
+        }
+        set args {
+          -fork-on-lock
+          -fail-color 0xa32c2d
+          -init-color 0x16161d
+          -input-color 0x575a61
+        }
+        catch {exec $locker {*}$args}
       }
     }
     e - l - q - x - logout {
@@ -450,7 +463,7 @@ proc temper {} {
 ###############################################################################
 
 set arg [lindex $::argv 0]
-if {[expr {0 eq [llength [info procs $arg]]}]} {
+if {0 == [llength [info procs $arg]]} {
   ufail {bat|bye|doze|dracut|cpu|save|snooze|temper
   bat     battery alert
   bye     stop session       lock|logout|sleep|reboot|shutdown

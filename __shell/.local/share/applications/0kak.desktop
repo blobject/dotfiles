@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=_kakoune
+Exec=foot kak %f
+TryExec=foot
+Type=Application
+Comment=Kakoune code editor
+Icon=Foot
+Categories=TerminalEmulator;Texteditor;
+StartupNotify=true
+Terminal=false

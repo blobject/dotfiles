@@ -395,7 +395,7 @@ proc weather {} {
 ###############################################################################
 
 set arg [lindex $::argv 0]
-if {[expr {0 eq [llength [info procs $arg]]}]} {
+if {0 eq [llength [info procs $arg]]} {
   ufail {btbat|cpu|lay|lum|shot|vol|weather
   btbat   get battery level of bluetooth device
   cpu     get cpu governor

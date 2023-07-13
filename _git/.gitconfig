@@ -1,6 +1,6 @@
 [user]
-  email = agaric@pm.me
   name = blobject
+  email = agaric@pm.me
   signingkey = 7CE1B930FCA3AB168E900C3336F8E00498CAB9F2
 [core]
   autocrlf = input
@@ -13,6 +13,7 @@
   df = diff
   dfs = diff --summary
   lo = log --graph --pretty=format:'%C(cyan)%h %C(yellow)%ad %C(green)%an %C(reset)%s%d'
+  lof = log -p --
   ls = ls-files
   nr = name-rev
   rb = rebase
@@ -20,5 +21,7 @@
   rs = reset
   s  = status --branch --short
   st = status
+[pager]
+  branch = false
 [log]
   date = format:%y-%m-%d %H:%M:%S

@@ -2,7 +2,7 @@ colorscheme cemant
 
 set-option global grepcmd 'rg --line-number --with-filename'
 set-option global indentwidth 2
-set-option global modelinefmt '{StatusLineInfo}%sh{test "${#kak_bufname}" ">" $(expr $(tput cols) "/" 2) && printf "${kak_bufname}" | sed "s_[^/]\+\$__" | sed "s_\([^/]\{,2\}\)[^/]*/_\1/_g" || printf "${kak_bufname}" | sed "s_[^/]\+\$__"}{black,white}%sh{printf "${kak_bufname##*/}"}{StatusLineInfo} %val{buf_line_count}/{black}%val{cursor_line}{StatusLineInfo}:{black}%val{cursor_char_column}{{context_info}} {{mode_info}}'
+set-option global modelinefmt '{StatusLineInfo}%sh{test "${#kak_bufname}" ">" $(expr $(tput cols) "/" 2) && printf "${kak_bufname}" | sed "s_[^/]\+\$__" | sed "s_\([^/]\{,2\}\)[^/]*/_\1/_g" || printf "${kak_bufname}" | sed "s_[^/]\+\$__"}{black,white}%sh{printf "${kak_bufname##*/}"}{blue}%sh{printf ${kak_opt_filetype}}{StatusLineInfo}%val{buf_line_count}/{black}%val{cursor_line}{StatusLineInfo}:{black}%val{cursor_char_column}{{context_info}} {{mode_info}}'
 set-option global tabstop 2
 set-option global ui_options terminal_assistant=none terminal_enable_mouse=yes terminal_set_title=yes terminal_status_on_top=yes
 
@@ -13,9 +13,11 @@ add-highlighter global/ show-matching
 add-highlighter global/ wrap
 
 define-command -buffer-completion d 'delete-buffer' -docstring 'delete current buffer'
+#define-command 0filetype 'eval %sh{ echo "echo ${kak_opt_filetype}" }' -docstring 'print filetype'
 define-command 0wrap 'add-highlighter global/ wrap' -docstring 'wrap lines'
 define-command 0nowrap 'remove-highlighter global/wrap' -docstring 'do not wrap lines'
 
+# filetype
 hook global BufCreate .* %{ evaluate-commands %sh{
   # recognise filetypes that snuck past detection/file.kak
   if test -z "${kak_opt_filetype}"; then
@@ -30,8 +32,9 @@ hook global BufCreate .*\.conf %{
 hook global BufCreate .*\.tcl %{
   set-option buffer filetype sh
 }
+
+# backup
 hook global BufWritePost .* %{
-  # backup files on write
   evaluate-commands %sh{
     case "${kak_buffile#$HOME/}" in
       *~| \
@@ -52,42 +55,67 @@ hook global BufWritePost .* %{
   }
 }
 
-map global normal <C> ''
-map global normal <a-space> ''
-map global insert <c-v> ''
-map global normal <tab>    'C'            -docstring 'copy selection on next line'
-map global normal <s-tab>  <a-,>          -docstring 'remove primary selection'
-map global normal <minus>  'vk'           -docstring 'scroll up one'
-map global normal <=>      'vj'           -docstring 'scroll down one'
-map global normal <_>      '8vk'          -docstring 'scroll up eight'
-map global normal <+>      '8vj'          -docstring 'scroll down eight'
-map global normal <'>      '_'            -docstring 'trim'
-map global normal </>      '/(?i)'        -docstring 'uncased search'
-map global normal <a-/>    <a-/>'(?i)'    -docstring 'uncased reverse search'
-map global normal <?>      '?(?i)'        -docstring 'uncased extended search'
-map global normal <a-?>    <a-?>'(?i)'    -docstring 'uncased extended reverse search'
-map global normal <space>  'h/(?i)<ret>'  -docstring 'empty out search register'
-map global normal <X>      'Jx'           -docstring 'extend to next line'
-map global normal <s-d>    'Glxd'         -docstring 'delete extended line'
-map global normal <n>      'nvc'          -docstring 'select next search pattern and center view'
-map global normal <s-n>    'Nvc'          -docstring 'extend with next search pattern and center view'
-map global normal <a-n>    <a-n>'vc'      -docstring 'select previous search pattern and center view'
-map global normal <a-s-n>  <a-s-n>'vc'    -docstring 'extend with previous search pattern and center view'
-map global normal <c-p> '!wl-paste<space>--no-newline<ret>:echo -markup "{Information}pasted from clipboard"<ret>' -docstring 'paste clipboard'
-map global normal <a-v>    <c-b>          -docstring 'scroll up page'
-map global normal <c-v>    <c-f>          -docstring 'scroll down page'
-map global normal <c-y> '<a-|>wl-copy<ret>:echo -markup "{Information}yanked to clipboard"<ret>' -docstring 'yank selection into clipboard'
-map global insert <a-d>    <esc>'Glxd'    -docstring 'delete extended line'
-map global insert <c-g>    <esc><space>   -docstring 'remove secondary selections'
-map global insert <a-g>    <esc><a-space> -docstring 'remove primary selection'
-map global insert <c-p> '<esc>!wl-paste<space>--no-newline<ret>:echo -markup "{Information}pasted from clipboard"<ret>' -docstring 'paste clipboard'
-map global insert <c-q>    <c-v>          -docstring 'raw insert'
-map global insert <a-v>    <esc><c-b>     -docstring 'scroll up page'
-map global insert <c-v>    <esc><c-f>     -docstring 'scroll down page'
+# lsp
+eval %sh{kak-lsp --kakoune -s ${kak_session}}
+set-option global lsp_hover_anchor true
+#set-option global lsp_show_hover_format 'printf %s "${lsp_info}"'
+hook global WinSetOption filetype=(css|html|json|javascript|jsx|tsx|typescript) %{
+  hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
+  hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
+  hook window -group semantic-tokens InsertIdle .* lsp-semantic-tokens
+  hook -once -always window WinSetOption filetype=.* %{
+    remove-hooks window semantic-tokens
+  }
+  lsp-enable-window
+  #lsp-auto-hover-enable
+  #lsp-auto-signature-help-enable
+  map global normal <space>   -docstring 'show hover info'         %{:lsp-hover<ret>}
+  map global normal <s-space> -docstring 'go to definition'        %{:lsp-definition<ret>}
+  map global normal <a-space> -docstring 'go to implementation'    %{:lsp-implementation<ret>}
+  map global normal <c-l>     -docstring 'enter lsp mode'          %{:enter-user-mode lsp<ret>}
+  map global insert <c-l>     -docstring 'enter lsp mode'          %{<esc>:enter-user-mode lsp<ret>}
+  map global goto   s         -docstring 'jump to document symbol' %{<esc>:lsp-goto-document-symbol<ret>}
+}
 
 # rainbow.kak
 set-option global rainbow_colors black magenta blue bright-blue cyan green yellow bright-black
 hook global WinSetOption filetype=.+ %{
   rainbow-enable-window
 }
+
+# unmap
+map global normal <C> ''
+map global normal <a-space> ''
+map global insert <c-v> ''
+# navigate
+map global normal <minus> %{vk}         -docstring 'scroll up one'
+map global normal <=>     %{vj}         -docstring 'scroll down one'
+map global normal <_>     %{8vk}        -docstring 'scroll up eight'
+map global normal <+>     %{8vj}        -docstring 'scroll down eight'
+map global normal <a-v>   %{<c-b>}      -docstring 'scroll up page'
+map global normal <c-v>   %{<c-f>}      -docstring 'scroll down page'
+map global insert <a-v>   %{<esc><c-b>} -docstring 'scroll up page'
+map global insert <c-v>   %{<esc><c-f>} -docstring 'scroll down page'
+# search
+map global normal </>     %{/(?i)}     -docstring 'uncased search'
+map global normal <a-/>   %{<a-/>(?i)} -docstring 'uncased reverse search'
+map global normal <?>     %{?(?i)}     -docstring 'uncased extended search'
+map global normal <a-?>   %{<a-?>(?i)} -docstring 'uncased extended reverse search'
+map global normal <n>     %{nvc}       -docstring 'select next search pattern and center view'
+map global normal <s-n>   %{Nvc}       -docstring 'extend with next search pattern and center view'
+map global normal <a-n>   %{<a-n>vc}   -docstring 'select previous search pattern and center view'
+map global normal <a-s-n> %{<a-s-n>vc} -docstring 'extend with previous search pattern and center view'
+# select
+map global normal <tab>   %{C}     -docstring 'copy selection on next line'
+map global normal <s-tab> %{<a-,>} -docstring 'remove copied selection'
+map global normal <'>     %{_}     -docstring 'trim'
+map global normal <X>     %{Jx}    -docstring 'extend to next line'
+# edit
+map global normal <s-d> %{glbf ;wd}  -docstring 'delete trailing whitespace'
+map global normal <a-d> %{Glxd}      -docstring 'delete extended line'
+map global normal <c-p> %{!wl-paste --no-newline<ret>:echo -markup "{Information}pasted from clipboard"<ret>} -docstring 'paste clipboard'
+map global normal <c-y> %{<a-|>wl-copy<ret>:echo -markup "{Information}yanked to clipboard"<ret>} -docstring 'yank selection into clipboard'
+map global insert <a-d> %{<esc>Glxd} -docstring 'delete extended line'
+map global insert <c-p> %{<esc>!wl-paste --no-newline<ret>:echo -markup "{Information}pasted from clipboard"<ret>} -docstring 'paste clipboard'
+map global insert <c-q> %{<c-v>}     -docstring 'raw insert'
 

@@ -131,7 +131,7 @@ alias llt='ll -t'
 #alias man='man -m /usr/lib/plan9/man'
 alias mv='mv -iv'
 alias pstree='pstree -hnp'
-alias rg='rg -L --hidden -g!*.min.js'
+alias rg='rg -L --hidden -g!*.min.js -g!*.js.map'
 alias rm='rm -i'
 alias sudo='sudo '
 alias guile='rlwrap -ci guile'
@@ -139,12 +139,9 @@ alias tclsh='rlwrap -ci tclsh'
 alias wish='rlwrap -ci wish'
 alias b='bluetoothctl'
 alias d='df -h'
-alias dk='docker'
 alias e='kak'
 alias f='free -m'
 alias g='git'
-alias m='mpv'
-alias ma='mpv --audio=no'
 alias p='ps aux'
 alias t='tmux'
 alias u='du -hs'
@@ -158,13 +155,8 @@ alias ,,,,,,,='c ../../../../../../..'
 alias ,,,,,,,,='c ../../../../../../../..'
 
 ## imports
-source /usr/share/bash-completion/completions/docker
 source /usr/share/bash-completion/completions/git
-source /usr/share/bash-completion/completions/mpv
-__git_complete dk _docker
 __git_complete g __git_main
-__git_complete m _mpv
-__git_complete ma _mpv
 
 ## set title
 trap __0_title DEBUG
@@ -174,11 +166,11 @@ unset __0_prompt_pwd
 __0_work()
 { local e=$(cat /home/work/src/_env/$1)
   case "$1" in
-    0)
+    0|2)
       local n="node /home/work/src/$e/node_modules"
       alias black="black --diff"
       alias eslint="$n/eslint/bin/eslint.js"
-      #alias prettier="$n/prettier/bin-prettier.js --check"
+      alias prettier="$n/prettier/bin-prettier.js --check"
       alias sass="$n/sass/sass.js"
       alias _py="cd $HOME/opt/miniconda3/envs/$e/lib/$(basename $(find $HOME/opt/miniconda3/envs/$e/lib -maxdepth 1 -type d -name 'python*' | head -1))/site-packages"
       cd /home/work/src/$e
@@ -190,13 +182,6 @@ __0_work()
       cd /home/work/src/$e
       source ../_env/env$e.sh
       0conda $e
-      ;;
-    2)
-      local n="node /home/work/src/$e/node_modules"
-      alias eslint="$n/eslint/bin/eslint.js"
-      alias prettier="$n/prettier/bin-prettier.js --check"
-      alias vitest="$n/vitest/vitest.mjs"
-      cd /home/work/src/$e
       ;;
   esac; }
 

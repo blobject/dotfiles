@@ -47,6 +47,7 @@
   },
   "custom/weather": {
     "interval": 2700,
+    "format-icons": {},
     "exec": "0t weather",
   },
   "cpu": {
@@ -55,6 +56,7 @@
   },
   "custom/cpufreq": {
     "interval": 20,
+    "format-icons": {},
     "exec": "0t cpu",
   },
   "temperature": {
@@ -78,10 +80,12 @@
   },
   "custom/btbatkbd": {
     "interval": 120,
+    "format-icons": {},
     "exec": "0t btbat DD:A5:E3:61:B3:96",
   },
   "custom/btbatear": {
     "interval": 60,
+    "format-icons": {},
     "exec": "0t btbat B0:F1:A3:63:0A:66",
   },
   "pulseaudio": {

@@ -2,7 +2,7 @@ colorscheme cemant
 
 set-option global grepcmd 'rg --line-number --with-filename'
 set-option global indentwidth 2
-set-option global modelinefmt '{StatusLineInfo}%sh{test "${#kak_bufname}" ">" $(expr $(tput cols) "/" 2) && printf "${kak_bufname}" | sed "s_[^/]\+\$__" | sed "s_\([^/]\{,2\}\)[^/]*/_\1/_g" || printf "${kak_bufname}" | sed "s_[^/]\+\$__"}{black,white}%sh{printf "${kak_bufname##*/}"}{blue}%sh{printf ${kak_opt_filetype}}{StatusLineInfo}%val{buf_line_count}/{black}%val{cursor_line}{StatusLineInfo}:{black}%val{cursor_char_column}{{context_info}} {{mode_info}}'
+set-option global modelinefmt '{StatusLineInfo}%sh{test "${#kak_bufname}" ">" $(expr $(tput cols) "/" 2) && printf %s "${kak_bufname}" | sed "s_[^/]\+\$__" | sed "s_\([^/]\{,2\}\)[^/]*/_\1/_g" || printf %s "${kak_bufname}" | sed "s_[^/]\+\$__"}{black,white}%sh{printf %s "${kak_bufname##*/}"}{blue} %sh{printf %s ${kak_opt_filetype}} {StatusLineInfo}%val{buf_line_count}/{black}%val{cursor_line}{StatusLineInfo}:{black}%val{cursor_char_column}{{context_info}} {{mode_info}}'
 set-option global tabstop 2
 set-option global ui_options terminal_assistant=none terminal_enable_mouse=yes terminal_set_title=yes terminal_status_on_top=yes
 
@@ -22,7 +22,7 @@ hook global BufCreate .* %{ evaluate-commands %sh{
   # recognise filetypes that snuck past detection/file.kak
   if test -z "${kak_opt_filetype}"; then
     case $(file -b --mime-type -L "${kak_buffile}") in
-      text/x-tcl) printf "set-option buffer filetype sh\n" ;; # no tcl atm
+      text/x-tcl) printf %s "set-option buffer filetype sh\n" ;; # no tcl atm
     esac
   fi
 } }
@@ -48,7 +48,7 @@ hook global BufWritePost .* %{
     test 2048 -lt $size && exit
     bakd="${HOME}/bak/kak"
     test -d "${bakd}" && test -w "${bakd}" \
-    || (printf "info %%{cannot write to backup directory\n${bakd}}" && exit)
+    || (printf %s "info %%{cannot write to backup directory\n${bakd}}" && exit)
     bakf="${bakd}/"$(basename ${kak_bufname})"~" # basename needed for links
     /usr/bin/diff >/dev/null 2>&1 -q "${kak_buffile}" "${bakf}" && exit
     /usr/bin/cp >/dev/null -fL "${kak_buffile}" "${bakf}"

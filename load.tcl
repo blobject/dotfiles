@@ -266,7 +266,7 @@ outro
 #  - /wm:/ cwm, labwc
 #  - (sddm,labwc:) to start sessions without logind or pam's help, create =/run/user/$UID= using =/etc/rc.local=, then set =$XDG_RUNTIME_DIR= to it in =~/.profile= (=~/.bashrc=, =~/.bash_profile=, =~/.profile= logic can be confusing)
 #- *edit:*
-#  - emacs, kakoune, vim
+#  - emacs, kak-lsp, kakoune, python-lsp, vim
 #- *util:*
 #  - /fs:/ jmtpfs, lftp, ntfs-3g, rsync
 #  - /look:/ gammastep-indicator, kanshi, light, xrandr
@@ -313,6 +313,8 @@ outro
 #- kernel
 #  - modularise (for boot + init)
 #    - dm-crypt, raid, audio, bluetooth (usb, bnep, rfcomm, etc.), ASIX usb ethernet, builtin wifi
+#- node, npm
+#  - typescript-language-server, vscode-{css,html,json}-languageserver
 #- win dualboot
 #  - timezone: configure win to be UTC
 #  - battery threshold: configure thresholds via matebook applet on win

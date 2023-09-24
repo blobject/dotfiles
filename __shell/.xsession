@@ -11,7 +11,7 @@ xset fp rehash r rate 250 30 &
 
 # daemon
 { 0s snooze & } &
-{ 0s temper & } &
+#{ 0s temper & } &
 { iwgtk -i & } &
 { pipewire & } &
 { sleep 1 && polybar 0bar & } &

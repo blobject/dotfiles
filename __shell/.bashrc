@@ -106,7 +106,7 @@ alias 0cam='mpv av://v4l2:/dev/video0 --profile=low-latency --untimed'
 alias 0clock='echo "$(date +%s) $(TZ=UTC date)"; echo "Prague:    $(date)"; echo "Reykjavik: $(TZ=Atlantic/Reykjavik date)"; echo "Riyadh:    $(TZ=Asia/Riyadh date)"; echo "Seoul:     $(TZ=Asia/Seoul date)"'
 alias 0ear='bluetoothctl connect B0:F1:A3:63:0A:66'
 alias 0fonts="pango-list | grep '^[^ ]' | sort | pr -2 -T"
-alias 0ip='wget -qO - https://ipinfo.io/ip'
+alias 0ip='curl https://ipinfo.io/ip; echo'
 #alias 0mixon='pactl load-module module-loopback'
 #alias 0mixoff='pactl unload-module module-loopback'
 #alias 0proxy='ssh -CND 8815 as'
@@ -120,6 +120,7 @@ alias bc='bc -l'
 alias cp='cp -iv'
 alias dmesg='dmesg --color=always'
 alias fd='fd --hidden --no-ignore'
+alias glances='glances --theme-white'
 alias le='less'
 alias ls='ls --color=auto --time-style=long-iso'
 alias lsn='fd . --exclude "\\.git/" --ignore --print0 --type file | xargs -0 stat --format "%Y :%y %n" | sort -nr | cut -d: -f2-'
@@ -140,7 +141,7 @@ alias wish='rlwrap -ci wish'
 alias b='bluetoothctl'
 alias d='df -h'
 alias e='kak'
-alias f='free -m'
+alias f='free -h'
 alias g='git'
 alias p='ps aux'
 alias t='tmux'
@@ -165,21 +166,22 @@ unset __0_prompt_pwd
 ## work
 __0_work()
 { local e=$(cat /home/work/src/_env/$1)
+  local d=/home/work/src/$e
   case "$1" in
     0|2)
-      local n="node /home/work/src/$e/node_modules"
+      local n="node $d/node_modules"
       alias black="black --diff"
-      alias eslint="$n/eslint/bin/eslint.js"
-      alias prettier="$n/prettier/bin-prettier.js --check"
-      alias sass="$n/sass/sass.js"
+      alias eslint="NODE_OPTIONS=--max-old-space-size=4096 $n/eslint/bin/eslint.js -c $d/.eslintrc.cjs --ext .js,.jsx,.ts,.tsx"
+      alias prettier="$n/prettier/bin-prettier.js"
+      alias tsc="$n/typescript/bin/tsc --noemit"
       alias _py="cd $HOME/opt/miniconda3/envs/$e/lib/$(basename $(find $HOME/opt/miniconda3/envs/$e/lib -maxdepth 1 -type d -name 'python*' | head -1))/site-packages"
-      cd /home/work/src/$e
+      cd $d
       source ../_env/env$e.sh
       0conda $e
       ;;
     1)
       alias _py="cd $HOME/opt/miniconda3/envs/$e/lib/$(basename $(find $HOME/opt/miniconda3/envs/$e/lib -maxdepth 1 -type d -name 'python*' | head -1))/site-packages"
-      cd /home/work/src/$e
+      cd $d
       source ../_env/env$e.sh
       0conda $e
       ;;

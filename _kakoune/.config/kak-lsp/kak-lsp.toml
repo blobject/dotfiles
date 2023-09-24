@@ -28,6 +28,13 @@ roots = ["package.json"]
 command = "json-languageserver"
 args = ["--stdio"]
 
+#[language.python]
+#filetypes = ["python"]
+#roots = ["requirements.txt", "setup.py", ".git", ".hg"]
+#command = "pylsp"
+#settings_section = "_"
+#[language.python.settings._]
+
 [semantic_tokens]
 faces = [
     {face="documentation", token="comment", modifiers=["documentation"]},

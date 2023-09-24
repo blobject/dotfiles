@@ -110,20 +110,20 @@ proc bye {arg} {
     }
     z - sleep - suspend {
       puts {0s: sleeping...}
-      sync
+      #sync
       exec $SUDO /bin/zzz
     }
     b - r - reboot {
       puts {0s: rebooting...}
       save
-      sync
+      #sync
       kill
       exec $SUDO /bin/reboot
     }
     h - s - shutdown {
       puts {0s: shutting down...}
       save
-      sync
+      #sync
       kill
       exec $SUDO /bin/halt
     }
@@ -373,7 +373,7 @@ proc snooze {} {
     }
   }
   dream bat
-  dream temper
+  #dream temper
 }
 
 ###############################################################################

@@ -12,7 +12,7 @@ xrdb -merge $HOME/.xresources &
 
 # daemon
 0s snooze &
-0s temper &
+#0s temper &
 swaybg -m center -i $HOME/cfg/external/back.png &
 swayidle -w timeout 300 '0s bye lock' &
 fnott &

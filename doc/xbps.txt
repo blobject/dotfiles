@@ -1,14 +1,18 @@
-normal use:
+everyday use:
 - update: xbps-install -Su
 - install: xbps-install -S PKG
 - search: xbps-query -Rs STR (f=files,x=deps,X=revdeps)
 - remove: xbps-remove -R PKG
 - remove orphans: xbps-remove -Oo
 
+more use:
+- find package that owns file: xlocate FILE
+- chroot: xchroot DIR
+
 downgrade:
 - clone void-linux/void-packages
 - ./xbps-src binary-bootstrap
 - checkout older repo state
 - ./xbps-src -N pkg PACKAGE
-- xbps-remove -F PACKAGEcur
+- xbps-remove -F PACKAGE_CUR
 - xbps-install --repository hostdir/binpkgs PACKAGE

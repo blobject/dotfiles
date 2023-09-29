@@ -1,0 +1,24 @@
+windows install
+- make sure microsoft account recognises windows license
+- download windows 11 iso
+- use something like WinToUSB to install iso onto external ssd
+- boot into bios settings
+  - disable secure boot, presence detection, wan
+  - swap fn<->ctrl
+- boot into usb win (enter -> f12 on boot)
+- create new local account, delete first (ms) account
+- windows update
+- install lenovo vantage, then update
+- install hsnt
+- install powertoys
+- check antivirus
+- windows setting
+  - disable most stuff like detection, tracking, ai
+  - mouse sensitivity
+- control panel
+  - disable sleep button (disables fn-4 sleep)
+- regedit
+  - disable fn-tab magnify
+- powertoys
+  - change caps->ctrl
+- all the little personalisations

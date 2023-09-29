@@ -12,11 +12,11 @@ xrdb -merge $HOME/.xresources &
 
 # daemon
 0s snooze &
-#0s temper &
+0s temper &
 swaybg -m center -i $HOME/cfg/external/back.png &
-swayidle -w timeout 300 '0s bye lock' &
+swayidle -w timeout 600 '0s bye lock' &
 fnott &
-gammastep-indicator -l manual -l 50.1:14.4 -m wayland -t 5500K:5000K &
+gammastep-indicator -l manual -l 50.1:14.4 -m wayland -t 5500K:4800K &
 iwgtk -i &
 kanshi &
 pipewire &
@@ -24,4 +24,4 @@ pipewire &
 { sleep 3; blueman-applet; } &
 { sleep 3; wireplumber; } &
 { sleep 4; waybar; } &
-
+# eof

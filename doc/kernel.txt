@@ -7,8 +7,8 @@ compile:
  5. copy ./arch/x86_64/boot/bzImage to esp/vmlinuz-VER
  6. copy ./System.map to esp/System.map-VER
  7. `make [CC=clang HOSTCC=clang] modules_install`
- 8. `dracut -i /lib/firmware/i915/kbl_dmc_ver1_04.bin /lib/firmware/i915/kbl_dmc_ver1_04.bin -i /lib/firmware/i915/kbl_guc_49.0.1.bin /lib/firmware/i915/kbl_guc_49.0.1.bin -i /lib/firmware/i915/kbl_huc_4.0.0.bin /lib/firmware/i915/kbl_huc_4.0.0.bin -i /lib/firmware/intel/ibt-17-16-1.ddc /lib/firmware/intel/ibt-17-16-1.ddc -i /lib/firmware/intel/ibt-17-16-1.sfi /lib/firmware/intel/ibt-17-16-1.sfi -i /lib/firmware/iwlwifi-9000-pu-b0-jf-b0-46.ucode /lib/firmware/iwlwifi-9000-pu-b0-jf-b0-46.ucode --force -o "btrfs crypt dm lvm lunmask mdraid" esp/initramfs-VER.img VER`
- 9. check esp/refind_linux.conf
+ 8. `dracut -i path_to_fw path_to_fw [-i ...] --force -o "btrfs crypt dm lvm" /boot/initramfs-VER.img VER`
+ 9. check /boot/refind_linux.conf
   - `mkrlconf`
   - i915.enable_fbc=1
   - i915.enable_guc=2

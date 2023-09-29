@@ -282,10 +282,14 @@
       <naturalScroll>no</naturalScroll>
       <pointerSpeed>0.5</pointerSpeed>
     </device>
-    <device category="ELAN962C:00 04F3:30D0 Touchpad">
+    <device category="ELAN0670:00 04F3:3150 Touchpad">
       <naturalScroll>yes</naturalScroll>
       <tap>yes</tap>
       <tapButtonMap>lrm</tapButtonMap>
+    </device>
+    <device category="TPPS/2 Elan TrackPoint">
+      <naturalScroll>yes</naturalScroll>
+      <pointerSpeed>-0.2</pointerSpeed>
     </device>
     <device category="Xtrfy Xtrfy Wireless Receiver">
       <pointerSpeed>-0.4</pointerSpeed>

@@ -1,4 +1,4 @@
-PARTLABEL=boot /boot vfat  defaults 0 2
-LABEL=root     /     xfs   defaults 0 0
-tmpfs          /tmp  tmpfs defaults,nosuid,nodev 0 0
-/swap          none  swap  defaults 0 0
+LABEL=BOOT /boot vfat  defaults 0 2
+LABEL=root /     xfs   defaults 0 0
+tmpfs      /tmp  tmpfs defaults,nosuid,nodev 0 0
+/swap      none  swap  defaults 0 0

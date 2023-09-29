@@ -3,9 +3,9 @@
 #.emacs.d
 set fend {
   .config/broot
-  .config/mpv
   .icons
   .local/share/applications
+  .local/share/icons/hicolor/scalable/apps
   .mozilla/firefox
   .themes/0theme/openbox-3
   bin

@@ -1,20 +1,18 @@
 colors:
 - .config/foot/foot*.ini
-- .config/mako/config
+- .config/fnott/fnott.ini
 - .config/waybar/style.css
 - .emacs.d/init.el
 - .themes/0theme/openbox-3/themerc
 - .xresources
 
 cursor:
-- /etc/sddm.d/*.conf
 - .icons/default/index.theme
 - .profile
 - .gtkrc-2.0
 - .config/gtk-3.0/settings.ini
 
 hidpi (& font size):
-- /etc/sddm.d/*.conf
 - .config/foot/foot*.ini
 - .config/fnott/fnott.ini
 - .config/labwc/autostart

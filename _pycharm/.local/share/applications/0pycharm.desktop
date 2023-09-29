@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=PyCharm Community
+Exec=pycharm %f
+Type=Application
+Comment=The Python IDE for Professional Developers
+Icon=pycharm
+Categories=Development;
+StartupNotify=true
+Terminal=false

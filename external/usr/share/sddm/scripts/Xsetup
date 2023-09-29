@@ -1,6 +1,0 @@
-#!/bin/sh
-# Xsetup - run as root before the login dialog appears
-
-setxkbmap hsnt
-xset r rate 250 30
-

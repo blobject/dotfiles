@@ -1,0 +1,11 @@
+[terminal]
+vt = "next"
+
+[default_session]
+command = "tuigreet --cmd labwc 2> /tmp/wayland.log"
+user = "_greeter"
+
+[initial_session]
+command = "labwc"
+user = "b"
+

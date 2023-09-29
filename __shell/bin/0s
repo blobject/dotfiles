@@ -110,25 +110,25 @@ proc bye {arg} {
     }
     z - sleep - suspend {
       puts {0s: sleeping...}
-      #sync
+      sync
       exec $SUDO /bin/zzz
     }
-    b - r - reboot {
+    b - r - restart - reboot {
       puts {0s: rebooting...}
       save
-      #sync
+      sync
       kill
       exec $SUDO /bin/reboot
     }
-    h - s - shutdown {
+    h - s - halt - shutdown {
       puts {0s: shutting down...}
       save
-      #sync
+      sync
       kill
       exec $SUDO /bin/halt
     }
     default {
-      ufail {bye k|o|lock | e|l|q|x|logout | z|sleep|suspend | b|r|reboot | h|s|shutdown}
+      ufail {bye k|o|lock | e|l|q|x|logout | z|sleep|suspend | b|r|restart|reboot | h|s|halt|shutdown}
     }
   }
 }
@@ -227,22 +227,30 @@ proc doze {{sec 60}} {
 proc dracut {ver} {
   global SUDO
 
+  set fw_bt intel/ibt-19-0-4
+  set fw_bt_e_fw rtl_bt/rtl8761bu_fw.bin
+  set fw_bt_e_cfg rtl_bt/rtl8761bu_config.bin
+  set fw_gfx_dmc i915/tgl_dmc_ver2_12.bin
+  set fw_gfx_guc i915/tgl_guc_70.1.1.bin
+  set fw_gfx_huc i915/tgl_huc_7.9.3.bin
+  set fw_wifi iwlwifi-QuZ-a0-hr-b0-77.ucode
+
   set dir /lib/firmware
       #-i $::env(HOME)/opt/firmware/rtl8761bu_fw $d/rtl_bt/rtl8761bu_fw.bin \
       #-i $::env(HOME)/opt/firmware/rtl8761bu_config $d/rtl_bt/rtl8761bu_config.bin \
   try {
     exec -- >@stdout $SUDO /usr/bin/dracut \
-      -i $dir/i915/kbl_dmc_ver1_04.bin $dir/i915/kbl_dmc_ver1_04.bin \
-      -i $dir/i915/kbl_guc_70.1.1.bin $dir/i915/kbl_guc_70.1.1.bin \
-      -i $dir/i915/kbl_huc_4.0.0.bin $dir/i915/kbl_huc_4.0.0.bin \
-      -i $dir/intel/ibt-17-16-1.ddc $dir/intel/ibt-17-16-1.ddc \
-      -i $dir/intel/ibt-17-16-1.sfi $dir/intel/ibt-17-16-1.sfi \
-      -i $dir/iwlwifi-9000-pu-b0-jf-b0-46.ucode $dir/iwlwifi-9000-pu-b0-jf-b0-46.ucode \
-      -i $dir/rtl_bt/rtl8761bu_fw.bin $dir/rtl_bt/rtl8761bu_fw.bin \
-      -i $dir/rtl_bt/rtl8761bu_config.bin $dir/rtl_bt/rtl8761bu_config.bin \
+      -i $dir/$fw_bt.ddc $dir/$fw_bt.ddc \
+      -i $dir/$fw_bt.sfi $dir/$fw_bt.sfi \
+      -i $dir/$fw_bt_e_fw $dir/$fw_bt_e_fw \
+      -i $dir/$fw_bt_e_cfg $dir/$fw_bt_e_cfg \
+      -i $dir/$fw_gfx_dmc $dir/$fw_gfx_dmc \
+      -i $dir/$fw_gfx_guc $dir/$fw_gfx_guc \
+      -i $dir/$fw_gfx_huc $dir/$fw_gfx_huc \
+      -i $dir/$fw_wifi $dir/$fw_wifi \
       --force \
-      -a "crypt dm lvm resume" \
-      -o "btrfs" \
+      -a "crypt debug dm lvm" \
+      -o "btrfs resume" \
       /boot/initramfs-${ver}_c.img ${ver}_c
   } on error e { fail "$e" }
 }
@@ -373,7 +381,7 @@ proc snooze {} {
     }
   }
   dream bat
-  #dream temper
+  dream temper
 }
 
 ###############################################################################
@@ -385,7 +393,7 @@ proc temper {} {
   set where $TMPD
   set flag .unpacked
   set what mozilla/firefox
-  set name g5dqc9ek.default-default
+  set name eyck8bgi.default-default
 
   proc base {name} {
     return [lindex [file split $name] end]

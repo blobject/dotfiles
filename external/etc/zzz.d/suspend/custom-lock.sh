@@ -5,7 +5,7 @@
 locker=waylock
 ps a | grep waylock | grep -qv " grep .*$locker" && exit
 
-uid=$(ls /run/user | head -1)
+uid=1000
 home=$(getent passwd $uid | cut -d: -f6)
 user=$(id -un $uid)
 rundir=/run/user/$uid

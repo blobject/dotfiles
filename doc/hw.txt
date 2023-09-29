@@ -1,3 +1,16 @@
+wifi:
+- sluggish?
+  - /etc/modprobe.d/: options iwlwifi 11n_disable=8 [11n_disable=1] [bt_coex_active=N]
+
+bluetooth:
+1. bluetoothctl
+2. > scan on
+3. > devices
+4. > pair $dev
+5. > connect $dev
+6. > trust $dev
+7. > scan off
+
 kbd:
   - copy keymap to /usr/share/X11/xkb/symbols/
   console:

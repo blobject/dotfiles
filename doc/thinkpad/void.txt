@@ -1,0 +1,150 @@
+- create installation usb of void live
+- make sure everything ready for wipe (install win to usb, back up any purchase addons, etc.)
+
+- backup
+  - ref, bak, src, got, gnupg, ssh, fonts, gitconfig
+
+- boot into live usb
+  - connect to internet
+    - wpa_passphrase SSID PASSWORD >> /etc/wpa_supplicant/wpa_supplicant-FOONETIF.conf
+    - wpa_supplicant -B -iwlo1 -c/etc/wpa_supplicant/wpa_supplicant-FOONETIF.conf
+
+- create filesystem layout
+  - crypt, lvm
+    - fill entire disk with uniform nonsense (cryptsetup luksFormat ...) (see linux partition below)
+    - fill luks header with random (dd ... urandom ...)
+    - create gpt filesystem with 1G first efi partition
+    - create linux partition with rest
+    - cryptsetup on linux partition
+      - cryptsetup luksFormat --hash=sha512 --key-size=512 --cipher=aes-xts-plain64 --verify-passphrase /dev/nvme0n1p2
+      - cryptsetup luksOpen /dev/nvme0n1p2 FOONAME
+    - create logical volume
+      - vgcreate FOONAME /dev/mapper/FOONAME
+      - lvcreate --name root -l 100%FREE void
+    - format partitions
+      - mkfs.xfs -L root /dev/FOONAME/root
+      - mkfs.vfat -n efi /dev/nvme0n1p1
+    - mount partitions
+      - mount /dev/FOONAME/root /mnt
+      - mount /dev/nvme0n1p1 /mnt/boot/efi
+
+- install system
+  - copy rsa keys
+    - cp /var/db/xbps/keys/* /mnt/var/db/xbps/keys/
+  - install packages
+    - xbps-install -Sy -R https://repo-default.voidlinux.org/current -r /mnt base-system cryptsetup lvm2 refind xtools
+  - chroot
+    - xchroot /mnt
+  - luks key
+    - generate random key (dd bs=1 count=64 if=
+
+- configure initial system
+  - root
+    - chown root:root /
+    - chmod 755 /
+    - passwd root
+  - hostname
+    - echo c > /etc/hostname
+  - locale (glibc only)
+    - echo 'LANG=en_US.UTF-8' > /etc/locale.conf
+    - echo 'en_US.UTF-8 UTF-8' >> /etc/default/libc-locales
+    - xbps-reconfigure -f glibc-locales
+  - filesystem
+    - /etc/fstab
+  - bootloader
+    - refind-install
+    - edit /boot/refind-linux.conf
+
+- reboot
+
+- initialise system
+  - (temp) connect to internet again
+    - wpa_passphrase SSID PASSWORD > /etc/wpa_supplicant/wpa_supplicant-FOONETIF.conf
+    - wpa_supplicant -B -iwlo1 -c/etc/wpa_supplicant/wpa_supplicant-FOONETIF.conf
+    - ln -s /etc/sv/{wpa_supplicant,dhcpcd} /var/service
+  - update xbps
+    - void-repo-multilib, void-repo-multilib-nonfree, void-repo-nonfree
+    - xbps-install -Su
+  - add first user
+    - useradd -m -g users -G wheel,tape,floppy,lp,dialout,audio,video,cdrom,optical,scanner,kvm,xbuilder FOOUSER
+    - passwd b
+    - visudo (or add wheel config to sudoers.d)
+
+- configure level 0 (base)
+  - install level 0
+    - bash-completion, chrony, intel-ucode, iwd, socklog-void
+    - fd, git, lz4, ripgrep, rlwrap, rsync, stow, tcl, tmux, unzip, xz, zip
+  - enable services
+    - iwd (disable wpa_supplicant), dbus, dhcpcd, lvmetad, nanoklogd, ntpd, socklog-unix, uuidd
+  - connect to wifi (iwctl)
+  - copy over gnupg, ssh
+  - dotfiles
+    - (temp) copy over .gitconfig
+    - really clone dotfiles
+  - dotfiles-related
+    - get hsnt, change keycode 58 (caps) to Control
+    - link hsnt
+    - get cemant
+    - link etc/rc.*
+  - configure refind
+    - /boot/refind_linux.conf, /boot/EFI/refind/refind.conf
+  - make swap file
+    - dd if=/dev/zero of=/swap bs=1M count=24k
+    - chmod 0600 /swap
+    - mkswap -L swap -U clear /swap
+    - swapon & /etc/fstab
+
+- install level 1
+  - install (power, bt, gfx base): acpi encfs gnupg tlp blueman mesa mesa-dri mesa-vulkan-intel intel-video-accel vulkan-loader libva-utils sof-firmware seatd xorg-minimal xorg-server-xwayland foot setxkbmap xrdb xset xterm openbox labwc tuigreet
+  - remove .bash_logout
+  - link __shell, greetd
+  - (temp) copy .bashrc, .bash_profile, .profile
+  - add FOOUSER to groups: socklog,_seatd
+  - enable services
+    - greetd seatd
+    - disable agetty-tty[4-6]
+  - install (non-gfx convenience): kak-lsp kakoune vim jmtpfs lftp ntfs-3g xdg-utils lshw wev xprop
+  - copy over ref, bak, src, got, fonts
+  - install (fonts): inconsolata, sarasa, freefont, opensans
+
+- reboot
+
+- configure level 2 (dev)
+  - install level 2
+    - base-devel clang llvm elixir ghc go guile mono n octave openjdk python3-pip R rustup sbcl squeak swi-prolog tcllib tk postgresql postgresql-client sqlite cmake docker docker-compose gdb msbuild-bin perf shellcheck tree valgrind
+  - compile kernel
+    - install: {elfutils,ncurses,openssl,xfsprogs}-devel
+    - make CC=clang HOSTCC=clang -j8
+
+- configure level 2 (more)
+  - xf86-input-mtrack, gammastep-indicator, kanshi, light, xrandr, fnott,
+    iwgtk, libappindicator, polybar, psmisc, snooze, waybar, waylock, tofi,
+    wl-clipboard, pipewire, ffmpeg, mpv, alsa-pipewire, gstreamer1-pipewire,
+    libspa-bluetooth, libspa-ffmpeg, libspa-vulkan, xdg-desktop-portal-wlr,
+    ponymix, pavucontrol, qt5-wayland, xeyes, nautilus, gnucash, foliate,
+    gnuplot, libreoffice, pdf.js, texlive-most, zathura-{djvu,pdf-mupdf,ps},
+    blender, gimp, imv, inkscape, grim, screenkey, slurp, swappy,
+    wf-recorder, breeze-snow-cursor-theme, papirus-icon-theme, swaybg,
+    chrome, firefox, cataclysm-dda, fontforge, fontmatrix, qemu,
+    ttfautohint, swayidle
+  - firefox config
+    - search engines: mycroft project: g, ddg, w, d, t, u, e, l, m, y
+    - extensions: react, simple tab groups, translate web pages, ublock origin, video downloadhelper
+    - about:config
+      + gfx.x11-egl.force-enabled, gfx.webrender.all, gfx.webrender.compositor, gfx.webrender.compositor.force-enabled, media.ffmpeg.vaapi.enabled, toolkit.legacyUserProfileCustomizations.stylesheets
+      - media.ffvpx.enabled, media.rdd-ffvpx.enabled, media.rdd-vpx.enabled
+      = browser.uidensity
+    - log into all web services and configure as necessary
+  - stow all
+  - make sure all configs, services, hotkeys work
+
+- reboot
+
+- for work
+  - install: miniconda, postgresql-client, postgresql-libs-devel, pycharm
+  - pip: poetry
+  - n: N_PREFIX=$HOME/.n, PATH=...:$HOME/.n, n latest
+
+todo:
+- i915.enable_fbc=1 .enable_psr=0 .enable_guc=2
+- etc: acpi

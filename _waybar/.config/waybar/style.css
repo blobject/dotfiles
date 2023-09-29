@@ -5,7 +5,7 @@ window#waybar.hidden { opacity: 0.2; }
 /* font */
 #workspaces button {
   font-family: "Font Awesome 5 Pro Light";
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
 }
 #workspaces button.active,
@@ -30,7 +30,7 @@ window#waybar.hidden { opacity: 0.2; }
 }
 #taskbar button {
   font-family: sans;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
 }
 #pulseaudio {
@@ -40,7 +40,7 @@ window#waybar.hidden { opacity: 0.2; }
 }
 #tray {
   font-family: sans;
-  font-size: 26px;
+  font-size: 22px;
 }
 /* spacing */
 #workspaces,

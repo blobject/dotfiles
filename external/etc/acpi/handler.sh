@@ -21,10 +21,8 @@ setspeed="/sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed"
 
 case "$1" in
     # custom start
-    ABBC0F5C-8EA1-)    case "$2" in 000000a0) ;; esac ;;
-    processor)         case "$2" in LNXCPU:*) ;; esac ;;
-    button/volumedown) case "$2" in VOLDN)    ;; esac ;;
-    button/volumeup)   case "$2" in VOLUP)    ;; esac ;;
+    #ibm/hotkey) case "$2" in LEN0268:00) ;; esac ;;
+    #cd/play2)   case "$2" in CDPLAY2) ;; esac ;;
     # custom end
     button/power)
         case "$2" in
@@ -59,7 +57,6 @@ case "$1" in
                     ;;
                 esac
                 ;;
-            ACPI0003:00) ;; # custom
             *)  logger "ACPI action undefined: $2" ;;
         esac
         ;;
@@ -75,7 +72,6 @@ case "$1" in
                 ;;
             CPU0)
                 ;;
-            PNP0C0A:00) ;; # custom
             *)  logger "ACPI action undefined: $2" ;;
         esac
         ;;

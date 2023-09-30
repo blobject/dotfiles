@@ -77,38 +77,42 @@ window#waybar.hidden { opacity: 0.2; }
 /* spacing: left */
 #workspaces { margin-left: 2px; }
 #taskbar { margin-left: 4px; }
-#taskbar button { margin-right: 12px; }
+#taskbar button { margin-right: 10px; }
 #clock,
 #cpu,
 #memory,
 #disk,
 #backlight {
-  margin-left: 12px;
+  margin-left: 10px;
 }
-#temperature { margin-left: 0; }
-#tray { margin-left: 8px; }
+#temperature,
+#idle_inhibitor.deactivated { margin-left: 0; }
+#idle_inhibitor { margin-left: 1px; }
+#tray { margin-left: 6px; }
 /* spacing: right */
 #workspaces,
-#workspaces button { margin-right: 6px; min-width: 24px; }
+#workspaces button { margin-right: 5px; min-width: 20px; }
 #clock,
-#custom-weather,
 #memory,
 #disk,
+#backlight,
 #pulseaudio {
-  margin-right: 12px;
+  margin-right: 10px;
 }
+#custom-weather,
 #custom-btbatkbd,
 #custom-btbatear {
   margin-right: 8px;
 }
-#temperature { margin-right: 10px; }
+#temperature { margin-right: 6px; }
 #battery {
-  margin: 0 8px;
+  margin: 0 8px 0 6px;
 }
-#backlight { margin-right: 24px; }
+#idle_inhibitor { margin-right: 20px; }
+#idle_inhibitor.deactivated { margin-right: 18px; }
 #battery.charging,
 #battery.plugged {
-  margin: 0 12px;
+  margin: 0 10px;
 }
 /* spacing: bottom */
 #custom-weather,
@@ -140,13 +144,13 @@ window#waybar.hidden { opacity: 0.2; }
   box-shadow: none;
   text-shadow: none;
 }
-#workspaces button#wlr-workspace-1.active { color: #ba8d3b; }
-#workspaces button#wlr-workspace-2.active { color: #ba59b3; }
-#workspaces button#wlr-workspace-3.active { color: #72a336; }
-#workspaces button#wlr-workspace-4.active { color: #667ad3; }
+#workspaces button#wlr-workspace-1.active,
 #workspaces button#wlr-workspace-1.focused { color: #ba8d3b; }
+#workspaces button#wlr-workspace-2.active,
 #workspaces button#wlr-workspace-2.focused { color: #ba59b3; }
+#workspaces button#wlr-workspace-3.active,
 #workspaces button#wlr-workspace-3.focused { color: #72a336; }
+#workspaces button#wlr-workspace-4.active,
 #workspaces button#wlr-workspace-4.focused { color: #667ad3; }
 #taskbar button image { opacity: 0.4; }
 #taskbar button:hover image { opacity: 1; }
@@ -168,13 +172,15 @@ window#waybar.hidden { opacity: 0.2; }
 #temperature                                { color: #425fbb; }
 #memory                                     { color: #4e7a67; }
 #disk                                       { color: #67823d; }
-#backlight                                  { color: #899012; }
+#backlight,
+#idle_inhibitor                             { color: #899012; }
 #custom-btbatkbd,
 #custom-btbatear,
 #pulseaudio                                 { color: #a46738; }
 #battery         { background-color: #36383f; color: #92959d; }
 #battery.warning:not(.charging)             { color: #d2d6de; }
 #battery.critical:not(.charging)            { color: #cf554d; }
+#idle_inhibitor.deactivated,
 #battery.charging,
 #battery.plugged                            { color: #575a61; }
 

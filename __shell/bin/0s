@@ -227,32 +227,9 @@ proc doze {{sec 60}} {
 proc dracut {ver} {
   global SUDO
 
-  set fw_bt intel/ibt-19-0-4
-  set fw_bt_e_fw rtl_bt/rtl8761bu_fw.bin
-  set fw_bt_e_cfg rtl_bt/rtl8761bu_config.bin
-  set fw_gfx_dmc i915/tgl_dmc_ver2_12.bin
-  set fw_gfx_guc i915/tgl_guc_70.1.1.bin
-  set fw_gfx_huc i915/tgl_huc_7.9.3.bin
-  set fw_wifi iwlwifi-QuZ-a0-hr-b0-77.ucode
-
-  set dir /lib/firmware
-      #-i $::env(HOME)/opt/firmware/rtl8761bu_fw $d/rtl_bt/rtl8761bu_fw.bin \
-      #-i $::env(HOME)/opt/firmware/rtl8761bu_config $d/rtl_bt/rtl8761bu_config.bin \
-  try {
-    exec -- >@stdout $SUDO /usr/bin/dracut \
-      -i $dir/$fw_bt.ddc $dir/$fw_bt.ddc \
-      -i $dir/$fw_bt.sfi $dir/$fw_bt.sfi \
-      -i $dir/$fw_bt_e_fw $dir/$fw_bt_e_fw \
-      -i $dir/$fw_bt_e_cfg $dir/$fw_bt_e_cfg \
-      -i $dir/$fw_gfx_dmc $dir/$fw_gfx_dmc \
-      -i $dir/$fw_gfx_guc $dir/$fw_gfx_guc \
-      -i $dir/$fw_gfx_huc $dir/$fw_gfx_huc \
-      -i $dir/$fw_wifi $dir/$fw_wifi \
-      --force \
-      -a "crypt debug dm lvm" \
-      -o "btrfs resume" \
-      /boot/initramfs-${ver}_c.img ${ver}_c
-  } on error e { fail "$e" }
+  exec -- >@stdout 2>@stderr $SUDO /usr/bin/dracut \
+    --force \
+    /boot/initramfs-${ver}_c.img ${ver}_c
 }
 
 ###############################################################################

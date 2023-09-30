@@ -3,9 +3,9 @@ compile:
  1. get kernel source
  2. `make oldconfig`, `make menuconfig`
  3. `make [CC=clang HOSTCC=clang]`
- 4. have esp mounted at /boot
- 5. copy ./arch/x86_64/boot/bzImage to esp/vmlinuz-VER
- 6. copy ./System.map to esp/System.map-VER
+ 4. have ESP mounted at /boot
+ 5. copy ./arch/x86_64/boot/bzImage to ESP/vmlinuz-VER
+ 6. copy ./System.map to ESP/System.map-VER
  7. `make [CC=clang HOSTCC=clang] modules_install`
  8. `dracut -i path_to_fw path_to_fw [-i ...] --force -o "btrfs crypt dm lvm" /boot/initramfs-VER.img VER`
  9. check /boot/refind_linux.conf

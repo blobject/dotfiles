@@ -314,7 +314,7 @@ outro
 #  - modularise (for boot + init)
 #    - dm-crypt, raid, audio, bluetooth (usb, bnep, rfcomm, etc.), ASIX usb ethernet, builtin wifi
 #- node, npm
-#  - typescript-language-server, vscode-{css,html,json}-languageserver
+#  - typescript-language-server, vscode-{css,html,json}-languageserver-bin
 #- win dualboot
 #  - timezone: configure win to be UTC
 #  - battery threshold: configure thresholds via matebook applet on win

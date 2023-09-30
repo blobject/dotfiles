@@ -1,27 +1,6 @@
-[user]
-  name = blobject
-  email = agaric@pm.me
-  signingkey = 7CE1B930FCA3AB168E900C3336F8E00498CAB9F2
-[core]
-  autocrlf = input
-  editor = kak
-[alias]
-  br = branch
-  cm = commit
-  co = checkout
-  cu = !git commit --date="$(date --utc +%Y-%m-%dT%H:%M:%S%z)"
-  df = diff
-  dfs = diff --summary
-  lo = log --graph --pretty=format:'%C(cyan)%h %C(yellow)%ad %C(green)%an %C(reset)%s%d'
-  lof = log -p --
-  ls = ls-files
-  nr = name-rev
-  rb = rebase
-  rl = reflog
-  rs = reset
-  s  = status --branch --short
-  st = status
-[pager]
-  branch = false
-[log]
-  date = format:%y-%m-%d %H:%M:%S
+[includeIf "gitdir:~/"]
+  path = ~/cfg/external/_git/gitconfig_blobject
+[includeIf "gitdir:/home/work/"]
+  path = ~/cfg/external/_git/gitconfig_work
+[include]
+  path = ~/cfg/external/_git/gitconfig_common

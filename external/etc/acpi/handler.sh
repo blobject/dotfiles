@@ -21,7 +21,7 @@ setspeed="/sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed"
 
 case "$1" in
     # custom start
-    #ibm/hotkey) case "$2" in LEN0268:00) ;; esac ;;
+    ibm/hotkey) case "$2" in LEN0268:00) ;; esac ;;
     #cd/play2)   case "$2" in CDPLAY2) ;; esac ;;
     # custom end
     button/power)

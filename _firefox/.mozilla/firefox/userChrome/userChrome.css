@@ -1,2 +1,3 @@
+/* userChrome -> PROFILE/chrome */
 #navigator-toolbox { border-bottom: 0 !important; }
 .tabbrowser-tab, .findbar-container { text-shadow: none; }

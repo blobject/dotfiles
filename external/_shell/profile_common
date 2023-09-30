@@ -1,0 +1,21 @@
+_path_prepend()
+{ case ":$PATH:" in
+    *:"$1":*) ;;
+    *) PATH="$1${PATH:+:$PATH}"
+  esac }
+
+_path_prepend "$HOME/.n/bin"
+_path_prepend "$HOME/opt/miniconda3/condabin"
+#_path_prepend "$HOME/opt/dotnet"
+_path_prepend "$HOME/.cargo/bin"
+_path_prepend "$HOME/.local/bin"
+_path_prepend "$HOME/bin" # highest priority
+unset _path_prepend
+export PATH
+
+#export DOTNET_ROOT="$HOME/opt/dotnet"
+export EDITOR=kak
+export GUILE_AUTO_COMPILE=0
+export N_PREFIX="$HOME/.n"
+
+#eof

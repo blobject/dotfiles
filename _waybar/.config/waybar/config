@@ -16,6 +16,7 @@
     "memory",
     "disk",
     "backlight",
+    "idle_inhibitor",
     //"custom/btbatkbd",
     //"custom/btbatear",
     "pulseaudio",
@@ -34,7 +35,6 @@
     },
   },
   "wlr/taskbar": {
-    "active-first": true,
     "icon-size": 22,
     "on-click": "activate",
     "on-click-right": "activate",
@@ -77,6 +77,13 @@
   "backlight": {
     "interval": 300,
     "format": " {percent}",
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": "",
+    },
   },
   "custom/btbatkbd": {
     "interval": 120,

@@ -54,7 +54,6 @@ For this reason, edit the =fend= list inside =stow.tcl=. For the above example, 
 | name | description |
 |-|-|
 | *[[__shell/bin/00][00]]* | *run* file(s) based on mimetype (like =xdg-open=) |
-| *[[__shell/bin/0a][0a]]* | *list* and *launch* =.desktop= files (dmenu companion) |
 | *[[__shell/bin/0c][0c]]* | pass *command* string to tcl |
 | *[[__shell/bin/0l][0l]]* | read *log* |
 | *[[__shell/bin/0m][0m]]* | wrap [[https://www.x.org/wiki/Projects/XRandR/][xrandr]] |

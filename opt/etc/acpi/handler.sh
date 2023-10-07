@@ -38,7 +38,7 @@ case "$1" in
             SBTN|SLPB)
                 # suspend-to-ram
                 logger "Sleep Button pressed: $2, suspending..."
-                zzz
+                zzz -S
                 ;;
             *)  logger "ACPI action undefined: $2" ;;
         esac
@@ -80,7 +80,7 @@ case "$1" in
             close)
                 # suspend-to-ram
                 logger "LID closed, suspending..."
-                zzz
+                zzz -S
                 ;;
             open)
                 logger "LID opened"

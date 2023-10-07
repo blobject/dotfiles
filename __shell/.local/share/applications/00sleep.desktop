@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=_sleep / suspend
+Name=_sleep / standby / suspend
 Exec=0s bye sleep
 TryExec=0s
 Type=Application

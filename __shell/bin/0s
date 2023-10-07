@@ -108,10 +108,10 @@ proc bye {arg} {
       kill
       exec pkill [lindex [split $::env(DESKTOP_SESSION) /] end]
     }
-    z - sleep - suspend {
+    z - sleep - standby - suspend {
       puts {0s: sleeping...}
       sync
-      exec $SUDO /bin/zzz
+      exec $SUDO /bin/zzz -S
     }
     b - r - restart - reboot {
       puts {0s: rebooting...}
@@ -128,73 +128,7 @@ proc bye {arg} {
       exec $SUDO /bin/halt
     }
     default {
-      ufail {bye k|o|lock | e|l|q|x|logout | z|sleep|suspend | b|r|restart|reboot | h|s|halt|shutdown}
-    }
-  }
-}
-
-###############################################################################
-
-proc cpu {args} {
-  set gov [lindex $args 0]
-  set epb [lindex $args 1]
-  set dir /sys/devices/system/cpu
-  set fgov cpufreq/scaling_governor
-  set fepb power/energy_perf_bias
-  set govs [lsort [readfile $dir/cpu0/cpufreq/scaling_available_governors]]
-  set usage "cpu _|high|low|[string map {{ } |} $govs] \[0-15\]"
-
-  switch -- $gov {
-    {} {
-      puts "[readfile $dir/cpu0/$fgov] [readfile $dir/cpu0/$fepb]"
-      exit 0
-    }
-    h - hi - high - fast - top { set gov performance; set epb 0 }
-    l - lo - low  - slow - bot { set gov powersave; set epb 15 }
-    c { set gov conservative }
-    o { set gov ondemand }
-    w { set gov powersave }
-    p { set gov performance }
-    s { set gov schedutil }
-    u { set gov userspace }
-  }
-  if {0 > [lsearch -exact $govs $gov]} {
-    puts stderr "bad gov: $gov"
-    ufail $usage
-  }
-  if {{} ne $epb && (![string is integer $epb] || $epb < 0 || 15 < $epb)} {
-    puts stderr "bad epb: $epb"
-    ufail $usage
-  }
-
-  try {
-    exec -- >/dev/null 2>/dev/null /usr/bin/ls /root
-  } on error e { fail {sudo required} }
-
-  set cur [readfile $dir/cpu0/$fgov]
-  if {$cur eq $gov} {
-    puts "gov (NO CHANGE): $gov"
-  } else {
-    puts "gov: $cur -> $gov"
-    foreach p [glob -directory $dir {cpu[0-7]}] {
-      try {
-        set h [open "$p/$fgov" w]; puts $h $gov; close $h
-      } on error e { fail "$e" }
-    }
-  }
-
-  if {{} eq $epb} {
-    exit
-  }
-  set cur [readfile $dir/cpu0/$fepb]
-  if {$cur eq $epb} {
-    puts "epb (NO CHANGE): $epb"
-  } else {
-    puts "epb: $cur -> $epb"
-    foreach p [glob -directory $dir {cpu[0-7]}] {
-      try {
-        set h [open "$p/$fepb" w]; puts $h $epb; close $h
-      } on error e { fail "$e" }
+      ufail {bye k|o|lock | e|l|q|x|logout | z|sleep|standby|suspend | b|r|restart|reboot | h|s|halt|shutdown}
     }
   }
 }
@@ -216,7 +150,7 @@ proc doze {{sec 60}} {
     exec sleep $sec
     set perc [readfile $f]
     if {[expr {$perc < $threshold}]} {
-      exec $SUDO /bin/zzz
+      exec $SUDO /bin/zzz -S
       return
     }
   }
@@ -228,6 +162,7 @@ proc dracut {ver} {
   global SUDO
 
   exec -- >@stdout 2>@stderr $SUDO /usr/bin/dracut \
+    --conf $::env(HOME)/cfg/opt/_kernel/dracut.conf \
     --force \
     /boot/initramfs-${ver}_c.img ${ver}_c
 }
@@ -449,10 +384,9 @@ proc temper {} {
 
 set arg [lindex $::argv 0]
 if {0 == [llength [info procs $arg]]} {
-  ufail {bat|bye|doze|dracut|cpu|save|snooze|temper
+  ufail {bat|bye|doze|dracut|save|snooze|temper
   bat     battery alert
   bye     stop session       lock|logout|sleep|reboot|shutdown
- #cpu     scale cpu          _|high|low|governors [0-15]
   doze    auto sleep         [5-1800]
   dracut  compile initramfs  KERNEL_VERSION
   save    backup data

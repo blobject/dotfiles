@@ -76,7 +76,7 @@
 - configure level 0 (base)
   - install level 0
     - bash-completion, chrony, intel-ucode, iwd, socklog-void
-    - fd, git, lz4, ripgrep, rlwrap, rsync, stow, tcl, tmux, unzip, xz, zip
+    - fd, git, lz4, lzop, ripgrep, rlwrap, rsync, stow, tcl, tmux, unzip, xz, zip, zstd
   - enable services
     - iwd (disable wpa_supplicant), dbus, dhcpcd, lvmetad, nanoklogd, ntpd, socklog-unix, uuidd
   - connect to wifi (iwctl)
@@ -114,12 +114,16 @@
 
 - configure level 2 (dev)
   - install level 2
-    - base-devel clang llvm elixir ghc go guile mono n octave openjdk python3-pip R rustup sbcl squeak swi-prolog tcllib tk postgresql postgresql-client sqlite cmake docker docker-compose gdb msbuild-bin perf shellcheck tree valgrind
+    - base-devel clang llvm elixir ghc go guile mono msbuild-bin n octave openjdk python3-pip R rustup sbcl squeak swi-prolog tcllib tk postgresql postgresql-client sqlite
+    - cmake, docker[-compose], gdb, hyperfine, perf, shellcheck, tree, valgrind
   - compile kernel
     - install: {elfutils,ncurses,openssl,xfsprogs}-devel
     - compile: make CC=clang HOSTCC=clang -j8
     - initrd: 0s dracut VER
     - bootloader: /boot/*/refind*
+    - make sure modules: bt*, i915, ipvs, iwlwifi, rfcomm, snd_*
+  - rust
+    - rustup-init
 
 - configure level 2 (more)
   - xf86-input-mtrack, gammastep-indicator, kanshi, light, xrandr, fnott,
@@ -146,13 +150,18 @@
 - reboot
 
 - for work
-  - install: miniconda, postgresql-client, postgresql-libs-devel, pycharm
-  - pip: poetry
+  - install: postgresql-client, postgresql-libs-devel
+  - manual: miniconda, pycharm
+  - pip: poetry, python-lsp-server
   - n: N_PREFIX=$HOME/.n, PATH=...:$HOME/.n, n latest
   - npm: typescript-language-server, vscode-{css,html,json}-languageserver-bin
-
-todo:
-- i915.enable_fbc=1 .enable_psr=0 .enable_guc=2
+  - chrome:
+    - git clone git://github.com/void-linux/void-packages.git
+    - cd void-packages
+    - ./xbps-src binary-bootstrap
+    - etc/conf: XBPS_ALLOW_RESTRICTED=yes
+    - ./xbps-src pkg google-chrome
+    - sudo xbps-install google-chrome --repository=hostdir/binpkgs/nonfree
 
 ========================================================================
 HERE ENDS THINKPAD SETUP. next are older notes

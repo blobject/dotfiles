@@ -1,0 +1,11 @@
+[terminal]
+vt = "next"
+
+[default_session]
+command = "tuigreet --asterisks --power-reboot 'sudo /bin/reboot' --power-shutdown 'sudo /bin/shutdown' --remember --remember-session --time --width 96 --window-padding 12 --cmd /usr/bin/labwc"
+user = "_greeter"
+
+[initial_session]
+command = "/usr/bin/labwc"
+user = "b"
+

@@ -1,6 +1,6 @@
 [includeIf "gitdir:~/"]
-  path = ~/cfg/external/_git/gitconfig_blobject
+  path = ~/cfg/opt/_git/gitconfig_blobject
 [includeIf "gitdir:/home/work/"]
-  path = ~/cfg/external/_git/gitconfig_work
+  path = ~/cfg/opt/_git/gitconfig_work
 [include]
-  path = ~/cfg/external/_git/gitconfig_common
+  path = ~/cfg/opt/_git/gitconfig_common

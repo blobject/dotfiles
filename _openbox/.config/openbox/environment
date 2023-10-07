@@ -1,0 +1,5 @@
+export DESKTOP_SESSION=openbox
+export XDG_CURRENT_DESKTOP=openbox
+#export GDK_DPI_SCALE=1.75
+
+# eof

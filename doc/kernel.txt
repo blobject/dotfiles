@@ -7,14 +7,13 @@ compile:
  5. copy ./arch/x86_64/boot/bzImage to ESP/vmlinuz-VER
  6. copy ./System.map to ESP/System.map-VER
  7. `make [CC=clang HOSTCC=clang] modules_install`
- 8. `dracut -i path_to_fw path_to_fw [-i ...] --force -o "btrfs crypt dm lvm" /boot/initramfs-VER.img VER`
+ 8. `dracut` (see dracut.conf)
  9. check /boot/refind_linux.conf
   - `mkrlconf`
-  - i915.enable_fbc=1
-  - i915.enable_guc=2
-  - (intel_iommu=igfx_off)
-  - (ipv6.disable=1) (or blacklist ipv6 in /etc/modprobe)
 10. cleanup in /boot, /lib/modules
+
+params for luks on lvm
+- root=/dev/GROUP/root rd.auto rd.luks=1 rd.lvm=1 rd.luks.uuid=... rd.lvm.vg=GROUP rd.locale.LANG=en_US.UTF-8 rd.shell rd.vconsole.keymap=hsnt ro
 
 virtualbox:
 - after modules_install: `xbps-reconfigure -f virtualbox-ose-dkms`

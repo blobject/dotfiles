@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openbox_menu xmlns="http://openbox.org/3.4/menu">
+
+<menu id="root-menu" label="menu">
+  <separator label="run"/>
+  <item label="browser">
+    <action name="Execute">
+      <command>firefox</command>
+      <startupnotify><enabled>yes</enabled></startupnotify>
+    </action>
+  </item>
+  <item label="editor">
+    <action name="Execute">
+      <command>xterm -e kak</command>
+      <startupnotify><enabled>yes</enabled></startupnotify>
+    </action>
+  </item>
+  <item label="terminal">
+    <action name="Execute">
+      <command>xterm</command>
+      <startupnotify><enabled>yes</enabled></startupnotify>
+    </action>
+  </item>
+
+  <separator label="openbox"/>
+  <item label="reconfigure">
+    <action name="Reconfigure"/>
+  </item>
+
+  <separator label="bye"/>
+  <item label="lock">
+    <action name="Execute">
+      <command>0s bye lock</command>
+    </action>
+  </item>
+  <item label="logout">
+    <action name="Execute">
+      <command>0s bye logout</command>
+      <prompt>logout?</prompt>
+    </action>
+  </item>
+  <item label="sleep">
+    <action name="Execute">
+      <command>0s bye sleep</command>
+    </action>
+  </item>
+  <separator/>
+  <item label="reboot">
+    <action name="Execute">
+      <command>0s bye reboot</command>
+      <prompt>reboot?</prompt>
+    </action>
+  </item>
+  <item label="shutdown">
+    <action name="Execute">
+      <command>0s bye shutdown</command>
+      <prompt>shutdown?</prompt>
+    </action>
+  </item>
+</menu>
+
+</openbox_menu>

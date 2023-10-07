@@ -4,9 +4,10 @@ _path_prepend()
     *) PATH="$1${PATH:+:$PATH}"
   esac }
 
+_path_prepend "$HOME/opt/python/env/bin"
 _path_prepend "$HOME/.n/bin"
 _path_prepend "$HOME/opt/miniconda3/condabin"
-#_path_prepend "$HOME/opt/dotnet"
+_path_prepend "$HOME/opt/dotnet"
 _path_prepend "$HOME/.cargo/bin"
 _path_prepend "$HOME/.local/bin"
 _path_prepend "$HOME/bin" # highest priority

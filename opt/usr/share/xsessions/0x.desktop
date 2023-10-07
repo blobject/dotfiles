@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=/usr/bin/startx
+Comment=Log in to X using the Openbox
+Exec=/usr/bin/startx
+TryExec=/usr/bin/startx
+Icon=openbox
+Type=Application

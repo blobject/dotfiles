@@ -41,7 +41,7 @@ proc _firefox {} {
 proc _lum- {} {
   # for wm, replaces lum
   exec sleep 0.1
-  exec notify-send {*}[__nrep lum] -u low -i redshift-status-off lum "[exec light -G]"
+  exec notify-send {*}[__nrep lum] -u low -i redshift-status-off lum "[format %.0f [exec light -G]]"
 }
 
 ###############################################################################
@@ -49,7 +49,7 @@ proc _lum- {} {
 proc _lum+ {} {
   # for wm, replaces lum
   exec sleep 0.1
-  exec notify-send {*}[__nrep lum] -u low -i redshift-status-on lum "[exec light -G]"
+  exec notify-send {*}[__nrep lum] -u low -i redshift-status-on lum "[format %.0f [exec light -G]]"
 }
 
 ###############################################################################
@@ -81,36 +81,40 @@ proc _run {} {
 
 proc btbat {{id {}}} {
   # for waybar
-  if {{} eq $id} {
+  set k          DD:A5:E3:61:B3:96
+  set earfun     00:12:6F:EE:F0:F7
+  set sennheiser 00:1B:66:8C:6C:44
+  set jlab       07:69:A1:11:E5:5D
+  set jbl        B0:F1:A3:63:0A:66
+
+  proc die {} {
     global ME
+    upvar k k earfun earfun sennheiser sennheiser jlab jlab jbl jbl
 
     puts stderr "$ME: mac address required
   available devices:
-  EarFun Free Pro 2    00:12:6F:EE:F0:F7
-  Sennheiser CX 6.00BT 00:1B:66:8C:6C:44
-  JBL Clip 2           B0:F1:A3:63:0A:66
-  Corne keyboard       DD:A5:E3:61:B3:96"
+  k          - Corne keyboard       $k
+  earfun     - EarFun Free Pro 2    $earfun
+  sennheiser - Sennheiser CX 6.00BT $sennheiser
+  jlab       - Epic Air Sport ANC   $jlab
+  jbl        - JBL Clip 2           $jbl"
     puts {}
     exit
   }
-  catch {exec bluetoothctl info $id | rg {Connected: yes}} {} ret
-  if {0 != [dict get $ret -code]} {
-    puts {}
-    exit
-  }
+
+  try { eval set mac $$id } trap {} {} { die }
+  if {{} eq $id} { die }
+
+  catch {exec bluetoothctl info $mac | rg {Connected: yes}} {} ret
+  if {0 != [dict get $ret -code]} { puts {}; exit }
+
+  regsub -all {:} $mac {_} mac
   set icon { }
-  if {{DD:A5:E3:61:B3:96} eq $id} { set icon { } }
-  regsub -all {:} $id {_} id
-  set blue "dbus-send \
---print-reply=literal \
---system \
---dest=org.bluez \
-/org/bluez/hci0/dev_$id"
+  if {{k} eq $id} { set icon { } }
+  set blue "dbus-send --print-reply=literal --system --dest=org.bluez /org/bluez/hci0/dev_$mac"
   catch {exec {*}$blue org.freedesktop.DBus.Introspectable.Introspect | rg {Battery1}} {} ret
-  if {0 != [dict get $ret -code]} {
-    puts {}
-    exit
-  }
+  if {0 != [dict get $ret -code]} { puts {}; exit }
+
   puts "$icon[lindex [exec {*}$blue org.freedesktop.DBus.Properties.Get string:org.bluez.Battery1 string:Percentage] end]"
 }
 
@@ -381,14 +385,8 @@ proc vol {args} {
 proc weather {} {
   # for waybar
   catch {exec curl -s {https://wttr.in/?0AQT&format=%t%x}} weather ret
-  if {0 != [dict get $ret -code]} {
-    puts {}
-    exit
-  }
-  if {{U} eq [string index $weather 0]} {
-    puts {?}
-    exit
-  }
+  if {0 != [dict get $ret -code]} { puts {}; exit }
+  if {{U} eq [string index $weather 0]} { puts {?}; exit }
   regexp {^\+?([0-9]+.)C(.*)$} $weather weather deg sky
   switch -- $sky {
     o   { set sky  }

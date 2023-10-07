@@ -59,7 +59,7 @@ hook global BufWritePost .* %{
 eval %sh{kak-lsp --kakoune -s ${kak_session}}
 set-option global lsp_hover_anchor true
 #set-option global lsp_show_hover_format 'printf %s "${lsp_info}"'
-hook global WinSetOption filetype=(css|html|json|javascript|jsx|tsx|typescript) %{
+hook global WinSetOption filetype=(css|less|scss|html|json|javascript|jsx|tsx|typescript|python) %{
   hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
   hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
   hook window -group semantic-tokens InsertIdle .* lsp-semantic-tokens
@@ -111,11 +111,12 @@ map global normal <s-tab> %{<a-,>} -docstring 'remove copied selection'
 map global normal <'>     %{_}     -docstring 'trim'
 map global normal <X>     %{Jx}    -docstring 'extend to next line'
 # edit
-map global normal <s-d> %{glbf ;wd}  -docstring 'delete trailing whitespace'
-map global normal <a-d> %{Glxd}      -docstring 'delete extended line'
+map global normal <s-d> %{Glxd}      -docstring 'delete extended line'
+map global normal <a-d> %{hd}        -docstring 'reverse delete'
 map global normal <c-p> %{!wl-paste --no-newline<ret>:echo -markup "{Information}pasted from clipboard"<ret>} -docstring 'paste clipboard'
 map global normal <c-y> %{<a-|>wl-copy<ret>:echo -markup "{Information}yanked to clipboard"<ret>} -docstring 'yank selection into clipboard'
 map global insert <a-d> %{<esc>Glxd} -docstring 'delete extended line'
 map global insert <c-p> %{<esc>!wl-paste --no-newline<ret>:echo -markup "{Information}pasted from clipboard"<ret>} -docstring 'paste clipboard'
 map global insert <c-q> %{<c-v>}     -docstring 'raw insert'
 
+# eof

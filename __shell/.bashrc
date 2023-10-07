@@ -120,6 +120,7 @@ alias 0ip='curl https://ipinfo.io/ip; echo'
 #alias 0mixon='pactl load-module module-loopback'
 #alias 0mixoff='pactl unload-module module-loopback'
 #alias 0proxy='ssh -CND 8815 as'
+alias 0py='python -m env $HOME/opt/python/env'
 alias 0sec='encfs $HOME/ref/.secret $HOME/ref/secret'
 alias 0secret='fusermount -u $HOME/ref/secret'
 alias 0sshadd='ssh-add $HOME/.ssh/id_rsa'
@@ -176,27 +177,31 @@ unset __0_prompt_pwd
 
 ## work
 __0_work()
-{ local e d
-  e=$(cat /home/work/src/_env/$1)
-  d=/home/work/src/$e
+{ local _w _e _d _np _pp
+  _w=/home/work/src
+  _e="$(cat $_w/_env/$1)"
+  _d="$_w/$_e"
+  _np="node $_d/node_modules"
+  _pp="$(fd --max-depth 1 --max-results 1 --type d python $HOME/opt/miniconda3/envs/$_e/lib)/site-packages"
   case "$1" in
     0|2)
+      export NODE_OPTIONS=--max-old-space-size=8192
       local n
-      n="node $d/node_modules"
+      n=
       alias black="black --diff"
-      alias eslint="NODE_OPTIONS=--max-old-space-size=4096 $n/eslint/bin/eslint.js -c $d/.eslintrc.cjs --ext .js,.jsx,.ts,.tsx"
-      alias prettier="$n/prettier/bin-prettier.js"
-      alias tsc="$n/typescript/bin/tsc --noemit"
-      alias _py="cd $HOME/opt/miniconda3/envs/$e/lib/$(basename $(find $HOME/opt/miniconda3/envs/$e/lib -maxdepth 1 -type d -name 'python*' | head -1))/site-packages"
-      cd "$d"
-      . "../_env/env$e.sh"
-      0conda "$e"
+      alias eslint="$_np/eslint/bin/eslint.js -c $_d/.eslintrc.cjs --ext .js,.jsx,.ts,.tsx"
+      alias prettier="$_np/prettier/bin-prettier.js"
+      alias tsc="$_np/typescript/bin/tsc --noemit"
+      alias _py="cd $_pp"
+      cd "$_d"
+      . "../_env/env$_e.sh"
+      0conda "$_e"
       ;;
     1)
-      alias _py="cd $HOME/opt/miniconda3/envs/$e/lib/$(basename $(find $HOME/opt/miniconda3/envs/$e/lib -maxdepth 1 -type d -name 'python*' | head -1))/site-packages"
-      cd "$d"
-      . "../_env/env$e.sh"
-      0conda "$e"
+      alias _py="cd $_pp"
+      cd "$_d"
+      . "../_env/env$_e.sh"
+      0conda "$_e"
       ;;
   esac; }
 
@@ -205,3 +210,4 @@ alias work='__0_work 0'
 alias work_='__0_work 1'
 alias work__='__0_work 2'
 # eof
+. "$HOME/.cargo/env"

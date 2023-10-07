@@ -4,6 +4,7 @@ gsettings set org.gnome.desktop.interface cursor-size 64
 gsettings set org.gnome.desktop.interface font-name 'sans 17'
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita
 gsettings set org.gnome.desktop.interface icon-theme Papirus
+gsettings set org.gnome.nautilus.list-view default-visible-columns '["name"]'
 hsetroot -solid '#000' &
 setxkbmap hsnt &
 xrdb -merge $HOME/.xresources &
@@ -12,10 +13,12 @@ xset fp rehash r rate 250 30 &
 # daemon
 { 0s snooze & } &
 { 0s temper & } &
-{ iwgtk -i & } &
 { pipewire & } &
-{ sleep 1 && polybar 0bar & } &
-{ sleep 3 && blueman-applet & } &
+{ polybar 0bar & } &
+{ sleep 1 && pipewire-pulse & } &
+{ sleep 2 && gammastep-indicator -l manual -l 50.1:14.4 -m randr -t 5500K:4800K & } &
+{ sleep 2 && iwgtk -i & } &
+{ sleep 2 && blueman-applet & } &
 { sleep 3 && wireplumber & } &
-exec dbus-launch --exit-with-session cwm
+
 # eof

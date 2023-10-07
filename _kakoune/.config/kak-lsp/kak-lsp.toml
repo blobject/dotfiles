@@ -28,25 +28,27 @@ roots = ["package.json"]
 command = "json-languageserver"
 args = ["--stdio"]
 
-#[language.python]
-#filetypes = ["python"]
-#roots = ["requirements.txt", "setup.py", ".git", ".hg"]
-#command = "pylsp"
+[language.python]
+filetypes = ["python"]
+roots = ["requirements.txt", "setup.py", ".git", ".hg"]
+command = "pylsp"
+offset_encoding = "utf-8"
 #settings_section = "_"
 #[language.python.settings._]
+#pylsp.configurationSources = ["flake8"]
 
 [semantic_tokens]
 faces = [
-    {face="documentation", token="comment", modifiers=["documentation"]},
-    {face="comment", token="comment"},
-    {face="function", token="function"},
-    {face="keyword", token="keyword"},
-    {face="module", token="namespace"},
-    {face="operator", token="operator"},
-    {face="string", token="string"},
-    {face="type", token="type"},
-    {face="default+d", token="variable", modifiers=["readonly"]},
-    {face="default+d", token="variable", modifiers=["constant"]},
-    {face="variable", token="variable"},
+  {face="documentation", token="comment", modifiers=["documentation"]},
+  {face="comment", token="comment"},
+  {face="function", token="function"},
+  {face="keyword", token="keyword"},
+  {face="module", token="namespace"},
+  {face="operator", token="operator"},
+  {face="string", token="string"},
+  {face="type", token="type"},
+  {face="default+d", token="variable", modifiers=["readonly"]},
+  {face="default+d", token="variable", modifiers=["constant"]},
+  {face="variable", token="variable"},
 ]
 

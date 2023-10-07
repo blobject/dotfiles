@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=_work 0
+Exec=0work0
+TryExec=0work0
+Type=Application
+Comment=Construct work 0 layout
+StartupNotify=false
+Terminal=false

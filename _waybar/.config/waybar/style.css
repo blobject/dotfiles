@@ -16,7 +16,6 @@ window#waybar.hidden { opacity: 0.2; }
 #clock,
 #custom-weather,
 #cpu,
-#custom-cpufreq,
 #temperature,
 #memory,
 #disk,
@@ -49,7 +48,6 @@ window#waybar.hidden { opacity: 0.2; }
 #clock,
 #custom-weather,
 #cpu,
-#custom-cpufreq,
 #temperature,
 #memory,
 #disk,
@@ -68,7 +66,6 @@ window#waybar.hidden { opacity: 0.2; }
 /* spacing: top */
 #clock,
 #cpu,
-#custom-cpufreq,
 #custom-btbatkbd,
 #custom-btbatear,
 #pulseaudio {
@@ -96,12 +93,12 @@ window#waybar.hidden { opacity: 0.2; }
 #memory,
 #disk,
 #backlight,
+#custom-btbatkbd,
+#custom-btbatear,
 #pulseaudio {
   margin-right: 10px;
 }
-#custom-weather,
-#custom-btbatkbd,
-#custom-btbatear {
+#custom-weather {
   margin-right: 8px;
 }
 #temperature { margin-right: 6px; }
@@ -168,7 +165,6 @@ window#waybar.hidden { opacity: 0.2; }
 }
 #taskbar button:hover                       { color: #d2d6de; }
 #cpu                                        { color: #7764b5; }
-#custom-cpufreq                             { color: #6060c1; }
 #temperature                                { color: #425fbb; }
 #memory                                     { color: #4e7a67; }
 #disk                                       { color: #67823d; }

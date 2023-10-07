@@ -41,7 +41,7 @@ For this reason, edit the =fend= list inside =stow.tcl=. For the above example, 
 
 | class | instance |
 |-|-|
-| hw | [[https://psref.lenovo.com/Detail/ThinkPad_X1_Nano_Gen_1?M=20UN00FSUS][thinkpad x1 nano g1]], [[https://github.com/foostan/crkbd][corne]], [[https://xtrfy.com/mice/mz1-wireless/][mz1]], [[https://us.aoc.com/en-US/products/monitors/i1601fwux][i1601fwux]] |
+| hw | [[https://psref.lenovo.com/Detail/ThinkPad_X1_Nano_Gen_1?M=20UN00FSUS][thinkpad x1 nano g1]], [[https://github.com/foostan/crkbd][corne]], [[https://www.razer.com/ap-en/gaming-mice/razer-atheris][atheris]], [[https://xtrfy.com/mice/mz1-wireless/][mz1]], [[https://us.aoc.com/en-US/products/monitors/i1601fwux][i1601fwux]] |
 | env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://labwc.github.io/][labwc]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
 | look | 2160x1350, [[https://github.com/blobject/cemant][cemant]], [[https://picaq.github.io/sarasa/][sarasa]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]] |
 
@@ -71,7 +71,7 @@ For this reason, edit the =fend= list inside =stow.tcl=. For the above example, 
 | | | /GENERAL, MOVE, RESIZE/ |
 |-|-|-|
 | =MS-r= | | *reconfigure* |
-| =CA-\b= | | *lock* |
+| =CA-= *char* | =\b= / =\d= | *lock* / *sleep* |
 | =M/A-L= | | *resize* / *move* window |
 | =M[S]-\e= | | *close* [ or  *kill* ] window |
 | =MS-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |

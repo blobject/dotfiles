@@ -1,4 +1,5 @@
-source .bashrc
-source "$HOME/cfg/external/_shell/profile_common"
+. "$HOME/cfg/opt/_shell/profile_common"
+. .bashrc
 
 # eof
+. "$HOME/.cargo/env"

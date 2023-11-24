@@ -2,4 +2,3 @@
 . .bashrc
 
 # eof
-. "$HOME/.cargo/env"

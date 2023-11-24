@@ -1,4 +1,4 @@
 # /etc/sudoers.d/custom-sudoers
 
-b ALL=(ALL:ALL) NOPASSWD: /bin/halt, /bin/reboot, /bin/shutdown, /bin/zzz, /usr/bin/light
+b ALL=(ALL:ALL) NOPASSWD: /bin/halt, /bin/reboot, /bin/shutdown, /bin/zzz, /bin/light, /bin/tlp
 

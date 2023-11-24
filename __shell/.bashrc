@@ -185,7 +185,7 @@ __0_work()
   _pp="$(fd --max-depth 1 --max-results 1 --type d python $HOME/opt/miniconda3/envs/$_e/lib)/site-packages"
   case "$1" in
     0|2)
-      export NODE_OPTIONS=--max-old-space-size=8192
+      export NODE_OPTIONS=--max-old-space-size=25600
       local n
       n=
       alias black="black --diff"

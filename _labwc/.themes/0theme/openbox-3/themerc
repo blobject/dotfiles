@@ -31,7 +31,7 @@ menu.separator.padding.width: 8
 menu.separator.padding.height: 4
 menu.separator.color: #16161d
 
-osd.bg.color: #16161d
-osd.border.color: #575a61
+osd.bg.color: #ba8d3b
+osd.border.color: #916814
 osd.border.width: 10
-osd.label.text.color: #d2d6de
+osd.label.text.color: #16161d

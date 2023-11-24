@@ -39,4 +39,3 @@ test -z "$XDG_RUNTIME_DIR" && \
 #fi
 
 # eof
-. "$HOME/.cargo/env"

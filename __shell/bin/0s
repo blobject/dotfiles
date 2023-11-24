@@ -13,9 +13,10 @@ need notify-send rg \
      waylock \
      dracut \
      rsync xbps-query \
-     0snooze-bat 0snooze-temper snooze
+     0snooze-bat 0snooze-temper snooze \
+     tlp
 
-set SUDO /usr/bin/sudo
+set SUDO /usr/sbin/sudo
 
 ###############################################################################
 
@@ -31,11 +32,12 @@ proc _nrep {name} {
 ###############################################################################
 
 proc bat {} {
+  set title bat
   set device BAT0
   set crit 5
   set lo 20
   set hi 80
-  set notify "notify-send [_nrep bat]"
+  set notify "notify-send [_nrep $title]"
 
   set dir /sys/class/power_supply/$device
   set capacity [readfile $dir/capacity]
@@ -44,14 +46,14 @@ proc bat {} {
   switch -- [string index $status 0] {
     {D} {
       if {$capacity <= $crit} {
-        exec {*}$notify -u critical -i battery-010 bat $capacity%
+        exec {*}$notify -u critical -i battery-010 $title $capacity%
       } elseif {[expr {$lo - 5}] <= $capacity && $capacity <= $lo} {
-        exec {*}$notify -u normal -i battery-020 bat $capacity%
+        exec {*}$notify -u normal -i battery-020 $title $capacity%
       }
     }
     {C} {
       if {$hi <= $capacity && $capacity <= [expr {$hi + 2}]} {
-        exec {*}$notify -u low -i battery-080-charging bat $capacity%
+        exec {*}$notify -u low -i battery-080-charging $title $capacity%
       }
     }
   }
@@ -90,6 +92,10 @@ proc bye {arg} {
       if {{w} eq $SESS} {
         set locker waylock
         catch {exec ps a | rg $locker | rg -qv " rg .*$locker"} _ ret
+        if {0 == [dict get $ret -code]} {
+          return
+        }
+        catch {exec ps a | rg {.*0s bye lock$} | rg -qv { rg .* 0s bye lock}} _ ret
         if {0 == [dict get $ret -code]} {
           return
         }
@@ -382,16 +388,34 @@ proc temper {} {
 
 ###############################################################################
 
+proc tlp {} {
+  # for wm
+  global SUDO
+
+  set title profile
+  set gov [readfile /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor]
+  switch -- [string index $gov 1] {
+    e { set profile start; set message {tlp (auto)} }
+    o { set profile ac; set message {full (manual)} }
+    default { set profile ?; set message ? }
+  }
+  exec $SUDO tlp $profile
+  exec notify-send {*}[_nrep $title] -u low -i indicator-sensors-cpu $title $message
+}
+
+###############################################################################
+
 set arg [lindex $::argv 0]
 if {0 == [llength [info procs $arg]]} {
-  ufail {bat|bye|doze|dracut|save|snooze|temper
+  ufail {bat|bye|doze|dracut|save|snooze|temper|tlp
   bat     battery alert
   bye     stop session       lock|logout|sleep|reboot|shutdown
   doze    auto sleep         [5-1800]
   dracut  compile initramfs  KERNEL_VERSION
   save    backup data
   snooze  scheduled exec
-  temper  www data to tmpfs}
+  temper  www data to tmpfs
+  tlp     toggle tlp profile}
 }
 $arg {*}[lrange $::argv 1 end]
 

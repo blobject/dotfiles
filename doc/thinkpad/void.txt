@@ -106,7 +106,7 @@
   - enable services
     - greetd seatd
     - disable agetty-tty[4-6]
-  - install (non-gfx convenience): kak-lsp kakoune vim jmtpfs lftp ntfs-3g xdg-utils lshw wev xprop
+  - install (non-gfx convenience): kak-lsp kakoune vim jmtpfs lftp ntfs-3g xdg-utils lshw wev xprop xlsclients
   - copy over ref, bak, src, got, fonts
   - install (fonts): inconsolata, sarasa, freefont, opensans
 
@@ -126,16 +126,19 @@
     - rustup-init
 
 - configure level 2 (more)
-  - xf86-input-mtrack, gammastep-indicator, kanshi, light, xrandr, fnott,
-    iwgtk, libappindicator, polybar, psmisc, snooze, waybar, waylock, tofi,
-    wl-clipboard, pipewire, ffmpeg, mpv, alsa-pipewire, gstreamer1-pipewire,
-    libspa-bluetooth, libspa-ffmpeg, libspa-vulkan, xdg-desktop-portal-wlr,
-    ponymix, pavucontrol, qt5-wayland, xeyes, nautilus, gnucash, foliate,
-    gnuplot, libreoffice, pdf.js, texlive-most, zathura-{djvu,pdf-mupdf,ps},
-    blender, gimp, imv, inkscape, grim, screenkey, slurp, swappy,
-    wf-recorder, breeze-snow-cursor-theme, papirus-icon-theme, swaybg,
-    chrome, firefox, cataclysm-dda, fontforge, fontmatrix, qemu,
-    ttfautohint, swayidle
+  - hw: hwinfo, gammastep-indicator, kanshi, light, xf86-input-mtrack, xrandr
+  - proc: psmisc, snooze
+  - wm: breeze-snow-cursor-theme, fnott, grim, iwgtk, libappindicator,
+        qt5-wayland, papirus-icon-theme, polybar, slurp, swappy, swaybg,
+        swayidle, tofi, waybar, waylock, wl-clipboard, xdg-desktop-portal-wlr,
+        xeyes
+  - media: ffmpeg, imv, mpv, pavucontrol, pipewire, ponymix, wf-recorder,
+           alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg,
+           libspa-vulkan
+  - misc: blender, firefox, foliate, fontforge, fontmatrix, gimp, gnucash,
+          gnuplot, inkscape, libreoffice, pdf.js, qemu, screenkey,
+          texlive-most, ttfautohint, visidata, zathura-{djvu,pdf-mupdf,ps}
+  - manual (xbps): chrome
   - firefox config
     - search engines: mycroft project: g, ddg, w, d, t, u, e, l, m, y
     - extensions: react, simple tab groups, translate web pages, ublock origin, video downloadhelper
@@ -162,6 +165,12 @@
     - etc/conf: XBPS_ALLOW_RESTRICTED=yes
     - ./xbps-src pkg google-chrome
     - sudo xbps-install google-chrome --repository=hostdir/binpkgs/nonfree
+
+- games
+  - cataclysm-dda
+  - steam
+    - xdg-user-dir
+    - {libgcc,libstdc++,libdrm,libglvnd,mesa-dri}-32bit
 
 ========================================================================
 HERE ENDS THINKPAD SETUP. next are older notes

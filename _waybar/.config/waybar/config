@@ -3,7 +3,7 @@
   "position": "top",
   "modules-left": [
     //"wlr/workspaces",
-    "wlr/taskbar",
+    "wlr/taskbar"
   ],
   "modules-center": [
   ],
@@ -11,6 +11,7 @@
     "clock",
     "custom/weather",
     "cpu",
+    "custom/gov",
     "temperature",
     "memory",
     "disk",
@@ -20,7 +21,7 @@
     "custom/btbatear",
     "pulseaudio",
     "battery",
-    "tray",
+    "tray"
   ],
   "wlr/workspaces": {
     "active-only": true,
@@ -30,64 +31,69 @@
       "1": "",
       "2": "",
       "3": "",
-      "4": "",
-    },
+      "4": ""
+    }
   },
   "wlr/taskbar": {
     "icon-size": 22,
     "on-click": "activate",
     "on-click-right": "activate",
-    "format": "{icon}{title:.5}",
+    "format": "{icon}{title:.4}"
   },
   "clock": {
     "interval": 15,
     "format": "<span foreground=\"#36383f\">•</span> {:<span foreground=\"#92959d\">%H:%M</span> %a%d%b}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
   "custom/weather": {
     "interval": 1800,
     "format-icons": {},
-    "exec": "0t weather",
+    "exec": "0t weather"
   },
   "cpu": {
     "interval": 3,
     "format": "<span rise='2000'>廊</span> {usage}"
+  },
+  "custom/gov": {
+    "interval": 5,
+    "format-icons": {},
+    "exec": "0t cpu"
   },
   "temperature": {
     "interval": 5,
     "hwmon-path-abs": "/sys/devices/platform/coretemp.0/hwmon",
     "input-filename": "temp1_input",
     "critical-threshold": 60,
-    "format": "<span foreground=\"#000000\"></span>{temperatureC}°",
+    "format": "<span foreground=\"#000000\"></span>{temperatureC}°"
   },
   "memory": {
     "interval": 3,
-    "format": " {percentage}",
+    "format": " {percentage}"
   },
   "disk": {
     "interval": 120,
-    "format": " {percentage_used}",
+    "format": " {percentage_used}"
   },
   "backlight": {
     "interval": 300,
-    "format": " {percent}",
+    "format": " {percent}"
   },
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
       "activated": "",
-      "deactivated": "",
-    },
+      "deactivated": ""
+    }
   },
   "custom/btbatkbd": {
     "interval": 120,
     "format-icons": {},
-    "exec": "0t btbat k",
+    "exec": "0t btbat k"
   },
   "custom/btbatear": {
     "interval": 60,
     "format-icons": {},
-    "exec": "0t btbat jlab",
+    "exec": "0t btbat earfun"
   },
   "pulseaudio": {
     "format": "{icon} {volume} {format_source}",
@@ -101,27 +107,27 @@
       "headphone": "",
       "headset": "",
       "phone": "",
-      "portable": "",
+      "portable": ""
     },
     "on-click": "pavucontrol",
     "on-scroll-up": "",
-    "on-scroll-down": "",
+    "on-scroll-down": ""
   },
   "battery": {
     "interval": 15,
     "states": {
       "warning": 30,
-      "critical": 15,
+      "critical": 15
     },
     "format": "{icon} {capacity}",
     "format-alt": "{icon} {time}",
     "format-icons": ["", "", "", "", ""],
     "format-charging": " {capacity}",
-    "format-plugged": " {capacity}",
+    "format-plugged": " {capacity}"
   },
   "tray": {
     "icon-size": 22,
-    "spacing": 4,
-  },
+    "spacing": 4
+  }
 }
 

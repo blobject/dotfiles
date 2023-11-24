@@ -16,6 +16,7 @@ window#waybar.hidden { opacity: 0.2; }
 #clock,
 #custom-weather,
 #cpu,
+#custom-gov,
 #temperature,
 #memory,
 #disk,
@@ -48,6 +49,7 @@ window#waybar.hidden { opacity: 0.2; }
 #clock,
 #custom-weather,
 #cpu,
+#custom-gov,
 #temperature,
 #memory,
 #disk,
@@ -164,7 +166,8 @@ window#waybar.hidden { opacity: 0.2; }
   background-color: #000;
 }
 #taskbar button:hover                       { color: #d2d6de; }
-#cpu                                        { color: #7764b5; }
+#cpu,
+#custom-gov                                 { color: #7764b5; }
 #temperature                                { color: #425fbb; }
 #memory                                     { color: #4e7a67; }
 #disk                                       { color: #67823d; }

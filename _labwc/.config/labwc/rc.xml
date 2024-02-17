@@ -85,6 +85,10 @@
     <keybind key="XF86_AudioRaiseVolume"><action name="Execute" command="0t vol +2"/></keybind>
     <keybind key="XF86_AudioMicMute"><action name="Execute" command="0t vol mic x"/></keybind>
     <keybind key="XF86_AudioPlay"><action name="Execute" command="0t vol mic x"/></keybind>
+    <keybind key="S-XF86_AudioMute"><action name="Execute" command="0t vol usb x"/></keybind>
+    <keybind key="S-XF86_AudioLowerVolume"><action name="Execute" command="0t vol usb -2"/></keybind>
+    <keybind key="S-XF86_AudioRaiseVolume"><action name="Execute" command="0t vol usb +2"/></keybind>
+    <keybind key="S-XF86_AudioMicMute"><action name="Execute" command="0t vol usb mic x"/></keybind>
     <keybind key="C-XF86_AudioMute"><action name="Execute" command="0t vol bt x"/></keybind>
     <keybind key="C-XF86_AudioLowerVolume"><action name="Execute" command="0t vol bt -2"/></keybind>
     <keybind key="C-XF86_AudioRaiseVolume"><action name="Execute" command="0t vol bt +2"/></keybind>
@@ -97,8 +101,8 @@
     <keybind key="C-A-Delete"><action name="Execute" command="0s bye sleep"/></keybind>
     <keybind key="A-Tab"><action name="NextWindow"/></keybind>
     <keybind key="A-S-Tab"><action name="PreviousWindow"/></keybind>
-    <keybind key="W-Escape"><action name="Close"/></keybind>
-    <keybind key="W-S-Escape"><action name="Kill"/></keybind>
+    <keybind key="W-S-Escape"><action name="Close"/></keybind>
+    <keybind key="W-S-C-Escape"><action name="Kill"/></keybind>
     <keybind key="W-a"><action name="ToggleAlwaysOnTop"/></keybind>
     <keybind key="W-f"><action name="ToggleMaximize"/></keybind>
     <keybind key="W-S-f"><action name="ToggleFullscreen"/></keybind>

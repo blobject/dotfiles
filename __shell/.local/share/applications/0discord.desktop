@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Discord
+Exec=0c '$::env(HOME)/opt/discord/Discord'
+Type=Application
+Comment=Discord
+Icon=discord
+Categories=Network;
+StartupNotify=true
+Terminal=false

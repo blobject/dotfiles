@@ -8,7 +8,7 @@ gsettings set org.gnome.nautilus.list-view default-visible-columns '["name"]'
 hsetroot -solid '#000' &
 setxkbmap hsnt &
 xrdb -merge $HOME/.xresources &
-xset fp rehash r rate 250 30 &
+xset fp rehash r rate 200 40 &
 
 # daemon
 { 0s snooze & } &

@@ -152,12 +152,12 @@ proc lay {arg} {
     h - hsnt {
       set arg hsnt
       exec setxkbmap hsnt
-      exec xset r rate 250 30
+      exec xset r rate 200 40
     }
     q - qwerty - u - us {
       set arg qwerty
       exec setxkbmap -option ctrl:nocaps us
-      exec xset r rate 250 30
+      exec xset r rate 200 40
     }
     default {
       ufail {lay h_snt|q_werty}

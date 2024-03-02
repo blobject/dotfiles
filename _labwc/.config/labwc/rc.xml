@@ -3,11 +3,15 @@
   <core>
     <decoration>server</decoration>
     <gap>0</gap>
-    <adaptiveSync>no</adaptiveSync>
+    <allowTearing>yes</allowTearing>
   </core>
 
+  <placement>
+    <policy>automatic</policy>
+  </placement>
+
   <desktops>
-    <popupTime>100</popupTime>
+    <popupTime>1</popupTime>
     <names>
       <name>1</name>
       <name>2</name>
@@ -17,12 +21,12 @@
   </desktops>
 
   <focus>
-    <followMouse>no</followMouse>
-    <raiseOnFocus>no</raiseOnFocus>
+    <raiseOnFocus>yes</raiseOnFocus>
   </focus>
 
   <resistance>
     <screenEdgeStrength>16</screenEdgeStrength>
+    <windowEdgeStrength>0</windowEdgeStrength>
   </resistance>
 
   <resize popupShow="Always"/>
@@ -61,8 +65,8 @@
   </regions>
 
   <keyboard>
-    <repeatRate>30</repeatRate>
-    <repeatDelay>250</repeatDelay>
+    <repeatRate>40</repeatRate>
+    <repeatDelay>200</repeatDelay>
     <keybind key="W-Return"><action name="Execute" command="0t _run"/></keybind>
     <!-- <keybind key="W-`"><action name="Execute" command="0c nautilus -w /home/work/src/[exec cat /home/work/src/_env/0]/app"/></keybind> -->
     <keybind key="W-t"><action name="Execute" command="footclient"/></keybind>
@@ -290,18 +294,22 @@
       <disableWhileTyping>yes</disableWhileTyping>
       <leftHanded>no</leftHanded>
       <middleEmulation>no</middleEmulation>
-      <naturalScroll>no</naturalScroll>
-      <pointerSpeed>0.5</pointerSpeed>
-    </device>
-    <device category="ELAN0670:00 04F3:3150 Touchpad">
       <naturalScroll>yes</naturalScroll>
-      <tap>yes</tap>
+      <pointerSpeed>0.5</pointerSpeed>
+      <tapAndDrag>yes</tapAndDrag>
       <tapButtonMap>lrm</tapButtonMap>
     </device>
+    <device category="non-touch">
+      <disableWhileTyping>no</disableWhileTyping>
+      <naturalScroll>no</naturalScroll>
+    </device>
+    <!--
+    <device category="ELAN0670:00 04F3:3150 Touchpad">
+    </device>
     <device category="TPPS/2 Elan TrackPoint">
-      <naturalScroll>yes</naturalScroll>
       <pointerSpeed>0</pointerSpeed>
     </device>
+    -->
     <device category="Xtrfy Xtrfy Wireless Receiver">
       <pointerSpeed>-0.4</pointerSpeed>
     </device>

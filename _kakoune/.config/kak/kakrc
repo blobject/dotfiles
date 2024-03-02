@@ -2,7 +2,8 @@ colorscheme cemant
 
 set-option global grepcmd 'rg --line-number --with-filename'
 set-option global indentwidth 2
-set-option global modelinefmt '{StatusLineInfo}%sh{test "${#kak_bufname}" ">" $(expr $(tput cols) "/" 2) && printf %s "${kak_bufname}" | sed "s_[^/]\+\$__" | sed "s_\([^/]\{,2\}\)[^/]*/_\1/_g" || printf %s "${kak_bufname}" | sed "s_[^/]\+\$__"}{black,white}%sh{printf %s "${kak_bufname##*/}"}{blue} %sh{echo ${kak_opt_filetype}} {StatusLineInfo}%val{buf_line_count}/{black}%val{cursor_line}{StatusLineInfo}:{black}%val{cursor_char_column}{{context_info}} {{mode_info}}'
+set-option global modelinefmt '{StatusLineInfo}%sh{printf %s "${kak_bufname}" | sed "s_[^/]\+\$__"}{black,white}%sh{printf %s "${kak_bufname##*/}"}{blue} %sh{echo ${kak_opt_filetype}} {StatusLineInfo}%val{buf_line_count}/{black}%val{cursor_line}{StatusLineInfo}:{black}%val{cursor_char_column}{{context_info}} {{mode_info}}'
+set-option global scrolloff 4,4
 set-option global tabstop 2
 set-option global ui_options terminal_assistant=none terminal_enable_mouse=yes terminal_set_title=yes terminal_status_on_top=yes
 

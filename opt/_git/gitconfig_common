@@ -9,7 +9,7 @@
   co = checkout
   cu = !git commit --date="$(date --utc +%Y-%m-%dT%H:%M:%S%z)"
   df = diff
-  dfs = diff --summary
+  dfs = diff --stat
   lo = log --graph --pretty=format:'%C(cyan)%h %C(yellow)%ad %C(green)%an %C(reset)%s%d'
   lof = log -p --
   ls = ls-files

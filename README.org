@@ -36,10 +36,10 @@
 | =MS-r= | | *reconfigure* |
 | =CA-= *char* | =\b= / =\d= | *lock* / *sleep* |
 | =M/A-L= | | *resize* / *move* window |
-| =M[S]-\e= | | *close* [ or  *kill* ] window |
+| =MS[C]-\e= | | *close* [ or  *kill* ] window |
 | =MS-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |
 | =M[S]-= *dir* | =h= / =j= / =k= / =l= / =y= / =u= / =b= / =n= | *move* [ and *snap* ] window to *edge* |
-| =M-= *char* | =c= / =comma= / =.= / =/= / =;= | *snap* window to variations of *center* |
+| =M-= *char* | =c= / =slash= / =quote= / =semic= / =comma= / =dot= / =lt= / =gt= | *snap* window to variations of *grid* |
 | =M[S]-f= | | toggle *maximise* [ or *fullscreen* ] |
 
 | | | /FOCUS/ |
@@ -52,7 +52,7 @@
 |-|-|-|
 | =[S]-print= | | *take picture* of *screen* [ then *edit* ] |
 | =M-\s= | | *dismiss* notification |
-| =M-= *char* | =\n= / =`= / =e= / =t= / =w= | launch *launcher* / *treeview* / *editor* / *terminal* / *www* |
+| =M-= *char* | =\n= / =grave= / =e= / =t= / =w= | launch *launcher* / *treeview* / *editor* / *terminal* / *www* |
 
 *** usage
 

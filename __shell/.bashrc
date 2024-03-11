@@ -184,9 +184,9 @@ __0_work()
   _e="$(cat $_w/_env/$1)"
   _d="$_w/$_e"
   _np="node $_d/node_modules"
-  _pp="$(fd --max-depth 1 --max-results 1 --type d python $HOME/opt/miniconda3/envs/$_e/lib)/site-packages"
+  _pp="$(test -d $HOME/opt/miniconda3/envs/$_e/lib/site && $(fd --max-depth 1 --max-results 1 --type d python $HOME/opt/miniconda3/envs/$_e/lib)/site-packages)"
   case "$1" in
-    0|2)
+    _)
       export NODE_OPTIONS=--max-old-space-size=25600
       local n
       n=
@@ -199,17 +199,24 @@ __0_work()
       . "../_env/env$_e.sh"
       0conda "$_e"
       ;;
-    1)
+    __|1)
       alias _py="cd $_pp"
       cd "$_d"
       . "../_env/env$_e.sh"
       0conda "$_e"
       ;;
+    ___)
+      alias eslint="$_np/eslint/bin/eslint.js -c $_d/.eslintrc.json --ext .js,.jsx,.ts,.tsx"
+      alias prettier="$_np/prettier/bin-prettier.js"
+      alias tsc="$_np/typescript/bin/tsc --noemit"
+      cd "$_d"
+      . "../_env/env$_e.sh"
+      ;;
   esac; }
 
 alias _='cd /home/work/src'
-alias work='__0_work 0'
-alias work_='__0_work 1'
-alias work__='__0_work 2'
+alias work='__0_work _'
+alias work_='__0_work __'
+alias work__='__0_work ___'
+alias work1='__0_work 1'
 # eof
-. "$HOME/.cargo/env"

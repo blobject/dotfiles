@@ -227,7 +227,7 @@ HERE ENDS THINKPAD SETUP. next are older notes
   - /sess:/ qt5-wayland, lswt, xeyes
   - /pkg:/ xtools
 - *dev:*
-  - /lang:/ base-devel, clang, llvm, chez, elixir, ghc, go, guile, mono, n, octave, openjdk, pip, r, rustup, sbcl, squeak, swi-prolog, tcllib, tk
+  - /lang:/ base-devel, ccls, clang, llvm, chez, elixir, ghc, go, guile, mono, n, octave, openjdk, pip, r, rustup, sbcl, squeak, swi-prolog, tcllib, texlab, tk, zig, zls
   - /db:/ postgresql{,-client}, sqlite
   - /util:/ broot, catch2, cmake, docker, gdb, msbuild, perf, rpm, tree, valgrind
 - *app:*

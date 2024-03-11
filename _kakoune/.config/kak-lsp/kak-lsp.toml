@@ -4,6 +4,12 @@ verbosity = 2
 [server]
 timeout = 300
 
+[language.c]
+filetypes = ["c", "cpp", "objc"]
+roots = ["compile_commands.json", ".ccls-root", ".git", ".hg"]
+command = "ccls"
+args = ["--init={\"completion\":{\"detailedLabel\":false}}"]
+
 [language.css]
 filetypes = ["css", "less", "scss"]
 roots = ["package.json", ".git", ".hg"]
@@ -12,7 +18,7 @@ args = ["--stdio"]
 
 [language.html]
 filetypes = ["html"]
-roots = ["package.json"]
+roots = ["package.json", ".git", ".hg"]
 command = "html-languageserver"
 args = ["--stdio"]
 
@@ -24,11 +30,16 @@ args = ["--stdio"]
 
 [language.json]
 filetypes = ["json"]
-roots = ["package.json"]
+roots = ["package.json", ".git", ".hg"]
 command = "json-languageserver"
 args = ["--stdio"]
 
-[language.python]
+[language.tex]
+filetypes = ["latex"]
+roots = [".git", ".hg"]
+command = "texlab"
+
+[language.py]
 filetypes = ["python"]
 roots = ["requirements.txt", "setup.py", ".git", ".hg"]
 command = "pylsp"
@@ -36,6 +47,11 @@ offset_encoding = "utf-8"
 #settings_section = "_"
 #[language.python.settings._]
 #pylsp.configurationSources = ["flake8"]
+
+[language.zig]
+filetypes = ["zig"]
+roots = ["zls.json", ".git", ".hg"]
+command = "zls"
 
 [semantic_tokens]
 faces = [

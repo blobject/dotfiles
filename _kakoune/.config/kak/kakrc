@@ -2,7 +2,7 @@ colorscheme cemant
 
 set-option global grepcmd 'rg --line-number --with-filename'
 set-option global indentwidth 2
-set-option global modelinefmt '{StatusLineInfo}%sh{printf %s "${kak_bufname}" | sed "s_[^/]\+\$__"}{black,white}%sh{printf %s "${kak_bufname##*/}"}{blue} %sh{echo ${kak_opt_filetype}} {StatusLineInfo}%val{buf_line_count}/{black}%val{cursor_line}{StatusLineInfo}:{black}%val{cursor_char_column}{{context_info}} {{mode_info}}'
+set-option global modelinefmt '{StatusLineInfo}%sh{printf %s "${kak_buffile}" | sed "s_[^/]\+\$__" | sed "s_^$HOME/_~/_" | sed "s_^/home/work/_+/_"}{black,white}%sh{printf %s "${kak_bufname##*/}"}{{context_info}}{blue}%sh{if test -n "${kak_opt_filetype}"; then printf " %s" ${kak_opt_filetype}; fi}{StatusLineInfo} {red}%sh{expr $(printf "%s\n" ${kak_buflist} | wc -w) - 2}{StatusLineInfo} {yellow}u%sh{printf "%04x" "${kak_cursor_char_value}"}{StatusLineInfo} %val{buf_line_count} {black}%val{cursor_line}{StatusLineInfo}:{black}%val{cursor_char_column}{StatusLineInfo} {{mode_info}}'
 set-option global scrolloff 4,4
 set-option global tabstop 2
 set-option global ui_options terminal_assistant=none terminal_enable_mouse=yes terminal_set_title=yes terminal_status_on_top=yes
@@ -14,7 +14,7 @@ add-highlighter global/ show-matching
 add-highlighter global/ wrap
 
 define-command -buffer-completion d 'delete-buffer' -docstring 'delete current buffer'
-#define-command 0filetype 'eval %sh{ echo "echo ${kak_opt_filetype}" }' -docstring 'print filetype'
+#define-command 0filetype 'eval %sh{ echo "printf %s ${kak_opt_filetype}" }' -docstring 'print filetype'
 define-command 0wrap 'add-highlighter global/ wrap' -docstring 'wrap lines'
 define-command 0nowrap 'remove-highlighter global/wrap' -docstring 'do not wrap lines'
 
@@ -23,7 +23,7 @@ hook global BufCreate .* %{ evaluate-commands %sh{
   # recognise filetypes that snuck past detection/file.kak
   if test -z "${kak_opt_filetype}"; then
     case $(file -b --mime-type -L "${kak_buffile}") in
-      text/x-tcl) printf %s "set-option buffer filetype sh\n" ;; # no tcl atm
+      text/x-tcl) printf %s "set-option buffer filetype sh" ;; # no tcl atm
     esac
   fi
 } }
@@ -60,7 +60,7 @@ hook global BufWritePost .* %{
 eval %sh{kak-lsp --kakoune -s ${kak_session}}
 set-option global lsp_hover_anchor true
 #set-option global lsp_show_hover_format 'printf %s "${lsp_info}"'
-hook global WinSetOption filetype=(css|less|scss|html|json|javascript|jsx|tsx|typescript|python) %{
+hook global WinSetOption filetype=(c|cc|cpp|h|hh|m|mm|objc|css|less|scss|html|json|javascript|jsx|tsx|typescript|python|tex|zig) %{
   hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
   hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
   hook window -group semantic-tokens InsertIdle .* lsp-semantic-tokens

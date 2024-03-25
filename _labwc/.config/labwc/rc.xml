@@ -290,7 +290,7 @@
 
   <libinput>
     <device category="default">
-      <accelProfile>flat</accelProfile>
+      <accelProfile>adaptive</accelProfile>
       <disableWhileTyping>yes</disableWhileTyping>
       <leftHanded>no</leftHanded>
       <middleEmulation>no</middleEmulation>
@@ -303,9 +303,10 @@
       <disableWhileTyping>no</disableWhileTyping>
       <naturalScroll>no</naturalScroll>
     </device>
-    <!--
     <device category="ELAN0670:00 04F3:3150 Touchpad">
+      <pointerSpeed>0.1</pointerSpeed>
     </device>
+    <!--
     <device category="TPPS/2 Elan TrackPoint">
       <pointerSpeed>0</pointerSpeed>
     </device>

@@ -180,11 +180,13 @@ unset __0_prompt_pwd
 ## work
 __0_work()
 { local _w _e _d _np _pp
-  _w=/home/work/src
-  _e="$(cat $_w/_env/$1)"
-  _d="$_w/$_e"
+  _w=/home/work
+  _e="$(cat $_w/env/$1)"
+  _d="$_w/src/$_e"
   _np="node $_d/node_modules"
-  _pp="$(test -d $HOME/opt/miniconda3/envs/$_e/lib/site && $(fd --max-depth 1 --max-results 1 --type d python $HOME/opt/miniconda3/envs/$_e/lib)/site-packages)"
+  _ppd="$HOME/opt/miniconda3/envs/$_e/lib"
+  _pp=""
+  test -d $_ppd && _pp="$(fd --max-depth 1 --max-results 1 --type d python $_ppd)site-packages"
   case "$1" in
     _)
       export NODE_OPTIONS=--max-old-space-size=25600
@@ -194,15 +196,15 @@ __0_work()
       alias eslint="$_np/eslint/bin/eslint.js -c $_d/.eslintrc.cjs --ext .js,.jsx,.ts,.tsx"
       alias prettier="$_np/prettier/bin-prettier.js"
       alias tsc="$_np/typescript/bin/tsc --noemit"
-      alias _py="cd $_pp"
+      alias _py="test -z $_pp && echo \"no dir: $_ppd\" || cd $_pp"
       cd "$_d"
-      . "../_env/env$_e.sh"
+      . "../../env/env_$_e.sh"
       0conda "$_e"
       ;;
-    __|1)
-      alias _py="cd $_pp"
+    __|[1-2])
+      alias _py="test -z $_pp && echo \"no dir: $_ppd\" || cd $_pp"
       cd "$_d"
-      . "../_env/env$_e.sh"
+      . "../../env/env_$_e.sh"
       0conda "$_e"
       ;;
     ___)
@@ -210,7 +212,7 @@ __0_work()
       alias prettier="$_np/prettier/bin-prettier.js"
       alias tsc="$_np/typescript/bin/tsc --noemit"
       cd "$_d"
-      . "../_env/env$_e.sh"
+      . "../../env/env_$_e.sh"
       ;;
   esac; }
 
@@ -219,4 +221,5 @@ alias work='__0_work _'
 alias work_='__0_work __'
 alias work__='__0_work ___'
 alias work1='__0_work 1'
+alias work2='__0_work 2'
 # eof

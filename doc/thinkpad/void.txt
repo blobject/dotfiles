@@ -153,8 +153,8 @@
 - reboot
 
 - for work
-  - install: postgresql-client, postgresql-libs-devel
-  - manual: miniconda, pycharm
+  - install: aws-cli, k9s, kubectl, postgresql-client, postgresql-libs-devel
+  - manual: lens, miniconda, pycharm
   - pip: poetry, python-lsp-server
   - n: N_PREFIX=$HOME/.n, PATH=...:$HOME/.n, n latest
   - npm: typescript-language-server, vscode-{css,html,json}-languageserver-bin
@@ -165,6 +165,10 @@
     - etc/conf: XBPS_ALLOW_RESTRICTED=yes
     - ./xbps-src pkg google-chrome
     - sudo xbps-install google-chrome --repository=hostdir/binpkgs/nonfree
+
+- for fun
+  - wayland-devel, wayland-protocols, wayland-scanner++, wlroots<VER>-devel
+  - cairo-devel, libdisplay-info-devel, libliftoff-devel
 
 - games
   - cataclysm-dda

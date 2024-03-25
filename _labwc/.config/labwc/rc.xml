@@ -69,6 +69,7 @@
     <repeatDelay>200</repeatDelay>
     <keybind key="W-Return"><action name="Execute" command="0t _run"/></keybind>
     <!-- <keybind key="W-`"><action name="Execute" command="0c nautilus -w /home/work/src/[exec cat /home/work/src/_env/0]/app"/></keybind> -->
+    <keybind key="W-c"><action name="Execute" command="footclient -NH cal -3"/></keybind>
     <keybind key="W-t"><action name="Execute" command="footclient"/></keybind>
     <keybind key="W-e"><action name="Execute" command="footclient kak"/></keybind>
     <keybind key="W-S-e"><action name="Execute" command="gtk-launch 0pycharm"/></keybind>
@@ -146,9 +147,8 @@
     <keybind key="W-S-u"><action name="SnapToRegion" region="ne"/></keybind>
     <keybind key="W-S-b"><action name="SnapToRegion" region="sw"/></keybind>
     <keybind key="W-S-n"><action name="SnapToRegion" region="se"/></keybind>
-    <keybind key="W-c"><action name="SnapToRegion" region="c"/></keybind>
-    <keybind key="W-S-c"><action name="SnapToRegion" region="cc"/></keybind>
-    <keybind key="W-;"><action name="SnapToRegion" region="v75"/></keybind>
+    <keybind key="W-;"><action name="SnapToRegion" region="c"/></keybind>
+    <keybind key="W-S-;"><action name="SnapToRegion" region="v75"/></keybind>
     <keybind key="W-'"><action name="SnapToRegion" region="h50"/></keybind>
     <keybind key="W-,"><action name="SnapToRegion" region="v25w"/></keybind>
     <keybind key="W-."><action name="SnapToRegion" region="v25e"/></keybind>
@@ -289,13 +289,13 @@
   </mouse>
 
   <libinput>
-    <device category="default">
-      <accelProfile>flat</accelProfile>
+    <device>
+      <accelProfile>adaptive</accelProfile>
       <disableWhileTyping>yes</disableWhileTyping>
       <leftHanded>no</leftHanded>
       <middleEmulation>no</middleEmulation>
       <naturalScroll>yes</naturalScroll>
-      <pointerSpeed>0.5</pointerSpeed>
+      <pointerSpeed>0</pointerSpeed>
       <tapAndDrag>yes</tapAndDrag>
       <tapButtonMap>lrm</tapButtonMap>
     </device>
@@ -303,9 +303,11 @@
       <disableWhileTyping>no</disableWhileTyping>
       <naturalScroll>no</naturalScroll>
     </device>
-    <!--
     <device category="ELAN0670:00 04F3:3150 Touchpad">
+      <pointerSpeed>0.1</pointerSpeed>
+      <naturalScroll>yes</naturalScroll>
     </device>
+    <!--
     <device category="TPPS/2 Elan TrackPoint">
       <pointerSpeed>0</pointerSpeed>
     </device>

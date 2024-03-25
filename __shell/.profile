@@ -15,6 +15,10 @@ export MOZ_DISABLE_RDD_SANDBOX=1
 #export QT_FONT_DPI=200
 #export QT_QPA_PLATFORMTHEME=qt5ct
 
+# video
+export LIBVA_DRIVER_NAME=iHD
+export VDPAU_DRIVER=va_gl
+
 # x
 export XCURSOR_SIZE=64
 export XCURSOR_THEME=Breeze_Snow

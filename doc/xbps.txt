@@ -21,6 +21,7 @@ manual install:
 - git clone VOID_PACKAGES
 - cd void-packages
 - ./xbps-src binary-bootstrap
+- (echo XBPS_ALLOW_RESTRICTED=yes >> etc/conf)
 - ./xbps-src -N pkg PACKAGE
 - xi PACKAGE
   - or: xbps-install --repository hostdir/binpkgs.. PACKAGE

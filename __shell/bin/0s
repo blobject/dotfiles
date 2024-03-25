@@ -88,15 +88,12 @@ proc bye {arg} {
 
   switch -- $arg {
     k - o - lock {
-      puts {0s: locking...}
       if {{w} eq $SESS} {
         set locker waylock
-        catch {exec ps a | rg $locker | rg -qv " rg .*$locker"} _ ret
+        puts {0s: locking...}
+        catch {exec ps a | rg "\\s+\[0-9:\]+ $locker "} _ ret
         if {0 == [dict get $ret -code]} {
-          return
-        }
-        catch {exec ps a | rg {.*0s bye lock$} | rg -qv { rg .* 0s bye lock}} _ ret
-        if {0 == [dict get $ret -code]} {
+          puts {0s: locking canceled, already locked, locker}
           return
         }
         set args {

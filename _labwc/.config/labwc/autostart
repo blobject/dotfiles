@@ -21,8 +21,8 @@ iwgtk -i &
 kanshi &
 pipewire &
 { sleep 1 && pipewire-pulse; } &
-{ sleep 3 && blueman-applet; } &
-{ sleep 3 && wireplumber; } &
-{ sleep 4 && waybar; } &
+{ sleep 2 && wireplumber; } &
+{ sleep 3 && waybar; } &
+{ sleep 4 && blueman-applet; } &
 
 # eof

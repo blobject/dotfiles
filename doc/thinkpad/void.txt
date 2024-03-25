@@ -106,7 +106,7 @@
   - enable services
     - greetd seatd
     - disable agetty-tty[4-6]
-  - install (non-gfx convenience): kak-lsp kakoune vim jmtpfs lftp ntfs-3g xdg-utils lshw wev xprop xlsclients
+  - install (headless convenience): kak-lsp kakoune vim jmtpfs lftp ntfs-3g xdg-utils lshw wev xprop xlsclients
   - copy over ref, bak, src, got, fonts
   - install (fonts): inconsolata, sarasa, freefont, opensans
 
@@ -135,10 +135,12 @@
   - media: ffmpeg, helvum, imv, mpv, pavucontrol, pipewire, ponymix,
            wf-recorder, alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth,
            libspa-ffmpeg, libspa-vulkan
-  - misc: blender, firefox, foliate, fontforge, fontmatrix, gimp, gnucash,
-          gnuplot, ImageMagick, inkscape, libreoffice, pdf.js, qemu, screenkey,
-          texlive-most, ttfautohint, visidata, zathura-{djvu,pdf-mupdf,ps}
-  - manual (xbps): chrome
+  - misc: blender, firefox, foliate, fontforge, fontmatrix, gnucash, gnuplot,
+          ImageMagick, inkscape, krita, libreoffice, pdf.js, qemu, screenkey,
+          texlive-most, tigervnc, ttfautohint, visidata, python3-openpyxl,
+          zathura-{djvu,pdf-mupdf,ps}
+  - net: net-tools wget
+  - manual: chrome
   - firefox config
     - search engines: mycroft project: g, ddg, w, d, t, u, e, l, m, y
     - extensions: react, simple tab groups, translate web pages, ublock origin, video downloadhelper
@@ -153,18 +155,29 @@
 - reboot
 
 - for work
-  - install: postgresql-client, postgresql-libs-devel
-  - manual: miniconda, pycharm
+  - install: k9s, kubectl, postgresql-client, postgresql-libs-devel, python3-devel, ruff
+  - manual: aws-cli, miniconda, pycharm
   - pip: poetry, python-lsp-server
   - n: N_PREFIX=$HOME/.n, PATH=...:$HOME/.n, n latest
   - npm: typescript-language-server, vscode-{css,html,json}-languageserver-bin
   - chrome:
+    - download deb from site
+    - copy:
+      - bin to /usr/bin
+      - share to /usr/local/share
+      - opt to /opt
+      - fix share/applications/google-chrome.desktop
+  - chrome (old):
     - git clone git://github.com/void-linux/void-packages.git
     - cd void-packages
     - ./xbps-src binary-bootstrap
     - etc/conf: XBPS_ALLOW_RESTRICTED=yes
     - ./xbps-src pkg google-chrome
     - sudo xbps-install google-chrome --repository=hostdir/binpkgs/nonfree
+
+- for fun
+  - manual: critcl
+  - install: dependencies of wlroots-devel
 
 - games
   - cataclysm-dda
@@ -219,7 +232,7 @@ HERE ENDS THINKPAD SETUP. next are older notes
     - ~ln -s /usr/share/alsa/alsa.conf.d/*-pipewire*.conf /etc/alsa/conf.d/~
   - /video:/ ffmpeg, mpv
   - /lib:/ alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg, libspa-v4l2, libspa-vulkan, xdg-desktop-portal-wlr
-  - /util:/ ponymix, pavucontrol
+  - /util:/ alsa-tools, ponymix, pavucontrol
 
 - level 2 ::
 - *shell:*

@@ -34,7 +34,7 @@ proc __nrep {name} {
 # for wm
 proc _firefox {} {
   try {
-    exec firefox --private-window --profile "$::env(HOME)/opt/firefox_proxy"
+    exec firefox --private-window --profile "$::env(HOME)/opt/f1"
   } on error e { fail "$e" }
 }
 
@@ -310,16 +310,23 @@ proc vol {args} {
   set mic {}
   set base {ponymix --sink list}
   set basemic {ponymix --source list}
+  set isbt false
+  set isusb false
   switch -- [lindex $args 0] {
     {bt} {
       set args [lrange $args 1 end]
+      set isbt true
       set pat {: bluez_}
       if [catch {exec {*}$base | rg $pat}] {
         exec {*}$notify bluetooth-disabled $title {no bt audio}
         exit
       }
       set out [exec {*}$base | rg $pat | head -1 | cut {-d } -f3]
-      set mic [exec {*}$basemic | rg $pat | head -1 | cut {-d } -f3]
+      if [catch {exec {*}$basemic | rg $pat}] {
+        set mic {}
+      } else {
+        set mic [exec {*}$basemic | rg $pat | head -1 | cut {-d } -f3]
+      }
       switch -regexp -- $out \
         [dict get $devs clip]   { set dev clip } \
         [dict get $devs cx]     { set dev cx } \
@@ -330,28 +337,44 @@ proc vol {args} {
     } \
     {usb} {
       set args [lrange $args 1 end]
-      set pat {_output.usb-Apple__Inc._USB-C_to_}
-      set patmic {_input.usb-Apple__Inc._USB-C_to_}
+      set isusb true
+      set pat {_output\.usb-Apple__Inc\._USB-C_to_3\.5mm}
+      set patmic {_input\.usb-Apple__Inc\._USB-C_to_3\.5mm}
       if [catch {exec {*}$base | rg $pat}] {
-        exec {*}$notify bluetooth-disabled $title {no audio dongle}
+        exec {*}$notify drive-removable-media-usb $title {no audio dongle}
         exit
       }
       set out [exec {*}$base | rg $pat | head -1 | cut {-d } -f3]
-      set mic [exec {*}$basemic | rg $patmic | head -1 | cut {-d } -f3]
+      if [catch {exec {*}$basemic | rg $patmic}] {
+        set mic {}
+      } else {
+        set mic [exec {*}$basemic | rg $patmic | head -1 | cut {-d } -f3]
+      }
       set dev dongle
     } \
     default {
-      set patbase {pci-0000_00_1f}
-      set pat {hw_sofhdadsp__sink}
-      set patmic {hw_sofhdadsp__source}
+      set patbase {_output\.pci-0000_00_1f}
+      set patmicbase {_input\.pci-0000_00_1f}
+      #set pat {HiFi__(Headphones|Speaker)__sink}
+      #set patmic {HiFi__Mic1__source}
+      set pat {analog-stereo}
       set out [exec {*}$base | rg $patbase | rg $pat | cut {-d } -f3]
-      set mic [exec {*}$basemic | rg $patbase | rg $patmic | cut {-d } -f3]
+      set mic [exec {*}$basemic | rg $patmicbase | rg $pat | cut {-d } -f3]
     }
   }
 
   # mic?
   set ismic false
   if {{mic} eq [lindex $args 0]} {
+    if {{} eq $mic} {
+      if {$isbt} {
+        exec {*}$notify bluetooth-disabled $title {no bt audio mic}
+      }
+      if {$isusb} {
+        exec {*}$notify drive-removable-media-usb $title {no audio dongle mic}
+      }
+      exit
+    }
     set args [lrange $args 1 end]
     set ismic true
   }
@@ -359,6 +382,9 @@ proc vol {args} {
   # build command
   set cmdbase "ponymix --sink --device $out"
   if {$ismic} {
+    if {{} eq $mic} {
+      exit
+    }
     set cmdbase "ponymix --source --device $mic"
   }
   set cmd $cmdbase
@@ -382,10 +408,10 @@ proc vol {args} {
     }
     x {
       set arg " audio-off $title \"$dev muted\""
-      if {$ismic} { set arg " mic-off $title \"$dev muted\"" }
+      if {$ismic} { set arg " mic-off $title \"$dev mic muted\"" }
       if [catch {exec {*}$cmdbase is-muted}] {
         set arg " audio-on $title \"$dev on\""
-        if {$ismic} { set arg " mic-on $title \"$dev on\"" }
+        if {$ismic} { set arg " mic-on $title \"$dev mic on\"" }
       }
       append notify $arg
     }
@@ -407,7 +433,7 @@ proc vol {args} {
 
 # for waybar
 proc weather {} {
-  catch {exec curl -s {https://wttr.in/?0AQT&format=%t%x}} weather ret
+  catch {exec curl -s {https://wttr.in/Singapore?0AQT&format=%t%x}} weather ret
   if {0 != [dict get $ret -code]} { puts {}; exit }
   if {{U} eq [string index $weather 0]} { puts {?}; exit }
   regexp {^\+?([0-9-]+.)C(.*)$} $weather weather deg sky

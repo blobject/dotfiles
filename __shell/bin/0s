@@ -88,15 +88,12 @@ proc bye {arg} {
 
   switch -- $arg {
     k - o - lock {
-      puts {0s: locking...}
       if {{w} eq $SESS} {
         set locker waylock
-        catch {exec ps a | rg $locker | rg -qv " rg .*$locker"} _ ret
+        puts {0s: locking...}
+        catch {exec ps a | rg "\\s+\[0-9:\]+ $locker "} _ ret
         if {0 == [dict get $ret -code]} {
-          return
-        }
-        catch {exec ps a | rg {.*0s bye lock$} | rg -qv { rg .* 0s bye lock}} _ ret
-        if {0 == [dict get $ret -code]} {
+          puts {0s: locking canceled, already locked, locker}
           return
         }
         set args {
@@ -241,7 +238,7 @@ proc save {} {
   }
 
   proc etc {src} {
-    exec cp /etc/fstab >$src/fstab
+    exec cp /etc/fstab $src/fstab
     puts "* fstab"
     exec lsmod >$src/lsmod
     puts "* lsmod"
@@ -251,8 +248,6 @@ proc save {} {
     puts "* wpa"
     exec tail -n +1 {*}[glob /etc/X11/xorg.conf.d/*] >$src/xorg
     puts "* xorg"
-    exec ls "$::env(HOME)/opt/" >$src/opt
-    puts "* ~/opt/"
     exec ls "$::env(HOME)/opt/" >$src/opt
     puts "* ~/opt/"
     exec cp /boot/EFI/refind/refind.conf $src/refind

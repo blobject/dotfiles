@@ -25,7 +25,12 @@ __0_prompt_git()
     local a
     a=$(git symbolic-ref --short HEAD 2> /dev/null)
     if test '' = "$a"; then
-      echo 'g\[\033[0;33m\]*detached* '
+      a=$(git describe --tags 2> /dev/null)
+      if test '' = "$a"; then
+        echo 'g\[\033[0;33m\]*detached* '
+        return
+      fi
+      echo "gt\[\033[0;33m\]${a} "
       return
     fi
     echo "$a" | sed 's/$/ /;s/^/g\\[\\033[0;33m\\]/'
@@ -119,10 +124,11 @@ alias 0fonts="pango-list | grep '^[^ ]' | sort | pr -2 -T"
 alias 0ip='curl https://ipinfo.io/ip; echo'
 #alias 0mixon='pactl load-module module-loopback'
 #alias 0mixoff='pactl unload-module module-loopback'
-#alias 0proxy='ssh -CND 8815 as'
+alias 0mount="mount -o uid=$UID,gid=$GROUPS"
+alias 0proxy='ssh -CND 8815 as'
 alias 0pixel='grim -g "$(slurp -p)" -t ppm - | convert - -format "%[pixel:p{0,0}]" txt:-'
 alias 0py='python -m env $HOME/opt/python/env'
-alias 0sec='encfs $HOME/ref/.secret $HOME/ref/secret'
+alias 0sec='gocryptfs $HOME/ref/.secret $HOME/ref/secret'
 alias 0secret='fusermount -u $HOME/ref/secret'
 alias 0sshadd='ssh-add $HOME/.ssh/id_rsa'
 alias 0su='sudo su -s $(which bash)'
@@ -134,7 +140,7 @@ alias cal='cal -m'
 alias cp='cp -iv'
 alias dmesg='dmesg --color=always'
 alias fd='fd --hidden --no-ignore'
-alias glances='glances --theme-white'
+alias imv='imv -b checks'
 alias le='less'
 alias ls='ls --color=auto --time-style=long-iso'
 alias lsn='fd . --exclude "\\.git/" --ignore --print0 --type file | xargs -0 stat --format "%Y :%y %n" | sort -nr | cut -d: -f2-'
@@ -170,8 +176,10 @@ alias ,,,,,,,='c ../../../../../../..'
 alias ,,,,,,,,='c ../../../../../../../..'
 
 ## imports
+complete -C $HOME/opt/aws/dist/aws_completer aws
 . /usr/share/bash-completion/completions/git
 __git_complete g __git_main
+source $HOME/cfg/opt/_shell/bash_completion_poetry.sh
 
 ## set title
 trap __0_title DEBUG
@@ -180,37 +188,41 @@ unset __0_prompt_pwd
 ## work
 __0_work()
 { local _w _e _d _np _pp
-  _w=/home/work/src
-  _e="$(cat $_w/_env/$1)"
-  _d="$_w/$_e"
+  _w=/home/work
+  _e="$(cat $_w/env/$1)"
+  _d="$_w/src/$_e"
   _np="node $_d/node_modules"
-  _pp="$(test -d $HOME/opt/miniconda3/envs/$_e/lib/site && $(fd --max-depth 1 --max-results 1 --type d python $HOME/opt/miniconda3/envs/$_e/lib)/site-packages)"
+  _ppd="$HOME/opt/miniconda3/envs/$_e/lib"
+  _pp=""
+  test -d $_ppd && _pp="$(fd --max-depth 1 --max-results 1 --type d python $_ppd)site-packages"
   case "$1" in
     _)
       export NODE_OPTIONS=--max-old-space-size=25600
-      local n
-      n=
       alias black="black --diff"
       alias eslint="$_np/eslint/bin/eslint.js -c $_d/.eslintrc.cjs --ext .js,.jsx,.ts,.tsx"
       alias prettier="$_np/prettier/bin-prettier.js"
+      alias sass="$_np/sass"
       alias tsc="$_np/typescript/bin/tsc --noemit"
-      alias _py="cd $_pp"
+      alias _n="cd $_d/node_modules"
+      alias _py="test -z $_pp && echo \"no dir: $_ppd\" || cd $_pp"
       cd "$_d"
-      . "../_env/env$_e.sh"
+      . "../../env/env_$_e.sh"
       0conda "$_e"
       ;;
-    __|1)
-      alias _py="cd $_pp"
+    __|[1-3])
+      alias _py="test -z $_pp && echo \"no dir: $_ppd\" || cd $_pp"
       cd "$_d"
-      . "../_env/env$_e.sh"
+      . "../../env/env_$_e.sh"
       0conda "$_e"
       ;;
     ___)
       alias eslint="$_np/eslint/bin/eslint.js -c $_d/.eslintrc.json --ext .js,.jsx,.ts,.tsx"
+      alias graphql-codegen="$_np/.bin/graphql-codegen"
       alias prettier="$_np/prettier/bin-prettier.js"
       alias tsc="$_np/typescript/bin/tsc --noemit"
+      alias _n="cd $_d/node_modules"
       cd "$_d"
-      . "../_env/env$_e.sh"
+      . "../../env/env_$_e.sh"
       ;;
   esac; }
 
@@ -219,4 +231,6 @@ alias work='__0_work _'
 alias work_='__0_work __'
 alias work__='__0_work ___'
 alias work1='__0_work 1'
+alias work2='__0_work 2'
+alias work3='__0_work 3'
 # eof

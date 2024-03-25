@@ -22,6 +22,16 @@ roots = ["package.json", ".git", ".hg"]
 command = "html-languageserver"
 args = ["--stdio"]
 
+#[language.js]
+#filetypes = ["javascript", "typescript"]
+#roots = ["package.json", "tsconfig.json", ".git", ".hg"]
+#command = "deno"
+#args = ["lsp"]
+#settings_section = "_"
+#[language.js.settings._]
+#enable = true
+#lint = true
+
 [language.js]
 filetypes = ["javascript", "typescript"]
 roots = ["package.json", "tsconfig.json", ".git", ".hg"]
@@ -41,12 +51,19 @@ command = "texlab"
 
 [language.py]
 filetypes = ["python"]
-roots = ["requirements.txt", "setup.py", ".git", ".hg"]
+roots = ["pyproject.toml", "requirements.txt", "setup.py", ".git", ".hg"]
 command = "pylsp"
 offset_encoding = "utf-8"
 #settings_section = "_"
-#[language.python.settings._]
+#[language.py.settings._]
 #pylsp.configurationSources = ["flake8"]
+
+#[language.py]
+#filetypes = ["python"]
+#roots = ["pyproject.toml", "requirements.txt", "setup.py", ".git", ".hg"]
+#command = "ruff"
+#args = ["server", "--preview"]
+#offset_encoding = "utf-8"
 
 [language.zig]
 filetypes = ["zig"]

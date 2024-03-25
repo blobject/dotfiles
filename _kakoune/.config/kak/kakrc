@@ -2,7 +2,7 @@ colorscheme cemant
 
 set-option global grepcmd 'rg --line-number --with-filename'
 set-option global indentwidth 2
-set-option global modelinefmt '{StatusLineInfo}%sh{printf %s "${kak_buffile}" | sed "s_[^/]\+\$__" | sed "s_^$HOME/_~/_" | sed "s_^/home/work/_+/_"}{black,white}%sh{printf %s "${kak_bufname##*/}"}{{context_info}}{blue}%sh{if test -n "${kak_opt_filetype}"; then printf " %s" ${kak_opt_filetype}; fi}{StatusLineInfo} {red}%sh{expr $(printf "%s\n" ${kak_buflist} | wc -w) - 2}{StatusLineInfo} {yellow}u%sh{printf "%04x" "${kak_cursor_char_value}"}{StatusLineInfo} %val{buf_line_count} {black}%val{cursor_line}{StatusLineInfo}:{black}%val{cursor_char_column}{StatusLineInfo} {{mode_info}}'
+set-option global modelinefmt '{StatusLineInfo}%sh{printf %s "${kak_buffile}" | sed "s_[^/]\+\$__" | sed "s_^$HOME/_~/_" | sed "s_^/home/work/_+/_"}{black,white}%sh{printf %s "${kak_bufname##*/}"}{{context_info}}{blue}%sh{if test -n "${kak_opt_filetype}"; then printf " %s" ${kak_opt_filetype}; fi}{StatusLineInfo} {red}%sh{expr $(printf "%s\n" ${kak_buflist} | wc -w) - 2}{StatusLineInfo} {yellow}u%sh{printf "%04x" "${kak_cursor_char_value}"}{StatusLineInfo} %val{buf_line_count}:{black}%val{cursor_line}{StatusLineInfo}:{black}%val{cursor_char_column}{StatusLineInfo} {{mode_info}}'
 set-option global scrolloff 4,4
 set-option global tabstop 2
 set-option global ui_options terminal_assistant=none terminal_enable_mouse=yes terminal_set_title=yes terminal_status_on_top=yes
@@ -89,10 +89,10 @@ map global normal <C> ''
 map global normal <a-space> ''
 map global insert <c-v> ''
 # navigate
-map global normal <minus> %{vk}         -docstring 'scroll up one'
-map global normal <=>     %{vj}         -docstring 'scroll down one'
-map global normal <_>     %{8vk}        -docstring 'scroll up eight'
-map global normal <+>     %{8vj}        -docstring 'scroll down eight'
+map global normal <minus> %{vkk}        -docstring 'scroll up one'
+map global normal <=>     %{vjj}        -docstring 'scroll down one'
+map global normal <_>     %{8vk8k}      -docstring 'scroll up eight'
+map global normal <+>     %{8vj8j}      -docstring 'scroll down eight'
 map global normal <a-v>   %{<c-b>}      -docstring 'scroll up page'
 map global normal <c-v>   %{<c-f>}      -docstring 'scroll down page'
 map global insert <a-v>   %{<esc><c-b>} -docstring 'scroll up page'

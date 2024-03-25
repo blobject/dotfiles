@@ -1,3 +1,7 @@
+alsa (alsa-tools):
+- hda-verb /dev/snd/hwC0D0 0x1d SET_PIN_WIDGET_CONTROL 0x0
+- consult https://docs.kernel.org/sound/hd-audio/models.html
+
 modules:
 - /etc/modprobe.d/: options snd_hda_intel model=dell-headset-multi
 

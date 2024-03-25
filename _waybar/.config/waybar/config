@@ -17,8 +17,8 @@
     "disk",
     "backlight",
     "idle_inhibitor",
-    "custom/btbatkbd",
-    "custom/btbatear",
+    //"custom/btbatkbd",
+    //"custom/btbatear",
     "pulseaudio",
     "battery",
     "tray"
@@ -38,16 +38,17 @@
     "icon-size": 22,
     "on-click": "activate",
     "on-click-right": "activate",
-    "format": "{icon}{title:.4}"
+    "format": "{icon}{title:.4}",
+    "tooltip-format": "[{app_id}] {title}"
   },
   "clock": {
     "interval": 15,
-    "format": "<span foreground=\"#36383f\">•</span> {:<span foreground=\"#92959d\">%H:%M</span> %a%d%b}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    "format": "<span foreground=\"#36383f\">•</span> <span foreground=\"#92959d\">{:%H:%M %a%d%b}</span>",
+    "tooltip-format": "<tt>{calendar}</tt>"
   },
   "custom/weather": {
-    "interval": 1800,
-    "format-icons": {},
+    "interval": 2400,
+    "format-icons": [],
     "exec": "0t weather"
   },
   "cpu": {
@@ -56,7 +57,7 @@
   },
   "custom/gov": {
     "interval": 5,
-    "format-icons": {},
+    "format-icons": [],
     "exec": "0t cpu"
   },
   "temperature": {
@@ -87,12 +88,12 @@
   },
   "custom/btbatkbd": {
     "interval": 120,
-    "format-icons": {},
+    "format-icons": [],
     "exec": "0t btbat k"
   },
   "custom/btbatear": {
     "interval": 60,
-    "format-icons": {},
+    "format-icons": [],
     "exec": "0t btbat earfun"
   },
   "pulseaudio": {
@@ -110,6 +111,7 @@
       "portable": ""
     },
     "on-click": "pavucontrol",
+    "on-click-right": "helvum",
     "on-scroll-up": "",
     "on-scroll-down": ""
   },

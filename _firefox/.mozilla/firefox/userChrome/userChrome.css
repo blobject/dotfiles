@@ -1,3 +1,19 @@
 /* userChrome -> PROFILE/chrome */
+
+/* custom theme */
 #navigator-toolbox { border-bottom: 0 !important; }
 .tabbrowser-tab, .findbar-container { text-shadow: none; }
+
+/* sidebery */
+#sidebar-header {
+  font-size: 1em !important;
+  padding: 2px 6px 2px 3px !important;
+}
+#sidebar-header #sidebar-close {
+  padding: 3px !important;
+}
+#sidebar-header #sidebar-close .toolbarbutton-icon {
+  width: 14px !important;
+  height: 14px !important;
+  opacity: 0.6 !important;
+}

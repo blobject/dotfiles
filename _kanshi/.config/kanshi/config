@@ -1,15 +1,19 @@
 profile laptop {
   output eDP-1 position 0,0
 }
-profile ext_aoc {
-  output eDP-1 position 0,0
-  output "AOC 1601W MMEI4JA000108" position 2160,0 scale 0.8 transform 90
-}
-profile ext_office1 {
-  output eDP-1 position 840,2160
+profile ext_lg2 {
+  output eDP-1 position 3840,0
   output DP-2 position 0,0 scale 1 transform normal
 }
-profile ext_office2 {
-  output eDP-1 position 840,2160
+profile ext_lg3 {
+  output eDP-1 position 3840,0
   output DP-3 position 0,0 scale 1 transform normal
 }
+#profile ext_office1 {
+#  output eDP-1 position 840,2160
+#  output DP-2 position 0,0 scale 1 transform normal
+#}
+#profile ext_office2 {
+#  output eDP-1 position 840,2160
+#  output DP-3 position 0,0 scale 1 transform normal
+#}

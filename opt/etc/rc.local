@@ -4,6 +4,7 @@
 # (see /etc/runit/2).
 
 sysctl -p
+#hda-verb /dev/snd/hwC1D0 0x1d SET_PIN_WIDGET_CONTROL 0x0
 echo 0 > /sys/class/graphics/fbcon/cursor_blink
 mkdir -p -m700 /run/user/$(id -u b) && chown b:users /run/user/$(id -u b)
 

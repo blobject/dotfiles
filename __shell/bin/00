@@ -5,7 +5,7 @@
 
 source $::env(HOME)/bin/lib.tcl
 
-need $::env(BROWSER) $::env(EDITOR) foliate imv libreoffice mpv zathura
+need $::env(BROWSER) $::env(EDITOR) foliate imv libreoffice mpv visidata zathura
 
 ###############################################################################
 
@@ -13,17 +13,19 @@ set limit 64
 # Order matters, and "txt" goes last because it is not external,
 # ie. will occupy the parent shell.
 # mappings:   type  prog             clon? ext?  types
-dict set data 01doc "libreoffice     false true
-  {text/rtf application/msword application/vnd.ms-powerpoint application/vnd.openxmlformats application/vnd.oasis.opendocument}"
-dict set data 02scn "zathura         true  true
+dict set data 01scn "zathura         true  true
   {application/pdf application/postscript application/x-pdf image/vnd.djvu image/x-djvu}"
-dict set data 03img "{imv -b checks} false true
-  {image/}"
-dict set data 04med "mpv             false true
-  {audio/ video/ /ogg application/vnd.rn-realmedia}"
-dict set data 05ebk "foliate         false true
+dict set data 02tab "visidata        false false
+  {text/csv application/vnd.openxmlformats-officedocument.spreadsheet}"
+dict set data 03doc "libreoffice     false true
+  {text/rtf application/msword application/vnd.ms-powerpoint application/vnd.openxmlformats application/vnd.oasis.opendocument}"
+dict set data 04ebk "foliate         false true
   {application/epub}"
-dict set data 06web "$::env(BROWSER) false true
+dict set data 05img "{imv -b checks} false true
+  {image/}"
+dict set data 06med "mpv             false true
+  {audio/ video/ /ogg application/vnd.rn-realmedia}"
+dict set data 07web "$::env(BROWSER) false true
   {text/html}"
 dict set data zztxt "$::env(EDITOR)  false false
   {text/plain text/x-}"

@@ -10,7 +10,8 @@ _path_prepend "$HOME/opt/miniconda3/condabin"
 _path_prepend "$HOME/opt/dotnet"
 _path_prepend "$HOME/.cargo/bin"
 _path_prepend "$HOME/.local/bin"
-_path_prepend "$HOME/bin" # highest priority
+_path_prepend "$HOME/bin"
+_path_prepend "/home/work/bin" # highest priority
 unset _path_prepend
 export PATH
 

@@ -97,6 +97,7 @@
     <keybind key="C-XF86_AudioLowerVolume"><action name="Execute" command="0t vol bt -2"/></keybind>
     <keybind key="C-XF86_AudioRaiseVolume"><action name="Execute" command="0t vol bt +2"/></keybind>
     <keybind key="C-XF86_AudioMicMute"><action name="Execute" command="0t vol bt mic x"/></keybind>
+    <keybind key="XF86Display"><action name="Execute" command="0t mon"/></keybind>
     <keybind key="XF86NotificationCenter"><action name="Execute" command="0t shot s png"/></keybind>
     <keybind key="S-XF86NotificationCenter"><action name="Execute" command="0t shot e png"/></keybind>
     <keybind key="XF86Favorites"><action name="Execute" command="0s tlp"/></keybind>

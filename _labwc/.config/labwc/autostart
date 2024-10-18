@@ -16,7 +16,7 @@ xrdb -merge $HOME/.xresources &
 swaybg -m center -i $HOME/cfg/opt/_shell/back.png &
 swayidle -w timeout 600 '0s bye lock' &
 fnott &
-gammastep-indicator -l manual -l 50.1:14.4 -m wayland -t 5500K:4800K &
+gammastep-indicator -l manual -l 1.28:103.85 -m wayland -t 5500K:4800K &
 iwgtk -i &
 kanshi &
 pipewire &

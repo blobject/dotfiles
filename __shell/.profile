@@ -15,9 +15,13 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=1
 export QT_ENABLE_HIGHDPI_SCALING=1
 #export QT_QPA_PLATFORMTHEME=qt5ct
 
-# video
+# graphics
+if lspci | grep -q 'Radeon RX'; then
+  export DRI_PRIME=1
+fi
 export LIBVA_DRIVER_NAME=iHD
 export VDPAU_DRIVER=va_gl
+
 
 # x
 export XCURSOR_SIZE=64

@@ -11,6 +11,8 @@ need notify-send rg \
      bluetoothctl \
      ifstat \
      light \
+     kanshictl \
+     wlr-randr \
      tofi-drun \
      setxkbmap \
      grim slurp swappy \
@@ -87,21 +89,19 @@ proc _run {} {
 proc btbat {{id {}}} {
   set k          DD:A5:E3:61:B3:96
   set earfun     00:12:6F:EE:F0:F7
-  set sennheiser 00:1B:66:8C:6C:44
-  set jlab       07:69:A1:11:E5:5D
   set jbl        B0:F1:A3:63:0A:66
+  set nothing    2C:BE:EB:78:2B:3B]
 
   proc die {} {
     global ME
-    upvar k k earfun earfun sennheiser sennheiser jlab jlab jbl jbl
+    upvar k k earfun earfun jbl jbl nothing nothing
 
     puts stderr "$ME: mac address required
   available devices:
   k          - Corne keyboard       $k
   earfun     - EarFun Free Pro 2    $earfun
-  sennheiser - Sennheiser CX 6.00BT $sennheiser
-  jlab       - Epic Air Sport ANC   $jlab
-  jbl        - JBL Clip 2           $jbl"
+  jbl        - JBL Clip 2           $jbl
+  nothing    - Nothing Ear          $nothing"
     puts {}
     exit
   }
@@ -190,6 +190,27 @@ proc lum {arg} {
     exec {*}$cmd_sub $arg
   }
   exec {*}$notify {*}[__nrep $title] $title [exec {*}$cmd $cmd_get]%
+}
+
+###############################################################################
+
+# for wm
+proc mon {{arg {}}} {
+  set title mon
+  set dev {eDP-1}
+  set cmd_base "wlr-randr --output $dev"
+  set cmd_on "$cmd_base --on"
+  set cmd_off "$cmd_base --off"
+  set cmd_toggle "$cmd_base --toggle"
+  set cmd_refresh {kanshictl reload}
+  set notify {notify-send -u low -i redshift-status-}
+
+  switch -- [string index $arg 0] {
+    {} { exec {*}$cmd_toggle }
+    o - on { exec {*}$cmd_on }
+    x - off { exec {*}$cmd_off }
+  }
+  exec {*}$cmd_refresh
 }
 
 ###############################################################################
@@ -300,11 +321,10 @@ proc vol {args} {
 
   # which?
   set devs [dict create \
-    clip   00_12_6F_EE_F0_F7 \
-    cx     00_1B_66_8C_6C_44 \
-    earfun B0_F1_A3_63_0A_66 \
-    fly    38_A2_8C_F9_CF_DF \
-    jbl    00_12_6F_EE_F0_F7]
+    earfun  B0_F1_A3_63_0A_66 \
+    fly     38_A2_8C_F9_CF_DF \
+    jbl     00_12_6F_EE_F0_F7 \
+    nothing 2C_BE_EB_78_2B_3B]
   set dev laptop
   set out {}
   set mic {}
@@ -316,41 +336,45 @@ proc vol {args} {
     {bt} {
       set args [lrange $args 1 end]
       set isbt true
-      set pat {: bluez_}
+      set pat {: bluez_output}
+      set patmic {: bluez_input}
       if [catch {exec {*}$base | rg $pat}] {
         exec {*}$notify bluetooth-disabled $title {no bt audio}
         exit
       }
-      set out [exec {*}$base | rg $pat | head -1 | cut {-d } -f3]
-      if [catch {exec {*}$basemic | rg $pat}] {
+      set out [exec {*}$base | rg $pat | tail -1 | cut {-d } -f3]
+      if [catch {exec {*}$basemic | rg $patmic}] {
         set mic {}
       } else {
-        set mic [exec {*}$basemic | rg $pat | head -1 | cut {-d } -f3]
+        set mic [exec {*}$basemic | rg $patmic | tail -1 | cut {-d } -f3]
       }
       switch -regexp -- $out \
-        [dict get $devs clip]   { set dev clip } \
-        [dict get $devs cx]     { set dev cx } \
-        [dict get $devs earfun] { set dev earfun } \
-        [dict get $devs fly]    { set dev fly } \
-        [dict get $devs jbl]    { set dev jbl } \
+        [dict get $devs earfun]  { set dev earfun } \
+        [dict get $devs fly]     { set dev fly } \
+        [dict get $devs jbl]     { set dev jbl } \
+        [dict get $devs nothing] { set dev nothing } \
+        [string map {_ :} [dict get $devs earfun]]  { set dev earfun } \
+        [string map {_ :} [dict get $devs fly]]     { set dev fly } \
+        [string map {_ :} [dict get $devs jbl]]     { set dev jbl } \
+        [string map {_ :} [dict get $devs nothing]] { set dev nothing } \
         default { fail {unrecognised device} }
     } \
     {usb} {
       set args [lrange $args 1 end]
       set isusb true
-      set pat {_output\.usb-Apple__Inc\._USB-C_to_3\.5mm}
-      set patmic {_input\.usb-Apple__Inc\._USB-C_to_3\.5mm}
+      set pat {_output\.usb-}
+      set patmic {_input\.usb-}
       if [catch {exec {*}$base | rg $pat}] {
-        exec {*}$notify drive-removable-media-usb $title {no audio dongle}
+        exec {*}$notify drive-removable-media-usb $title {no audio usb}
         exit
       }
-      set out [exec {*}$base | rg $pat | head -1 | cut {-d } -f3]
+      set out [exec {*}$base | rg $pat | tail -1 | cut {-d } -f3]
       if [catch {exec {*}$basemic | rg $patmic}] {
         set mic {}
       } else {
-        set mic [exec {*}$basemic | rg $patmic | head -1 | cut {-d } -f3]
+        set mic [exec {*}$basemic | rg $patmic | tail -1 | cut {-d } -f3]
       }
-      set dev dongle
+      set dev usb
     } \
     default {
       set patbase {_output\.pci-0000_00_1f}
@@ -371,7 +395,7 @@ proc vol {args} {
         exec {*}$notify bluetooth-disabled $title {no bt audio mic}
       }
       if {$isusb} {
-        exec {*}$notify drive-removable-media-usb $title {no audio dongle mic}
+        exec {*}$notify drive-removable-media-usb $title {no audio usb mic}
       }
       exit
     }
@@ -464,11 +488,12 @@ proc weather {} {
 
 set arg [lindex $::argv 0]
 if {0 eq [llength [info procs $arg]]} {
-  ufail {btbat|cpu|lay|lum|net|shot|vol|weather
+  ufail {btbat|cpu|lay|lum|mon|net|shot|vol|weather
   btbat   get battery level of bluetooth device
   cpu     get cpu governor
   lay     [gs]et keyboard layout   _|h_hsnt|q_werty
   lum     [gs]et screen brightness _|-N|+N
+  mon     turn o{n,ff} monitor     _|o|on|x|off
   net     get net usage
   shot    take screenshot          _|active|*screen*|select |jpg|*png* |c
   vol     [gs]et audio volume      _|bt |mic |x|-N|+N

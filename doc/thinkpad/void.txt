@@ -98,7 +98,7 @@
     - swapon & /etc/fstab
 
 - install level 1
-  - install (power, bt, gfx base): acpi encfs gnupg tlp powertop blueman mesa mesa-dri mesa-vulkan-intel intel-video-accel vulkan-loader libva-utils sof-firmware seatd xorg-minimal xorg-server-xwayland foot setxkbmap xrdb xset xterm openbox labwc tuigreet
+  - install (power, bt, gfx base): acpi encfs gnupg tlp powertop nvtop blueman mesa mesa-dri mesa-vaapi mesa-vulkan-intel intel-video-accel vulkan-loader amdvlk Vulkan-Tools libva-utils sof-firmware seatd xorg-minimal xorg-server-xwayland foot setxkbmap xrdb xset xterm openbox labwc tuigreet
   - remove .bash_logout
   - link __shell, greetd
   - (temp) copy .bashrc, .bash_profile, .profile
@@ -115,7 +115,7 @@
 - configure level 2 (dev)
   - install level 2
     - base-devel clang llvm elixir ghc go guile mono msbuild-bin n octave openjdk python3-pip R rustup sbcl squeak swi-prolog tcllib tk postgresql postgresql-client sqlite nginx
-    - cmake, docker[-compose], gdb, hyperfine, perf, shellcheck, tree, valgrind
+    - cmake, docker[-compose], gdb, hyperfine, jq, perf, shellcheck, tree, valgrind
   - compile kernel
     - install: {elfutils,ncurses,openssl,xfsprogs}-devel
     - compile: make CC=clang HOSTCC=clang -j8
@@ -142,7 +142,7 @@
   - net: net-tools wget
   - manual: chrome
   - firefox config
-    - search engines: mycroft project: g, ddg, w, d, t, u, e, l, m, y
+    - search engines: mycroft project: g, ddg, w, d, t, u, e, k, l, m, y
     - extensions: react, simple tab groups, translate web pages, ublock origin, video downloadhelper
     - about:config
       + gfx.x11-egl.force-enabled, gfx.webrender.all, gfx.webrender.compositor, gfx.webrender.compositor.force-enabled, media.ffmpeg.vaapi.enabled, toolkit.legacyUserProfileCustomizations.stylesheets

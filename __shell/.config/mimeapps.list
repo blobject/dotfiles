@@ -24,4 +24,5 @@ video/mp4=mpv.desktop
 video/webm=mpv.desktop
 video/x-matroska=mpv.desktop
 application/pdf=org.pwmt.zathura.desktop
+x-scheme-handler/postman=Postman.desktop
 

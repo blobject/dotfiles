@@ -118,9 +118,10 @@ fi
 
 ## aliases
 alias 0cam='mpv av://v4l2:/dev/video0 --profile=low-latency --untimed'
-alias 0clock='echo "$(date +%s) $(TZ=UTC date)"; echo "Prague:    $(date)"; echo "Reykjavik: $(TZ=Atlantic/Reykjavik date)"; echo "Riyadh:    $(TZ=Asia/Riyadh date)"; echo "Seoul:     $(TZ=Asia/Seoul date)"'
+alias 0clock='echo "$(date +%s) $(TZ=UTC date)"; echo "Prague:    $(TZ=Europe/Prague date)"; echo "Reykjavik: $(TZ=Atlantic/Reykjavik date)"; echo "Riyadh:    $(TZ=Asia/Riyadh date)"; echo "Seoul:     $(TZ=Asia/Seoul date)"; echo "Singapore: $(date)"'
 alias 0ear='bluetoothctl connect B0:F1:A3:63:0A:66'
 alias 0fonts="pango-list | grep '^[^ ]' | sort | pr -2 -T"
+alias 0gpu_unplug="sudo modprobe -r amdgpu && sudo sh -c \"echo 1 > /sys/bus/pci/devices/0000:$(lspci | grep ' VGA ' | grep Radeon | head -1 | cut -d' ' -f1)/remove\""
 alias 0ip='curl https://ipinfo.io/ip; echo'
 #alias 0mixon='pactl load-module module-loopback'
 #alias 0mixoff='pactl unload-module module-loopback'
@@ -143,7 +144,7 @@ alias fd='fd --hidden --no-ignore'
 alias imv='imv -b checks'
 alias le='less'
 alias ls='ls --color=auto --time-style=long-iso'
-alias lsn='fd . --exclude "\\.git/" --ignore --print0 --type file | xargs -0 stat --format "%Y :%y %n" | sort -nr | cut -d: -f2-'
+alias lstop='fd . --exclude "\\.git/" --ignore --print0 --type file | xargs -0 stat --format "%Y :%y %n" | sort -nr | cut -d: -f2-'
 alias l='ls -AF'
 alias ll='ls -lh'
 alias lla='ll -a'
@@ -201,7 +202,7 @@ __0_work()
       alias black="black --diff"
       alias eslint="$_np/eslint/bin/eslint.js -c $_d/.eslintrc.cjs --ext .js,.jsx,.ts,.tsx"
       alias prettier="$_np/prettier/bin-prettier.js"
-      alias sass="$_np/sass"
+      alias sass="$_np/sass/sass.js"
       alias tsc="$_np/typescript/bin/tsc --noemit"
       alias _n="cd $_d/node_modules"
       alias _py="test -z $_pp && echo \"no dir: $_ppd\" || cd $_pp"
@@ -209,14 +210,14 @@ __0_work()
       . "../../env/env_$_e.sh"
       0conda "$_e"
       ;;
-    __|[1-3])
+    __|[1-4])
       alias _py="test -z $_pp && echo \"no dir: $_ppd\" || cd $_pp"
       cd "$_d"
       . "../../env/env_$_e.sh"
       0conda "$_e"
       ;;
     ___)
-      alias eslint="$_np/eslint/bin/eslint.js -c $_d/.eslintrc.json --ext .js,.jsx,.ts,.tsx"
+      alias eslint="$_np/eslint/bin/eslint.js -c $_d/eslint.config.mjs"
       alias graphql-codegen="$_np/.bin/graphql-codegen"
       alias prettier="$_np/prettier/bin-prettier.js"
       alias tsc="$_np/typescript/bin/tsc --noemit"
@@ -233,4 +234,5 @@ alias work__='__0_work ___'
 alias work1='__0_work 1'
 alias work2='__0_work 2'
 alias work3='__0_work 3'
+alias work4='__0_work 4'
 # eof

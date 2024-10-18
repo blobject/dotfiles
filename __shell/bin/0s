@@ -88,22 +88,23 @@ proc bye {arg} {
 
   switch -- $arg {
     k - o - lock {
-      if {{w} eq $SESS} {
-        set locker waylock
-        puts {0s: locking...}
-        catch {exec ps a | rg "\\s+\[0-9:\]+ $locker "} _ ret
-        if {0 == [dict get $ret -code]} {
-          puts {0s: locking canceled, already locked, locker}
-          return
-        }
-        set args {
-          -fork-on-lock
-          -fail-color 0xa32c2d
-          -init-color 0x16161d
-          -input-color 0x575a61
-        }
-        catch {exec $locker {*}$args}
+      if {{w} ne $SESS} {
+        return
       }
+      set locker waylock
+      puts {0s: locking...}
+      catch {exec ps ax | rg "\\s+\[0-9:\]+\\s+$locker "} _ ret
+      if {0 == [dict get $ret -code]} {
+        puts {0s: locking canceled, already locked, locker}
+        return
+      }
+      set args {
+        -fork-on-lock
+        -fail-color 0xa32c2d
+        -init-color 0x16161d
+        -input-color 0x575a61
+      }
+      catch {exec $locker {*}$args}
     }
     e - l - q - x - logout {
       puts {0s: logging out...}
@@ -306,7 +307,7 @@ proc temper {} {
   set where $TMPD
   set flag .unpacked
   set what mozilla/firefox
-  set name eyck8bgi.default-default
+  set name uiupka2h.default-default
 
   proc base {name} {
     return [lindex [file split $name] end]

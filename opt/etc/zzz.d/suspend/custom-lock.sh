@@ -3,7 +3,7 @@
 # presume wayland
 
 locker=waylock
-ps a | grep waylock | grep -qv " grep .*$locker" && exit
+ps ax | grep " \s\+[0-9:]\+\s\+$locker " && exit
 
 uid=1000
 home=$(getent passwd $uid | cut -d: -f6)

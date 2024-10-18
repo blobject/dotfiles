@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Keymapp
+Exec=/home/b/opt/keymapp
+Type=Application
+Comment=ZSA Keymapp
+Icon=keymapp
+Categories=Development;
+StartupNotify=true
+Terminal=false

@@ -8,8 +8,8 @@ if {{root} eq $::tcl_platform(user)} { set home /home/b }
 source $home/bin/lib.tcl
 unset home
 
-need notify-send rg \
-     fnottctl \
+need notify-send \
+     rg \
      waylock \
      dracut \
      rsync xbps-query \
@@ -17,16 +17,22 @@ need notify-send rg \
      tlp
 
 set SUDO /usr/sbin/sudo
+set ICONS /usr/share/icons/Papirus/24x24
 
 ###############################################################################
 
+# helper: notify-send hinting for deduplication
 proc _nrep {name} {
-  # helper: replacement id for notify-send
-  catch {exec fnottctl list | rg ": $name" -r {}} id ret
-  if {0 != [dict get $ret -code]} {
-    return {}
-  }
-  return "-r $id"
+  return "--hint=string:wired-tag:$name"
+}
+
+###############################################################################
+
+# helper: notify-send hinting for icons
+proc _nicon {icon} {
+  global ICONS
+
+  return "--hint=string:image-path:$ICONS/$icon"
 }
 
 ###############################################################################
@@ -37,6 +43,9 @@ proc bat {} {
   set crit 5
   set lo 20
   set hi 80
+  set icon_crit [_nicon panel/battery-010.svg]
+  set icon_lo [_nicon panel/battery-020.svg]
+  set icon_hi [_nicon panel/battery-080-charging.svg]
   set notify "notify-send [_nrep $title]"
 
   set dir /sys/class/power_supply/$device
@@ -46,14 +55,14 @@ proc bat {} {
   switch -- [string index $status 0] {
     {D} {
       if {$capacity <= $crit} {
-        exec {*}$notify -u critical -i battery-010 $title $capacity%
+        exec {*}$notify -u critical -t 0 $icon_crit $title $capacity%
       } elseif {[expr {$lo - 5}] <= $capacity && $capacity <= $lo} {
-        exec {*}$notify -u normal -i battery-020 $title $capacity%
+        exec {*}$notify -u normal $icon_lo $title $capacity%
       }
     }
     {C} {
       if {$hi <= $capacity && $capacity <= [expr {$hi + 2}]} {
-        exec {*}$notify -u low -i battery-080-charging $title $capacity%
+        exec {*}$notify -u low $icon_hi $title $capacity%
       }
     }
   }
@@ -390,13 +399,14 @@ proc tlp {} {
 
   set title profile
   set gov [readfile /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor]
+  set icon [_nicon panel/indicator-sensors-cpu.svg]
   switch -- [string index $gov 1] {
     e { set profile start; set message {tlp (auto)} }
     o { set profile ac; set message {full (manual)} }
     default { set profile ?; set message ? }
   }
   exec $SUDO tlp $profile
-  exec notify-send {*}[_nrep $title] -u low -i indicator-sensors-cpu $title $message
+  exec notify-send -u low [_nrep $title] $icon $title $message
 }
 
 ###############################################################################

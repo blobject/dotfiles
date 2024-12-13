@@ -1,6 +1,0 @@
-- `certbot certificates`
-- `certbot revoke --cert-path CERTFILE`
-- `certbot delete --cert-path CERTFILE`
-- `certbot certonly --authenticator webroot --installer nginx -d ROOTDOM -d SUBDOM1 -d SUBDOM2`
-- configure ssl for nginx
-- `certbot renew`

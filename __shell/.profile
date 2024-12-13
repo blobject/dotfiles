@@ -7,9 +7,6 @@ export TERMINAL=foot
 # gtk
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
-# firefox
-export MOZ_DISABLE_RDD_SANDBOX=1
-
 # qt
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
 export QT_ENABLE_HIGHDPI_SCALING=1
@@ -26,7 +23,6 @@ export VDPAU_DRIVER=va_gl
 # x
 export XCURSOR_SIZE=64
 export XCURSOR_THEME=Breeze_Snow
-export XKB_DEFAULT_LAYOUT=hsnt
 
 # xdg
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -40,10 +36,12 @@ test -z "$XDG_RUNTIME_DIR" && \
   export XDG_RUNTIME_DIR; }
 
 ### session-specific
-#if ps au | grep -q "$USER .*/usr/bin/\(openbox\|openbox-session\|startx\|xinit\)"; then
-#  # xorg
-#else
-#  # wayland
-#fi
+if ps au | grep -q "$USER .*/usr/bin/\(openbox\|openbox-session\|startx\|xinit\)"; then
+  # xorg
+  export XKB_DEFAULT_LAYOUT=hsnt
+else
+  # wayland
+  :
+fi
 
 # eof

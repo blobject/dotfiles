@@ -13,11 +13,11 @@ xrdb -merge $HOME/.xresources &
 # daemon
 0s snooze &
 0s temper &
-swaybg -m center -i $HOME/cfg/opt/_shell/back.png &
+swaybg --mode center --image $HOME/cfg/opt/_shell/back.png &
 swayidle -w timeout 600 '0s bye lock' &
-fnott &
+wired --run &
 gammastep-indicator -l manual -l 1.28:103.85 -m wayland -t 5500K:4800K &
-iwgtk -i &
+iwgtk --indicators &
 kanshi &
 pipewire &
 { sleep 1 && pipewire-pulse; } &

@@ -1,9 +1,0 @@
-init vpn
-- compile kernel with WireGuard support
-  - if compiled as module, modprobe wireguard
-- install wireguard-tools (/usr/bin/wg)
-- login to vpn provider and download wireguard config
-- move config to /etc/wireguard/FILENAME.conf
-
-start vpn
-- sudo wg-quick up FILENAME

@@ -1,9 +1,0 @@
-opt:
-- cemant
-- fonts
-- hsnt
-- kak/kak-rainbow
-- miniconda
-- pycharm-community
-- void-packages
-- work

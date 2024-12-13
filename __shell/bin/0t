@@ -5,8 +5,8 @@
 
 source $::env(HOME)/bin/lib.tcl
 
-need notify-send rg \
-     fnottctl \
+need notify-send \
+     rg \
      firefox \
      bluetoothctl \
      ifstat \
@@ -19,16 +19,22 @@ need notify-send rg \
      ponymix
 
 set SUDO /usr/sbin/sudo
+set ICONS /usr/share/icons/Papirus/24x24
 
 ###############################################################################
 
+# helper: notify-send hinting for deduplication
 proc __nrep {name} {
-  # helper: replacement id for notify-send
-  catch {exec fnottctl list | rg ": $name" -r {}} id ret
-  if {0 != [dict get $ret -code]} {
-    return {}
-  }
-  return "-r $id"
+  return "--hint=string:wired-tag:$name"
+}
+
+###############################################################################
+
+# helper: notify-send hinting for icons
+proc __nicon {icon} {
+  global ICONS
+
+  return "--hint=string:image-path:$ICONS/$icon"
 }
 
 ###############################################################################
@@ -42,20 +48,21 @@ proc _firefox {} {
 
 ###############################################################################
 
-# for wm, replaces lum
-proc _lum- {} {
+# for wm, implicit lum change
+proc _lum {arg} {
   set title lum
-  exec sleep 0.1
-  exec notify-send {*}[__nrep $title] -u low -i redshift-status-off $title "[format %.0f [exec light -G]]"
-}
+  set icon_lo [__nicon panel/redshift-status-off.svg]
+  set icon_hi [__nicon panel/redshift-status-on.svg]
+  set icon {}
+  set notify "notify-send -u low [__nrep $title]"
 
-###############################################################################
+  switch -- $arg {
+    - { set icon $icon_lo }
+    + { set icon $icon_hi }
+  }
 
-# for wm, replaces lum
-proc _lum+ {} {
-  set title lum
   exec sleep 0.1
-  exec notify-send {*}[__nrep $title] -u low -i redshift-status-on $title "[format %.0f [exec light -G]]"
+  exec {*}$notify $icon $title "[format %.0f [exec light -G]]"
 }
 
 ###############################################################################
@@ -71,11 +78,11 @@ proc _run {} {
 --border-width=0 --outline-width=0 \
 --num-results=16 \
 --result-spacing=16 \
---background-color=000000a0 \
---input-color=d2d6deff \
---prompt-color=d2d6deff \
---selection-color=ffffffff \
---text-color=b9bdc5ff \
+--background-color=000000a8 \
+--input-color=ffffffff \
+--prompt-color=ffffffff \
+--selection-color=667ad3ff \
+--text-color=ba8d3bff \
 --drun-launch=true \
 --fuzzy-match=true \
 --late-keyboard-init \
@@ -143,8 +150,11 @@ proc cpu {} {
 proc lay {arg} {
   global SESS
 
+  set icon_lo [__nicon apps/preferences-desktop-keyboard.svg]
+  set icon_hi [__nicon apps/cinnamon-virtual-keyboard.svg]
+
   if {{x} ne $SESS} {
-    exec notify-send -u low -i preferences-desktop-keyboard key {xorg not running}
+    exec notify-send -u low $icon_lo key {xorg not running}
     exit
   }
 
@@ -163,33 +173,36 @@ proc lay {arg} {
       ufail {lay h_snt|q_werty}
     }
   }
-  exec notify-send -u low -i cinnamon-virtual-keyboard key $arg
+  exec notify-send -u low $icon_hi key $arg
 }
 
 ###############################################################################
 
-# for wm
+# for wm, explicit lum change
 proc lum {arg} {
   set title lum
+  set notify "notify-send -u low [__nrep $title]"
   set cmd {light}
   set cmd_set {-S}
   set cmd_dec {-U}
   set cmd_inc {-A}
   set cmd_get {-G}
   set cmd_sub $cmd
-  set notify {notify-send -u low -i redshift-status-}
+  set icon_lo [__nicon panel/redshift-status-off.svg]
+  set icon_hi [__nicon panel/redshift-status-on.svg]
+  set icon $icon_hi
 
   switch -- [string index $arg 0] {
-    {} { append notify on }
-    - { append cmd_sub " $cmd_dec"; append notify off }
-    + { append cmd_sub " $cmd_inc"; append notify on }
-    default { append cmd_sub " $cmd_set"; append notify on }
+    {} {}
+    - { append cmd_sub " $cmd_dec"; set icon $icon_lo }
+    + { append cmd_sub " $cmd_inc" }
+    default { append cmd_sub " $cmd_set" }
   }
   if {[string length $arg]} {
     set arg [string range $arg 1 end]
     exec {*}$cmd_sub $arg
   }
-  exec {*}$notify {*}[__nrep $title] $title [exec {*}$cmd $cmd_get]%
+  exec {*}$notify $icon $title [exec {*}$cmd $cmd_get]%
 }
 
 ###############################################################################
@@ -203,7 +216,6 @@ proc mon {{arg {}}} {
   set cmd_off "$cmd_base --off"
   set cmd_toggle "$cmd_base --toggle"
   set cmd_refresh {kanshictl reload}
-  set notify {notify-send -u low -i redshift-status-}
 
   switch -- [string index $arg 0] {
     {} { exec {*}$cmd_toggle }
@@ -243,7 +255,8 @@ proc shot {args} {
   set opt {}
   set dst {}
   set desc {}
-  set notify {notify-send -u normal -i image-x-generic}
+  set icon [__nicon mimetypes/image-x-generic.svg]
+  set notify "notify-send -u normal $icon"
 
   proc help {} {
     upvar 1 dir dir
@@ -317,7 +330,19 @@ proc shot {args} {
 # for wm
 proc vol {args} {
   set title vol
-  set notify "notify-send [__nrep $title] -u low -i"
+  set notify "notify-send -u low [__nrep $title]"
+  set icon_bt_lo [__nicon panel/bluetooth-disabled.svg]
+  set icon_usb [__nicon devices/drive-removable-media-usb.svg]
+  set icon_vol_good [__nicon panel/audio-ready.svg]
+  set icon_vol_off [__nicon panel/audio-off.svg]
+  set icon_vol_on [__nicon panel/audio-on.svg]
+  set icon_vol_lo [__nicon panel/audio-volume-medium.svg]
+  set icon_vol_hi [__nicon panel/audio-volume-high.svg]
+  set icon_mic_good [__nicon panel/mic-ready.svg]
+  set icon_mic_off [__nicon panel/mic-off.svg]
+  set icon_mic_on [__nicon panel/mic-on.svg]
+  set icon_mic_lo [__nicon panel/microphone-sensitivity-medium.svg]
+  set icon_mic_hi [__nicon panel/microphone-sensitivity-high.svg]
 
   # which?
   set devs [dict create \
@@ -339,7 +364,7 @@ proc vol {args} {
       set pat {: bluez_output}
       set patmic {: bluez_input}
       if [catch {exec {*}$base | rg $pat}] {
-        exec {*}$notify bluetooth-disabled $title {no bt audio}
+        exec {*}$notify $icon_bt_lo $title {no bt audio}
         exit
       }
       set out [exec {*}$base | rg $pat | tail -1 | cut {-d } -f3]
@@ -365,7 +390,7 @@ proc vol {args} {
       set pat {_output\.usb-}
       set patmic {_input\.usb-}
       if [catch {exec {*}$base | rg $pat}] {
-        exec {*}$notify drive-removable-media-usb $title {no audio usb}
+        exec {*}$notify $icon_usb $title {no audio usb}
         exit
       }
       set out [exec {*}$base | rg $pat | tail -1 | cut {-d } -f3]
@@ -392,10 +417,10 @@ proc vol {args} {
   if {{mic} eq [lindex $args 0]} {
     if {{} eq $mic} {
       if {$isbt} {
-        exec {*}$notify bluetooth-disabled $title {no bt audio mic}
+        exec {*}$notify $icon_bt_lo $title {no bt audio mic}
       }
       if {$isusb} {
-        exec {*}$notify drive-removable-media-usb $title {no audio usb mic}
+        exec {*}$notify $icon_usb $title {no audio usb mic}
       }
       exit
     }
@@ -426,27 +451,27 @@ proc vol {args} {
   # build notification
   switch -- [string index [lindex $args 0] 0] {
     {} {
-      set arg " audio-ready"
-      if {$ismic} { set arg " mic-ready" }
+      set arg " $icon_vol_good"
+      if {$ismic} { set arg " $icon_mic_good" }
       append notify "$arg $title \"$dev [exec {*}$cmdbase get-volume]%\""
     }
     x {
-      set arg " audio-off $title \"$dev muted\""
-      if {$ismic} { set arg " mic-off $title \"$dev mic muted\"" }
+      set arg " $icon_vol_off $title \"$dev muted\""
+      if {$ismic} { set arg " $icon_mic_off $title \"$dev mic muted\"" }
       if [catch {exec {*}$cmdbase is-muted}] {
-        set arg " audio-on $title \"$dev on\""
-        if {$ismic} { set arg " mic-on $title \"$dev mic on\"" }
+        set arg " $icon_vol_on $title \"$dev on\""
+        if {$ismic} { set arg " $icon_mic_on $title \"$dev mic on\"" }
       }
       append notify $arg
     }
     - {
-      set arg " audio-volume-medium"
-      if {$ismic} { set arg " microphone-sensitivity-medium" }
+      set arg " $icon_vol_lo"
+      if {$ismic} { set arg " $icon_mic_lo" }
       append notify "$arg $title \"$dev [exec {*}$cmdbase get-volume]%\""
     }
     + {
-      set arg " audio-volume-high"
-      if {$ismic} { set arg " microphone-sensitivity-high" }
+      set arg " $icon_vol_hi"
+      if {$ismic} { set arg " $icon_mic_hi" }
       append notify "$arg $title \"$dev [exec {*}$cmdbase get-volume]%\""
     }
   }

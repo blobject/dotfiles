@@ -1,0 +1,232 @@
+CERTBOT
+
+- `certbot certificates`
+- `certbot revoke --cert-path CERTFILE`
+- `certbot delete --cert-path CERTFILE`
+- `certbot certonly --authenticator webroot --installer nginx -d ROOTDOM -d SUBDOM1 -d SUBDOM2`
+- configure ssl for nginx
+- `certbot renew`
+
+----
+CRYPT
+
+luks + lvm
+- decrypt & activate:
+  - let "nvme0n1p2" contain encrypted root
+  - let lvm group be called "pool"
+  - let partition be called "root"
+  1. cryptsetup luksOpen /dev/nvme0n1p2 pool
+  2. lvchange -ay pool
+  3. mount /dev/pool/root /mnt
+  4. (connect to wifi on running live instance)
+  5. xchroot /mnt
+- boot:
+  - kernel params: root=/dev/GROUP/NAME rd.luks.uuid=METAL_UUID rd.lvm.vg=GROUP
+  - blkid for help
+
+----
+EXTERNAL
+
+opt:
+- cemant
+- fonts
+- hsnt
+- kak/kak-rainbow
+- miniconda
+- pycharm-community
+- void-packages
+- work
+
+----
+HW
+
+wifi:
+- sluggish?
+  - /etc/modprobe.d/: options iwlwifi 11n_disable=8 [11n_disable=1] [bt_coex_active=N]
+
+bluetooth:
+1. bluetoothctl
+2. > scan on
+3. > devices
+4. > pair $dev
+5. > connect $dev
+6. > trust $dev
+7. > scan off
+
+kbd:
+  - copy keymap to /usr/share/X11/xkb/symbols/
+  console:
+    - copy keymap to /usr/share/kbd/keymaps/i386/
+    - loadkeys KEYMAP.kmap
+  x:
+    - setxkbmap KEYMAP
+  sway:
+    - swaymsg "input [swaymsg -t get_inputs > KBD_ID] xkb_layout KEYMAP"
+    - swaymsg "input KBD_ID xkb_options ctrl:nocaps"
+  wlroots:
+    - env: XKB_DEFAULT_LAYOUT=KEYMAP
+
+mouse:
+- libinput list-devices
+- sudo v /var/lib/bluetooth/*/*/info
+  - remove [IdentityResolvingKey]\nKey=
+
+----
+KERNEL
+
+compile:
+ 0. `refind-install`
+ 1. get kernel source
+ 2. `make oldconfig`, `make menuconfig`
+ 3. `make [CC=clang HOSTCC=clang]`
+ 4. have ESP mounted at /boot
+ 5. copy ./arch/x86_64/boot/bzImage to ESP/vmlinuz-VER
+ 6. copy ./System.map to ESP/System.map-VER
+ 7. `make [CC=clang HOSTCC=clang] modules_install`
+ 8. `dracut` (see dracut.conf)
+ 9. check /boot/refind_linux.conf
+  - `mkrlconf`
+10. cleanup in /boot, /lib/modules
+
+params for luks on lvm
+- root=/dev/GROUP/root rd.auto rd.luks=1 rd.lvm=1 rd.luks.uuid=... rd.lvm.vg=GROUP rd.locale.LANG=en_US.UTF-8 rd.shell rd.vconsole.keymap=hsnt ro
+
+virtualbox:
+- after modules_install: `xbps-reconfigure -f virtualbox-ose-dkms`
+  - for clang build: link /usr/bin/[g]cc to clang
+- cleanup: /usr/src, /var/lib/dkms/virtualbox-ose
+
+----
+LOOK
+
+colors:
+- .config/foot/foot*.ini
+- .config/fnott/fnott.ini
+- .config/waybar/style.css
+- .emacs.d/init.el
+- .themes/0theme/openbox-3/themerc
+- .xresources
+
+cursor:
+- .icons/default/index.theme
+- .profile
+- .gtkrc-2.0
+- .config/gtk-3.0/settings.ini
+
+hidpi (& font size):
+- .config/foot/foot*.ini
+- .config/fnott/fnott.ini
+- .config/labwc/autostart
+- .config/waybar/config,style.css
+- .gtkrc-2.0
+- .emacs.d/init.el
+- .profile
+- .xresources
+- .xsession
+- bin/0a
+- qt5ct
+
+----
+MEDIA
+
+alsa (alsa-tools):
+- hda-verb /dev/snd/hwC0D0 0x1d SET_PIN_WIDGET_CONTROL 0x0
+- consult https://docs.kernel.org/sound/hd-audio/models.html
+
+modules:
+- /etc/modprobe.d/: options snd_hda_intel model=dell-headset-multi
+
+pipewire:
+- (for alsa) ln -s /usr/share/alsa/alsa.conf.d/*-pipewire*.conf /etc/alsa/conf.d
+- (for wireplumber) disable pipewire-media-session in ~/.config/pipewire/pipewire.conf
+
+screencast:
+- wf-recorder -F fps=60 -c libx264rgb -p crf=12 -p preset=slow -p threads=4 -p tune=animation
+
+----
+OPT
+
+work:
+- poetry
+  - curl -sSL https://install.python-poetry.org | python -
+    - https://python-poetry.org/docs/#installing-with-the-official-installer
+
+dev:
+- keyboard
+  - dfu-programmer
+- graphics
+  - glew-devel
+  - glfw-devel
+  - glm
+  - opencl-clhpp
+  - opencl2-headers
+- node
+  - package manager install n
+  - sudo n lts
+- rust
+  - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    - https://www.rust-lang.org/tools/install
+
+manual (/usr/local):
+- intel opencl (neo)
+
+opt:
+- look
+  - cemant
+- fonts
+  - kept: agave apercu arial avenir awesome bookerly calibri cambria candara cascadia comic consolas constantia corbel courier cyberbit fira google helvetica input inter iosevka jetbrains lexend nanum newyork noto plex roboto sanfrancisco segoe selawik tahoma times trebuchet ubuntu umtypewriter verdana zilla
+  - package: freefont inconsolata opensans sarasa source
+
+----
+SESSION
+
+no pam/logind:
+- create /run/user/$UID in /etc/rc.local
+  > mkdir -p -m700 /run/user/$(id -u b) && chown b:b /run/user/$(id -u b)
+- set $XDG_RUNTIME_DIR in ~/.profile
+  > test -z "$XDG_RUNTIME_DIR" && export XDG_RUNTIME_DIR=/run/user/$(id -u)
+
+----
+VPN
+
+init vpn
+- compile kernel with WireGuard support
+  - if compiled as module, modprobe wireguard
+- install wireguard-tools (/usr/bin/wg)
+- login to vpn provider and download wireguard config
+- move config to /etc/wireguard/FILENAME.conf
+
+start vpn
+- sudo wg-quick up FILENAME
+
+----
+XBPS
+
+everyday use:
+- update: xbps-install -Su
+- install: xbps-install -S PKG
+- search: xbps-query -Rs STR (f=files,x=deps,X=revdeps)
+- remove: xbps-remove -R PKG
+- remove orphans: xbps-remove -Oo
+
+more use:
+- find package that owns file: xlocate FILE
+- chroot: xchroot DIR
+
+downgrade:
+- clone void-linux/void-packages
+- ./xbps-src binary-bootstrap
+- checkout older repo state
+- ./xbps-src -N pkg PACKAGE
+- xbps-remove -F PACKAGE_CUR
+- xbps-install --repository hostdir/binpkgs.. PACKAGE
+
+manual install:
+- git clone VOID_PACKAGES
+- cd void-packages
+- ./xbps-src binary-bootstrap
+- (echo XBPS_ALLOW_RESTRICTED=yes >> etc/conf)
+- ./xbps-src -N pkg PACKAGE
+- xi PACKAGE
+  - or: xbps-install --repository hostdir/binpkgs.. PACKAGE
+

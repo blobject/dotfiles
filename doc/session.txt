@@ -1,7 +1,0 @@
-no pam/logind:
-- create /run/user/$UID in /etc/rc.local
-  > mkdir -p -m700 /run/user/$(id -u b) && chown b:b /run/user/$(id -u b)
-- set $XDG_RUNTIME_DIR in ~/.profile
-  > test -z "$XDG_RUNTIME_DIR" && export XDG_RUNTIME_DIR=/run/user/$(id -u)
-
-

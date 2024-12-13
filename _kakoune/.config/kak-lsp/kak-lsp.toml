@@ -6,19 +6,19 @@ timeout = 300
 
 [language.c]
 filetypes = ["c", "cpp", "objc"]
-roots = ["compile_commands.json", ".ccls-root", ".git", ".hg"]
+roots = ["compile_commands.json", ".ccls-root", ".git/", ".hg/"]
 command = "ccls"
 args = ["--init={\"completion\":{\"detailedLabel\":false}}"]
 
 [language.css]
 filetypes = ["css", "less", "scss"]
-roots = ["package.json", ".git", ".hg"]
+roots = ["package.json", ".git/", ".hg/"]
 command = "css-languageserver"
 args = ["--stdio"]
 
 [language.html]
 filetypes = ["html"]
-roots = ["package.json", ".git", ".hg"]
+roots = ["package.json", ".git/", ".hg/"]
 command = "html-languageserver"
 args = ["--stdio"]
 
@@ -34,13 +34,14 @@ args = ["--stdio"]
 
 [language.js]
 filetypes = ["javascript", "typescript"]
-roots = ["package.json", "tsconfig.json", ".git", ".hg"]
+roots = ["package.json", "tsconfig.json", ".git/", ".hg/"]
 command = "typescript-language-server"
 args = ["--stdio"]
+offset_encoding = "utf-8"
 
 [language.json]
 filetypes = ["json"]
-roots = ["package.json", ".git", ".hg"]
+roots = ["package.json", ".git/", ".hg/"]
 command = "json-languageserver"
 args = ["--stdio"]
 
@@ -51,7 +52,7 @@ command = "texlab"
 
 [language.py]
 filetypes = ["python"]
-roots = ["pyproject.toml", "requirements.txt", "setup.py", ".git", ".hg"]
+roots = ["pyproject.toml", "requirements.txt", "setup.py", ".git/", ".hg/"]
 command = "pylsp"
 offset_encoding = "utf-8"
 #settings_section = "_"
@@ -60,14 +61,14 @@ offset_encoding = "utf-8"
 
 #[language.py]
 #filetypes = ["python"]
-#roots = ["pyproject.toml", "requirements.txt", "setup.py", ".git", ".hg"]
+#roots = ["pyproject.toml", "requirements.txt", "setup.py", ".git/", ".hg/"]
 #command = "ruff"
 #args = ["server", "--preview"]
 #offset_encoding = "utf-8"
 
 [language.zig]
 filetypes = ["zig"]
-roots = ["zls.json", ".git", ".hg"]
+roots = ["zls.json", ".git/", ".hg/"]
 command = "zls"
 
 [semantic_tokens]

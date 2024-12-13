@@ -17,6 +17,7 @@
       <name>2</name>
       <name>3</name>
       <name>4</name>
+      <name>5</name>
     </names>
   </desktops>
 
@@ -44,6 +45,9 @@
     <font place="MenuItem" name="sans" size="15" slant="normal" weight="normal"/>
     <font place="OnScreenDisplay" name="sans" size="17" slant="normal" weight="bold"/>
     <keepBorder>yes</keepBorder>
+    <titlebar>
+      <layout>icon:</layout>
+    </titlebar>
   </theme>
 
   <windowSwitcher show="no" preview="yes" outlines="yes"/>
@@ -75,13 +79,15 @@
     <keybind key="W-w"><action name="Execute" command="firefox -P f0"/></keybind>
     <keybind key="W-S-w"><action name="Execute" command="google-chrome-stable"/></keybind>
     <keybind key="W-A-w"><action name="Execute" command="0t _firefox"/></keybind>
-    <keybind key="W-Space"><action name="Execute" command="fnottctl dismiss"/></keybind>
+    <keybind key="W-Space"><action name="Execute" command="wired --drop latest"/></keybind>
+    <keybind key="W-S-Space"><action name="Execute" command="wired --drop all"/></keybind>
+    <keybind key="W-A-Space"><action name="Execute" command="wired --show 1"/></keybind>
     <keybind key="XF86_MonBrightnessDown">
-      <action name="Execute"><command>0t _lum-</command></action>
+      <action name="Execute"><command>0t _lum -</command></action>
       <!-- <action name="Execute"><command>0t lum -2</command></action> -->
     </keybind>
     <keybind key="XF86_MonBrightnessUp">
-      <action name="Execute"><command>0t _lum+</command></action>
+      <action name="Execute"><command>0t _lum +</command></action>
       <!-- <action name="Execute"><command>0t lum +2</command></action> -->
     </keybind>
     <keybind key="XF86_AudioMute"><action name="Execute" command="0t vol x"/></keybind>
@@ -115,10 +121,12 @@
     <keybind key="W-2"><action name="GoToDesktop" to="2"/></keybind>
     <keybind key="W-3"><action name="GoToDesktop" to="3"/></keybind>
     <keybind key="W-4"><action name="GoToDesktop" to="4"/></keybind>
+    <keybind key="W-5"><action name="GoToDesktop" to="5"/></keybind>
     <keybind key="W-S-1"><action name="SendToDesktop" to="1"/></keybind>
     <keybind key="W-S-2"><action name="SendToDesktop" to="2"/></keybind>
     <keybind key="W-S-3"><action name="SendToDesktop" to="3"/></keybind>
     <keybind key="W-S-4"><action name="SendToDesktop" to="4"/></keybind>
+    <keybind key="W-S-5"><action name="SendToDesktop" to="5"/></keybind>
     <keybind key="W-h"><action name="MoveToEdge" snapWindows="yes" direction="left"/></keybind>
     <keybind key="W-j"><action name="MoveToEdge" snapWindows="yes" direction="down"/></keybind>
     <keybind key="W-k"><action name="MoveToEdge" snapWindows="yes" direction="up"/></keybind>
@@ -320,11 +328,8 @@
       <pointerSpeed>0.1</pointerSpeed>
     </device>
     -->
-    <device category="Razer Razer Atheris - Mobile Gaming Mouse">
-      <pointerSpeed>-0.2</pointerSpeed>
-    </device>
-    <device category="Razer Atheris Mouse">
-      <pointerSpeed>-0.6</pointerSpeed>
+    <device category="ProClickM Mouse">
+      <pointerSpeed>-0.4</pointerSpeed>
     </device>
   </libinput>
 </labwc_config>

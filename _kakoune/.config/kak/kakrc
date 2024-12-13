@@ -3,7 +3,7 @@ colorscheme cemant
 set-option global grepcmd 'rg --line-number --with-filename'
 set-option global indentwidth 2
 set-option global modelinefmt '{StatusLineInfo}%sh{printf %s "${kak_buffile}" | sed "s_[^/]\+\$__" | sed "s_^$HOME/_~/_" | sed "s_^/home/work/_+/_"}{black,white}%sh{printf %s "${kak_bufname##*/}"}{{context_info}}{blue}%sh{if test -n "${kak_opt_filetype}"; then printf " %s" ${kak_opt_filetype}; fi}{StatusLineInfo} {red}%sh{expr $(printf "%s\n" ${kak_buflist} | wc -w) - 2}{StatusLineInfo} {yellow}u%sh{printf "%04x" "${kak_cursor_char_value}"}{StatusLineInfo} %val{buf_line_count}:{black}%val{cursor_line}{StatusLineInfo}:{black}%val{cursor_char_column}{StatusLineInfo} {{mode_info}}'
-set-option global scrolloff 4,4
+set-option global scrolloff 3,3
 set-option global tabstop 2
 set-option global ui_options terminal_assistant=none terminal_enable_mouse=yes terminal_set_title=yes terminal_status_on_top=yes
 
@@ -57,7 +57,9 @@ hook global BufWritePost .* %{
 }
 
 # lsp
-eval %sh{kak-lsp --kakoune -s ${kak_session}}
+eval %sh{/home/b/opt/kak-lsp/kak-lsp --kakoune -s ${kak_session}}
+#eval %sh{kak-lsp --kakoune -s ${kak_session}}
+#set-option global lsp_debug true
 set-option global lsp_hover_anchor true
 #set-option global lsp_show_hover_format 'printf %s "${lsp_info}"'
 hook global WinSetOption filetype=(c|cc|cpp|h|hh|m|mm|objc|css|less|scss|html|json|javascript|jsx|tsx|typescript|python|tex|zig) %{

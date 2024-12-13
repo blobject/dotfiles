@@ -1,3 +1,5 @@
+VOID
+
 - create installation usb of void live
 - make sure everything ready for wipe (install win to usb, back up any purchase addons, etc.)
 
@@ -98,11 +100,11 @@
     - swapon & /etc/fstab
 
 - install level 1
-  - install (power, bt, gfx base): acpi encfs gnupg tlp powertop nvtop blueman mesa mesa-dri mesa-vaapi mesa-vulkan-intel intel-video-accel vulkan-loader amdvlk Vulkan-Tools libva-utils sof-firmware seatd xorg-minimal xorg-server-xwayland foot setxkbmap xrdb xset xterm openbox labwc tuigreet
+  - install (power, bt, gfx base): acpi clamav encfs gnupg tlp powertop nvtop blueman mesa mesa-dri mesa-vaapi mesa-vulkan-intel intel-video-accel vulkan-loader amdvlk Vulkan-Tools libva-utils sof-firmware seatd xorg-minimal xorg-server-xwayland foot setxkbmap xrdb xset xterm openbox labwc tuigreet
   - remove .bash_logout
   - link __shell, greetd
   - (temp) copy .bashrc, .bash_profile, .profile
-  - add FOOUSER to groups: socklog,_seatd
+  - add FOOUSER to groups: socklog,_clamav,_seatd
   - enable services
     - greetd seatd
     - disable agetty-tty[4-6]
@@ -146,7 +148,7 @@
     - extensions: react, simple tab groups, translate web pages, ublock origin, video downloadhelper
     - about:config
       + gfx.x11-egl.force-enabled, gfx.webrender.all, gfx.webrender.compositor, gfx.webrender.compositor.force-enabled, media.ffmpeg.vaapi.enabled, toolkit.legacyUserProfileCustomizations.stylesheets
-      - media.ffvpx.enabled, media.peerconnection.enabled, media.rdd-ffvpx.enabled, media.rdd-vpx.enabled
+      - media.ffvpx.enabled, media.peerconnection.enabled, media.rdd-ffvpx.enabled, media.rdd-vpx.enabled, toolkit.telemetry.server
       = browser.uidensity
     - log into all web services and configure as necessary
   - stow all
@@ -182,8 +184,8 @@
 - games
   - cataclysm-dda
   - steam
-    - xdg-user-dir
-    - {libgcc,libstdc++,libdrm,libglvnd,mesa-dri}-32bit
+    - xdg-user-dirs
+    - 32bit: amdvlk, libglapi, libllvm19, libsensors, libXxf86vm, mesa, mesa-dri, mesa-libgallium, mesa-vulkan-intel, xorg-server-xwayland
 
 ========================================================================
 HERE ENDS THINKPAD SETUP. next are older notes
@@ -236,8 +238,8 @@ HERE ENDS THINKPAD SETUP. next are older notes
 
 - level 2 ::
 - *shell:*
-  - /hw:/ lshw, wev, xprop
-  - /sess:/ qt5-wayland, lswt, xeyes
+  - /hw:/ lshw, wev
+  - /sess:/ qt5-wayland, lswt, xeyes, xprop
   - /pkg:/ xtools
 - *dev:*
   - /lang:/ base-devel, ccls, clang, llvm, chez, elixir, ghc, go, guile, mono, n, octave, openjdk, pip, r, rustup, sbcl, squeak, swi-prolog, tcllib, texlab, tk, zig, zls
@@ -246,7 +248,7 @@ HERE ENDS THINKPAD SETUP. next are older notes
 - *app:*
   - /life:/ gnucash
   - /doc:/ foliate, gnuplot, libreoffice, pdf.js, texlive-most, zathura{djvu,pdf-mupdf,ps)
-  - /media:/ blender, gimp, imagemagick, imv, inkscape, grim, screenkey, slurp, swappy, wf-recorder
+  - /media:/ blender, gimp, glxinfo, imagemagick, imv, inkscape, grim, screenkey, slurp, swappy, wf-recorder
   - /look:/ breeze-snow-cursor-theme, hsetroot, papirus-icon-theme, qt5ct, swaybg
   - /net:/ firefox
     - to customise look, edit =profile.../chrome/userChrome.css=; =about:config=: enable =toolkit.legacyUserProfileCustomizations.stylesheets=
@@ -274,3 +276,30 @@ HERE ENDS THINKPAD SETUP. next are older notes
   - battery threshold: configure thresholds via matebook applet on win
   - bluetooth profiles: either mess with link keys on both systems, or clear/repair every time ([[https://unix.stackexchange.com/questions/568521/simpler-method-of-pairing-bluetooth-devices-for-both-windows-linux][link1]])
 
+----
+WIN
+
+windows install
+- make sure microsoft account recognises windows license
+- download windows 11 iso
+- use something like WinToUSB to install iso onto external ssd
+- boot into bios settings
+  - disable secure boot, presence detection, wan
+  - swap fn<->ctrl
+- boot into usb win (enter -> f12 on boot)
+- create new local account, delete first (ms) account
+- windows update
+- install lenovo vantage, then update
+- install hsnt
+- install powertoys
+- check antivirus
+- windows setting
+  - disable most stuff like detection, tracking, ai
+  - mouse sensitivity
+- control panel
+  - disable sleep button (disables fn-4 sleep)
+- regedit
+  - disable fn-tab magnify
+- powertoys
+  - change caps->ctrl
+- all the little personalisations

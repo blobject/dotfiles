@@ -54,7 +54,7 @@ proc _lum {arg} {
   set icon_lo [__nicon panel/redshift-status-off.svg]
   set icon_hi [__nicon panel/redshift-status-on.svg]
   set icon {}
-  set notify "notify-send -u low [__nrep $title]"
+  set notify "notify-send -u low"
 
   switch -- $arg {
     - { set icon $icon_lo }
@@ -181,7 +181,7 @@ proc lay {arg} {
 # for wm, explicit lum change
 proc lum {arg} {
   set title lum
-  set notify "notify-send -u low [__nrep $title]"
+  set notify "notify-send -u low"
   set cmd {light}
   set cmd_set {-S}
   set cmd_dec {-U}
@@ -330,7 +330,7 @@ proc shot {args} {
 # for wm
 proc vol {args} {
   set title vol
-  set notify "notify-send -u low [__nrep $title]"
+  set notify "notify-send -u low"
   set icon_bt_lo [__nicon panel/bluetooth-disabled.svg]
   set icon_usb [__nicon devices/drive-removable-media-usb.svg]
   set icon_vol_good [__nicon panel/audio-ready.svg]

@@ -4,8 +4,8 @@
 
 | class | instance |
 |-|-|
-| hw | [[https://psref.lenovo.com/Detail/ThinkPad_X1_Nano_Gen_1?M=20UN00FSUS][thinkpad x1 nano g1]], [[https://github.com/foostan/crkbd][corne]], [[https://www.razer.com/ap-en/gaming-mice/razer-atheris][atheris]], [[https://xtrfy.com/mice/mz1-wireless/][mz1]], [[https://us.aoc.com/en-US/products/monitors/i1601fwux][i1601fwux]] |
-| env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://labwc.github.io/][labwc]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
+| hw | [[https://psref.lenovo.com/Detail/ThinkPad_X1_Nano_Gen_1?M=20UN00FSUS][thinkpad x1 nano g1]], [[https://www.zsa.io/voyager][voyager]] |
+| env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://hyprland.org/][hyprland]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
 | look | [[https://github.com/blobject/cemant][cemant]], [[https://picaq.github.io/sarasa/][sarasa]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]] |
 
 *** scripts
@@ -31,22 +31,13 @@
 | key template | key more | do |
 |-|-|-|
 
-| | | /GENERAL, MOVE, RESIZE/ |
+| | | /GENERAL, FOCUS, MOVE/ |
 |-|-|-|
-| =MS-r= | | *reconfigure* |
 | =CA-= *char* | =\b= / =\d= | *lock* / *sleep* |
 | =M/A-L= | | *resize* / *move* window |
 | =MS[C]-\e= | | *close* [ or  *kill* ] window |
-| =MS-= *num* | =1= / =2= / =3= / =4= | *move* window to *nth* desktop |
-| =M[S]-= *dir* | =h= / =j= / =k= / =l= / =y= / =u= / =b= / =n= | *move* [ and *snap* ] window to *edge* |
-| =M-= *char* | =c= / =slash= / =quote= / =semic= / =comma= / =dot= / =lt= / =gt= | *snap* window to variations of *grid* |
-| =M[S]-f= | | toggle *maximise* [ or *fullscreen* ] |
-
-| | | /FOCUS/ |
-|-|-|-|
-| =M-= *num* | =1= / =2= / =3= / =4= | *focus nth* desktop |
-| =A[S]-\t= | | cycle *focus* [ *backwards* ] |
-| =M-a= | | toggle *always on top* |
+| =M/S-= *num* | =1= / =2= / =3= / =4= / =5= | *focus* / *move* to *nth* desktop |
+| =M-= *char* | =comma= / =semic= / =f= | toggle *float* / *split* / *fullscreen* |
 
 | | | /APP/ |
 |-|-|-|

@@ -46,7 +46,7 @@ proc bat {} {
   set icon_crit [_nicon panel/battery-010.svg]
   set icon_lo [_nicon panel/battery-020.svg]
   set icon_hi [_nicon panel/battery-080-charging.svg]
-  set notify "notify-send [_nrep $title]"
+  set notify "notify-send"
 
   set dir /sys/class/power_supply/$device
   set capacity [readfile $dir/capacity]
@@ -117,9 +117,13 @@ proc bye {arg} {
     }
     e - l - q - x - logout {
       puts {0s: logging out...}
+      set desk [lindex [split $::env(DESKTOP_SESSION) /] end]
+      if {{hyprland} == $::env(DESKTOP_SESSION)} {
+        set desk $::env(XDG_SESSION_DESKTOP)
+      }
       save
       kill
-      exec pkill [lindex [split $::env(DESKTOP_SESSION) /] end]
+      exec pkill $desk
     }
     z - sleep - standby - suspend {
       puts {0s: sleeping...}
@@ -406,7 +410,7 @@ proc tlp {} {
     default { set profile ?; set message ? }
   }
   exec $SUDO tlp $profile
-  exec notify-send -u low [_nrep $title] $icon $title $message
+  exec notify-send -u low $icon $title $message
 }
 
 ###############################################################################

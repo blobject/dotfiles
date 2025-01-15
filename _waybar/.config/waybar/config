@@ -3,7 +3,9 @@
   "position": "top",
   "modules-left": [
     //"wlr/workspaces",
-    "wlr/taskbar"
+    //"wlr/taskbar",
+    "hyprland/workspaces",
+    "hyprland/window"
   ],
   "modules-center": [
   ],
@@ -32,7 +34,20 @@
       "2": "",
       "3": "",
       "4": "",
-      "5": "⬤"
+      "5": "",
+    }
+  },
+  "hyprland/workspaces": {
+    "show-special": true,
+    "special-visible-only": true,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "special": "★"
     }
   },
   "wlr/taskbar": {
@@ -41,6 +56,10 @@
     "on-click-right": "activate",
     "format": "{icon}{title:.4}",
     "tooltip-format": "[{app_id}] {title}"
+  },
+  "hyprland/window": {
+    "icon": true,
+    "separate-outputs": true
   },
   "clock": {
     "interval": 15,

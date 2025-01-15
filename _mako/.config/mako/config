@@ -1,0 +1,25 @@
+max-history=128
+font=sans 16
+background-color=#16161df0
+text-color=#d2d6def0
+width=384
+height=128
+outer-margin=16,16
+margin=0,0,16
+padding=8,0,8,16
+border-size=8
+border-color=#ba8d3bf0
+progress-color=over #d2d6def0
+max-icon-size=32
+icon-path=/usr/share/icons/Papirus
+max-visible=8
+group-by=category
+layer=overlay
+default-timeout=8000
+
+[urgency=low]
+border-color=#36383ff0
+
+[urgency=high]
+border-color=#cf554df0
+default-timeout=0

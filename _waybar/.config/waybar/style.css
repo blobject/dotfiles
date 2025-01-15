@@ -28,10 +28,12 @@ window#waybar.hidden { opacity: 0.2; }
   font-size: 22px;
   font-weight: 700;
 }
-#taskbar button {
+#taskbar button,
+#window {
   font-family: sans;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
+  margin-top: -2px;
 }
 #pulseaudio {
   font-family: Agave, "Font Awesome 5 Pro Light", "Font Awesome 5 Pro Brands";
@@ -76,6 +78,7 @@ window#waybar.hidden { opacity: 0.2; }
 /* spacing: left */
 #workspaces { margin-left: 2px; }
 #taskbar { margin-left: 4px; }
+#window { margin-left: 8px; }
 #taskbar button { margin-right: 10px; }
 #clock,
 #cpu,
@@ -130,7 +133,8 @@ window#waybar.hidden { opacity: 0.2; }
   color: #cf554d;
 }
 #workspaces button,
-#taskbar button.active {
+#taskbar button.active,
+#window {
   color: #92959d;
 }
 #taskbar button,

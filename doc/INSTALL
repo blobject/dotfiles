@@ -100,7 +100,7 @@ VOID
     - swapon & /etc/fstab
 
 - install level 1
-  - install (power, bt, gfx base): acpi clamav encfs gnupg tlp powertop nvtop blueman mesa mesa-dri mesa-vaapi mesa-vulkan-intel intel-video-accel vulkan-loader amdvlk Vulkan-Tools libva-utils sof-firmware seatd xorg-minimal xorg-server-xwayland foot setxkbmap xrdb xset xterm openbox labwc tuigreet
+  - install (power, bt, gfx base): acpi clamav encfs gnupg tlp powertop nvtop blueman mesa mesa-dri mesa-vaapi mesa-vulkan-intel intel-video-accel vulkan-loader amdvlk Vulkan-Tools libva-utils sof-firmware seatd xorg-minimal xorg-server-xwayland foot setxkbmap xrdb xset xterm openbox tuigreet
   - remove .bash_logout
   - link __shell, greetd
   - (temp) copy .bashrc, .bash_profile, .profile
@@ -111,13 +111,19 @@ VOID
   - install (headless convenience): kak-lsp kakoune vim jmtpfs lftp ntfs-3g xdg-utils lshw wev xprop xlsclients
   - copy over ref, bak, src, got, fonts
   - install (fonts): inconsolata, sarasa, freefont, opensans
+  - manually install hyprland:
+    - xbps.d/.conf: repository=repository=https://raw.githubusercontent.com/Makrennel/hyprland-void/repository-x86_64-glibc
+
+- tmp: install hyprland
+  - /etc/xbps.d/custom.conf: repository=https://raw.githubusercontent.com/Makrennel/hyprland-void/repository-x86_64-glibc
+  - install hyprland, hyprland-devel, xdg-desktop-portal-hyprland
 
 - reboot
 
 - configure level 2 (dev)
   - install level 2
-    - base-devel clang llvm elixir ghc go guile mono msbuild-bin n octave openjdk python3-pip R rustup sbcl squeak swi-prolog tcllib tk postgresql postgresql-client sqlite nginx
-    - cmake, docker[-compose], gdb, hyperfine, jq, perf, shellcheck, tree, valgrind
+    - base-devel clang llvm elixir ghc go guile mono msbuild-bin n octave openjdk21 python3-pip R rustup sbcl squeak swi-prolog tcllib tk postgresql postgresql-client sqlite nginx
+    - cmake, extra-cmake-modules, docker[-compose], gdb, hyperfine, jq, perf, shellcheck, tree, valgrind
   - compile kernel
     - install: {elfutils,ncurses,openssl,xfsprogs}-devel
     - compile: make CC=clang HOSTCC=clang -j8
@@ -132,7 +138,7 @@ VOID
   - proc: psmisc, snooze
   - wm: breeze-snow-cursor-theme, fnott, grim, iwgtk, libappindicator,
         qt5-wayland, papirus-icon-theme, polybar, slurp, swappy, swaybg,
-        swayidle, tofi, waybar, waylock, wl-clipboard, xdg-desktop-portal-wlr,
+        swayidle, tofi, waybar, waylock, wl-clipboard
         xeyes
   - media: ffmpeg, helvum, imv, mpv, pavucontrol, pipewire, ponymix,
            wf-recorder, alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth,
@@ -157,8 +163,8 @@ VOID
 - reboot
 
 - for work
-  - install: k9s, kubectl, postgresql-client, postgresql-libs-devel, python3-devel, ruff
-  - manual: aws-cli, miniconda, pycharm
+  - install: k9s, kubectl, postgresql-client, postgresql-libs-devel, python3-devel, sqlmap, sslscan
+  - manual: aws-cli, miniconda, pycharm, BurpSuite
   - pip: poetry, python-lsp-server
   - n: N_PREFIX=$HOME/.n, PATH=...:$HOME/.n, n latest
   - npm: typescript-language-server, vscode-{css,html,json}-languageserver-bin

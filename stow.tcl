@@ -3,12 +3,10 @@
 #.emacs.d
 set home "$::env(HOME)"
 set fend {
-  .config/broot
   .icons
   .local/share/applications
   .local/share/icons/hicolor/scalable/apps
   .mozilla/firefox
-  .themes/0theme/openbox-3
   bin
 }
 set lend [list \
@@ -28,6 +26,7 @@ if {{relative} eq [file pathtype $::argv0]} {
 cd $home
 exec mkdir -p {*}$fend
 cd $stowd
+
 puts {Removing absolute links}
 foreach {stowed} $lend {
   set dirrel [split $stowed :]
@@ -40,10 +39,12 @@ foreach {stowed} $lend {
     exec rm $home/$rel
   }
 }
+
 puts {Calling stow}
 try {
   exec >/dev/tty stow -v {*}[glob _*]
 } on error e { puts "$e" }
+
 puts {Restoring absolute links}
 foreach {stowed toload} $lend {
   set dirrel [split $stowed :]

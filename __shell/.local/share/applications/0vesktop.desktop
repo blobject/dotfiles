@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Vesktop
+Exec=0c '$::env(HOME)/opt/vesktop'
+Type=Application
+Comment=Vesktop
+Icon=vesktop
+Categories=Network;
+StartupNotify=true
+Terminal=false

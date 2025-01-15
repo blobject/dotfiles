@@ -125,7 +125,7 @@ alias 0gpu_unplug="sudo modprobe -r amdgpu && sudo sh -c \"echo 1 > /sys/bus/pci
 alias 0ip='curl https://ipinfo.io/ip; echo'
 #alias 0mixon='pactl load-module module-loopback'
 #alias 0mixoff='pactl unload-module module-loopback'
-alias 0mount="mount -o uid=$UID,gid=$GROUPS"
+alias 0mount='mount -o uid=$UID,gid=$GROUPS'
 alias 0proxy='ssh -CND 8815 as'
 alias 0pixel='grim -g "$(slurp -p)" -t ppm - | convert - -format "%[pixel:p{0,0}]" txt:-'
 alias 0py='python -m env $HOME/opt/python/env'
@@ -188,7 +188,7 @@ unset __0_prompt_pwd
 
 ## work
 __0_work()
-{ local _w _e _d _np _pp
+{ local _w _e _d _np _ppd _pp
   _w=/home/work
   _e="$(cat $_w/env/$1)"
   _d="$_w/src/$_e"
@@ -204,24 +204,26 @@ __0_work()
       alias prettier="$_np/prettier/bin-prettier.js"
       alias sass="$_np/sass/sass.js"
       alias tsc="$_np/typescript/bin/tsc --noemit"
-      alias _n="cd $_d/node_modules"
-      alias _py="test -z $_pp && echo \"no dir: $_ppd\" || cd $_pp"
+      alias _node="cd $_d/node_modules"
+      alias _python="test -z $_pp && echo \"no dir: $_ppd\" || cd $_pp"
+      0conda "$_e"
       cd "$_d"
       . "../../env/env_$_e.sh"
-      0conda "$_e"
+      export PYTHONPATH="$_d${PYTHONPATH:+:$PYTHONPATH}"
       ;;
     __|[1-4])
-      alias _py="test -z $_pp && echo \"no dir: $_ppd\" || cd $_pp"
+      alias _python="test -z $_pp && echo \"no dir: $_ppd\" || cd $_pp"
+      0conda "$_e"
       cd "$_d"
       . "../../env/env_$_e.sh"
-      0conda "$_e"
+      export PYTHONPATH="$_d${PYTHONPATH:+:$PYTHONPATH}"
       ;;
     ___)
       alias eslint="$_np/eslint/bin/eslint.js -c $_d/eslint.config.mjs"
       alias graphql-codegen="$_np/.bin/graphql-codegen"
       alias prettier="$_np/prettier/bin-prettier.js"
       alias tsc="$_np/typescript/bin/tsc --noemit"
-      alias _n="cd $_d/node_modules"
+      alias _node="cd $_d/node_modules"
       cd "$_d"
       . "../../env/env_$_e.sh"
       ;;

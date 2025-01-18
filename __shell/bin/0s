@@ -9,8 +9,7 @@ source $home/bin/lib.tcl
 unset home
 
 need notify-send \
-     rg \
-     waylock \
+     hyprlock \
      dracut \
      rsync xbps-query \
      0snooze-bat 0snooze-temper snooze \
@@ -100,20 +99,13 @@ proc bye {arg} {
       if {{w} ne $SESS} {
         return
       }
-      set locker waylock
-      puts {0s: locking...}
-      catch {exec ps ax | rg "\\s+\[0-9:\]+\\s+$locker "} _ ret
-      if {0 == [dict get $ret -code]} {
-        puts {0s: locking canceled, already locked, locker}
+      set locker hyprlock
+      if {0 == [catch {exec pidof $locker}]} {
+        puts {0s: locking canceled, already locked}
         return
       }
-      set args {
-        -fork-on-lock
-        -fail-color 0xa32c2d
-        -init-color 0x16161d
-        -input-color 0x575a61
-      }
-      catch {exec $locker {*}$args}
+      puts {0s: locking...}
+      catch {exec $locker}
     }
     e - l - q - x - logout {
       puts {0s: logging out...}
@@ -298,14 +290,11 @@ proc save {} {
 
 proc snooze {} {
   proc dream {name} {
-    set awake [catch {exec ps x \
-                      | rg "snooze .* 0s $name\$" \
-                      | rg -v { rg }}]
-    if {$awake} {
-      exec 0snooze-$name &
-    } else {
+    if {0 == [catch {exec ps x | grep "snooze .* 0s $name$"}]} {
       puts {snooze $name already running}
+      return
     }
+    exec 0snooze-$name &
   }
   dream bat
   dream temper

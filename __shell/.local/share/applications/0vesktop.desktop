@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Vesktop
+Name=_Vesktop
 Exec=0c '$::env(HOME)/opt/vesktop'
 Type=Application
 Comment=Vesktop

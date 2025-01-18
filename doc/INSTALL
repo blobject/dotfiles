@@ -111,12 +111,10 @@ VOID
   - install (headless convenience): kak-lsp kakoune vim jmtpfs lftp ntfs-3g xdg-utils lshw wev xprop xlsclients
   - copy over ref, bak, src, got, fonts
   - install (fonts): inconsolata, sarasa, freefont, opensans
-  - manually install hyprland:
-    - xbps.d/.conf: repository=repository=https://raw.githubusercontent.com/Makrennel/hyprland-void/repository-x86_64-glibc
+  - install hyprland:
+    - xbps.d/.conf: repository=https://raw.githubusercontent.com/Makrennel/hyprland-void/repository-x86_64-glibc
+    - hyprland, hyprland-devel, xdg-desktop-portal-hyprland, hypridle, hyprlock
 
-- tmp: install hyprland
-  - /etc/xbps.d/custom.conf: repository=https://raw.githubusercontent.com/Makrennel/hyprland-void/repository-x86_64-glibc
-  - install hyprland, hyprland-devel, xdg-desktop-portal-hyprland
 
 - reboot
 
@@ -138,7 +136,7 @@ VOID
   - proc: psmisc, snooze
   - wm: breeze-snow-cursor-theme, fnott, grim, iwgtk, libappindicator,
         qt5-wayland, papirus-icon-theme, polybar, slurp, swappy, swaybg,
-        swayidle, tofi, waybar, waylock, wl-clipboard
+        swayidle, tofi, waybar, wl-clipboard
         xeyes
   - media: ffmpeg, helvum, imv, mpv, pavucontrol, pipewire, ponymix,
            wf-recorder, alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth,

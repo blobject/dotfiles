@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Postman
-Exec=0c '$::env(HOME)/opt/postman/Postman'
-Type=Application
-Comment=Postman
-Icon=postman
-Categories=Network;
-StartupNotify=true
-Terminal=false

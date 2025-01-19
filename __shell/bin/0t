@@ -14,7 +14,6 @@ need notify-send \
      kanshictl \
      wlr-randr \
      tofi-drun \
-     setxkbmap \
      grim slurp swappy \
      ponymix
 

@@ -9,6 +9,7 @@ source $home/bin/lib.tcl
 unset home
 
 need notify-send \
+     hyprctl \
      hyprlock \
      dracut \
      rsync xbps-query \
@@ -109,13 +110,17 @@ proc bye {arg} {
     }
     e - l - q - x - logout {
       puts {0s: logging out...}
-      set desk [lindex [split $::env(DESKTOP_SESSION) /] end]
-      if {{hyprland} == $::env(DESKTOP_SESSION)} {
-        set desk $::env(XDG_SESSION_DESKTOP)
-      }
       save
       kill
-      exec pkill $desk
+      set desk $::env(XDG_SESSION_DESKTOP)
+      switch -- $desk {
+        Hyprland {
+          exec hyprctl dispatch exit
+        }
+        default {
+          exec pkill $desk
+        }
+      }
     }
     z - sleep - standby - suspend {
       puts {0s: sleeping...}

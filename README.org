@@ -33,7 +33,7 @@
 
 | | | /GENERAL, FOCUS, MOVE/ |
 |-|-|-|
-| =CA-= *char* | =\b= / =\d= | *lock* / *sleep* |
+| =CA-\b= | | *power* menu |
 | =M/A-L= | | *resize* / *move* window |
 | =MS[C]-\e= | | *close* [ or  *kill* ] window |
 | =M/S-= *num* | =1= / =2= / =3= / =4= / =5= | *focus* / *move* to *nth* desktop |
@@ -43,7 +43,7 @@
 |-|-|-|
 | =[S]-print= | | *take picture* of *screen* [ then *edit* ] |
 | =M-\s= | | *dismiss* notification |
-| =M-= *char* | =\n= / =grave= / =e= / =t= / =w= | launch *launcher* / *treeview* / *editor* / *terminal* / *www* |
+| =M-= *char* | =\n= / =grave= / =e= / =p= / =t= / =w= | launch *launcher* / *treeview* / *editor* / *color picker* / *terminal* / *www* |
 
 *** usage
 

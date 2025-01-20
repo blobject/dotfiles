@@ -4,7 +4,7 @@ Exec=0c foot --config='$::env(HOME)/.config/foot/foot_dark.ini'
 TryExec=foot
 Type=Application
 Comment=Run terminal with dark colorscheme
-Icon=Foot
+Icon=terminal
 Categories=TerminalEmulator;
 StartupNotify=true
 Terminal=false

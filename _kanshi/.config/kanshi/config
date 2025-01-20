@@ -30,13 +30,13 @@ profile tv {
   output $tv position 0,0
   output $c position 0,1080
 }
-profile office_left {
-  output $office position 0,0
-  output $c position 2560,0
-}
 profile office_up {
   output $office position 0,0
   output $c position 0,1440
+}
+profile office_left {
+  output $office position 0,0
+  output $c position 2560,0
 }
 profile office_two {
   output $office_alt position 0,0 transform 90

@@ -100,7 +100,7 @@ VOID
     - swapon & /etc/fstab
 
 - install level 1
-  - install (power, bt, gfx base): acpi, clamav, encfs, gnupg, tlp, powertop, nvtop, blueman, mesa, mesa-dri, mesa-vaapi, mesa-vulkan-intel, intel-video-accel, vulkan-loader, amdvlk, Vulkan-Tools, libva-utils, sof-firmware, seatd, xorg-server-xwayland, xlsclients, xrdb, xset, foot, xterm, tuigreet
+  - install (power, bt, gfx base): acpi, clamav, encfs, gnupg, tlp, powertop, nvtop, blueman, mesa, mesa-dri, mesa-vaapi, mesa-vulkan-intel, intel-video-accel, vulkan-loader, amdvlk, Vulkan-Tools, libva-utils, sof-firmware, seatd, xorg-server-xwayland, xlsclients, xrdb, foot, xterm, tuigreet
   - remove .bash_logout
   - link __shell, greetd
   - (temp) copy .bashrc, .bash_profile, .profile
@@ -116,7 +116,7 @@ VOID
     - hyprland, hyprland-devel, xdg-desktop-portal-hyprland, hypridle, hyprlock, hyprpicker
 
 - (optional) install x
-  - openbox, polybar, xorg-minimal, xf86-input-mtrack, xprop, xrandr, setxkbmap
+  - openbox, polybar, xorg-minimal, xf86-input-mtrack, xprop, xrandr, xset, setxkbmap
 
 - reboot
 
@@ -136,9 +136,9 @@ VOID
 - configure level 2 (more)
   - hw: hwinfo, gammastep-indicator, kanshi, light
   - proc: psmisc, snooze
-  - wm: breeze-snow-cursor-theme, fnott, grim, iwgtk, libappindicator, qt5-wayland, papirus-icon-theme, slurp, swappy, swaybg, swayidle, tofi, waybar, wl-clipboard, xeyes
+  - wm: breeze-snow-cursor-theme, fuzzel, grim, iwgtk, libappindicator, mako, qt5-wayland, papirus-icon-theme, slurp, swappy, swaybg, waybar, wl-clipboard, xeyes
   - media: ffmpeg, helvum, imv, mpv, pavucontrol, pipewire, ponymix, wf-recorder, alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg, libspa-vulkan
-  - misc: blender, firefox, foliate, fontforge, fontmatrix, gnucash, gnuplot, ImageMagick, inkscape, krita, libreoffice, pdf.js, qemu, screenkey, texlive-most, tigervnc, ttfautohint, visidata, python3-openpyxl, zathura-{djvu,pdf-mupdf,ps}
+  - misc: blender, firefox, foliate, fontforge, fontmatrix, gnucash, gnuplot, ImageMagick, inkscape, krita, libreoffice, pdf.js, qemu, screenkey, texlive-most, tigervnc, ttfautohint, visidata(python3-openpyxl), zathura-{djvu,pdf-mupdf,ps}
   - net: net-tools wget
   - manual: chrome
   - firefox config

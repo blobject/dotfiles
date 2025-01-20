@@ -13,7 +13,6 @@ need notify-send \
      light \
      kanshictl \
      wlr-randr \
-     tofi-drun \
      grim slurp swappy \
      ponymix
 
@@ -39,10 +38,34 @@ proc __nicon {icon} {
 ###############################################################################
 
 # for wm
-proc _firefox {} {
+proc _browser {} {
   try {
     exec firefox --private-window --profile "$::env(HOME)/opt/f1"
   } on error e { fail "$e" }
+}
+
+###############################################################################
+
+# for wm
+proc _bye {} {
+  set runner {fuzzel --dmenu --lines=10 --width=15}
+  set menu {
+    {Lock system-lock-screen}
+    {Logout system-log-out}
+    {Sleep system-suspend}
+    {Reboot system-reboot}
+    {Shutdown system-shutdown}
+  }
+  set menustr {}
+  foreach item $menu {
+    lassign $item name icon
+    append menustr "$name\\0icon\\x1f$icon\n"
+  }
+  set menustr [string trimright $menustr "\n"]
+  if {[catch {exec echo -e $menustr | {*}$runner} what]} {
+    return
+  }
+  exec 0s bye "[string tolower $what]"
 }
 
 ###############################################################################
@@ -62,31 +85,6 @@ proc _lum {arg} {
 
   exec sleep 0.1
   exec {*}$notify $icon $title "[format %.0f [exec light -G]]"
-}
-
-###############################################################################
-
-# for wm
-proc _run {} {
-  try {
-    exec tofi-drun \
---font $::env(XDG_DATA_HOME)/fonts/agave/Agave-Bold-slashed.ttf \
---hint-font=false \
-{--height=100%} {--width=100%} \
-{--padding-left=40%} {--padding-top=25%} \
---border-width=0 --outline-width=0 \
---num-results=16 \
---result-spacing=16 \
---background-color=000000a8 \
---input-color=ffffffff \
---prompt-color=ffffffff \
---selection-color=667ad3ff \
---text-color=ba8d3bff \
---drun-launch=true \
---fuzzy-match=true \
---late-keyboard-init \
-{--prompt-text=> }
-  } on error e { fail "$e" }
 }
 
 ###############################################################################
@@ -115,15 +113,13 @@ proc btbat {{id {}}} {
   try { eval set mac $$id } trap {} {} { die }
   if {{} eq $id} { die }
 
-  catch {exec bluetoothctl info $mac | rg {Connected: yes}} {} ret
-  if {0 != [dict get $ret -code]} { puts {}; exit }
+  if {![catch {exec bluetoothctl info $mac | rg {Connected: yes}}]} { puts {}; exit }
 
   regsub -all {:} $mac {_} mac
   set icon { }
   if {{k} eq $id} { set icon { } }
   set blue "dbus-send --print-reply=literal --system --dest=org.bluez /org/bluez/hci0/dev_$mac"
-  catch {exec {*}$blue org.freedesktop.DBus.Introspectable.Introspect | rg {Battery1}} {} ret
-  if {0 != [dict get $ret -code]} { puts {}; exit }
+  if {![catch {exec {*}$blue org.freedesktop.DBus.Introspectable.Introspect | rg {Battery1}}]} { puts {}; exit }
 
   puts "$icon[lindex [exec {*}$blue org.freedesktop.DBus.Properties.Get string:org.bluez.Battery1 string:Percentage] end]"
 }
@@ -303,7 +299,7 @@ proc shot {args} {
       set one e
       append opt " -g"
       set desc "editing... editedshot-?.$two"
-      set dst [list [exec slurp] - | swappy -f -]
+      set dst [list [exec slurp -w 0] - | swappy -f -]
     }
     s - screen {
       set desc screenshot-[exec date +%s].$two
@@ -362,12 +358,12 @@ proc vol {args} {
       set isbt true
       set pat {: bluez_output}
       set patmic {: bluez_input}
-      if [catch {exec {*}$base | rg $pat}] {
+      if {[catch {exec {*}$base | rg $pat}]} {
         exec {*}$notify $icon_bt_lo $title {no bt audio}
         exit
       }
       set out [exec {*}$base | rg $pat | tail -1 | cut {-d } -f3]
-      if [catch {exec {*}$basemic | rg $patmic}] {
+      if {[catch {exec {*}$basemic | rg $patmic}]} {
         set mic {}
       } else {
         set mic [exec {*}$basemic | rg $patmic | tail -1 | cut {-d } -f3]
@@ -388,12 +384,12 @@ proc vol {args} {
       set isusb true
       set pat {_output\.usb-}
       set patmic {_input\.usb-}
-      if [catch {exec {*}$base | rg $pat}] {
+      if {[catch {exec {*}$base | rg $pat}]} {
         exec {*}$notify $icon_usb $title {no audio usb}
         exit
       }
       set out [exec {*}$base | rg $pat | tail -1 | cut {-d } -f3]
-      if [catch {exec {*}$basemic | rg $patmic}] {
+      if {[catch {exec {*}$basemic | rg $patmic}]} {
         set mic {}
       } else {
         set mic [exec {*}$basemic | rg $patmic | tail -1 | cut {-d } -f3]
@@ -457,7 +453,7 @@ proc vol {args} {
     x {
       set arg " $icon_vol_off $title \"$dev muted\""
       if {$ismic} { set arg " $icon_mic_off $title \"$dev mic muted\"" }
-      if [catch {exec {*}$cmdbase is-muted}] {
+      if {[catch {exec {*}$cmdbase is-muted}]} {
         set arg " $icon_vol_on $title \"$dev on\""
         if {$ismic} { set arg " $icon_mic_on $title \"$dev mic on\"" }
       }
@@ -481,8 +477,7 @@ proc vol {args} {
 
 # for waybar
 proc weather {} {
-  catch {exec curl -s {https://wttr.in/Singapore?0AQT&format=%t%x}} weather ret
-  if {0 != [dict get $ret -code]} { puts {}; exit }
+  if {[catch {exec curl -s {https://wttr.in/sg?0AQT&format=%t%x}} weather]} { puts {}; exit }
   if {{U} eq [string index $weather 0]} { puts {?}; exit }
   regexp {^\+?([0-9-]+.)C(.*)$} $weather weather deg sky
   switch -- $sky {

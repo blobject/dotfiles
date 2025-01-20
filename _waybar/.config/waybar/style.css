@@ -33,7 +33,7 @@ window#waybar.hidden { opacity: 0.2; }
   font-family: sans;
   font-size: 20px;
   font-weight: 700;
-  margin-top: -2px;
+  margin-top: -1px;
 }
 #pulseaudio {
   font-family: Agave, "Font Awesome 5 Pro Light", "Font Awesome 5 Pro Brands";
@@ -136,6 +136,9 @@ window#waybar.hidden { opacity: 0.2; }
 #taskbar button.active,
 #window {
   color: #92959d;
+}
+#workspaces button.active {
+  color: #667ad3;
 }
 #taskbar button,
 #pulseaudio.muted {

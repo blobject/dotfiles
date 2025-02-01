@@ -16,6 +16,9 @@ max-visible=8
 group-by=category
 layer=overlay
 default-timeout=8000
+on-button-left=dismiss
+on-button-middle=invoke-default-action
+on-button-right=invoke-default-action
 
 [urgency=low]
 border-color=#36383ff0

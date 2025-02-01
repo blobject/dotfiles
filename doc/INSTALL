@@ -78,7 +78,7 @@ VOID
 - configure level 0 (base)
   - install level 0
     - bash-completion, chrony, intel-ucode, iwd, socklog-void
-    - fd, git, lz4, lzop, ripgrep, rlwrap, rsync, stow, tcl, tmux, unzip, xz, zip, zstd
+    - fd, git, lf, lz4, lzop, ripgrep, rlwrap, rsync, socat, stow, tcl, tmux, unzip, xz, zip, zstd
   - enable services
     - iwd (disable wpa_supplicant), dbus, dhcpcd, lvmetad, nanoklogd, ntpd, socklog-unix, uuidd
   - connect to wifi (iwctl)

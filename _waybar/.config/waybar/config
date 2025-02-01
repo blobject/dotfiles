@@ -2,16 +2,16 @@
   "layer": "top",
   "position": "top",
   "modules-left": [
-    //"wlr/workspaces",
-    //"wlr/taskbar",
     "hyprland/workspaces",
+    "custom/dot",
+    "tray",
+    "custom/dot",
     "hyprland/window"
   ],
   "modules-center": [
   ],
   "modules-right": [
-    "clock",
-    "custom/weather",
+    "custom/dot",
     "cpu",
     "custom/gov",
     "temperature",
@@ -19,57 +19,28 @@
     "disk",
     "backlight",
     "idle_inhibitor",
-    //"custom/btbatkbd",
-    //"custom/btbatear",
     "pulseaudio",
     "battery",
-    "tray"
+    "custom/dot",
+    "custom/weather",
+    "clock"
   ],
-  "wlr/workspaces": {
-    "active-only": true,
-    "sort-by-name": false,
-    "format": "{icon}",
-    "format-icons": {
-      "1": "",
-      "2": "",
-      "3": "",
-      "4": "",
-      "5": "",
-    }
+  "custom/dot": {
+    "format": "<span rise='10000'>•</span>"
   },
   "hyprland/workspaces": {
     "show-special": true,
     "special-visible-only": true,
     "format": "{icon}",
-    "format-icons": {
-      "1": "",
-      "2": "",
-      "3": "",
-      "4": "",
-      "5": "",
-      "special": "★"
-    }
+    "format-icons": { "1": "", "2": "", "3": "", "4": "", "5": "", "special": "" }
   },
-  "wlr/taskbar": {
+  "tray": {
     "icon-size": 22,
-    "on-click": "activate",
-    "on-click-right": "activate",
-    "format": "{icon}{title:.4}",
-    "tooltip-format": "[{app_id}] {title}"
+    "spacing": 4
   },
   "hyprland/window": {
     "icon": true,
     "separate-outputs": true
-  },
-  "clock": {
-    "interval": 15,
-    "format": "<span foreground=\"#36383f\">•</span> <span foreground=\"#92959d\">{:%H:%M %a%d%b}</span>",
-    "tooltip-format": "<tt>{calendar}</tt>"
-  },
-  "custom/weather": {
-    "interval": 2400,
-    "format-icons": [],
-    "exec": "0t weather"
   },
   "cpu": {
     "interval": 3,
@@ -85,7 +56,7 @@
     "hwmon-path-abs": "/sys/devices/platform/coretemp.0/hwmon",
     "input-filename": "temp1_input",
     "critical-threshold": 60,
-    "format": "<span foreground=\"#000000\"></span>{temperatureC}°"
+    "format": "<span foreground='#000000'>.</span>{temperatureC}°"
   },
   "memory": {
     "interval": 3,
@@ -121,7 +92,7 @@
     "format-bluetooth": " {icon} {volume} {format_source}",
     "format-muted": " {format_source}",
     "format-source": " {volume}",
-    "format-source-muted": "<span foreground=\"#575a61\"></span>",
+    "format-source-muted": "<span foreground='#575a61'></span>",
     "format-icons": {
       "default": ["", "", "", "", ""],
       "hands-free": "",
@@ -147,9 +118,15 @@
     "format-charging": " {capacity}",
     "format-plugged": " {capacity}"
   },
-  "tray": {
-    "icon-size": 22,
-    "spacing": 4
+  "custom/weather": {
+    "interval": 2400,
+    "format-icons": [],
+    "exec": "0t weather"
+  },
+  "clock": {
+    "interval": 15,
+    "format": "{:%a%d%b %H:%M}",
+    "tooltip-format": "<tt>{calendar}</tt>"
   }
 }
 

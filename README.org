@@ -26,25 +26,6 @@
 | *[[stow.tcl]]* | prep and link all user files |
 | *[[load.tcl]]* | setup entire system + user configuration from scratch |
 
-*** keybinding
-
-| key template | key more | do |
-|-|-|-|
-
-| | | /GENERAL, FOCUS, MOVE/ |
-|-|-|-|
-| =CA-\b= | | *power* menu |
-| =M/A-L= | | *resize* / *move* window |
-| =MS[C]-\e= | | *close* [ or  *kill* ] window |
-| =M/S-= *num* | =1= / =2= / =3= / =4= / =5= | *focus* / *move* to *nth* desktop |
-| =M-= *char* | =comma= / =semic= / =f= | toggle *float* / *split* / *fullscreen* |
-
-| | | /APP/ |
-|-|-|-|
-| =[S]-print= | | *take picture* of *screen* [ then *edit* ] |
-| =M-\s= | | *dismiss* notification |
-| =M-= *char* | =\n= / =grave= / =e= / =p= / =t= / =w= | launch *launcher* / *treeview* / *editor* / *color picker* / *terminal* / *www* |
-
 *** usage
 
 **** keep a user configuration file

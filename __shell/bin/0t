@@ -8,6 +8,8 @@ source $::env(HOME)/bin/lib.tcl
 need notify-send \
      rg \
      firefox \
+     fuzzel \
+     hyprctl \
      bluetoothctl \
      ifstat \
      light \
@@ -66,6 +68,38 @@ proc _bye {} {
     return
   }
   exec 0s bye "[string tolower $what]"
+}
+
+###############################################################################
+
+# for wm
+
+proc _decor {} {
+  set title decor
+  set notify "notify-send -u low"
+  set on [exec hyprctl getoption animations:enabled | awk {NR==1{print $2}}]
+  set next {}
+  set icon [__nicon panel/redshift-status-off.svg]
+
+  if {$on} {
+    set next off
+    set icon [__nicon panel/desktoptrusted.svg]
+    exec hyprctl --batch {
+      keyword animations:enabled 0;
+      keyword decoration:shadow:enabled 0;
+      keyword decoration:blur:enabled 0;
+      keyword general:gaps_in 0;
+      keyword general:gaps_out 0;
+      keyword general:border_size 1;
+      keyword decoration:rounding 0
+    }
+  } else {
+    set next on
+    set icon [__nicon panel/disper-panel.svg]
+    exec hyprctl reload
+  }
+
+  exec {*}$notify $icon $title $next
 }
 
 ###############################################################################
@@ -225,17 +259,17 @@ proc mon {{arg {}}} {
 # for waybar
 proc net {} {
   set cmd {ifstat}
-  set arg {-p}
+  set arg {--json --pretty}
   set dev {wlp0s20f3}
-  set stat [exec $cmd {*}$arg $dev | grep $dev]
+  set stat [exec $cmd {*}$arg $dev]
 
   proc fmt {n} {
     # KB/s
-    return [format {%.2f} [expr $n / 1024.0]]
+    return [format {%.2f} [expr $n / 1024.0 / 1024.0]]
   }
 
-  set rx [fmt [lindex $stat end-3]]
-  set tx [fmt [lindex $stat end-1]]
+  set rx [fmt [exec echo $stat | jq ".kernel.$dev.rx_bytes"]]
+  set tx [fmt [exec echo $stat | jq ".kernel.$dev.tx_bytes"]]
 
   puts "_$rx^$tx"
 }
@@ -512,7 +546,7 @@ if {0 eq [llength [info procs $arg]]} {
   cpu     get cpu governor
   lay     [gs]et keyboard layout   _|h_hsnt|q_werty
   lum     [gs]et screen brightness _|-N|+N
-  mon     turn o{n,ff} monitor     _|o|on|x|off
+  mon     toggle monitor           _|o|on|x|off
   net     get net usage
   shot    take screenshot          _|active|*screen*|select |jpg|*png* |c
   vol     [gs]et audio volume      _|bt |mic |x|-N|+N

@@ -227,12 +227,17 @@ __0_work()
       cd "$_d"
       . "../../env/env_$_e.sh"
       ;;
+    ____)
+      cd "$_d"
+      . "../../env/env_$_e.sh"
+      ;;
   esac; }
 
 alias _='cd /home/work/src'
 alias work='__0_work _'
 alias work_='__0_work __'
 alias work__='__0_work ___'
+alias work___='__0_work ____'
 alias work1='__0_work 1'
 alias work2='__0_work 2'
 alias work3='__0_work 3'

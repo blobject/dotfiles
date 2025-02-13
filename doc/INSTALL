@@ -100,7 +100,7 @@ VOID
     - swapon & /etc/fstab
 
 - install level 1
-  - install (power, bt, gfx base): acpi, clamav, encfs, gnupg, tlp, powertop, nvtop, blueman, mesa, mesa-dri, mesa-vaapi, mesa-vulkan-intel, intel-video-accel, vulkan-loader, amdvlk, Vulkan-Tools, libva-utils, sof-firmware, seatd, xorg-server-xwayland, xlsclients, xrdb, foot, xterm, tuigreet
+  - install (power, bt, gfx base): acpi, clamav, encfs, gnupg, tlp, powertop, nvtop, blueman, mesa, mesa-dri, mesa-vaapi, mesa-vulkan-intel, intel-video-accel, Vulkan-Tools, mesa-vulkan-radeon, libva-utils, sof-firmware, seatd, xorg-server-xwayland, xlsclients, xrdb, foot, xterm, tuigreet
   - remove .bash_logout
   - link __shell, greetd
   - (temp) copy .bashrc, .bash_profile, .profile
@@ -113,7 +113,7 @@ VOID
   - install (fonts): inconsolata, sarasa, freefont, opensans
   - install hyprland:
     - xbps.d/.conf: repository=https://raw.githubusercontent.com/Makrennel/hyprland-void/repository-x86_64-glibc
-    - hyprland, hyprland-devel, xdg-desktop-portal-hyprland, hypridle, hyprlock, hyprpicker
+    - hyprland, hyprland-devel, xdg-desktop-portal-hyprland, hypridle, hyprlock, chayang, hyprpicker
 
 - (optional) install x
   - openbox, polybar, xorg-minimal, xf86-input-mtrack, xprop, xrandr, xset, setxkbmap
@@ -134,7 +134,7 @@ VOID
     - rustup-init
 
 - configure level 2 (more)
-  - hw: hwinfo, gammastep-indicator, kanshi, light
+  - hw: hwinfo, gammastep-indicator, light
   - proc: psmisc, snooze
   - wm: breeze-snow-cursor-theme, fuzzel, grim, iwgtk, libappindicator, mako, qt5-wayland, papirus-icon-theme, slurp, swappy, swaybg, waybar, wl-clipboard, xeyes
   - media: ffmpeg, helvum, imv, mpv, pavucontrol, pipewire, ponymix, wf-recorder, alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg, libspa-vulkan
@@ -156,7 +156,7 @@ VOID
 
 - for work
   - install: k9s, kubectl, postgresql-client, postgresql-libs-devel, python3-devel, sqlmap, sslscan
-  - manual: aws-cli, miniconda, pycharm, BurpSuite
+  - manual: aws-cli, miniconda, BurpSuite, ZAP
   - pip: poetry, python-lsp-server
   - n: N_PREFIX=$HOME/.n, PATH=...:$HOME/.n, n latest
   - npm: typescript-language-server, vscode-{css,html,json}-languageserver-bin
@@ -183,7 +183,7 @@ VOID
   - cataclysm-dda
   - steam
     - xdg-user-dirs
-    - 32bit: amdvlk, libglapi, libllvm19, libsensors, libXxf86vm, mesa, mesa-dri, mesa-libgallium, mesa-vulkan-intel, xorg-server-xwayland
+    - 32bit: libglapi, libllvm19, libsensors, libXxf86vm, mesa, mesa-dri, mesa-libgallium, mesa-vulkan-intel, mesa-vulkan-radeon xorg-server-xwayland
 
 ========================================================================
 HERE ENDS THINKPAD SETUP. next are older notes

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# deprecated by hypridle.conf!
+
 # presume wayland
 
 locker=hyprlock

@@ -6,7 +6,7 @@
 |-|-|
 | hw | [[https://psref.lenovo.com/Detail/ThinkPad_X1_Nano_Gen_1?M=20UN00FSUS][thinkpad x1 nano g1]], [[https://www.zsa.io/voyager][voyager]] |
 | env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://hyprland.org/][hyprland]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
-| look | [[https://github.com/blobject/cemant][cemant]], [[https://picaq.github.io/sarasa/][sarasa]], [[https://github.com/blobject/agave][agave]], [[https://rsms.me/inter/][inter]], [[https://fontawesome.com/][font awesome]] |
+| look | [[https://github.com/blobject/cemant][cemant]], [[https://rsms.me/inter/][inter]], [[https://picaq.github.io/sarasa/][sarasa]], [[https://github.com/blobject/agave][agave]], [[https://fontawesome.com/][font awesome]] |
 
 *** scripts
 

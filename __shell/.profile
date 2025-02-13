@@ -20,10 +20,6 @@ export LIBVA_DRIVER_NAME=iHD
 export VDPAU_DRIVER=va_gl
 
 
-# x
-export XCURSOR_SIZE=64
-export XCURSOR_THEME=Breeze_Snow
-
 # xdg
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -38,6 +34,8 @@ test -z "$XDG_RUNTIME_DIR" && \
 ### session-specific
 if ps au | grep -q "$USER .*/usr/bin/\(openbox\|openbox-session\|startx\|xinit\)"; then
   # xorg
+  export XCURSOR_SIZE=64
+  export XCURSOR_THEME=Breeze_Hacked
   export XKB_DEFAULT_LAYOUT=hsnt
 else
   # wayland

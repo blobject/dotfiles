@@ -33,7 +33,7 @@ __0_prompt_git()
       echo "gt\[\033[0;33m\]${a} "
       return
     fi
-    echo "$a" | sed 's/$/ /;s/^/g\\[\\033[0;33m\\]/'
+    echo "$a" | sed 's,$, ,;s,^,g\\[\\033[0;33m\\],'
   fi; }
 
 __0_prompt_hg()
@@ -41,7 +41,7 @@ __0_prompt_hg()
   if test -d .hg; then
     local a
     a=$(hg stat 2> /dev/null | sed 's,^\(.\).\+$,\1,' | sort -u | sed 'N;s,\n,,')
-    hg branch 2> /dev/null | sed 's/$/'"$a"' /;s/^/h\\[\\033[0;33m\\]/'
+    hg branch 2> /dev/null | sed 's,$,'"$a"' ,;s,^,h\\[\\033[0;33m\\],'
   fi; }
 
 __0_prompt()
@@ -62,9 +62,9 @@ __0_prompt()
 
 __0_title()
 { local c
-  c=$(history 1 | sed 's/^ *[0-9]\+ *//')
+  c=$(history 1 | sed 's,^ *[0-9]\+ *,,')
   test -z "$__0_prompt_pwd" && c=$TERMINAL
-  echo -ne "\033]0;($(echo ${__0_prompt_pwd:-$PWD} | sed s,$HOME,~,)) $c\007"; }
+  echo -ne "\033]0;($(echo ${__0_prompt_pwd:-$PWD} | sed 's,^'$HOME'$,~,;s,^'$HOME'/,~/,;s,^/home/work$,+,;s,^/home/work/,+/,')) $c\007"; }
 
 0conda()
 { if test 'base' != "$1" && ! test -d "$HOME/opt/miniconda3/envs/$1"; then

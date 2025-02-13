@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=_Dungeon Crawl Stone Soup
+Exec=firefox -new-window https://underhound.eu:8080/
+Type=Application
+Comment=Dungeon Crawl Stone Soup @ underhound.eu:8080
+Icon=firefox
+Categories=Game;
+StartupNotify=true
+Terminal=false

@@ -14,10 +14,6 @@ set lend [list \
     $home/opt/fonts \
   __shell:bin/0work0 \
     $home/opt/work/0work0 \
-  _pycharm:.local/share/icons/hicolor/scalable/apps/pycharm.svg \
-    $home/opt/pycharm/bin/pycharm.svg \
-  _pycharm:bin/pycharm \
-    $home/opt/pycharm/bin/pycharm.sh \
 ]
 set stowd [file dirname $::argv0]
 if {{relative} eq [file pathtype $::argv0]} {

@@ -10,10 +10,10 @@ need notify-send \
      firefox \
      fuzzel \
      hyprctl \
+     wl-copy \
      bluetoothctl \
      ifstat \
      light \
-     kanshictl \
      wlr-randr \
      grim slurp swappy \
      ponymix
@@ -50,17 +50,16 @@ proc _browser {} {
 
 # for wm
 proc _bye {} {
-  set runner {fuzzel --dmenu --lines=10 --width=15}
-  set menu {
-    {Lock system-lock-screen}
-    {Logout system-log-out}
-    {Sleep system-suspend}
-    {Reboot system-reboot}
-    {Shutdown system-shutdown}
+  set runner "fuzzel --dmenu --lines=10 {--prompt= } --width=20"
+  set menu {\
+    Lock system-lock-screen\
+    Logout system-log-out\
+    Sleep system-suspend\
+    Reboot system-reboot\
+    Shutdown system-shutdown\
   }
   set menustr {}
-  foreach item $menu {
-    lassign $item name icon
+  foreach {name icon} $menu {
     append menustr "$name\\0icon\\x1f$icon\n"
   }
   set menustr [string trimright $menustr "\n"]
@@ -104,6 +103,18 @@ proc _decor {} {
 
 ###############################################################################
 
+# for wm
+proc _emo {} {
+  set emoticons $::env(HOME)/opt/emoticons
+  set runner "fuzzel --dmenu {--prompt= } --width=64"
+  if {[catch {exec cat $emoticons | {*}$runner} what]} {
+    return
+  }
+  exec wl-copy [lindex $what 0]
+}
+
+###############################################################################
+
 # for wm, implicit lum change
 proc _lum {arg} {
   set title lum
@@ -119,6 +130,35 @@ proc _lum {arg} {
 
   exec sleep 0.1
   exec {*}$notify $icon $title "[format %.0f [exec light -G]]"
+}
+
+###############################################################################
+
+# for wm
+proc _win {} {
+  set exp {\
+    sort_by(.focusHistoryID) .[] |\
+    (.workspace.name | sub("^special:scratch$"; "#"))\
+    + " " + .class\
+    + " : " + .title\
+    + " ::: " + .address\
+  }
+  set lines [exec hyprctl -j clients | jq -r $exp]
+  set lenmin 48
+  set lenmax 128
+  set longest 0
+  foreach {line} [split $lines "\n"] {
+    set len [string length $line]
+    if {$len > $longest} { set longest [expr $len + 2] }
+  }
+  if {$longest > $lenmax} { set longest $lenmax }
+  if {$longest < $lenmin} { set longest $lenmin }
+  set runner "fuzzel --dmenu {--prompt= } --width=$longest"
+  if {[catch {exec echo $lines | {*}$runner} what]} {
+    return
+  }
+  set win [lindex $what end]
+  exec hyprctl dispatch focuswindow address:$win
 }
 
 ###############################################################################
@@ -244,14 +284,12 @@ proc mon {{arg {}}} {
   set cmd_on "$cmd_base --on"
   set cmd_off "$cmd_base --off"
   set cmd_toggle "$cmd_base --toggle"
-  set cmd_refresh {kanshictl reload}
 
   switch -- [string index $arg 0] {
     {} { exec {*}$cmd_toggle }
     o - on { exec {*}$cmd_on }
     x - off { exec {*}$cmd_off }
   }
-  exec {*}$cmd_refresh
 }
 
 ###############################################################################
@@ -514,6 +552,7 @@ proc weather {} {
   if {[catch {exec curl -s {https://wttr.in/sg?0AQT&format=%t%x}} weather]} { puts {}; exit }
   if {{U} eq [string index $weather 0]} { puts {?}; exit }
   regexp {^\+?([0-9-]+.)C(.*)$} $weather weather deg sky
+  if {{} eq $weather} { puts {?}; exit }
   switch -- $sky {
     o   { set sky  }
     =   { set sky  }

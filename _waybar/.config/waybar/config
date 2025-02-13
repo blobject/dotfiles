@@ -1,5 +1,6 @@
 {
   "layer": "top",
+  "mode": "dock",
   "position": "top",
   "modules-left": [
     "hyprland/workspaces",
@@ -12,6 +13,7 @@
   ],
   "modules-right": [
     "custom/dot",
+    "battery",
     "cpu",
     "custom/gov",
     "temperature",
@@ -20,19 +22,19 @@
     "backlight",
     "idle_inhibitor",
     "pulseaudio",
-    "battery",
+    "network",
     "custom/dot",
     "custom/weather",
     "clock"
   ],
   "custom/dot": {
-    "format": "<span rise='10000'>•</span>"
+    "format": "<span rise='6000'>•</span>"
   },
   "hyprland/workspaces": {
     "show-special": true,
     "special-visible-only": true,
     "format": "{icon}",
-    "format-icons": { "1": "", "2": "", "3": "", "4": "", "5": "", "special": "" }
+    "format-icons": { "1": "", "2": "", "3": "", "4": "", "5": "", "special": "" }
   },
   "tray": {
     "icon-size": 22,
@@ -40,7 +42,25 @@
   },
   "hyprland/window": {
     "icon": true,
-    "separate-outputs": true
+    "separate-outputs": true,
+    "rewrite": {
+      "^(.*) — Mozilla Firefox$": "$1",
+      "^(.*) - Kakoune$": "<span foreground='#4ea494'>kak</span> $1",
+      "^(<span [^>]+>(?:footclient|foot|U?XTerm)</span> )\\(([^\\)]+)\\)(.*)$": "$1<span foreground='#916814'>(<span foreground='#ba8d3b'>$2</span>)</span>$3"
+    },
+    "format": "<span foreground='#667ad3'>{class}</span> {title}"
+  },
+  "battery": {
+    "interval": 15,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}",
+    "format-alt": "{icon} {time}",
+    "format-icons": ["", "", "", "", ""],
+    "format-charging": " {capacity}",
+    "format-plugged": " {capacity}"
   },
   "cpu": {
     "interval": 3,
@@ -56,7 +76,7 @@
     "hwmon-path-abs": "/sys/devices/platform/coretemp.0/hwmon",
     "input-filename": "temp1_input",
     "critical-threshold": 60,
-    "format": "<span foreground='#000000'>.</span>{temperatureC}°"
+    "format": " {temperatureC}°"
   },
   "memory": {
     "interval": 3,
@@ -106,17 +126,17 @@
     "on-scroll-up": "",
     "on-scroll-down": ""
   },
-  "battery": {
-    "interval": 15,
-    "states": {
-      "warning": 30,
-      "critical": 15
-    },
-    "format": "{icon} {capacity}",
-    "format-alt": "{icon} {time}",
-    "format-icons": ["", "", "", "", ""],
-    "format-charging": " {capacity}",
-    "format-plugged": " {capacity}"
+  "network": {
+    "format": "{ifname}",
+    "format-wifi": " {signalStrength} {essid}",
+    "format-ethernet": " {ipaddr}/{cidr}",
+    "tooltip-format": "Network: {ifname} via {gwaddr}",
+    "tooltip-format-wifi": "WIFI: {essid} ({signalStrength}%)\nUp: {bandwidthUpBytes}, down: {bandwidthDownBytes}",
+    "tooltip-format-ethernet": "Ethernet: {ifname}\nUp: {bandwidthUpBytes}, down: {bandwidthDownBytes}",
+    "tooltip-format-disconnected": "Offline",
+    "interval": 30,
+    "max-length": 16,
+    "on-click": "iwgtk"
   },
   "custom/weather": {
     "interval": 2400,
@@ -125,8 +145,17 @@
   },
   "clock": {
     "interval": 15,
-    "format": "{:%a%d%b %H:%M}",
-    "tooltip-format": "<tt>{calendar}</tt>"
+    "format": "{:%a<span foreground='#92959d'>%b%d</span> <span foreground='#d2d6de'>%H</span><span foreground='#92959d'>:</span><span foreground='#d2d6de'>%M</span>}",
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "calendar": {
+      "mode": "month",
+      "format": {
+        "months": "<span color='#ba8d3b'><b>{}</b></span>",
+        "days": "<span color='#b9bdc5'>{}</span>",
+        "weekdays": "<span color='#667ad3'><b>{}</b></span>",
+        "today": "<span color='#fff'><b>{}</b></span>"
+      }
+    }
   }
 }
 

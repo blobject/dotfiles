@@ -3,6 +3,7 @@
 [core]
   autocrlf = input
   editor = kak
+  pager = delta
 [alias]
   br = branch
   cm = commit
@@ -20,7 +21,20 @@
   rs = reset
   s  = status --branch --short
   st = status
-[pager]
-  branch = false
+[delta]
+  file-style = 0 15
+  hunk-header-style = syntax 15
+  hunk-label = ""
+  line-numbers = true
+  line-numbers-left-format = "{nm:>1}│"
+  line-numbers-right-format = "│{np:>1}│"
+  navigate = true
+  side-by-side = true
+[diff]
+  colorMoved = default
+[interactive]
+  diffFilter = delta --color-only
 [log]
   date = format:%y-%m-%d %H:%M:%S
+[merge]
+  conflictstyle = zdiff3

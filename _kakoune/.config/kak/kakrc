@@ -5,7 +5,7 @@ set-option global indentwidth 2
 set-option global modelinefmt '{StatusLineInfo}%sh{printf %s "${kak_buffile}" | sed "s,[^/]\+\$,,;s,^$HOME/,~/,;s,^/home/work/,+/,"}{black,white}%sh{printf %s "${kak_bufname##*/}"}{{context_info}}{blue}%sh{if test -n "${kak_opt_filetype}"; then printf " %s" ${kak_opt_filetype}; fi}{StatusLineInfo} {red}%sh{expr $(printf "%s\n" ${kak_buflist} | wc -w) - 2}{StatusLineInfo} {yellow}u%sh{printf "%04x" "${kak_cursor_char_value}"}{StatusLineInfo} %val{buf_line_count}:{black}%val{cursor_line}{StatusLineInfo}:{black}%val{cursor_char_column}{StatusLineInfo} {{mode_info}}'
 set-option global scrolloff 3,3
 set-option global tabstop 2
-set-option global ui_options terminal_assistant=none terminal_enable_mouse=yes terminal_set_title=yes terminal_status_on_top=yes
+set-option global ui_options terminal_assistant=none terminal_enable_mouse=yes terminal_status_on_top=yes
 
 add-highlighter global/ number-lines -hlcursor -separator ' '
 add-highlighter global/ regex \h+$ 0:Error
@@ -13,17 +13,23 @@ add-highlighter global/ regex '(FIX|FIXME|NOTE|TODO|WIP|XXX)' 0:black,bright-blu
 add-highlighter global/ show-matching
 add-highlighter global/ wrap
 
-define-command -buffer-completion d 'delete-buffer' -docstring 'delete current buffer'
-#define-command 0filetype 'eval %sh{ echo "printf %s ${kak_opt_filetype}" }' -docstring 'print filetype'
-define-command 0wrap 'add-highlighter global/ wrap' -docstring 'wrap lines'
-define-command 0nowrap 'remove-highlighter global/wrap' -docstring 'do not wrap lines'
+define-command -docstring 'delete current buffer' -buffer-completion d %{delete-buffer}
+define-command -docstring 'print filetype' -override 0filetype %{info %sh{printf %s ${kak_opt_filetype}}}
+define-command -docstring 'set filetype' -override -params 1 0type %{evaluate-commands %sh{printf %s "set-option buffer filetype $1"}}
+define-command -docstring 'wrap lines' 0wrap %{add-highlighter global/ wrap}
+define-command -docstring 'do not wrap lines' 0nowrap %{remove-highlighter global/wrap}
+
+# ui
+#hook global BufCreate .* %{ evaluate-commands %sh{
+#  echo set-option -add buffer ui_options "'terminal_title=%val{buffile}'"
+#} }
 
 # filetype
 hook global BufCreate .* %{ evaluate-commands %sh{
   # recognise filetypes that snuck past detection/file.kak
   if test -z "${kak_opt_filetype}"; then
     case $(file -b --mime-type -L "${kak_buffile}") in
-      text/x-tcl) printf %s "set-option buffer filetype sh" ;; # no tcl atm
+      text/x-tcl) printf %s 'set-option buffer filetype sh' ;; # no tcl atm
     esac
   fi
 } }
@@ -33,6 +39,7 @@ hook global BufCreate .*\.conf %{
 hook global BufCreate .*\.tcl %{
   set-option buffer filetype sh
 }
+
 
 # backup
 hook global BufWritePost .* %{
@@ -50,7 +57,7 @@ hook global BufWritePost .* %{
     bakd="${HOME}/bak/kak"
     test -d "${bakd}" && test -w "${bakd}" \
     || (printf %s "info %%{cannot write to backup directory\n${bakd}}" && exit)
-    bakf="${bakd}/"$(basename ${kak_bufname})"~" # basename needed for links
+    bakf="${bakd}/"$(basename ${kak_bufname})'~' # basename needed for links
     /usr/bin/diff >/dev/null 2>&1 -q "${kak_buffile}" "${bakf}" && exit
     /usr/bin/cp >/dev/null -fL "${kak_buffile}" "${bakf}"
   }

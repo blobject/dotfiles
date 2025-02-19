@@ -50,13 +50,13 @@ proc _browser {} {
 
 # for wm
 proc _bye {} {
-  set runner "fuzzel --dmenu --lines=10 {--prompt= } --width=20"
+  set runner "fuzzel --dmenu --lines=11 {--prompt= } --width=28"
   set menu {\
-    Lock system-lock-screen\
-    Logout system-log-out\
-    Sleep system-suspend\
-    Reboot system-reboot\
-    Shutdown system-shutdown\
+    {Lock} system-lock-screen\
+    {Logout, exit, quit} system-log-out\
+    {Sleep, standby, suspend} system-suspend\
+    {Reboot, restart} system-reboot\
+    {Shutdown, halt} system-shutdown\
   }
   set menustr {}
   foreach {name icon} $menu {
@@ -66,7 +66,9 @@ proc _bye {} {
   if {[catch {exec echo -e $menustr | {*}$runner} what]} {
     return
   }
-  exec 0s bye "[string tolower $what]"
+  set whats [split [string map [list {, } \x00] $what] \x00]
+  set what [string tolower [lindex $whats 0]]
+  exec 0s bye $what
 }
 
 ###############################################################################
@@ -75,14 +77,14 @@ proc _bye {} {
 
 proc _decor {} {
   set title decor
-  set notify "notify-send -u low"
+  set notify "notify-send -u low -i"
   set on [exec hyprctl getoption animations:enabled | awk {NR==1{print $2}}]
   set next {}
-  set icon [__nicon panel/redshift-status-off.svg]
+  set icon redshift-status-off
 
   if {$on} {
     set next off
-    set icon [__nicon panel/desktoptrusted.svg]
+    set icon desktoptrusted
     exec hyprctl --batch {
       keyword animations:enabled 0;
       keyword decoration:shadow:enabled 0;
@@ -94,7 +96,7 @@ proc _decor {} {
     }
   } else {
     set next on
-    set icon [__nicon panel/disper-panel.svg]
+    set icon disper-panel
     exec hyprctl reload
   }
 
@@ -118,10 +120,10 @@ proc _emo {} {
 # for wm, implicit lum change
 proc _lum {arg} {
   set title lum
-  set icon_lo [__nicon panel/redshift-status-off.svg]
-  set icon_hi [__nicon panel/redshift-status-on.svg]
+  set icon_lo redshift-status-off
+  set icon_hi redshift-status-on
   set icon {}
-  set notify "notify-send -u low"
+  set notify "notify-send -u low -i"
 
   switch -- $arg {
     - { set icon $icon_lo }
@@ -219,11 +221,11 @@ proc cpu {} {
 proc lay {arg} {
   global SESS
 
-  set icon_lo [__nicon apps/preferences-desktop-keyboard.svg]
-  set icon_hi [__nicon apps/cinnamon-virtual-keyboard.svg]
+  set icon_lo preferences-desktop-keyboard
+  set icon_hi cinnamon-virtual-keyboard
 
   if {{x} ne $SESS} {
-    exec notify-send -u low $icon_lo key {xorg not running}
+    exec notify-send -u low -i $icon_lo key {xorg not running}
     exit
   }
 
@@ -242,7 +244,7 @@ proc lay {arg} {
       ufail {lay h_snt|q_werty}
     }
   }
-  exec notify-send -u low $icon_hi key $arg
+  exec notify-send -u low -i $icon_hi key $arg
 }
 
 ###############################################################################
@@ -250,15 +252,15 @@ proc lay {arg} {
 # for wm, explicit lum change
 proc lum {arg} {
   set title lum
-  set notify "notify-send -u low"
+  set notify "notify-send -u low -i"
   set cmd {light}
   set cmd_set {-S}
   set cmd_dec {-U}
   set cmd_inc {-A}
   set cmd_get {-G}
   set cmd_sub $cmd
-  set icon_lo [__nicon panel/redshift-status-off.svg]
-  set icon_hi [__nicon panel/redshift-status-on.svg]
+  set icon_lo redshift-status-off
+  set icon_hi redshift-status-on
   set icon $icon_hi
 
   switch -- [string index $arg 0] {
@@ -322,8 +324,8 @@ proc shot {args} {
   set opt {}
   set dst {}
   set desc {}
-  set icon [__nicon mimetypes/image-x-generic.svg]
-  set notify "notify-send -u normal $icon"
+  set icon image-x-generic
+  set notify "notify-send -u normal -i $icon"
 
   proc help {} {
     upvar 1 dir dir
@@ -397,19 +399,19 @@ proc shot {args} {
 # for wm
 proc vol {args} {
   set title vol
-  set notify "notify-send -u low"
-  set icon_bt_lo [__nicon panel/bluetooth-disabled.svg]
-  set icon_usb [__nicon devices/drive-removable-media-usb.svg]
-  set icon_vol_good [__nicon panel/audio-ready.svg]
-  set icon_vol_off [__nicon panel/audio-off.svg]
-  set icon_vol_on [__nicon panel/audio-on.svg]
-  set icon_vol_lo [__nicon panel/audio-volume-medium.svg]
-  set icon_vol_hi [__nicon panel/audio-volume-high.svg]
-  set icon_mic_good [__nicon panel/mic-ready.svg]
-  set icon_mic_off [__nicon panel/mic-off.svg]
-  set icon_mic_on [__nicon panel/mic-on.svg]
-  set icon_mic_lo [__nicon panel/microphone-sensitivity-medium.svg]
-  set icon_mic_hi [__nicon panel/microphone-sensitivity-high.svg]
+  set notify "notify-send -u low -i"
+  set icon_bt_lo bluetooth-disabled
+  set icon_usb drive-removable-media-usb-symbolic
+  set icon_vol_good audio-ready
+  set icon_vol_off audio-off
+  set icon_vol_on audio-on
+  set icon_vol_lo audio-volume-medium
+  set icon_vol_hi audio-volume-high
+  set icon_mic_good mic-ready
+  set icon_mic_off mic-off
+  set icon_mic_on mic-on
+  set icon_mic_lo microphone-sensitivity-medium
+  set icon_mic_hi microphone-sensitivity-high
 
   # which?
   set devs [dict create \

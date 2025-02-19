@@ -1,25 +1,19 @@
 #!/bin/sh
 
-# deprecated by hypridle.conf!
-
 # presume wayland
 
 locker=hyprlock
+locker_cmd='hyprlock --immediate --immediate-render --no-fade-in'
 
 pidof $locker && exit
 
 uid=1000
-home=$(getent passwd $uid | cut -d: -f6)
-user=$(id -un $uid)
 rundir=/run/user/$uid
-display=$(ls $rundir | grep '^wayland-[0-9]\+$')
 
-chpst \
-  -u $user \
+sudo -u $user \
   env \
-    USER=$user \
-    HOME=$home \
-    XDG_RUNTIME_DIR=$rundir \
-    WAYLAND_DISPLAY=$display \
-  $locker
-
+    USER=$(id -un $uid) \
+    HOME=$(getent passwd $uid | cut -d: -f6) \
+    XDG_RUNTIME_DIR= \
+    WAYLAND_DISPLAY=$(ls $rundir | grep '^wayland-[0-9]\+$' | head -1) \
+  $locker_cmd &

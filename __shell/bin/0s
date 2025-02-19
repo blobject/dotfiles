@@ -43,9 +43,9 @@ proc bat {} {
   set crit 5
   set lo 20
   set hi 80
-  set icon_crit [_nicon panel/battery-010.svg]
-  set icon_lo [_nicon panel/battery-020.svg]
-  set icon_hi [_nicon panel/battery-080-charging.svg]
+  set icon_crit battery-010
+  set icon_lo battery-020
+  set icon_hi battery-080-charging
   set notify "notify-send"
 
   set dir /sys/class/power_supply/$device
@@ -55,14 +55,14 @@ proc bat {} {
   switch -- [string index $status 0] {
     {D} {
       if {$capacity <= $crit} {
-        exec {*}$notify -u critical -t 0 $icon_crit $title $capacity%
+        exec {*}$notify -u critical -t 0 -i $icon_crit $title $capacity%
       } elseif {[expr {$lo - 5}] <= $capacity && $capacity <= $lo} {
-        exec {*}$notify -u normal $icon_lo $title $capacity%
+        exec {*}$notify -u normal -i $icon_lo $title $capacity%
       }
     }
     {C} {
       if {$hi <= $capacity && $capacity <= [expr {$hi + 2}]} {
-        exec {*}$notify -u low $icon_hi $title $capacity%
+        exec {*}$notify -u low -i $icon_hi $title $capacity%
       }
     }
   }
@@ -108,7 +108,7 @@ proc bye {arg} {
       puts {0s: locking...}
       catch {exec $locker}
     }
-    e - l - q - x - logout {
+    e - l - q - x - exit - quit - logout {
       puts {0s: logging out...}
       save
       kill
@@ -125,7 +125,15 @@ proc bye {arg} {
     z - sleep - standby - suspend {
       puts {0s: sleeping...}
       sync
-      exec $SUDO /bin/zzz -S
+      if {{w} eq $SESS} {
+        set locker hyprlock
+        set locker_cmd {hyprlock --immediate --immediate-render --no-fade-in}
+        if {0 != [catch {exec pidof $locker}]} {
+          exec {*}$locker_cmd &
+        }
+      }
+      exec sleep 0.5
+      exec $SUDO /bin/zzz
     }
     b - r - restart - reboot {
       puts {0s: rebooting...}
@@ -164,7 +172,7 @@ proc doze {{sec 60}} {
     exec sleep $sec
     set perc [readfile $f]
     if {[expr {$perc < $threshold}]} {
-      exec $SUDO /bin/zzz -S
+      exec $SUDO /bin/zzz
       return
     }
   }
@@ -397,14 +405,14 @@ proc tlp {} {
 
   set title profile
   set gov [readfile /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor]
-  set icon [_nicon panel/indicator-sensors-cpu.svg]
+  set icon indicator-sensors-cpu
   switch -- [string index $gov 1] {
     e { set profile start; set message {tlp (auto)} }
     o { set profile ac; set message {full (manual)} }
     default { set profile ?; set message ? }
   }
   exec $SUDO tlp $profile
-  exec notify-send -u low $icon $title $message
+  exec notify-send -u low -i $icon $title $message
 }
 
 ###############################################################################

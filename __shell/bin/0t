@@ -14,9 +14,9 @@ need notify-send \
      bluetoothctl \
      ifstat \
      light \
-     wlr-randr \
      grim slurp swappy \
      ponymix
+     #wlr-randr \
 
 set SUDO /usr/sbin/sudo
 set ICONS /usr/share/icons/Papirus/24x24
@@ -386,6 +386,7 @@ proc shot {args} {
   }
 
   if {{e} eq $one} {
+    # comment to dismiss notification if necessary
     exec {*}$notify shot $desc
     exec grim {*}$opt {*}$dst
   } else {

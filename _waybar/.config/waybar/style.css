@@ -74,7 +74,6 @@ button:hover {
 #custom-weather,
 #clock               { margin: 0; padding: 0; }
 #custom-dot          { margin: 0 4px; }
-#workspaces          { margin: 0 4px 0 8px; }
 #workspaces button   { min-width: 20px; }
 #tray                { margin: 0 4px; padding: 0 4px; }
 #window              { margin: 0 8px; }
@@ -98,6 +97,7 @@ button:hover {
 #backlight                  { margin-left: 10px; }
 #temperature,
 #idle_inhibitor.deactivated { margin-left: 0; }
+#workspaces                 { margin-left: 8px; }
 #battery.plugged            { margin-left: 2px; }
 #idle_inhibitor             { margin-left: 1px; }
 /* spacing: right */

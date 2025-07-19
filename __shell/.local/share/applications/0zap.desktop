@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=_ZAP
+Exec=0c '$::env(HOME)/opt/zap'
+Type=Application
+Comment=ZAP
+Icon=zap
+Categories=Network;
+StartupNotify=true
+Terminal=false

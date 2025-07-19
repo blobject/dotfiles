@@ -28,13 +28,14 @@
     "clock"
   ],
   "custom/dot": {
-    "format": "<span rise='6000'>•</span>"
+    "format": "<span rise='6000'>•</span>",
+    "tooltip": false
   },
   "hyprland/workspaces": {
     "show-special": true,
     "special-visible-only": true,
     "format": "{icon}",
-    "format-icons": { "1": "", "2": "", "3": "", "4": "", "5": "", "special": "" }
+    "format-icons": {"1": "", "2": "", "3": "", "4": "", "5": "", "6": "", "special": ""}
   },
   "tray": {
     "icon-size": 22,
@@ -52,10 +53,7 @@
   },
   "battery": {
     "interval": 15,
-    "states": {
-      "warning": 30,
-      "critical": 15
-    },
+    "states": {"warning": 30, "critical": 15},
     "format": "{icon} {capacity}",
     "format-alt": "{icon} {time}",
     "format-icons": ["", "", "", "", ""],
@@ -131,8 +129,8 @@
     "format-wifi": " {signalStrength} {essid}",
     "format-ethernet": " {ipaddr}/{cidr}",
     "tooltip-format": "Network: {ifname} via {gwaddr}",
-    "tooltip-format-wifi": "WIFI: {essid} ({signalStrength}%)\nUp: {bandwidthUpBytes}, down: {bandwidthDownBytes}",
-    "tooltip-format-ethernet": "Ethernet: {ifname}\nUp: {bandwidthUpBytes}, down: {bandwidthDownBytes}",
+    "tooltip-format-wifi": "WiFi: {essid} ({signalStrength}%)\nUp: {bandwidthUpBytes} - Down: {bandwidthDownBytes}",
+    "tooltip-format-ethernet": "Ethernet: {ifname}\nUp: {bandwidthUpBytes} - Down: {bandwidthDownBytes}",
     "tooltip-format-disconnected": "Offline",
     "interval": 30,
     "max-length": 16,

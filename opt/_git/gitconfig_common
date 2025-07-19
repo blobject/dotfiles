@@ -22,12 +22,22 @@
   s  = status --branch --short
   st = status
 [delta]
-  file-style = 0 15
+  commit-decoration-style = 7 ol
+  file-added-label = +
+  file-copied-label = C
+  file-modified-label = M
+  file-removed-label = -
+  file-renamed-label = R
+  file-decoration-style = 7 ol
+  file-style = 15 0
+  hunk-header-decoration-style = none
   hunk-header-style = syntax 15
   hunk-label = ""
   line-numbers = true
   line-numbers-left-format = "{nm:>1}│"
-  line-numbers-right-format = "│{np:>1}│"
+  line-numbers-left-style = 7
+  line-numbers-right-format = "║{np:>1}│"
+  line-numbers-right-style = 7
   navigate = true
   side-by-side = true
 [diff]

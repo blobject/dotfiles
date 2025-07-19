@@ -9,7 +9,7 @@ set-option global ui_options terminal_assistant=none terminal_enable_mouse=yes t
 
 add-highlighter global/ number-lines -hlcursor -separator ' '
 add-highlighter global/ regex \h+$ 0:Error
-add-highlighter global/ regex '(FIX|FIXME|NOTE|TODO|WIP|XXX)' 0:black,bright-blue+F
+add-highlighter global/ regex '(FIXME|FIX|NOTE|TODO|WARN|WIP|XXX)' 0:black,bright-blue+F
 add-highlighter global/ show-matching
 add-highlighter global/ wrap
 

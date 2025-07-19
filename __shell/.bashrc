@@ -98,6 +98,12 @@ c()
       && echo "skipping ls ($count entries > "$lim")" \
       || ls -AF --color=auto --time-style=long-iso; }; }
 
+rgc()
+{ rg --count --no-filename $@ \
+  | cut -d: -f1 \
+  | paste -sd+ - \
+  | bc; }
+
 ## variables
 HISTCONTROL=ignoreboth
 HISTFILESIZE=131072
@@ -137,6 +143,7 @@ alias 0topc='ps -Ao pcpu,pid,cmd | sort -grk1 | head -17 | column -t -N %,pid,cm
 alias 0topm="ps -Ao pmem,rss,vsize,pid,args | awk '{if (\$2 > 10240) \$2=\$2/1024\"M\"; if (\$3 > 10240) \$3=\$3/1024\"M\";}{print;}' | sort -grk1 | head -25 | column -t -N %,rss,vsz,pid,cmd |"' cut -c-$(tput cols)'
 #alias 0usb='lsusb | sort -k7 | rg -v 1d6b: | rg -v 8087:0aaa | rg -v 13d3:56c6'
 alias bc='bc -l'
+alias black='black --check --diff'
 alias cal='cal -m'
 alias cp='cp -iv'
 alias dmesg='dmesg --color=always'
@@ -153,6 +160,7 @@ alias llt='ll -t'
 #alias man='man -m /usr/lib/plan9/man'
 alias mv='mv -iv'
 alias pstree='pstree -hnp'
+alias rename='rename -i'
 alias rg='rg -L --hidden -g!*.min.js -g!*.js.map'
 alias rm='rm -i'
 alias sudo='sudo '
@@ -200,22 +208,22 @@ __0_work()
     _)
       export NODE_OPTIONS=--max-old-space-size=25600
       alias black="black --diff"
-      alias eslint="$_np/eslint/bin/eslint.js -c $_d/.eslintrc.cjs --ext .js,.jsx,.ts,.tsx"
-      alias prettier="$_np/prettier/bin-prettier.js"
-      alias sass="$_np/sass/sass.js"
-      alias tsc="$_np/typescript/bin/tsc --noemit"
-      alias _node="cd $_d/node_modules"
+      alias eslint="./node_modules/eslint/bin/eslint.js -c ./.eslintrc.cjs --ext .js,.jsx,.ts,.tsx"
+      alias prettier="./node_modules/prettier/bin-prettier.js"
+      alias sass="./node_modules/sass/sass.js"
+      alias tsc="./node_modules/typescript/bin/tsc --noemit"
+      alias _node="cd ./node_modules"
       alias _python="test -z $_pp && echo \"no dir: $_ppd\" || cd $_pp"
       0conda "$_e"
       cd "$_d"
-      . "../../env/env_$_e.sh"
+      #. "../../env/env_$_e.sh"
       export PYTHONPATH="$_d${PYTHONPATH:+:$PYTHONPATH}"
       ;;
     __|[1-4])
       alias _python="test -z $_pp && echo \"no dir: $_ppd\" || cd $_pp"
       0conda "$_e"
       cd "$_d"
-      . "../../env/env_$_e.sh"
+      #. "../../env/env_$_e.sh"
       export PYTHONPATH="$_d${PYTHONPATH:+:$PYTHONPATH}"
       ;;
     ___)

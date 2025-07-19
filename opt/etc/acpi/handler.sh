@@ -14,9 +14,9 @@ step_backlight() {
     done
 }
 
-minspeed=/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq
-maxspeed=/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq
-setspeed=/sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
+minspeed="/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq"
+maxspeed="/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq"
+setspeed="/sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed"
 
 
 case "$1" in
@@ -36,6 +36,7 @@ case "$1" in
     button/sleep)
         case "$2" in
             SBTN|SLPB)
+                # suspend-to-ram
                 logger "Sleep Button pressed: $2, suspending..."
                 zzz
                 ;;
@@ -47,11 +48,11 @@ case "$1" in
             AC|ACAD|ADP0)
                 case "$4" in
                     00000000)
-                        printf '%s' "$minspeed" >"$setspeed"
+                        cat "$minspeed" >"$setspeed"
                         #/etc/laptop-mode/laptop-mode start
                     ;;
                     00000001)
-                        printf '%s' "$maxspeed" >"$setspeed"
+                        cat "$maxspeed" >"$setspeed"
                         #/etc/laptop-mode/laptop-mode stop
                     ;;
                 esac
@@ -77,6 +78,7 @@ case "$1" in
     button/lid)
         case "$3" in
             close)
+                # suspend-to-ram
                 logger "LID closed, suspending..."
                 zzz
                 ;;

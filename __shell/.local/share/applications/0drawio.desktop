@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=_DrawIO
+Exec=0c '$::env(HOME)/opt/drawio'
+Type=Application
+Comment=DrawIO
+Icon=drawio
+Categories=Graphics;VectorGraphics;
+StartupNotify=true
+Terminal=false

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=_Massif Visualizer
+Exec=0c '$::env(HOME)/opt/massif-visualizer'
+Type=Application
+Comment=Massif Visualizer
+Icon=massif-visualizer
+Categories=Debugger;Development;
+StartupNotify=true
+Terminal=false

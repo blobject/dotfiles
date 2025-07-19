@@ -55,7 +55,7 @@ proc bat {} {
   switch -- [string index $status 0] {
     {D} {
       if {$capacity <= $crit} {
-        exec {*}$notify -u critical -t 0 -i $icon_crit $title $capacity%
+        exec {*}$notify -u critical -i $icon_crit $title $capacity%
       } elseif {[expr {$lo - 5}] <= $capacity && $capacity <= $lo} {
         exec {*}$notify -u normal -i $icon_lo $title $capacity%
       }

@@ -13,11 +13,16 @@ export QT_ENABLE_HIGHDPI_SCALING=1
 #export QT_QPA_PLATFORMTHEME=qt5ct
 
 # graphics
-if lspci | grep -q 'Radeon RX'; then
-  export DRI_PRIME=1
-fi
-export LIBVA_DRIVER_NAME=iHD
-export VDPAU_DRIVER=va_gl
+#export LIBVA_DRIVER_NAME=iHD
+#export VDPAU_DRIVER=va_gl
+export LIBVA_DRIVER_NAME=radeonsi
+export VDPAU_DRIVER=radeonsi
+# following is messing up firefox startup
+#if lspci | grep -q 'Radeon RX'; then
+#  export DRI_PRIME=1
+#fi
+# following is written in hyprland config instead
+#export AQ_DRM_DEVICES=$HOME/cfg/opt/_hw/card_amd:$HOME/cfg/opt/_hw/card_intel
 
 
 # xdg

@@ -37,7 +37,7 @@ VOID
   - copy rsa keys
     - cp /var/db/xbps/keys/* /mnt/var/db/xbps/keys/
   - install packages
-    - xbps-install -Sy -R https://repo-default.voidlinux.org/current -r /mnt base-system cryptsetup lvm2 refind xtools
+    - xbps-install -Sy -R https://repo-default.voidlinux.org/current -r /mnt base-system cryptsetup doas lvm2 refind xtools
   - chroot
     - xchroot /mnt
   - luks key
@@ -137,7 +137,7 @@ VOID
   - hw: hwinfo, gammastep-indicator, kdeconnect, light
   - proc: psmisc, snooze
   - wm: breeze-snow-cursor-theme, fuzzel, grim, iwgtk, libappindicator, mako, qt5-wayland, papirus-icon-theme, slurp, swappy, swaybg, waybar, wl-clipboard, xeyes
-  - media: ffmpeg, helvum, imv, mpv, pavucontrol, pipewire, ponymix, wf-recorder, alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg, libspa-vulkan
+  - media: ffmpeg, helvum, imv, mpv, pavucontrol, pipewire, wf-recorder, alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg, libspa-vulkan
   - misc: blender, firefox, foliate, fontforge, fontmatrix, gnucash, gnuplot, ImageMagick, inkscape, krita, libreoffice, pdf.js, qemu, screenkey, texlive-most, tigervnc, ttfautohint, visidata(python3-openpyxl), zathura-{djvu,pdf-mupdf,ps}
   - net: net-tools wget
   - manual: chrome
@@ -173,7 +173,7 @@ VOID
     - ./xbps-src binary-bootstrap
     - etc/conf: XBPS_ALLOW_RESTRICTED=yes
     - ./xbps-src pkg google-chrome
-    - sudo xbps-install google-chrome --repository=hostdir/binpkgs/nonfree
+    - doas xbps-install google-chrome --repository=hostdir/binpkgs/nonfree
   - massif-visualizer
     - install: qt6-{base,qt5compat,svg}-devel, kf6-{karchive,kconfig,kcoreaddons,kparts,kio,ki18n}-devel, kdiagram6-devel
 

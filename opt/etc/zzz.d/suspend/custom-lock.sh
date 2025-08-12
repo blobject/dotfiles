@@ -10,7 +10,7 @@ pidof $locker && exit
 uid=1000
 rundir=/run/user/$uid
 
-sudo -u $user \
+doas -u $user \
   env \
     USER=$(id -un $uid) \
     HOME=$(getent passwd $uid | cut -d: -f6) \

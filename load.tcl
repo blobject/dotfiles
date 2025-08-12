@@ -12,7 +12,7 @@ set REMOVE {xbps-remove -R}
 set CLEANUP {xbps-remove -Oo}
 set GITHUB git@github.com:blobject
 set GITHUBPUB https://github.com
-set SUDO /usr/bin/sudo
+set DOAS /usr/sbin/doas
 
 ###############################################################################
 # helpers
@@ -129,10 +129,10 @@ proc user {name isdone} {
 ###############################################################################
 
 proc package {} {
-  global UPDATE SUDO
+  global UPDATE DOAS
 
   puts [title {2. update PACKAGE SYSTEM}]
-  exec $SUDO {*}$UPDATE
+  exec $DOAS {*}$UPDATE
   puts done
 }
 
@@ -157,9 +157,9 @@ proc basics {} {
 }
 
 proc desktop {} {
-  global SUDO
+  global DOAS
 
-  #exec $SUDO mkdir -p /usr/share/xsessions
+  #exec $DOAS mkdir -p /usr/share/xsessions
 }
 
 proc miscellany {} {

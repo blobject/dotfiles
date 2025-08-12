@@ -47,7 +47,7 @@ if {[string match "*/$::env(USER)/log" $dir]} {
     fail "$log unreadable"
   }
 } elseif {$dmesg} {
-  exec -- >@stdout 2>@stdout /usr/bin/sudo /usr/bin/dmesg --color=always | less
+  exec -- >@stdout 2>@stdout /usr/sbin/doas /usr/bin/dmesg --color=always | less
 } elseif {[file isdirectory $log]} {
   exec -- >@stdout 2>@stdout less $log/current
 } else {

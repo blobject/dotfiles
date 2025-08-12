@@ -15,10 +15,9 @@ need notify-send \
      ifstat \
      light \
      grim slurp swappy \
-     ponymix
+     wpctl
      #wlr-randr \
 
-set SUDO /usr/sbin/sudo
 set ICONS /usr/share/icons/Papirus/24x24
 
 ###############################################################################
@@ -397,10 +396,112 @@ proc shot {args} {
 
 ###############################################################################
 
+proc term {} {
+  set title term
+  cd $::env(HOME)/.config/foot
+  if {[file exists foot.ini.big]} {
+    file rename -force foot.ini foot.ini.bak
+    file rename -force foot.ini.big foot.ini
+    exec notify-send -u low -i foot $title big
+  } elseif {[file exists foot.ini.bak]} {
+    file rename -force foot.ini foot.ini.big
+    file rename -force foot.ini.bak foot.ini
+    exec notify-send -u low -i foot $title regular
+  } else {
+    exec notify-send -u low -i foot $title {config not found}
+  }
+}
+
+###############################################################################
+
+# vol helper
+proc vol_get_device_id {status kind name} {
+  set in_sources 0
+  set id {}
+
+  if {{} eq $kind || {} eq $name} {
+    return $id
+  }
+
+  foreach line [split $status "\n"] {
+    if {[regexp "^\[^0-9\]*$kind:" $line]} {
+      set in_sources 1
+      continue
+    }
+    if {$in_sources} {
+      if {![regexp {^[^0-9]*[0-9]+} $line]} {
+        break
+      }
+      if {[regexp "^\[^0-9\]*(\[0-9\]+)\.\\s+$name" $line -> match]} {
+        puts $line
+        set id $match
+        break
+      }
+    }
+}
+
+  return $id
+}
+
+# vol helper
+proc vol_get_current_device {status kind devices} {
+  set id {}
+  set available_devices {}
+  set in_kind 0
+  set prepat {^[^0-9]*([0-9]+)\.\s+}
+
+  foreach line [split $status "\n"] {
+    if {[regexp "^\[^0-9\]*$kind:" $line]} {
+      set in_kind 1
+      continue
+    }
+    if {$in_kind} {
+      if {![regexp {^[^0-9]*[0-9]+} $line]} {
+        break
+      }
+      lappend available_devices $line
+    }
+  }
+
+  foreach device $devices {
+    foreach available_device $available_devices {
+      if {{} ne $id} {
+        break
+      }
+      if {[regexp "$prepat$device" $available_device -> match]} {
+        set id $match
+        break
+      }
+    }
+  }
+
+  return $id
+}
+
+# vol helper
+proc vol_format_volume {volume} {
+  regexp {^Volume:\s([0-9.]+)} $volume -> vol
+  return [expr int($vol * 100)]
+}
+
 # for wm
 proc vol {args} {
   set title vol
+  set cmd wpctl
   set notify "notify-send -u low -i"
+  set status [exec $cmd status]
+
+  set default_device_name {Built-in Audio Analog Stereo}
+  set bt_device_names [dict create \
+    earfun     {EarFun Free Pro 2} \
+    earfunmic  {bluez_input.B0:F1:A3:63:0A:66} \
+    fly        {wip_fly} \
+    jbl        {JBL Clip 2} \
+    jblmic     {bluez_input.00:12:6F:EE:F0:F7} \
+    nothing    {Nothing Ear} \
+    nothingmic {bluez_input.2C:BE:EB:78:2B:3B}]
+  set usb_device_names [dict create \
+    usb {USB-C to 3.5mm Headphone Jack Adapter}]
   set icon_bt_lo bluetooth-disabled
   set icon_usb drive-removable-media-usb-symbolic
   set icon_vol_good audio-ready
@@ -414,138 +515,108 @@ proc vol {args} {
   set icon_mic_lo microphone-sensitivity-medium
   set icon_mic_hi microphone-sensitivity-high
 
-  # which?
-  set devs [dict create \
-    earfun  B0_F1_A3_63_0A_66 \
-    fly     38_A2_8C_F9_CF_DF \
-    jbl     00_12_6F_EE_F0_F7 \
-    nothing 2C_BE_EB_78_2B_3B]
-  set dev laptop
-  set out {}
-  set mic {}
-  set base {ponymix --sink list}
-  set basemic {ponymix --source list}
-  set isbt false
-  set isusb false
+  set ismic false
+  set device_kind Sinks
+  set device_names {}
+  set device_id {}
+  set device laptop
+  set volume {}
+  set icon_no_device $icon_usb
+  set icon {}
+  set notify_body {}
+
+  # determine category & id
   switch -- [lindex $args 0] {
     {bt} {
       set args [lrange $args 1 end]
-      set isbt true
-      set pat {: bluez_output}
-      set patmic {: bluez_input}
-      if {[catch {exec {*}$base | rg $pat}]} {
-        exec {*}$notify $icon_bt_lo $title {no bt audio}
-        exit
+      set device bt
+      set device_names [dict values $bt_device_names]
+      if {{} eq $device_id} {
+        set icon_no_device $icon_bt_lo
+        set notify_body {no bt audio}
       }
-      set out [exec {*}$base | rg $pat | tail -1 | cut {-d } -f3]
-      if {[catch {exec {*}$basemic | rg $patmic}]} {
-        set mic {}
-      } else {
-        set mic [exec {*}$basemic | rg $patmic | tail -1 | cut {-d } -f3]
-      }
-      switch -regexp -- $out \
-        [dict get $devs earfun]  { set dev earfun } \
-        [dict get $devs fly]     { set dev fly } \
-        [dict get $devs jbl]     { set dev jbl } \
-        [dict get $devs nothing] { set dev nothing } \
-        [string map {_ :} [dict get $devs earfun]]  { set dev earfun } \
-        [string map {_ :} [dict get $devs fly]]     { set dev fly } \
-        [string map {_ :} [dict get $devs jbl]]     { set dev jbl } \
-        [string map {_ :} [dict get $devs nothing]] { set dev nothing } \
-        default { fail {unrecognised device} }
-    } \
+    }
     {usb} {
       set args [lrange $args 1 end]
-      set isusb true
-      set pat {_output\.usb-}
-      set patmic {_input\.usb-}
-      if {[catch {exec {*}$base | rg $pat}]} {
-        exec {*}$notify $icon_usb $title {no audio usb}
-        exit
+      set device usb
+      set device_names [dict values $usb_device_names]
+      if {{} eq $device_id} {
+        set icon_no_device $icon_usb
+        set notify_body {no usb audio}
       }
-      set out [exec {*}$base | rg $pat | tail -1 | cut {-d } -f3]
-      if {[catch {exec {*}$basemic | rg $patmic}]} {
-        set mic {}
-      } else {
-        set mic [exec {*}$basemic | rg $patmic | tail -1 | cut {-d } -f3]
-      }
-      set dev usb
-    } \
+    }
     default {
-      set patbase {_output\.pci-0000_00_1f}
-      set patmicbase {_input\.pci-0000_00_1f}
-      #set pat {HiFi__(Headphones|Speaker)__sink}
-      #set patmic {HiFi__Mic1__source}
-      set pat {analog-stereo}
-      set out [exec {*}$base | rg $patbase | rg $pat | cut {-d } -f3]
-      set mic [exec {*}$basemic | rg $patmicbase | rg $pat | cut {-d } -f3]
+      set device_names [list $default_device_name]
     }
   }
 
-  # mic?
-  set ismic false
   if {{mic} eq [lindex $args 0]} {
-    if {{} eq $mic} {
-      if {$isbt} {
-        exec {*}$notify $icon_bt_lo $title {no bt audio mic}
-      }
-      if {$isusb} {
-        exec {*}$notify $icon_usb $title {no audio usb mic}
-      }
-      exit
-    }
     set args [lrange $args 1 end]
     set ismic true
+    set device_kind Sources
   }
 
-  # build command
-  set cmdbase "ponymix --sink --device $out"
-  if {$ismic} {
-    if {{} eq $mic} {
-      exit
-    }
-    set cmdbase "ponymix --source --device $mic"
-  }
-  set cmd $cmdbase
-  switch -- [string index [lindex $args 0] 0] {
-    {} {}
-    x { append cmd { toggle} }
-    - { append cmd " decrease [string range $args 1 end]" }
-    + { append cmd " increase [string range $args 1 end]" }
-    default { ufail {vol [bt] [mic] |x|-N|+N} }
+  set device_id [vol_get_current_device $status $device_kind $device_names]
+  if {$ismic && {} eq $device_id} {
+    set device_kind Filters
+    set device_id [vol_get_current_device $status $device_kind $device_names]
   }
 
-  # execute ponymix
-  exec {*}$cmd
+  # determination fail
+  if {{} eq $device_id} {
+    if {$ismic} { set notify_body "$notify_body mic" }
+    exec {*}$notify $icon_no_device $title $notify_body
+    exit
+  }
 
-  # build notification
+  # adjust
+  set volume [exec $cmd get-volume $device_id]
+
   switch -- [string index [lindex $args 0] 0] {
     {} {
-      set arg " $icon_vol_good"
-      if {$ismic} { set arg " $icon_mic_good" }
-      append notify "$arg $title \"$dev [exec {*}$cmdbase get-volume]%\""
+      set cmd {}
+      set icon $icon_vol_good; if {$ismic} { set icon $icon_mic_good }
+      set notify_body "$device [vol_format_volume $volume]%"
     }
     x {
-      set arg " $icon_vol_off $title \"$dev muted\""
-      if {$ismic} { set arg " $icon_mic_off $title \"$dev mic muted\"" }
-      if {[catch {exec {*}$cmdbase is-muted}]} {
-        set arg " $icon_vol_on $title \"$dev on\""
-        if {$ismic} { set arg " $icon_mic_on $title \"$dev mic on\"" }
+      set cmd "$cmd set-mute $device_id toggle"
+      set icon $icon_vol_off
+      set notify_body "$device muted"
+      if {$ismic} {
+        set icon $icon_mic_off
+        set notify_body "$device mic muted"
       }
-      append notify $arg
+      if {[regexp {MUTED} $volume]} {
+        set icon $icon_vol_on
+        set notify_body "$device on"
+        if {$ismic} {
+          set icon $icon_mic_on
+          set notify_body "$device mic on"
+        }
+      }
     }
     - {
-      set arg " $icon_vol_lo"
-      if {$ismic} { set arg " $icon_mic_lo" }
-      append notify "$arg $title \"$dev [exec {*}$cmdbase get-volume]%\""
+      set amount [string range $args 1 end]
+      if {{} eq $amount} { set amount 2 }
+      set cmd "$cmd set-volume $device_id $amount%-"
+      set icon $icon_vol_lo; if {$ismic} { set icon $icon_mic_lo }
+      set notify_body {}
     }
     + {
-      set arg " $icon_vol_hi"
-      if {$ismic} { set arg " $icon_mic_hi" }
-      append notify "$arg $title \"$dev [exec {*}$cmdbase get-volume]%\""
+      set amount [string range $args 1 end]
+      if {{} eq $amount} { set amount 2 }
+      set cmd "$cmd set-volume $device_id $amount%+"
+      set icon $icon_vol_hi; if {$ismic} { set icon $icon_mic_hi }
+      set notify_body {}
     }
   }
-  exec {*}$notify
+
+  # execute
+  if {{} ne $cmd} { exec {*}$cmd }
+  if {{} eq $notify_body} {
+    set notify_body "$device [vol_format_volume [exec wpctl get-volume $device_id]]%"
+  }
+  exec {*}$notify $icon $title $notify_body
 }
 
 ###############################################################################
@@ -583,7 +654,7 @@ proc weather {} {
 
 set arg [lindex $::argv 0]
 if {0 eq [llength [info procs $arg]]} {
-  ufail {btbat|cpu|lay|lum|mon|net|shot|vol|weather
+  ufail {btbat|cpu|lay|lum|mon|net|shot|term|vol|weather
   btbat   get battery level of bluetooth device
   cpu     get cpu governor
   lay     [gs]et keyboard layout   _|h_hsnt|q_werty
@@ -591,6 +662,7 @@ if {0 eq [llength [info procs $arg]]} {
   mon     toggle monitor           _|o|on|x|off
   net     get net usage
   shot    take screenshot          _|active|*screen*|select |jpg|*png* |c
+  term    toggle terminal size
   vol     [gs]et audio volume      _|bt |mic |x|-N|+N
   weather get weather report}
 }

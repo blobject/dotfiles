@@ -80,14 +80,14 @@ __0_title()
   net=${net%.*}
   port='21000'
   test "$#" -ne 2 && echo 'provide phone address & ftp password' \
-    || sudo lftp -u "b,$2" -p "$port" "ftp://$net.$1"; }
+    || doas lftp -u "b,$2" -p "$port" "ftp://$net.$1"; }
 
 0qmk-flash()
 { #make planck/rev4:blobject:flash \
-  sudo make planck/rev4:blobject \
-  && sudo dfu-programmer atmega32u4 erase \
-  && sudo dfu-programmer atmega32u4 flash planck_rev4_agaric.hex \
-  && sudo dfu-programmer atmega32u4 reset; }
+  doas make planck/rev4:blobject \
+  && doas dfu-programmer atmega32u4 erase \
+  && doas dfu-programmer atmega32u4 flash planck_rev4_agaric.hex \
+  && doas dfu-programmer atmega32u4 reset; }
 
 c()
 { cd "$@" && \
@@ -127,7 +127,7 @@ alias 0cam='mpv av://v4l2:/dev/video0 --profile=low-latency --untimed'
 alias 0clock='echo "$(date +%s) $(TZ=UTC date)"; echo "Prague:    $(TZ=Europe/Prague date)"; echo "Reykjavik: $(TZ=Atlantic/Reykjavik date)"; echo "Riyadh:    $(TZ=Asia/Riyadh date)"; echo "Seoul:     $(TZ=Asia/Seoul date)"; echo "Singapore: $(date)"'
 alias 0ear='bluetoothctl connect B0:F1:A3:63:0A:66'
 alias 0fonts="pango-list | grep '^[^ ]' | sort | pr -2 -T"
-alias 0gpu_unplug="sudo modprobe -r amdgpu && sudo sh -c \"echo 1 > /sys/bus/pci/devices/0000:$(lspci | grep ' VGA ' | grep Radeon | head -1 | cut -d' ' -f1)/remove\""
+alias 0gpu_unplug="doas modprobe -r amdgpu && doas sh -c \"echo 1 > /sys/bus/pci/devices/0000:$(lspci | grep ' VGA ' | grep Radeon | head -1 | cut -d' ' -f1)/remove\""
 alias 0ip='curl https://ipinfo.io/ip; echo'
 #alias 0mixon='pactl load-module module-loopback'
 #alias 0mixoff='pactl unload-module module-loopback'
@@ -138,7 +138,6 @@ alias 0py='python -m env $HOME/opt/python/env'
 alias 0sec='gocryptfs $HOME/ref/.secret $HOME/ref/secret'
 alias 0secret='fusermount -u $HOME/ref/secret'
 alias 0sshadd='ssh-add $HOME/.ssh/id_rsa'
-alias 0su='sudo su -s $(which bash)'
 alias 0topc='ps -Ao pcpu,pid,cmd | sort -grk1 | head -17 | column -t -N %,pid,cmd | cut -c-$(tput cols)'
 alias 0topm="ps -Ao pmem,rss,vsize,pid,args | awk '{if (\$2 > 10240) \$2=\$2/1024\"M\"; if (\$3 > 10240) \$3=\$3/1024\"M\";}{print;}' | sort -grk1 | head -25 | column -t -N %,rss,vsz,pid,cmd |"' cut -c-$(tput cols)'
 #alias 0usb='lsusb | sort -k7 | rg -v 1d6b: | rg -v 8087:0aaa | rg -v 13d3:56c6'
@@ -163,7 +162,6 @@ alias pstree='pstree -hnp'
 alias rename='rename -i'
 alias rg='rg -L --hidden -g!*.min.js -g!*.js.map'
 alias rm='rm -i'
-alias sudo='sudo '
 alias guile='rlwrap -ci guile'
 alias tclsh='rlwrap -ci tclsh'
 alias wish='rlwrap -ci wish'

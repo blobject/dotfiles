@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=_Discord
-Exec=0c '$::env(HOME)/opt/discord/Discord'
+Exec=0c '$::env(HOME)/opt/Discord/Discord'
 Type=Application
 Comment=Discord
 Icon=discord

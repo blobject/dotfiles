@@ -140,9 +140,10 @@ button:hover {
 #tray > .needs-attention,
 #battery.critical:not(.charging),
 #temperature.critical                   { color: @rr; }
-#workspaces button.focused,
+#workspaces button.active,
 #clock                                  { color: @bb; }
-#workspaces button.active:not(.focused) { color: @w; }
+#workspaces button.visible:not(.active) { color: @w; }
+#workspaces button.special              { color: @cc; }
 #window,
 #battery                                { color: @w; }
 #battery.warning:not(.charging)         { color: @ww; }

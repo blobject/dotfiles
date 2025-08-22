@@ -1,0 +1,273 @@
+/-debug {
+  render-drm-device "/dev/dri/renderD129"
+}
+environment {
+  /-DBUS_SESSION_BUS_ADDRESS "unix:path=/run/user/1000/bus"
+  XDG_SESSION_TYPE "wayland"
+  XDG_SESSION_DESKTOP "niri"
+  XDG_CURRENT_DESKTOP "niri"
+  XDG_CURRENT_SESSION "niri"
+  // gfx
+  AQ_DRM_DEVICES "/home/b/cfg/opt/_hw/card_amd:/home/b/cfg/opt/_hw/card_intel"
+  // toolkit
+  CLUTTER_BACKEND "wayland"
+  ELECTRON_OZONE_PLATFORM_HINT "auto"
+  GDK_BACKEND "wayland,x11,*"
+  GDK_DPI_SCALE "1.75"
+  _JAVA_AWT_WM_NONREPARENTING "1"
+  MOZ_DISABLE_RDD_SANDBOX "1"
+  MOZ_ENABLE_WAYLAND "1"
+  OZONE_PLATFORM "wayland"
+  QT_QPA_PLATFORM "wayland;xcb"
+  // x
+  XKB_DEFAULT_LAYOUT "hsnt"
+}
+/-spawn-at-startup "sh" "-c" "{ dbus-daemon --session --address=$DBUS_SESSION_BUS_ADDRESS & }"
+spawn-at-startup "dbus-update-activation-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" "XDG_SESSION_TYPE" "DISPLAY" "XAUTHORITY"
+spawn-at-startup "foot" "--server" "--log-level=warning"
+spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "cursor-theme" "Breeze_hacked"
+spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "cursor-size" "64"
+spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "font-name" "'sans 10'"
+spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "gtk-theme" "Adwaita"
+spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "icon-theme" "Papirus"
+spawn-at-startup "doas" "/usr/sbin/light" "-S" "30"
+spawn-at-startup "sh" "-c" "{ xrdb -merge $HOME/.xresources & }"
+spawn-at-startup "0s" "snooze"
+spawn-at-startup "0s" "temper"
+spawn-at-startup "sh" "-c" "{ swaybg --mode fill --image $HOME/cfg/opt/_shell/back.png & }"
+spawn-at-startup "blueman-applet"
+spawn-at-startup "gammastep-indicator" "-l" "manual" "-l" "1.28:103.85" "-m" "wayland" "-t" "5500K:4800K"
+spawn-at-startup "hypridle"
+spawn-at-startup "iwgtk" "--indicators"
+spawn-at-startup "mako"
+spawn-at-startup "pipewire"
+spawn-at-startup "waybar"
+spawn-at-startup "xwayland-satellite"
+spawn-at-startup "sh" "-c" "{ sleep 1 && pipewire-pulse & }"
+spawn-at-startup "sh" "-c" "{ sleep 2 && wireplumber & }"
+input {
+  keyboard {
+    xkb { layout "hsnt"; }
+    repeat-rate 40
+    repeat-delay 200
+  }
+  touchpad {
+    tap
+    natural-scroll
+    scroll-factor 0.5
+  }
+  mouse {
+    accel-speed 0.2
+  }
+}
+output "eDP-1" {
+  /-mode "2256x1504@59.999"
+  /-position x=1280 y=0
+  scale 1
+  transform "normal"
+}
+output "LG Electronics LG ULTRAFINE 311NTDV3T506" {
+  scale 2
+  transform "normal"
+}
+output "Dell Inc. DELL S2722DC 4X1BHD3" {
+  position x=-2560 y=0
+  scale 1
+  transform "normal"
+}
+output "Dell Inc. DELL S2722DC 1V1BHD3" {
+  position x=-2560 y=0
+  scale 1
+  transform "normal"
+}
+animations {
+  slowdown 0.75
+}
+cursor {
+  xcursor-size 64
+  xcursor-theme "Breeze_Hacked"
+}
+gestures {
+  hot-corners { off; }
+}
+hotkey-overlay {
+  /-hide-not-bound
+  skip-at-startup
+}
+layout {
+  always-center-single-column
+  center-focused-column "never"
+  gaps 0
+  preset-column-widths {
+    proportion 0.333
+    proportion 0.5
+    proportion 0.666
+  }
+  preset-window-heights {
+    proportion 0.5
+    proportion 0.75
+  }
+  default-column-width {}
+  focus-ring { width 0; }
+  border {
+    // off
+    width 8
+    active-color "#3c56aa"
+    inactive-color "#36383f"
+    urgent-color "#a32c2d"
+  }
+  shadow {
+    on
+    softness 32
+    spread 8
+    offset x=0 y=4
+    color "#0008"
+  }
+  /-struts { left 64; right 64; top 64; bottom 64; }
+  tab-indicator {
+    hide-when-single-tab
+    place-within-column
+    gap 0
+    gaps-between-tabs 0
+    width 8
+    length total-proportion=1.0
+    active-color "#667ad3"
+    inactive-color "#575a61"
+    urgent-color "#a32c2d"
+  }
+}
+overview {
+  zoom 0.5
+  backdrop-color "#16161d"
+  workspace-shadow { off; }
+}
+/-prefer-no-csd
+screenshot-path "~/got/screenshot-%s.png"
+switch-events {
+  lid-close { spawn "sh" "-c" "pidof hyprlock || hyprlock --immediate --immediate-render --no-fade-in"; }
+}
+binds {
+  super+shift+ctrl+escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+  super+f1 hotkey-overlay-title="hotkey help" { show-hotkey-overlay; }
+  super+h       hotkey-overlay-title=null { focus-column-left; }
+  super+j       hotkey-overlay-title=null { focus-window-down; }
+  super+k       hotkey-overlay-title=null { focus-window-up; }
+  super+l       hotkey-overlay-title=null { focus-column-right; }
+  super+shift+h hotkey-overlay-title=null { move-column-left; }
+  super+shift+j hotkey-overlay-title=null { move-window-down; }
+  super+shift+k hotkey-overlay-title=null { move-window-up; }
+  super+shift+l hotkey-overlay-title=null { move-column-right; }
+  super+1 repeat=false hotkey-overlay-title=null { focus-workspace 1; }
+  super+2 repeat=false hotkey-overlay-title=null { focus-workspace 2; }
+  super+3 repeat=false hotkey-overlay-title=null { focus-workspace 3; }
+  super+4 repeat=false hotkey-overlay-title=null { focus-workspace 4; }
+  super+5 repeat=false hotkey-overlay-title=null { focus-workspace 5; }
+  super+6 repeat=false hotkey-overlay-title=null { focus-workspace 6; }
+  super+shift+1        hotkey-overlay-title=null { move-window-to-workspace 1; }
+  super+shift+2        hotkey-overlay-title=null { move-window-to-workspace 2; }
+  super+shift+3        hotkey-overlay-title=null { move-window-to-workspace 3; }
+  super+shift+4        hotkey-overlay-title=null { move-window-to-workspace 4; }
+  super+shift+5        hotkey-overlay-title=null { move-window-to-workspace 5; }
+  super+shift+6        hotkey-overlay-title=null { move-window-to-workspace 6; }
+  super+shift+ctrl+1   hotkey-overlay-title=null { move-column-to-workspace 1; }
+  super+shift+ctrl+2   hotkey-overlay-title=null { move-column-to-workspace 2; }
+  super+shift+ctrl+3   hotkey-overlay-title=null { move-column-to-workspace 3; }
+  super+shift+ctrl+4   hotkey-overlay-title=null { move-column-to-workspace 4; }
+  super+shift+ctrl+5   hotkey-overlay-title=null { move-column-to-workspace 5; }
+  super+shift+ctrl+6   hotkey-overlay-title=null { move-column-to-workspace 6; }
+  super+ctrl+h           hotkey-overlay-title=null { focus-monitor-left; }
+  super+ctrl+j           hotkey-overlay-title=null { focus-monitor-down; }
+  super+ctrl+k           hotkey-overlay-title=null { focus-monitor-up; }
+  super+ctrl+l           hotkey-overlay-title=null { focus-monitor-right; }
+  super+shift+ctrl+h     hotkey-overlay-title=null { move-window-to-monitor-left; }
+  super+shift+ctrl+j     hotkey-overlay-title=null { move-window-to-monitor-down; }
+  super+shift+ctrl+k     hotkey-overlay-title=null { move-window-to-monitor-up; }
+  super+shift+ctrl+l     hotkey-overlay-title=null { move-window-to-monitor-right; }
+  super+shift+ctrl+alt+h hotkey-overlay-title=null { move-column-to-monitor-left; }
+  super+shift+ctrl+alt+j hotkey-overlay-title=null { move-column-to-monitor-down; }
+  super+shift+ctrl+alt+k hotkey-overlay-title=null { move-column-to-monitor-up; }
+  super+shift+ctrl+alt+l hotkey-overlay-title=null { move-column-to-monitor-right; }
+  super+minus                                                              { set-column-width "-5%"; }
+  super+equal                                                              { set-column-width "+5%"; }
+  super+shift+minus                                                        { set-window-height "-5%"; }
+  super+shift+equal                                                        { set-window-height "+5%"; }
+  super+c                                                     repeat=false { center-column; }
+  super+f                                                     repeat=false { fullscreen-window; }
+  super+semicolon        hotkey-overlay-title="resize width"               { switch-preset-column-width; }
+  super+apostrophe       hotkey-overlay-title="resize height"              { switch-preset-window-height; }
+  super+shift+semicolon  hotkey-overlay-title="reset width"   repeat=false { maximize-column; }
+  super+shift+apostrophe hotkey-overlay-title="reset height"  repeat=false { reset-window-height; }
+  super+bracketleft      hotkey-overlay-title="consume/expel left"         { consume-or-expel-window-left; }
+  super+bracketright     hotkey-overlay-title="consume/expel right"        { consume-or-expel-window-right; }
+  super+slash                                                 repeat=false { toggle-column-tabbed-display; }
+  super+comma       hotkey-overlay-title="toggle float"       repeat=false { toggle-window-floating; }
+  super+period      hotkey-overlay-title="toggle float focus" repeat=false { switch-focus-between-floating-and-tiling; }
+  super+shift+escape hotkey-overlay-title=null                repeat=false { close-window; }
+  super+XF86AudioMute        hotkey-overlay-title=null allow-inhibiting=false                        repeat=false { spawn "pavucontrol"; }
+  super+XF86AudioLowerVolume hotkey-overlay-title=null allow-inhibiting=false                        repeat=false { spawn "pavucontrol"; }
+  super+XF86AudioRaiseVolume hotkey-overlay-title=null allow-inhibiting=false                        repeat=false { spawn "pavucontrol"; }
+  super+XF86AudioMicMute     hotkey-overlay-title=null allow-inhibiting=false                        repeat=false { spawn "pavucontrol"; }
+  XF86AudioMute              hotkey-overlay-title=null allow-inhibiting=false allow-when-locked=true repeat=false { spawn "0t" "vol" "x"; }
+  XF86AudioLowerVolume       hotkey-overlay-title=null allow-inhibiting=false allow-when-locked=true              { spawn "0t" "vol" "-2"; }
+  XF86AudioRaiseVolume       hotkey-overlay-title=null allow-inhibiting=false allow-when-locked=true              { spawn "0t" "vol" "+2"; }
+  XF86AudioMicMute           hotkey-overlay-title=null allow-inhibiting=false allow-when-locked=true repeat=false { spawn "0t" "vol" "mic" "x"; }
+  shift+XF86AudioMute        hotkey-overlay-title=null allow-inhibiting=false allow-when-locked=true repeat=false { spawn "0t" "vol" "usb" "x"; }
+  shift+XF86AudioLowerVolume hotkey-overlay-title=null allow-inhibiting=false allow-when-locked=true              { spawn "0t" "vol" "usb" "-2"; }
+  shift+XF86AudioRaiseVolume hotkey-overlay-title=null allow-inhibiting=false allow-when-locked=true              { spawn "0t" "vol" "usb" "+2"; }
+  shift+XF86AudioMicMute     hotkey-overlay-title=null allow-inhibiting=false allow-when-locked=true repeat=false { spawn "0t" "vol" "usb" "mic" "x"; }
+  ctrl+XF86AudioMute         hotkey-overlay-title=null allow-inhibiting=false allow-when-locked=true repeat=false { spawn "0t" "vol" "bt" "x"; }
+  ctrl+XF86AudioLowerVolume  hotkey-overlay-title=null allow-inhibiting=false allow-when-locked=true              { spawn "0t" "vol" "bt" "-2"; }
+  ctrl+XF86AudioRaiseVolume  hotkey-overlay-title=null allow-inhibiting=false allow-when-locked=true              { spawn "0t" "vol" "bt" "+2"; }
+  ctrl+XF86AudioMicMute      hotkey-overlay-title=null allow-inhibiting=false allow-when-locked=true repeat=false { spawn "0t" "vol" "bt" "mic" "x"; }
+  XF86MonBrightnessDown      hotkey-overlay-title=null allow-inhibiting=false allow-when-locked=true              { spawn "0t" "_lum" "-"; }
+  XF86MonBrightnessUp        hotkey-overlay-title=null allow-inhibiting=false allow-when-locked=true              { spawn "0t" "_lum" "+"; }
+  XF86AudioMedia             hotkey-overlay-title="shot full" repeat=false { screenshot-screen; }
+  shift+XF86AudioMedia       hotkey-overlay-title="shot sel"  repeat=false { screenshot; }
+  alt+XF86AudioMedia         hotkey-overlay-title="shot win"  repeat=false { screenshot-window; }
+  super+backspace    hotkey-overlay-title="overview"         repeat=false { toggle-overview; }
+  ctrl+alt+delete    hotkey-overlay-title="bye"              repeat=false { spawn "0t" "_bye"; }
+  ctrl+alt+backspace hotkey-overlay-title="bye"              repeat=false { spawn "0t" "_bye"; }
+  super+space        hotkey-overlay-title="mako dismiss"                  { spawn "makoctl" "dismiss" "--group"; }
+  super+shift+space  hotkey-overlay-title="mako dismiss all" repeat=false { spawn "makoctl" "dismiss" "--all"; }
+  super+alt+space    hotkey-overlay-title="mako restore"                  { spawn "makoctl" "restore"; }
+  super+return       hotkey-overlay-title="run"              repeat=false { spawn "fuzzel" "--prompt= "; }
+  super+shift+return hotkey-overlay-title="win"              repeat=false { spawn "0t" "_win"; }
+  super+alt+return   hotkey-overlay-title="emoji"            repeat=false { spawn "sh" "-c" "BEMOJI_PICKER_CMD=\"fuzzel --dmenu --prompt=' ' --width=64\" $HOME/opt/bemoji/bemoji -n"; }
+  super+grave        hotkey-overlay-title="yazi"             repeat=false { spawn "footclient" "--title=yazi" "yazi"; }
+  super+t            hotkey-overlay-title="foot"             repeat=false { spawn "footclient"; }
+  super+b            hotkey-overlay-title="bluetoothctl"     repeat=false { spawn "footclient" "--title=bluetoothctl" "bluetoothctl"; }
+  super+e            hotkey-overlay-title="kakoune"          repeat=false { spawn "footclient" "--title=kak" "kak"; }
+  super+w            hotkey-overlay-title="firefox"          repeat=false { spawn "firefox" "-P" "f0"; }
+  super+alt+w        hotkey-overlay-title="proxy firefox"    repeat=false { spawn "0t" "_browser"; }
+  super+shift+w      hotkey-overlay-title="chrome"           repeat=false { spawn "google-chrome-stable"; }
+}
+window-rule {
+  match app-id="footclient"
+  default-column-width { proportion 0.5; }
+}
+window-rule {
+  match app-id=r#"firefox$"# title=r#"^Picture-in-Picture$"#
+  match app-id=r#"^org\.pulseaudio\.pavucontrol$"# title=r#"^Volume Control$"#
+  open-floating true
+}
+window-rule {
+  match app-id=r#"^discord"# title=r#"^Discord Updater$"#
+  match app-id=r#"^gimp"# title=r#"^GIMP Startup$"#
+  open-focused false
+}
+window-rule {
+  match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+  match app-id=r#"^org\.gnome\.World\.Secrets$"#
+  block-out-from "screen-capture"
+}
+window-rule {
+  match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+  default-floating-position x=32 y=32 relative-to="bottom-right"
+}
+window-rule {
+  match is-window-cast-target=true
+  border {
+    active-color "#ba59b3"
+    inactive-color "#91328c"
+  }
+}

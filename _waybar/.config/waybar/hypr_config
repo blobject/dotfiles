@@ -3,11 +3,11 @@
   "mode": "dock",
   "position": "top",
   "modules-left": [
-    "niri/workspaces",
+    "hyprland/workspaces",
     "custom/dot",
     "tray",
     "custom/dot",
-    "niri/window"
+    "hyprland/window",
   ],
   "modules-center": [
   ],
@@ -31,18 +31,25 @@
     "format": "<span rise='6000'>•</span>",
     "tooltip": false
   },
-  "niri/workspaces": {
+  "hyprland/workspaces": {
+    "show-special": true,
+    "special-visible-only": true,
     "format": "{icon}",
-    "format-icons": {"1": "", "2": "", "3": "", "4": "", "5": "", "6": "", "7": "", "8": "", "9": "", "10": ""}
+    "format-icons": {"1": "", "2": "", "3": "", "4": "", "5": "", "6": "", "special": ""}
   },
   "tray": {
     "icon-size": 22,
     "spacing": 4
   },
-  "niri/window": {
+  "hyprland/window": {
     "icon": true,
     "separate-outputs": true,
-    "format": "<span foreground='#667ad3'>{app_id}</span> {title}"
+    "rewrite": {
+      "^(.*) — Mozilla Firefox$": "$1",
+      "^(.*) - Kakoune$": "<span foreground='#4ea494'>kak</span> $1",
+      "^(<span [^>]+>(?:footclient|foot|U?XTerm)</span> )\\(([^\\)]+)\\)(.*)$": "$1<span foreground='#916814'>(<span foreground='#ba8d3b'>$2</span>)</span>$3"
+    },
+    "format": "<span foreground='#667ad3'>{class}</span> {title}"
   },
   "battery": {
     "interval": 15,

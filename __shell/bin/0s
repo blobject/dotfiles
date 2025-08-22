@@ -13,8 +13,7 @@ need notify-send \
      hyprlock \
      dracut \
      rsync xbps-query \
-     0snooze-bat 0snooze-temper snooze \
-     tlp
+     snooze 0snooze-bat 0snooze-temper
 
 set DOAS /usr/sbin/doas
 set ICONS /usr/share/icons/Papirus/24x24
@@ -39,7 +38,7 @@ proc _nicon {icon} {
 
 proc bat {} {
   set title bat
-  set device BAT0
+  set device BAT1
   set crit 5
   set lo 20
   set hi 80
@@ -116,6 +115,9 @@ proc bye {arg} {
       switch -- $desk {
         Hyprland {
           exec hyprctl dispatch exit
+        }
+        niri {
+          exec niri msg action quit --skip-confirmation
         }
         default {
           exec pkill $desk
@@ -265,11 +267,11 @@ proc save {} {
     puts "* modprobe"
     exec tail -n +1 {*}[glob /etc/wpa_supplicant/wpa_supplicant-wl*] >$src/wpa
     puts "* wpa"
-    exec tail -n +1 {*}[glob /etc/X11/xorg.conf.d/*] >$src/xorg
-    puts "* xorg"
+    #exec tail -n +1 {*}[glob /etc/X11/xorg.conf.d/*] >$src/xorg
+    #puts "* xorg"
     exec ls "$::env(HOME)/opt/" >$src/opt
     puts "* ~/opt/"
-    exec cp /boot/EFI/refind/refind.conf $src/refind
+    exec cp /boot/efi/EFI/refind/refind.conf $src/refind
     puts "* refind"
     exec xbps-query --list-pkgs >$src/installed
     puts "* packages installed"
@@ -322,7 +324,7 @@ proc temper {} {
   set where $TMPD
   set flag .unpacked
   set what mozilla/firefox
-  set name uiupka2h.default-default
+  set name ffq1zoi5.f0
 
   proc base {name} {
     return [lindex [file split $name] end]

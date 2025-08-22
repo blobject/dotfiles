@@ -1,0 +1,75 @@
+set-option global grepcmd 'rg --line-number --with-filename'
+set-option global indentwidth 2
+set-option global scrolloff 3,3
+set-option global tabstop 2
+set-option global ui_options terminal_assistant=none terminal_enable_mouse=yes terminal_status_on_top=yes
+
+add-highlighter global/ number-lines -hlcursor -separator ' '
+add-highlighter global/ regex \h+$ 0:Error
+add-highlighter global/ regex '(FIXME|FIX|NOTE|TODO|WARN|WIP|XXX)' 0:black,bright-blue+F
+add-highlighter global/ show-matching
+add-highlighter global/ wrap
+
+define-command -docstring 'delete current buffer' -buffer-completion d %{delete-buffer}
+define-command -docstring 'print filetype' -override 0filetype %{info %sh{printf %s ${kak_opt_filetype}}}
+define-command -docstring 'set filetype' -override -params 1 0type %{evaluate-commands %sh{printf %s "set-option buffer filetype $1"}}
+define-command -docstring 'wrap lines' 0wrap %{add-highlighter global/ wrap}
+define-command -docstring 'do not wrap lines' 0nowrap %{remove-highlighter global/wrap}
+
+# ui
+#hook global BufCreate .* %{ evaluate-commands %sh{
+#  echo set-option -add buffer ui_options "'terminal_title=%val{buffile}'"
+#} }
+
+# filetype
+hook global BufCreate .* %{ evaluate-commands %sh{
+  # recognise filetypes that snuck past detection/file.kak
+  if test -z "${kak_opt_filetype}"; then
+    case $(file -b --mime-type -L "${kak_buffile}") in
+      text/x-tcl) printf %s 'set-option buffer filetype sh' ;; # no tcl atm
+    esac
+  fi
+} }
+hook global BufCreate .*\.conf %{
+  set-option buffer filetype conf
+}
+hook global BufCreate .*\.tcl %{
+  set-option buffer filetype sh
+}
+
+# unmap
+map global normal <C> ''
+map global normal <a-space> ''
+map global insert <c-v> ''
+# navigate
+map global normal <minus> %{vkk}        -docstring 'scroll up one'
+map global normal <=>     %{vjj}        -docstring 'scroll down one'
+map global normal <_>     %{8vk8k}      -docstring 'scroll up eight'
+map global normal <+>     %{8vj8j}      -docstring 'scroll down eight'
+map global normal <a-v>   %{<c-b>}      -docstring 'scroll up page'
+map global normal <c-v>   %{<c-f>}      -docstring 'scroll down page'
+map global insert <a-v>   %{<esc><c-b>} -docstring 'scroll up page'
+map global insert <c-v>   %{<esc><c-f>} -docstring 'scroll down page'
+# search
+map global normal </>     %{/(?i)}     -docstring 'uncased search'
+map global normal <a-/>   %{<a-/>(?i)} -docstring 'uncased reverse search'
+map global normal <?>     %{?(?i)}     -docstring 'uncased extended search'
+map global normal <a-?>   %{<a-?>(?i)} -docstring 'uncased extended reverse search'
+map global normal <n>     %{nvc}       -docstring 'select next search pattern and center view'
+map global normal <s-n>   %{Nvc}       -docstring 'extend with next search pattern and center view'
+map global normal <a-n>   %{<a-n>vc}   -docstring 'select previous search pattern and center view'
+map global normal <a-s-n> %{<a-s-n>vc} -docstring 'extend with previous search pattern and center view'
+# select
+map global normal <tab>   %{C}     -docstring 'copy selection on next line'
+map global normal <s-tab> %{<a-,>} -docstring 'remove copied selection'
+map global normal <'>     %{_}     -docstring 'trim'
+map global normal <X>     %{Jx}    -docstring 'extend to next line'
+# edit
+map global normal <s-d> %{Glxd}      -docstring 'delete extended line'
+map global normal <a-d> %{hd}        -docstring 'reverse delete'
+map global normal <c-p> %{!wl-paste --no-newline<ret>:echo -markup "{Information}pasted from clipboard"<ret>} -docstring 'paste clipboard'
+map global normal <c-y> %{<a-|>wl-copy<ret>:echo -markup "{Information}yanked to clipboard"<ret>} -docstring 'yank selection into clipboard'
+map global insert <a-d> %{<esc>Glxd} -docstring 'delete extended line'
+map global insert <c-p> %{<esc>!wl-paste --no-newline<ret>:echo -markup "{Information}pasted from clipboard"<ret>} -docstring 'paste clipboard'
+map global insert <c-q> %{<c-v>}     -docstring 'raw insert'
+

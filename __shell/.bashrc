@@ -1,9 +1,9 @@
 ! test -t 0 && return
 
 ## settings
+stty -ixon
 bind '"\en": menu-complete'
 bind '"\ep": menu-complete-backward'
-stty -ixon
 
 ## custom functions and variables
 __0_prompt_pwd=$PWD
@@ -67,11 +67,11 @@ __0_title()
   echo -ne "\033]0;($(echo ${__0_prompt_pwd:-$PWD} | sed 's,^'$HOME'$,~,;s,^'$HOME'/,~/,;s,^/home/work$,+,;s,^/home/work/,+/,')) $c\007"; }
 
 0conda()
-{ if test 'base' != "$1" && ! test -d "$HOME/opt/miniconda3/envs/$1"; then
+{ if test 'base' != "$1" && ! test -d "$HOME/opt/miniconda/envs/$1"; then
     echo "bad conda env: $1"
     return
   fi
-  eval "$(command $HOME/opt/miniconda3/condabin/conda 'shell.bash' 'hook')"
+  eval "$(command $HOME/opt/miniconda/condabin/conda 'shell.bash' 'hook')"
   conda activate "$1"; }
 
 0ftp()
@@ -131,7 +131,7 @@ alias 0gpu_unplug="doas modprobe -r amdgpu && doas sh -c \"echo 1 > /sys/bus/pci
 alias 0ip='curl https://ipinfo.io/ip; echo'
 #alias 0mixon='pactl load-module module-loopback'
 #alias 0mixoff='pactl unload-module module-loopback'
-alias 0mount='mount -o uid=$UID,gid=$GROUPS'
+alias 0mount='doas mount -o uid=$UID,gid=$GROUPS'
 alias 0proxy='ssh -CND 8815 as'
 alias 0pixel='grim -g "$(slurp -p)" -t ppm - | convert - -format "%[pixel:p{0,0}]" txt:-'
 alias 0py='python -m env $HOME/opt/python/env'
@@ -143,7 +143,6 @@ alias 0topm="ps -Ao pmem,rss,vsize,pid,args | awk '{if (\$2 > 10240) \$2=\$2/102
 #alias 0usb='lsusb | sort -k7 | rg -v 1d6b: | rg -v 8087:0aaa | rg -v 13d3:56c6'
 alias bc='bc -l'
 alias black='black --check --diff'
-alias cal='cal -m'
 alias cp='cp -iv'
 alias dmesg='dmesg --color=always'
 alias fd='fd --hidden --no-ignore'
@@ -161,10 +160,10 @@ alias mv='mv -iv'
 alias pstree='pstree -hnp'
 alias rename='rename -i'
 alias rg='rg -L --hidden -g!*.min.js -g!*.js.map'
-alias rm='rm -i'
 alias guile='rlwrap -ci guile'
 alias tclsh='rlwrap -ci tclsh'
 alias wish='rlwrap -ci wish'
+alias rm='rm -i'
 alias b='bluetoothctl'
 alias d='df -h'
 alias e='kak'
@@ -199,53 +198,58 @@ __0_work()
   _e="$(cat $_w/env/$1)"
   _d="$_w/src/$_e"
   _np="node $_d/node_modules"
-  _ppd="$HOME/opt/miniconda3/envs/$_e/lib"
+  _ppd="$HOME/opt/miniconda/envs/$_e/lib"
   _pp=""
   test -d $_ppd && _pp="$(fd --max-depth 1 --max-results 1 --type d python $_ppd)site-packages"
+  # custom aliasing
+  _env=$_e
+  #case "$1" in
+  #  _____)
+  #    # ____
+  #    _env=${_e}old
+  #    _ppd="$HOME/opt/miniconda/envs/$_env/lib"
+  #    ;;
+  #esac
+  # node
   case "$1" in
-    _)
+    _|1)
       export NODE_OPTIONS=--max-old-space-size=25600
-      alias black="black --diff"
-      alias eslint="./node_modules/eslint/bin/eslint.js -c ./.eslintrc.cjs --ext .js,.jsx,.ts,.tsx"
-      alias prettier="./node_modules/prettier/bin-prettier.js"
-      alias sass="./node_modules/sass/sass.js"
-      alias tsc="./node_modules/typescript/bin/tsc --noemit"
-      alias _node="cd ./node_modules"
-      alias _python="test -z $_pp && echo \"no dir: $_ppd\" || cd $_pp"
-      0conda "$_e"
-      cd "$_d"
-      #. "../../env/env_$_e.sh"
-      export PYTHONPATH="$_d${PYTHONPATH:+:$PYTHONPATH}"
-      ;;
-    __|[1-4])
-      alias _python="test -z $_pp && echo \"no dir: $_ppd\" || cd $_pp"
-      0conda "$_e"
-      cd "$_d"
-      #. "../../env/env_$_e.sh"
-      export PYTHONPATH="$_d${PYTHONPATH:+:$PYTHONPATH}"
-      ;;
-    ___)
-      alias eslint="$_np/eslint/bin/eslint.js -c $_d/eslint.config.mjs"
-      alias graphql-codegen="$_np/.bin/graphql-codegen"
-      alias prettier="$_np/prettier/bin-prettier.js"
-      alias tsc="$_np/typescript/bin/tsc --noemit"
+      case "$1" in
+        _)
+          alias eslint="$np/eslint/bin/eslint.js -c ./.eslintrc.cjs --ext .js,.jsx,.ts,.tsx"
+          ;;
+        1)
+          alias eslint="$_np/eslint/bin/eslint.js -c $_d/eslint.config.mjs"
+          ;;
+      esac
+      alias prettier="$np/prettier/bin-prettier.js"
+      alias sass="$np/sass/sass.js"
+      alias tsc="$np/typescript/bin/tsc --noemit"
       alias _node="cd $_d/node_modules"
-      cd "$_d"
-      . "../../env/env_$_e.sh"
       ;;
-    ____)
-      cd "$_d"
-      . "../../env/env_$_e.sh"
+  esac
+  # python
+  case "$1" in
+    *)
+      alias black="black --diff"
+      alias _python="test -z $_pp && echo \"no dir: $_ppd\" || cd $_pp"
+      0conda $_env
+      #. "../../env/env_$_e.sh"
+      export PYTHONPATH="$_d${PYTHONPATH:+:$PYTHONPATH}"
       ;;
-  esac; }
+  esac
+  # ready
+  cd "$_d"; }
 
 alias _='cd /home/work/src'
 alias work='__0_work _'
 alias work_='__0_work __'
 alias work__='__0_work ___'
 alias work___='__0_work ____'
+alias work____='__0_work _____'
 alias work1='__0_work 1'
 alias work2='__0_work 2'
 alias work3='__0_work 3'
 alias work4='__0_work 4'
+
 # eof

@@ -4,14 +4,6 @@
 export BROWSER=firefox
 export TERMINAL=foot
 
-# gtk
-export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
-
-# qt
-export QT_AUTO_SCREEN_SCALE_FACTOR=1
-export QT_ENABLE_HIGHDPI_SCALING=1
-#export QT_QPA_PLATFORMTHEME=qt5ct
-
 # graphics
 #export LIBVA_DRIVER_NAME=iHD
 #export VDPAU_DRIVER=va_gl
@@ -21,9 +13,19 @@ export VDPAU_DRIVER=radeonsi
 #if lspci | grep -q 'Radeon RX'; then
 #  export DRI_PRIME=1
 #fi
-# following is written in hyprland config instead
-#export AQ_DRM_DEVICES=$HOME/cfg/opt/_hw/card_amd:$HOME/cfg/opt/_hw/card_intel
 
+# gtk
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+
+# qt
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
+export QT_ENABLE_HIGHDPI_SCALING=1
+#export QT_QPA_PLATFORMTHEME=qt5ct
+
+# x
+export XCURSOR_SIZE=64
+export XCURSOR_THEME=Breeze_Hacked
+export XKB_DEFAULT_LAYOUT=hsnt
 
 # xdg
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -35,16 +37,5 @@ export XDG_MENU_PREFIX=''
 test -z "$XDG_RUNTIME_DIR" && \
 { XDG_RUNTIME_DIR="/run/user/$(id -u)"
   export XDG_RUNTIME_DIR; }
-
-### session-specific
-if ps au | grep -q "$USER .*/usr/bin/\(openbox\|openbox-session\|startx\|xinit\)"; then
-  # xorg
-  export XCURSOR_SIZE=64
-  export XCURSOR_THEME=Breeze_Hacked
-  export XKB_DEFAULT_LAYOUT=hsnt
-else
-  # wayland
-  :
-fi
 
 # eof

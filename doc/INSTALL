@@ -1,4 +1,123 @@
-VOID
+VOID ON FRAMEWORK
+
+pre-install:
+- create void live installer usb
+- make sure everything ready for wipe
+- backup previous
+  - bak, src, gnupg, ssh, fonts, ref, got, browser tabs & config, accounting, projects
+  - any unsynced, orphaned, in-progress tasks, notes
+- connect to internet
+  - see `ip link` for wifi device name
+  - `wpa_passphrase <SSID> <PASSWORD> > /etc/wpa_supplicant/wpa_supplicant-<WIFINAME>.conf`
+  - (`wpa_supplicant -B -i <WIFINAME> -c /etc/wpa_supplicant/wpa_supplicant-<WIFINAME>.conf`)
+  - (`sv restart dhcpcd`)
+  - (`ip link set up <WIFINAME>`)
+  - (`dhcpcd <WIFINAME>`)
+- partition
+  - 1GB /boot/efi (nvme0n1p1)
+  - 2GB /boot (nvme0n1p2)
+  - rest LUKS + LVM
+- LUKS + LVM
+  - `cryptsetup luksFormat --hash=sha512 --key-size=512 --cipher=aes-xts-plain64 --verify-passphrase /dev/nvme0n1p3`
+  - `cryptsetup open /dev/nvme0n1p3 crypt`
+  - `pvcreate /dev/mapper/crypt`
+  - `vgcreate box /dev/mapper/crypt`
+  - `lvcreate -L 64G box --name swap`
+  - `lvcreate -l 100%FREE box --name root`
+- format, mount
+  - `mkfs.ext4 -L root -m 0.5 /dev/box/root`
+  - `mkswap -L swap /dev/box/swap`
+  - `mkfs.ext4 -L boot -m 0 /dev/nvme0n1p2`
+  - `mkfs.vfat -nEFI /dev/nvme0n1p1`
+  - `mount /dev/mapper/box-root /mnt`
+  - `mkdir /mnt/boot; mount /dev/nvme0n1p2 /mnt/boot`
+  - `mkdir /mnt/efi; mount /dev/nvme0n1p1 /mnt/boot/efi`
+  - `swapon /dev/mapper/box-swap`
+
+install:
+- installer
+  - `void-installer`, follow all steps, install no "Bootloader", skip "Partitions"
+  - `xchroot /mnt /bin/bash`
+- bootloader
+  - `xbps-install -S refind`
+  - `refind-install`
+  - `vi /boot/refind_linux.conf`
+  - `vi /boot/efi/EFI/refind/refind.conf`
+- kernel compile
+  - `xbps-install -S wget xz base-devel clang llvm cmake extra-cmake-modules {elfutils,ncurses,openssl,xfsprogs}-devel cryptsetup lvm2`
+  - `wget cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.16.1.tar.xz`
+  - `make CC=clang HOSTCC=clang -j$(nproc)` (oldconfig, menuconfig, make, make modules_install)
+    - modular: amdgpu, bt, i2c-hid, i915, !ipv6, iwlwifi, !psmouse, rfcomm, snd
+    - fully support: docker, dm-crypt
+  - `dracut --force --verbose /boot/initramfs-<VER>.img <VER>`
+  - `edit /boot/*/refind*`
+    - root=/dev/mapper/box-root add_efi_memmap rd.auto rd.luks=1 rd.luks.uuid=<LUKS_UUID> rd.lvm=1 rd.lvm.vg=box rd.locale.LANG=en_US.UTF-8 rd.md=0 rd.shell rd.vconsole.keymap=hsnt ro
+- misc
+  - `xbps-install -S bash-completion chrony delta doas fd git iwd socklog-void xtools`
+- load backup
+  - cfg/opt/: boot, etc, usr
+
+post-reboot:
+- enable services
+  - `ln -s /etc/sv/? /var/service/` (dbus, dhcpcd, iwd, nanoklogd, ntpd, socklog-unix, uuidd)
+- connect to wifi
+  - `iwctl`
+- load backup:
+  - hsnt, bak, bin, cfg, got, opt, ref, src
+  - cfg/__shell/: bin
+  - cfg/opt/: root
+- apps
+  - (sys) acpi, blueman, bolt, clamav, dmidecode, exfatprogs, foot, gotop, gammastep-indicator, gocryptfs, gnupg, hwinfo, intel-media-driver, intel-video-accel, kdeconnect, libva-utils, light, mesa, mesa-dri, mesa-vaapi, mesa-vdpau, mesa-vulkan-intel, mesa-vulkan-radeon, sof-firmware, seatd, thermald, tuigreet, Vulkan-Tools, wev, xorg-server-xwayland, xlsclients, xrdb, xterm
+  - (util) elinks, ifuse, kak-lsp, kakoune, lftp, lshw, lz4, lzop, net-tools, ntfs-3g, psmisc, ripgrep, rlwrap, rsync, scrcpy, snooze, socat, stow, tcl, tmux, unzip, xdg-utils, vim, wget, yazi, zip, zstd
+  - (devel) base-devel, clang, llvm, cmake, extra-cmake-modules, docker, docker-compose, dive, elixir, gdb, ghc, go, guile, hyperfine, jq, mono, msbuild-bin, n, octave, openjdk, perf, python3-pip, R, rustup, sbcl, squeak, swi-prolog, tcllib, tk, tree, postgresql, postgresql-client, sqlite, nginx, valgrind
+  - (wm) breeze-hacked-cursor-theme, chayang, elogind, font-inconsolata-otf, font-sarasa-gothic, freefont-ttf, fuzzel, gnome-keyring, grim, iwgtk, libayatana-appindicator, mako, niri, papirus-icon-theme, qt6-wayland, slurp, swappy, swaybg, ttf-opensans, waybar, wl-clipboard, xdg-desktop-portal-gnome, xdg-desktop-portal-gtk, xeyes, xwayland-satellite
+  - (media) ffmpeg, helvum, imv, mpv, pavucontrol, pipewire, wf-recorder, alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg, libspa-vulkan
+  - (misc) blender, firefox, foliate, fontforge, fontmatrix, geoclue2, gimp, gnucash, gnuplot, ImageMagick, inkscape, krita, libreoffice, pdf.js, qemu, screenkey, texlive-most, tigervnc, ttfautohint, visidata(python3-openpyxl), zathura-{djvu,pdf-mupdf,ps}
+  - (hyprland) /etc/xbps.d/custom.conf: `ignorepkg=linux-firmware-nvidia\nrepository=https://raw.githubusercontent.com/Makrennel/hyprland-void/repository-x86_64-glibc`
+    - `xbps-install -S`
+  - (manual)
+    - google chrome (download .deb file, extract, move to /opt and /usr/local)
+    #- niri (git clone and `cargo build --release` with features dbus,xdp-gnome-screencast, version 25.08)
+    #  - `xbps-install -S eudev-libudev-devel libxkbcommon-devel libinput-devel libgbm-devel libdisplay-info-devel pipewire-devel pango-devel libseat-devel wayland-devel MesaLib-devel`
+    #  - xwayland-satellite (git clone and `cargo build --release`)
+    #    - `xbps-install -S libxcb-devel xcb-util-cursor-devel`
+  - enable more services (boltd docker greetd seatd)
+  - add to more groups (socklog _clamav _seatd docker)
+
+graphical desktop:
+- load home backup: `./stow.tcl`
+
+work:
+- `xbps-install -S python3-lsp-server k9s kubectl`
+- manual installs
+  - aws & kube
+    - aws-cli
+  - docker
+    - `docker login registry.<DOMAIN>.com` (user: username, pass: gitlab token)
+  - minio
+    - `wget https://dl.min.io/aistor/mc/release/linux-amd64/mc`
+  - nodejs
+    - `n current`
+    - `npm install`
+    - `npm install typescript-language-server vscode-{css,html,json}-languageserver-bin`
+  - python
+    - get miniconda
+    - `conda create --name <PROJECT> python=3.??`
+    - `conda activate ...`
+    - `pip install --user poetry`
+    - `poetry config -- http-basic.<PROJECT_GROUP> gitlab-ci-token <TOKEN>`
+    - `poetry install`
+
+play:
+- steam
+  - xdg-user-dirs
+  - 32bit: libglapi, libllvm19, libsensors, libXxf86vm, mesa, mesa-dri, mesa-libgallium, mesa-vulkan-intel, mesa-vulkan-radeon xorg-server-xwayland
+
+========================================================================
+HERE ENDS FRAMEWORK SETUP. next are older notes
+========================================================================
+
+VOID ON THINKPAD
 
 - create installation usb of void live
 - make sure everything ready for wipe (install win to usb, back up any purchase addons, etc.)
@@ -22,10 +141,10 @@ VOID
     - create linux partition with rest
     - cryptsetup on linux partition
       - cryptsetup luksFormat --hash=sha512 --key-size=512 --cipher=aes-xts-plain64 --verify-passphrase /dev/nvme0n1p2
-      - cryptsetup luksOpen /dev/nvme0n1p2 FOOGROUP
+      - cryptsetup luksOpen /dev/nvme0n1p2 <crypt>
     - create logical volume
-      - vgcreate FOOGROUP /dev/mapper/FOOGROUP
-      - lvcreate --name root -l 100%FREE void
+      - vgcreate <box> /dev/mapper/<crypt>
+      - lvcreate -l 100%FREE <box> --name root
     - format partitions
       - mkfs.xfs -L root /dev/FOOGROUP/root
       - mkfs.vfat -n efi /dev/nvme0n1p1

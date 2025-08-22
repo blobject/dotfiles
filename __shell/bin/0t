@@ -137,6 +137,26 @@ proc _lum {arg} {
 
 # for wm
 proc _win {} {
+  set exp {sort_by(.pid) .[] | "\(.app_id)(\(.pid)) : \(.title) ::: \(.id)"}
+  set lines [exec niri msg --json windows | jq -r $exp]
+  set lenmin 48
+  set lenmax 128
+  set longest 0
+  foreach {line} [split $lines "\n"] {
+    set len [string length $line]
+    if {$len > $longest} { set longest [expr $len + 2] }
+  }
+  if {$longest > $lenmax} { set longest $lenmax }
+  if {$longest < $lenmin} { set longest $lenmin }
+  set runner "fuzzel --dmenu {--prompt= } --width=$longest"
+  if {[catch {exec echo $lines | {*}$runner} what]} {
+    return
+  }
+  set win [lindex $what end]
+  exec niri msg action focus-window --id $win
+}
+
+proc _win_hypr {} {
   set exp {\
     sort_by(.focusHistoryID) .[] |\
     (.workspace.name | sub("^special:scratch$"; "#"))\
@@ -378,6 +398,13 @@ proc shot {args} {
       set desc screenshot-[exec date +%s].$two
       set dst $dir/$desc
     }
+    w - window {
+      set win [exec hyprctl activewindow -j | jq -r {.at[0],.at[1],.size[0],.size[1]}]
+      append opt " -g"
+      set geo "[lindex $win 0],[lindex $win 1] [lindex $win 2]x[lindex $win 3]"
+      set desc windowshot-[exec date +%s].$two
+      set dst $dir/$desc
+    }
     default {
       puts stderr "unrecognised command: $one"
       ufail "shot [help]"
@@ -388,6 +415,9 @@ proc shot {args} {
     # comment to dismiss notification if necessary
     exec {*}$notify shot $desc
     exec grim {*}$opt {*}$dst
+  } elseif {[info exists geo]} {
+    exec grim {*}$opt $geo {*}$dst
+    exec {*}$notify shot $desc
   } else {
     exec grim {*}$opt {*}$dst
     exec {*}$notify shot $desc

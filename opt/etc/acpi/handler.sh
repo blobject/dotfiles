@@ -20,10 +20,6 @@ setspeed="/sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed"
 
 
 case "$1" in
-    # custom start
-    ibm/hotkey) case "$2" in LEN0268:00) ;; esac ;;
-    #cd/play2)   case "$2" in CDPLAY2) ;; esac ;;
-    # custom end
     button/power)
         case "$2" in
             PBTN|PWRF)
@@ -48,11 +44,11 @@ case "$1" in
             AC|ACAD|ADP0)
                 case "$4" in
                     00000000)
-                        cat "$minspeed" >"$setspeed"
+                        #cat "$minspeed" >"$setspeed"
                         #/etc/laptop-mode/laptop-mode start
                     ;;
                     00000001)
-                        cat "$maxspeed" >"$setspeed"
+                        #cat "$maxspeed" >"$setspeed"
                         #/etc/laptop-mode/laptop-mode stop
                     ;;
                 esac
@@ -78,9 +74,11 @@ case "$1" in
     button/lid)
         case "$3" in
             close)
-                # suspend-to-ram
-                logger "LID closed, suspending..."
-                zzz
+                ## suspend-to-ram
+                #logger "LID closed, suspending..."
+                #zzz
+                logger "LID closed, hibernating..."
+                ZZZ
                 ;;
             open)
                 logger "LID opened"

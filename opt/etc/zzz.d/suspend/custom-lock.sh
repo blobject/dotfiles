@@ -9,11 +9,8 @@ pidof $locker && exit
 
 uid=1000
 rundir=/run/user/$uid
+display=$(ls $rundir | grep '^wayland-[0-9]\+$' | head -1)
+user=$(id -un $uid)
 
-doas -u $user \
-  env \
-    USER=$(id -un $uid) \
-    HOME=$(getent passwd $uid | cut -d: -f6) \
-    XDG_RUNTIME_DIR= \
-    WAYLAND_DISPLAY=$(ls $rundir | grep '^wayland-[0-9]\+$' | head -1) \
-  $locker_cmd &
+su $user -c "env XDG_RUNTIME_DIR=$rundir WAYLAND_DISPLAY=$display $locker_cmd" &
+sleep 1

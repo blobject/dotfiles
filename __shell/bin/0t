@@ -9,7 +9,6 @@ need notify-send \
      rg \
      firefox \
      fuzzel \
-     hyprctl \
      wl-copy \
      bluetoothctl \
      ifstat \
@@ -54,6 +53,7 @@ proc _bye {} {
     {Lock} system-lock-screen\
     {Logout, exit, quit} system-log-out\
     {Sleep, standby, suspend} system-suspend\
+    {Hibernate} system-suspend-hibernate\
     {Reboot, restart} system-reboot\
     {Shutdown, halt} system-shutdown\
   }
@@ -68,38 +68,6 @@ proc _bye {} {
   set whats [split [string map [list {, } \x00] $what] \x00]
   set what [string tolower [lindex $whats 0]]
   exec 0s bye $what
-}
-
-###############################################################################
-
-# for wm
-
-proc _decor {} {
-  set title decor
-  set notify "notify-send -u low -i"
-  set on [exec hyprctl getoption animations:enabled | awk {NR==1{print $2}}]
-  set next {}
-  set icon redshift-status-off
-
-  if {$on} {
-    set next off
-    set icon desktoptrusted
-    exec hyprctl --batch {
-      keyword animations:enabled 0;
-      keyword decoration:shadow:enabled 0;
-      keyword decoration:blur:enabled 0;
-      keyword general:gaps_in 0;
-      keyword general:gaps_out 0;
-      keyword general:border_size 1;
-      keyword decoration:rounding 0
-    }
-  } else {
-    set next on
-    set icon disper-panel
-    exec hyprctl reload
-  }
-
-  exec {*}$notify $icon $title $next
 }
 
 ###############################################################################
@@ -154,32 +122,6 @@ proc _win {} {
   }
   set win [lindex $what end]
   exec niri msg action focus-window --id $win
-}
-
-proc _win_hypr {} {
-  set exp {\
-    sort_by(.focusHistoryID) .[] |\
-    (.workspace.name | sub("^special:scratch$"; "#"))\
-    + " " + .class\
-    + " : " + .title\
-    + " ::: " + .address\
-  }
-  set lines [exec hyprctl -j clients | jq -r $exp]
-  set lenmin 48
-  set lenmax 128
-  set longest 0
-  foreach {line} [split $lines "\n"] {
-    set len [string length $line]
-    if {$len > $longest} { set longest [expr $len + 2] }
-  }
-  if {$longest > $lenmax} { set longest $lenmax }
-  if {$longest < $lenmin} { set longest $lenmin }
-  set runner "fuzzel --dmenu {--prompt= } --width=$longest"
-  if {[catch {exec echo $lines | {*}$runner} what]} {
-    return
-  }
-  set win [lindex $what end]
-  exec hyprctl dispatch focuswindow address:$win
 }
 
 ###############################################################################

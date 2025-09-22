@@ -9,7 +9,6 @@ source $home/bin/lib.tcl
 unset home
 
 need notify-send \
-     hyprctl \
      hyprlock \
      dracut \
      rsync xbps-query \
@@ -97,6 +96,7 @@ proc bye {arg} {
   switch -- $arg {
     k - o - lock {
       if {{w} ne $SESS} {
+        puts {0s: locking canceled, session not wayland}
         return
       }
       set locker hyprlock
@@ -108,51 +108,46 @@ proc bye {arg} {
       catch {exec $locker}
     }
     e - l - q - x - exit - quit - logout {
-      puts {0s: logging out...}
       save
       kill
       set desk $::env(XDG_SESSION_DESKTOP)
       switch -- $desk {
-        Hyprland {
-          exec hyprctl dispatch exit
-        }
         niri {
+          puts {0s: logging out of niri...}
           exec niri msg action quit --skip-confirmation
         }
         default {
+          puts "0s: logging out of '$desk'..."
           exec pkill $desk
         }
       }
     }
     z - sleep - standby - suspend {
-      puts {0s: sleeping...}
       sync
-      if {{w} eq $SESS} {
-        set locker hyprlock
-        set locker_cmd {hyprlock --immediate --immediate-render --no-fade-in}
-        if {0 != [catch {exec pidof $locker}]} {
-          exec {*}$locker_cmd &
-        }
-      }
-      exec sleep 0.5
+      puts {0s: suspending to ram...}
       exec $DOAS /usr/sbin/zzz
     }
+    Z - h - hibernate {
+      sync
+      puts {0s: suspending to disk...}
+      exec $DOAS /usr/sbin/ZZZ
+    }
     b - r - restart - reboot {
-      puts {0s: rebooting...}
       save
       sync
       kill
+      puts {0s: rebooting...}
       exec $DOAS /usr/sbin/reboot
     }
-    h - s - halt - shutdown {
-      puts {0s: shutting down...}
+    s - halt - shutdown {
       save
       sync
       kill
+      puts {0s: shutting down...}
       exec $DOAS /usr/sbin/halt
     }
     default {
-      ufail {bye k|o|lock | e|l|q|x|logout | z|sleep|standby|suspend | b|r|restart|reboot | h|s|halt|shutdown}
+      ufail {bye k|o|lock | e|l|q|x|exit|quit|logout | z|sleep|standby|suspend | Z|h|hibernate | b|r|restart|reboot | s|halt|shutdown}
     }
   }
 }
@@ -174,7 +169,7 @@ proc doze {{sec 60}} {
     exec sleep $sec
     set perc [readfile $f]
     if {[expr {$perc < $threshold}]} {
-      exec $DOAS /usr/sbin/zzz
+      exec $DOAS /usr/sbin/ZZZ
       return
     }
   }
@@ -423,7 +418,7 @@ set arg [lindex $::argv 0]
 if {0 == [llength [info procs $arg]]} {
   ufail {bat|bye|doze|dracut|save|snooze|temper|tlp
   bat     battery alert
-  bye     stop session       lock|logout|sleep|reboot|shutdown
+  bye     stop session       lock|logout|sleep|hibernate|reboot|shutdown
   doze    auto sleep         [5-1800]
   dracut  compile initramfs  KERNEL_VERSION
   save    backup data

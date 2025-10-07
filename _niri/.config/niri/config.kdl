@@ -2,7 +2,6 @@
   render-drm-device "/dev/dri/renderD129"
 }
 environment {
-  /-DBUS_SESSION_BUS_ADDRESS "unix:path=/run/user/1000/bus"
   XDG_SESSION_TYPE "wayland"
   XDG_SESSION_DESKTOP "niri"
   XDG_CURRENT_DESKTOP "niri"
@@ -22,15 +21,14 @@ environment {
   // x
   XKB_DEFAULT_LAYOUT "hsnt"
 }
-/-spawn-at-startup "sh" "-c" "{ dbus-daemon --session --address=$DBUS_SESSION_BUS_ADDRESS & }"
-spawn-at-startup "dbus-update-activation-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" "XDG_SESSION_TYPE" "DISPLAY" "XAUTHORITY"
+spawn-at-startup "/usr/sbin/light" "-S" "30"
+spawn-at-startup "dbus-update-activation-environment" "DBUS_SESSION_BUS_ADDRESS" "DISPLAY" "WAYLAND_DISPLAY" "XAUTHORITY" "XCURSOR_SIZE" "XCURSOR_THEME" "XDG_CURRENT_DESKTOP" "XDG_RUNTIME_DIR" "XDG_SESSION_TYPE" "HOME" "LANG" "PATH" "SHELL" "USER"
 spawn-at-startup "foot" "--server" "--log-level=warning"
-spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "cursor-theme" "Breeze_hacked"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "cursor-size" "64"
+spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "cursor-theme" "Breeze_hacked"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "font-name" "'sans 10'"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "gtk-theme" "Adwaita"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "icon-theme" "Papirus"
-spawn-at-startup "doas" "/usr/sbin/light" "-S" "30"
 spawn-at-startup "sh" "-c" "{ xrdb -merge $HOME/.xresources & }"
 spawn-at-startup "0s" "snooze"
 spawn-at-startup "0s" "temper"

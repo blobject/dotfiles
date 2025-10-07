@@ -74,21 +74,18 @@ post-reboot:
       repository=https://repo-default.voidlinux.org/current/nonfree
   - `xbps-install -S`
 - apps
-  - (sys) acpi, blueman, bolt, clamav, dmidecode, exfatprogs, foot, gotop, gammastep-indicator, gocryptfs, gnupg, hwinfo, intel-media-driver, intel-video-accel, kdeconnect, libva-utils, light, mesa, mesa-dri, mesa-vaapi, mesa-vdpau, mesa-vulkan-intel, mesa-vulkan-radeon, sof-firmware, seatd, thermald, tuigreet, Vulkan-Tools, wev, xorg-server-xwayland, xlsclients, xrdb, xterm
+  - (sys) acpi, blueman, bolt, clamav, dmidecode, exfatprogs, foot, gotop, gammastep-indicator, glxinfo, gocryptfs, gnupg, hwinfo, intel-media-driver, intel-video-accel, kdeconnect, libva-utils, light, mesa, mesa-dri, mesa-vaapi, mesa-vdpau, mesa-vulkan-intel, mesa-vulkan-radeon, sof-firmware, seatd, thermald, tuigreet, Vulkan-Tools, wev, xorg-server-xwayland, xlsclients, xrdb, xterm
   - (util) elinks, ifuse, kak-lsp, kakoune, lftp, lshw, lz4, lzop, net-tools, ntfs-3g, psmisc, ripgrep, rlwrap, rsync, scrcpy, snooze, socat, stow, tcl, tmux, unzip, xdg-utils, vim, wget, yazi, zip, zstd
-  - (devel) base-devel, clang, llvm, cmake, extra-cmake-modules, docker, docker-compose, dive, elixir, gdb, ghc, go, guile, hyperfine, jq, mono, msbuild-bin, n, octave, openjdk, perf, python3-pip, R, rustup, sbcl, squeak, swi-prolog, tcllib, tk, tree, postgresql, postgresql-client, sqlite, nginx, valgrind
+  - (devel) base-devel, clang, llvm, cmake, extra-cmake-modules, docker, docker-compose, dive, elixir, gdb, ghc, go, guile, hyperfine, jq, mono, msbuild-bin, n, octave, openjdk, perf, python3-pip, R, rustup, sbcl, squeak, strace, swi-prolog, tcllib, tk, tree, postgresql, postgresql-client, sqlite, nginx, valgrind
   - (wm) breeze-hacked-cursor-theme, chayang, elogind, font-inconsolata-otf, font-sarasa-gothic, freefont-ttf, fuzzel, gnome-keyring, grim, iwgtk, libayatana-appindicator, mako, nautilus, niri, papirus-icon-theme, qt6-wayland, slurp, swappy, swaybg, ttf-opensans, waybar, wl-clipboard, xdg-desktop-portal-gnome, xdg-desktop-portal-gtk, xeyes, xwayland-satellite
     - iwgtk alternative: network-manager-applet
   - (media) ffmpeg, helvum, imv, mpv, pavucontrol, pipewire, wf-recorder, alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg, libspa-vulkan
   - (misc) blender, firefox, foliate, fontforge, fontmatrix, geoclue2, gimp, gnucash, gnuplot, ImageMagick, inkscape, krita, libreoffice, pdf.js, qemu, screenkey, texlive-most, tigervnc, ttfautohint, visidata(python3-openpyxl), zathura-{djvu,pdf-mupdf,ps}
   - (manual)
     - google chrome (download .deb file, extract, move to /opt and /usr/local)
-    #- niri (git clone and `cargo build --release` with features dbus,xdp-gnome-screencast, version 25.08)
-    #  - `xbps-install -S eudev-libudev-devel libxkbcommon-devel libinput-devel libgbm-devel libdisplay-info-devel pipewire-devel pango-devel libseat-devel wayland-devel MesaLib-devel`
-    #  - xwayland-satellite (git clone and `cargo build --release`)
-    #    - `xbps-install -S libxcb-devel xcb-util-cursor-devel`
   - enable more services (acpid boltd docker greetd polkitd seatd thermald)
   - add to more groups (socklog _clamav _seatd docker)
+  - let turnstile handle dbus and always start niri with dbus-run-session
 
 graphical desktop:
 - load home backup: `./stow.tcl`
@@ -117,7 +114,9 @@ work:
 play:
 - steam
   - xdg-user-dirs
-  - 32bit: libglapi, libllvm19, libsensors, libXxf86vm, mesa, mesa-dri, mesa-libgallium, mesa-vulkan-intel, mesa-vulkan-radeon xorg-server-xwayland
+  - 32bit: gtk+, libICE, libSM, libcurl, libglvnd, libllvm19, libnm, libopenal, libpipewire, libpulseaudio, libsensors, libva, libvdpau, libvdpau-va-gl, libXxf86vm, SDL2, mesa, mesa-intel-dri, mesa-libgallium, mesa-vaapi, mesa-vdpau, mesa-vulkan-intel, mesa-vulkan-radeon xorg-server-xwayland
+    - `cd ~/.steam/root/ubuntu12_32; file * | grep ELF | cut -d: -f1 | LD_LIBRARY_PATH=. xargs ldd | grep 'not found' | sort | uniq`
+    - `~/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh -- steam-runtime-system-info --verbose`
 
 ========================================================================
 HERE ENDS FRAMEWORK SETUP. next are older notes

@@ -467,7 +467,7 @@ proc vol {args} {
   set bt_device_names [dict create \
     earfun     {EarFun Free Pro 2} \
     earfunmic  {bluez_input.B0:F1:A3:63:0A:66} \
-    fly        {wip_fly} \
+    fly        {FLY 3 BT} \
     jbl        {JBL Clip 2} \
     jblmic     {bluez_input.00:12:6F:EE:F0:F7} \
     nothing    {Nothing Ear} \

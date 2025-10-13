@@ -1,7 +1,10 @@
-@define-color x    #000;
+@define-color x    #000000;
+@define-color f    #ffffff;
 @define-color fg   #36383f;
 @define-color kk   #575a61;
+@define-color r    #a32c2d;
 @define-color rr   #cf554d;
+@define-color b    #3c56aa;
 @define-color bb   #667ad3;
 @define-color cc   #4ea494;
 @define-color w    #92959d;
@@ -20,18 +23,6 @@ window#waybar        { background-color: @x; color: @kk; }
 window#waybar.hidden { opacity: 0.2; }
 
 /* font */
-#workspaces button {
-  font-family: 'Font Awesome 5 Pro Solid';
-  font-size: 24px;
-}
-/*
-#workspaces button.active,
-#workspaces button.focused,
-#workspaces button.visible {
-  font-family: 'Font Awesome 5 Pro';
-  font-weight: 700;
-}
-*/
 #custom-dot,
 #battery,
 #cpu,
@@ -40,16 +31,88 @@ window#waybar.hidden { opacity: 0.2; }
 #memory,
 #disk,
 #backlight,
+#idle_inhibitor,
 #pulseaudio,
 #network,
 #custom-weather,
 #clock {
-  font-family: Agave, 'Font Awesome 5 Pro Light', 'Font Awesome 5 Pro Brands';
-  font-size: 21px;
+  font-family: 'Roboto Mono', 'Font Awesome 5 Pro Light', 'Font Awesome 5 Pro Brands';
+  font-size: 18px;
   font-weight: 700;
 }
-#window { font-family: sans; font-size: 19px; font-weight: 700; margin-top: -1px; }
+#workspaces button {
+  font-family: 'Font Awesome 5 Pro Solid';
+  font-size: 20px;
+}
+#workspaces button.active,
+#workspaces button.urgent                   { font-size: 24px; }
+#workspaces button#niri-workspace-7.active,
+#workspaces button#niri-workspace-8.active,
+#workspaces button#niri-workspace-9.active,
+#workspaces button#niri-workspace-10.active { font-size: 20px; }
+#workspaces button#niri-workspace-7,
+#workspaces button#niri-workspace-8,
+#workspaces button#niri-workspace-9,
+#workspaces button#niri-workspace-10        { font-size: 18px; }
 #tray   { font-family: sans; font-size: 21px; }
+#window { font-family: sans; font-size: 18px; font-weight: 700; }
+
+/* spacing */
+#workspaces button,
+#cpu,
+#custom-gov,
+#temperature,
+#memory,
+#disk,
+#backlight,
+#pulseaudio,
+#custom-weather,
+#clock                    { margin: 0; padding: 0; }
+#workspaces button.active,
+#workspaces button.urgent { padding: 0 2px; }
+#custom-dot               { margin: 0 2px; }
+#tray                     { margin: 0 4px; }
+#window                   { margin: 0 8px; }
+#battery                  { padding: 0 4px 0 6px; }
+#battery.charging         { margin: 0 4px; }
+#battery.discharging      { margin: 0 4px 0 6px; }
+#network                  { margin: 0 8px 0 10px; }
+#custom-weather           { margin: 0 2px 0 8px; }
+/* spacing: top */
+#cpu,
+#pulseaudio,
+#clock                      { padding-top: 1px; }
+#custom-dot,
+#temperature,
+#network                    { margin-top: 1px; }
+/* spacing: left */
+#workspaces                 { margin-left: 1px; }
+#cpu,
+#memory,
+#disk,
+#backlight,
+#clock                      { margin-left: 10px; }
+#battery.plugged            { margin-left: 2px; }
+#idle_inhibitor             { margin-left: 1px; }
+#idle_inhibitor.deactivated { margin-left: 0; }
+/* spacing: right */
+#workspaces,
+#workspaces button,
+#temperature                { margin-right: 4px; }
+#memory,
+#disk,
+#backlight                  { margin-right: 10px; }
+#workspaces button.active,
+#workspaces button.urgent   { margin-right: 5px; }
+#idle_inhibitor             { margin-right: 20px; }
+#idle_inhibitor.deactivated { margin-right: 18px; }
+#pulseaudio                 { margin-right: 8px; }
+#pulseaudio.source-muted    { margin-right: 6px; }
+/* spacing: bottom */
+#workspaces button#niri-workspace-7,
+#workspaces button#niri-workspace-8,
+#workspaces button#niri-workspace-9,
+#workspaces button#niri-workspace-10 { margin-bottom: 1px; }
 
 /* decor */
 button:hover {
@@ -58,97 +121,34 @@ button:hover {
   text-shadow: none;
   transition: none;
 }
-#tray,
-#battery { border-radius: 5px; }
-
-/* spacing */
-#workspaces button,
-#battery,
-#cpu,
-#custom-gov,
-#temperature,
-#memory,
-#disk,
-#backlight,
-#pulseaudio,
-#custom-weather,
-#clock               { margin: 0; padding: 0; }
-#custom-dot          { margin: 0 4px; }
-#workspaces button   { min-width: 20px; }
-#tray                { margin: 0 4px; padding: 0 4px; }
-#window              { margin: 0 8px; }
-#battery             { padding: 0 4px 0 6px; }
-#battery.charging    { margin: 0 4px; }
-#battery.discharging { margin: 0 4px 0 6px; }
-#network             { margin: 0 4px 0 10px; }
-#custom-weather      { margin: 0 4px 0 8px; }
-/* spacing: top */
-#clock,
-#cpu,
-#pulseaudio { padding-top: 2px; }
-#custom-dot,
-#temperature,
-#network    { margin-top: 2px; }
-/* spacing: left */
-#clock,
-#cpu,
-#memory,
-#disk,
-#backlight                  { margin-left: 10px; }
-#temperature,
-#idle_inhibitor.deactivated { margin-left: 0; }
-#workspaces                 { margin-left: 8px; }
-#battery.plugged            { margin-left: 2px; }
-#idle_inhibitor             { margin-left: 1px; }
-/* spacing: right */
-#memory,
-#disk,
-#backlight,
-#clock                      { margin-right: 10px; }
-#temperature,
-#pulseaudio                 { margin-right: 8px; }
-#workspaces button          { margin-right: 8px; }
-#pulseaudio.source-muted    { margin-right: 6px; }
-#idle_inhibitor             { margin-right: 20px; }
-#idle_inhibitor.deactivated { margin-right: 18px; }
-/* spacing: bottom */
-#custom-weather,
-#cpu,
-#memory,
-#disk,
-#backlight,
-#pulseaudio,
-#battery,
-#tray { padding-bottom: 1px; }
+#workspaces button.focused,
+#workspaces button.urgent                    { border-radius: 4px; }
+#workspaces button#niri-workspace-7.focused,
+#workspaces button#niri-workspace-8.focused,
+#workspaces button#niri-workspace-9.focused,
+#workspaces button#niri-workspace-10.focused { border-radius: 12px; }
 
 /* color */
-#workspaces button:hover,
-#battery.charging,
-#battery.plugged,
-#battery.warning:not(.charging),
-#battery.critical:not(.charging)        { background-color: @x; }
-#battery                                { background-color: @fg; }
-#tray > .active,
 #custom-dot                             { color: @fg; }
 #workspaces button,
 #tray > .passive,
 #battery.charging,
 #battery.plugged,
+#temperature,
 #idle_inhibitor.deactivated,
 #pulseaudio.muted                       { color: @kk; }
-#workspaces button.urgent,
+#workspaces button.active:not(.focused),
+#window                                 { color: @w; }
+#battery                                { color: @ww; }
+#workspaces button.urgent:not(.focused) { color: @r; background-color: @ww; }
 #tray > .needs-attention,
 #battery.critical:not(.charging),
+#tray > .active,
 #temperature.critical                   { color: @rr; }
-#workspaces button.focused,
+#workspaces button.focused              { color: @b; background-color: @ww; }
 #clock                                  { color: @bb; }
-#workspaces button.active:not(.focused) { color: @w; }
-#window,
-#battery                                { color: @w; }
-#battery.warning:not(.charging)         { color: @ww; }
 #cpu,
 #custom-gov                             { color: @cpu; }
-#temperature                            { color: @temp; }
 #memory                                 { color: @mem; }
 #disk                                   { color: @disk; }
 #backlight,

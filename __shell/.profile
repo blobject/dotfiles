@@ -8,10 +8,10 @@ export TERMINAL=foot
 export LIBVA_DRIVER_NAME=iHD
 export VDPAU_DRIVER=va_gl
 for device in /sys/bus/pci/devices/*; do
-  device_class=$(cat "$device/class" 2> /dev/null)
-  device_vendor=$(cat "$device/vendor" 2> /dev/null)
+  device_class=$(cat $device/class 2> /dev/null)
+  device_vendor=$(cat $device/vendor 2> /dev/null)
   # display class and Radeon vendor
-  if test ${device_class:0:4} == 0x03 -a $device_vendor == 0x1002; then
+  if test $device_class = 0x030000 -a $device_vendor = 0x1002; then
     export DRI_PRIME=1
     export LIBVA_DRIVER_NAME=radeonsi
     export VDPAU_DRIVER=radeonsi

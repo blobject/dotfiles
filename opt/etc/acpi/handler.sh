@@ -23,8 +23,9 @@ case "$1" in
     button/power)
         case "$2" in
             PBTN|PWRF)
-                logger "PowerButton pressed: $2, shutting down..."
-                shutdown -P now
+                #logger "PowerButton pressed: $2, shutting down..."
+                #shutdown -P now
+                logger "Power Button pressed"
                 ;;
             *)  logger "ACPI action undefined: $2" ;;
         esac

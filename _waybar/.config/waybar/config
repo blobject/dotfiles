@@ -1,6 +1,8 @@
 {
   "layer": "top",
   "mode": "dock",
+  "exclusive": false,
+  "passthrough": false,
   "position": "top",
   "modules-left": [
     "niri/workspaces",
@@ -9,13 +11,11 @@
     "custom/dot",
     "niri/window"
   ],
-  "modules-center": [
-  ],
   "modules-right": [
     "custom/dot",
     "battery",
     "cpu",
-    "custom/gov",
+    // "custom/gov",
     "temperature",
     "memory",
     "disk",
@@ -33,7 +33,7 @@
   },
   "niri/workspaces": {
     "format": "{icon}",
-    "format-icons": {"1": "", "2": "", "3": "", "4": "", "5": "", "6": "", "7": "", "8": "", "9": "", "10": ""}
+    "format-icons": {"1": "", "2": "", "3": "", "4": "", "5": "", "6": "", "7": "", "8": "", "9": "", "10": ""}
   },
   "tray": {
     "icon-size": 22,
@@ -119,8 +119,8 @@
   },
   "network": {
     "format": "{ifname}",
-    "format-wifi": " {signalStrength} {essid}",
-    "format-ethernet": " {ipaddr}/{cidr}",
+    "format-wifi": " {signalStrength} {essid}",
+    "format-ethernet": " {ipaddr}/{cidr}",
     "tooltip-format": "Network: {ifname} via {gwaddr}",
     "tooltip-format-wifi": "WiFi: {essid} ({signalStrength}%)\nUp: {bandwidthUpBytes} - Down: {bandwidthDownBytes}",
     "tooltip-format-ethernet": "Ethernet: {ifname}\nUp: {bandwidthUpBytes} - Down: {bandwidthDownBytes}",

@@ -114,7 +114,7 @@ work:
 play:
 - steam
   - xdg-user-dirs
-  - 32bit: gtk+, libICE, libSM, libcurl, libglvnd, libllvm19, libnm, libopenal, libpipewire, libpulseaudio, libsensors, libva, libvdpau, libvdpau-va-gl, libXxf86vm, SDL2, mesa, mesa-intel-dri, mesa-libgallium, mesa-vaapi, mesa-vdpau, mesa-vulkan-intel, mesa-vulkan-radeon xorg-server-xwayland
+  - 32bit: amdvlk, gstreamer-vaapi, gstreamer1-pipewire, libglvnd, libicu73, libsensors, libva, libva-intel-driver, libvdpau, libvdpau-va-gl, mesa-dri, mesa-vulkan-intel, mesa-vulkan-radeon
     - `cd ~/.steam/root/ubuntu12_32; file * | grep ELF | cut -d: -f1 | LD_LIBRARY_PATH=. xargs ldd | grep 'not found' | sort | uniq`
     - `~/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh -- steam-runtime-system-info --verbose`
 

@@ -6,7 +6,7 @@
 |-|-|
 | hw | [[https://frame.work/laptop13][framework 13]], [[https://www.zsa.io/voyager][voyager]] |
 | env | [[https://voidlinux.org/][void]] [[https://www.kernel.org/][linux]], [[https://yalter.github.io/niri/][niri]], [[https://www.gnu.org/software/bash/][bash]], [[https://www.tcl.tk/][tcl]] |
-| look | [[https://github.com/blobject/cemant][cemant]], [[https://rsms.me/inter/][inter]], [[https://picaq.github.io/sarasa/][sarasa]], [[https://github.com/blobject/agave][agave]], [[https://fontawesome.com/][font awesome]] |
+| look | [[https://github.com/blobject/cemant][cemant]], [[https://picaq.github.io/sarasa/][sarasa]], [[https://developer.apple.com/fonts/][sf pro]], [[https://github.com/blobject/agave][agave]] |
 
 *** scripts
 

@@ -8,16 +8,16 @@ environment {
   XDG_CURRENT_SESSION "niri"
   // gfx
   AQ_DRM_DEVICES "/home/b/cfg/opt/_hw/card_amd:/home/b/cfg/opt/_hw/card_intel"
-  // toolkit
+  // gui toolkit
   CLUTTER_BACKEND "wayland"
   ELECTRON_OZONE_PLATFORM_HINT "auto"
   GDK_BACKEND "wayland,x11,*"
-  GDK_DPI_SCALE "1.75"
   _JAVA_AWT_WM_NONREPARENTING "1"
   MOZ_DISABLE_RDD_SANDBOX "1"
-  MOZ_ENABLE_WAYLAND "1"
+  //MOZ_ENABLE_WAYLAND "1"
   OZONE_PLATFORM "wayland"
   QT_QPA_PLATFORM "wayland;xcb"
+  QT_SCALE_FACTOR "2"
   // x
   XKB_DEFAULT_LAYOUT "hsnt"
 }
@@ -29,6 +29,7 @@ spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "cursor-theme" 
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "font-name" "'sans 10'"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "gtk-theme" "Adwaita"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "icon-theme" "Papirus"
+spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "text-scaling-factor" "1.5"
 spawn-at-startup "sh" "-c" "{ xrdb -merge $HOME/.xresources & }"
 spawn-at-startup "0s" "snooze"
 spawn-at-startup "0s" "temper"
@@ -55,6 +56,8 @@ input {
     scroll-factor 0.5
   }
   mouse {
+    accel-profile "flat"
+    /-accel-speed -0.5
     accel-speed 0.2
   }
 }
@@ -98,8 +101,19 @@ hotkey-overlay {
 }
 layout {
   always-center-single-column
+  background-color "#000000"
   center-focused-column "never"
   gaps 0
+  default-column-width {}
+  border {
+    // off
+    width 8
+    active-color "#3c56aa"
+    inactive-color "#36383f"
+    urgent-color "#a32c2d"
+  }
+  focus-ring { off; }
+  insert-hint { color "#ba8d3b80"; }
   preset-column-widths {
     proportion 0.25
     proportion 0.333
@@ -110,28 +124,19 @@ layout {
     proportion 0.5
     proportion 0.75
   }
-  default-column-width {}
-  focus-ring { width 0; }
-  border {
-    // off
-    width 8
-    active-color "#3c56aa"
-    inactive-color "#36383f"
-    urgent-color "#a32c2d"
-  }
   shadow {
     on
-    softness 32
-    spread 8
-    offset x=0 y=4
-    color "#0008"
+    softness 48
+    spread 4
+    offset x=0 y=0
+    color "#0005"
   }
-  /-struts { left 64; right 64; top 64; bottom 64; }
+  /-struts { left 0; right 0; top 24; bottom 0; }
   tab-indicator {
     hide-when-single-tab
-    place-within-column
     gap 0
     gaps-between-tabs 0
+    place-within-column
     width 8
     length total-proportion=1.0
     active-color "#667ad3"
@@ -141,7 +146,7 @@ layout {
 }
 overview {
   zoom 0.5
-  backdrop-color "#16161d"
+  backdrop-color "#000000"
   workspace-shadow { off; }
 }
 prefer-no-csd
@@ -151,8 +156,8 @@ screenshot-path "~/got/screenshot-%s.png"
 }
 binds {
   super+shift+ctrl+escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
-  super+f1           hotkey-overlay-title="hotkey help"            repeat=false { show-hotkey-overlay; }
-  super+shift+escape hotkey-overlay-title=null                     repeat=false { close-window; }
+  super+f1               hotkey-overlay-title="hotkey help"        repeat=false { show-hotkey-overlay; }
+  super+shift+escape     hotkey-overlay-title=null                 repeat=false { close-window; }
   super+minus            hotkey-overlay-title="width less"                      { set-column-width  "-5%"; }
   super+equal            hotkey-overlay-title="width more"                      { set-column-width  "+5%"; }
   super+shift+minus      hotkey-overlay-title="height less"                     { set-window-height "-5%"; }
@@ -167,8 +172,8 @@ binds {
   super+comma            hotkey-overlay-title="consume/expel left"              { consume-or-expel-window-left; }
   super+period           hotkey-overlay-title="consume/expel right"             { consume-or-expel-window-right; }
   super+slash                                                      repeat=false { toggle-column-tabbed-display; }
-  super+backslash        hotkey-overlay-title="toggle float focus" repeat=false { switch-focus-between-floating-and-tiling; }
-  super+shift+backslash  hotkey-overlay-title="toggle float"       repeat=false { toggle-window-floating; }
+  super+backspace        hotkey-overlay-title="toggle float focus" repeat=false { switch-focus-between-floating-and-tiling; }
+  super+shift+backspace  hotkey-overlay-title="toggle float"       repeat=false { toggle-window-floating; }
   super+h                        hotkey-overlay-title="focus left" { focus-column-or-monitor-left; }
   super+j                                hotkey-overlay-title=null { focus-window-or-monitor-down; }
   super+k                                hotkey-overlay-title=null { focus-window-or-monitor-up; }
@@ -188,6 +193,8 @@ binds {
   super+5 repeat=false                   hotkey-overlay-title=null { focus-workspace 5; }
   super+6 repeat=false                   hotkey-overlay-title=null { focus-workspace 6; }
   super+7 repeat=false                   hotkey-overlay-title=null { focus-workspace 7; }
+  super+8 repeat=false                   hotkey-overlay-title=null { focus-workspace 8; }
+  super+9 repeat=false                   hotkey-overlay-title=null { focus-workspace 9; }
   super+shift+1                hotkey-overlay-title="move to ws 1" { move-column-to-workspace 1; }
   super+shift+2                          hotkey-overlay-title=null { move-column-to-workspace 2; }
   super+shift+3                          hotkey-overlay-title=null { move-column-to-workspace 3; }
@@ -195,6 +202,8 @@ binds {
   super+shift+5                          hotkey-overlay-title=null { move-column-to-workspace 5; }
   super+shift+6                          hotkey-overlay-title=null { move-column-to-workspace 6; }
   super+shift+7                          hotkey-overlay-title=null { move-column-to-workspace 7; }
+  super+shift+8                          hotkey-overlay-title=null { move-column-to-workspace 8; }
+  super+shift+9                          hotkey-overlay-title=null { move-column-to-workspace 9; }
   super+shift+f1               hotkey-overlay-title="move ws to 1" { move-workspace-to-index 1; }
   super+shift+f2                         hotkey-overlay-title=null { move-workspace-to-index 2; }
   super+shift+f3                         hotkey-overlay-title=null { move-workspace-to-index 3; }
@@ -202,6 +211,8 @@ binds {
   super+shift+f5                         hotkey-overlay-title=null { move-workspace-to-index 5; }
   super+shift+f6                         hotkey-overlay-title=null { move-workspace-to-index 6; }
   super+shift+f7                         hotkey-overlay-title=null { move-workspace-to-index 7; }
+  super+shift+f8                         hotkey-overlay-title=null { move-workspace-to-index 8; }
+  super+shift+f9                         hotkey-overlay-title=null { move-workspace-to-index 9; }
   super+left                 hotkey-overlay-title="focus mon left" { focus-monitor-left; }
   super+down                             hotkey-overlay-title=null { focus-monitor-down; }
   super+up                               hotkey-overlay-title=null { focus-monitor-up; }
@@ -264,15 +275,28 @@ binds {
   super+shift+w      hotkey-overlay-title=null           repeat=false { spawn "google-chrome-stable"; }
 }
 layer-rule {
-  match namespace="^notifications$"
+  match namespace=r#"^notifications$"#
   block-out-from "screen-capture"
 }
 window-rule {
-  match app-id="footclient"
+  match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+  match app-id=r#"^org\.gnome\.World\.Secrets$"#
+  block-out-from "screen-capture"
+}
+window-rule {
+  match app-id=r#"^footclient$"#
   default-column-width { proportion 0.5; }
 }
 window-rule {
-  match app-id=r#"firefox$"# title=r#"^Picture-in-Picture$"#
+  match app-id=r#"^org\.twosheds\.iwgtk$"# title=r#"^iwgtk$"#
+  default-column-width { proportion 0.333; }
+}
+window-rule {
+  match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+  default-floating-position x=256 y=256 relative-to="bottom-right"
+}
+window-rule {
+  match app-id=r#"^Firefox$"# title=r#"^Picture-in-Picture$"#
   match app-id=r#"^org\.pulseaudio\.pavucontrol$"# title=r#"^Volume Control$"#
   open-floating true
 }
@@ -282,13 +306,10 @@ window-rule {
   open-focused false
 }
 window-rule {
-  match app-id=r#"^org\.keepassxc\.KeePassXC$"#
-  match app-id=r#"^org\.gnome\.World\.Secrets$"#
-  block-out-from "screen-capture"
-}
-window-rule {
-  match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
-  default-floating-position x=32 y=32 relative-to="bottom-right"
+  match is-floating=true
+  border {
+    active-color "#667ad3"
+  }
 }
 window-rule {
   match is-window-cast-target=true

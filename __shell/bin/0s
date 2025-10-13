@@ -36,12 +36,15 @@ proc _nicon {icon} {
 ###############################################################################
 
 proc bat {} {
+  global DOAS
+
   set title bat
   set device BAT1
-  set crit 5
+  set zz 5
+  set cr 10
   set lo 20
   set hi 80
-  set icon_crit battery-010
+  set icon_cr battery-010
   set icon_lo battery-020
   set icon_hi battery-080-charging
   set notify "notify-send"
@@ -52,8 +55,11 @@ proc bat {} {
 
   switch -- [string index $status 0] {
     {D} {
-      if {$capacity <= $crit} {
-        exec {*}$notify -u critical -i $icon_crit $title $capacity%
+      if {$capacity <= $zz} {
+        puts {0s: low battery, suspending to disk...}
+        exec $DOAS /usr/sbin/ZZZ
+      } elseif {$capacity <= $cr} {
+        exec {*}$notify -u critical -i $icon_cr $title $capacity%
       } elseif {[expr {$lo - 5}] <= $capacity && $capacity <= $lo} {
         exec {*}$notify -u normal -i $icon_lo $title $capacity%
       }

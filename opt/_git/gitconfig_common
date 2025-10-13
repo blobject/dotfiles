@@ -13,6 +13,8 @@
   dfa = diff --unified=1000
   dfs = diff --stat
   lo = log --graph --pretty=format:'%C(cyan)%h %C(yellow)%ad %C(green)%an %C(reset)%s%d'
+  lod = log dev..HEAD --pretty=format:'%C(cyan)%h %C(yellow)%ad %C(green)%an %C(reset)%s%d'
+  lom = log main..HEAD --pretty=format:'%C(cyan)%h %C(yellow)%ad %C(green)%an %C(reset)%s%d'
   lof = log -p --
   ls = ls-files
   nr = name-rev

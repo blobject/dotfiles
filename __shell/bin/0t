@@ -468,7 +468,7 @@ proc vol {args} {
     earfun     {EarFun Free Pro 2} \
     earfunmic  {bluez_input.B0:F1:A3:63:0A:66} \
     fly        {FLY 3 BT} \
-    jbl        {JBL Clip 2} \
+    jbl        {JBL Clip 5} \
     jblmic     {bluez_input.00:12:6F:EE:F0:F7} \
     nothing    {Nothing Ear} \
     nothingmic {bluez_input.2C:BE:EB:78:2B:3B}]

@@ -71,7 +71,7 @@ window#waybar.hidden { opacity: 0.2; }
 #workspaces button.active,
 #workspaces button.urgent { padding: 0 2px; }
 #custom-dot               { margin: 0 2px; }
-#tray                     { margin: 0 4px; }
+#tray                     { margin: 0 4px; padding: 0 2px; }
 #window                   { margin: 0 8px; }
 #battery                  { padding: 0 4px 0 6px; }
 #battery.charging         { margin: 0 4px; }
@@ -121,6 +121,7 @@ button:hover {
   text-shadow: none;
   transition: none;
 }
+#tray                                        { border-radius: 2px; }
 #workspaces button.focused,
 #workspaces button.urgent                    { border-radius: 4px; }
 #workspaces button#niri-workspace-7.focused,
@@ -137,6 +138,7 @@ button:hover {
 #temperature,
 #idle_inhibitor.deactivated,
 #pulseaudio.muted                       { color: @kk; }
+#tray { background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), @b; }
 #workspaces button.active:not(.focused),
 #window                                 { color: @w; }
 #battery                                { color: @ww; }

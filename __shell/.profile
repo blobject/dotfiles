@@ -1,4 +1,4 @@
-. "$HOME/cfg/opt/_shell/profile_common"
+. "$HOME/cfg/ext/shell/profile_common"
 
 # default
 export BROWSER=firefox

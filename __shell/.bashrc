@@ -185,7 +185,7 @@ alias ,,,,,,,,='c ../../../../../../../..'
 complete -C ${HOME}/opt/aws/dist/aws_completer aws
 . /usr/share/bash-completion/completions/git
 __git_complete g __git_main
-source ${HOME}/cfg/opt/_shell/bash_completion_poetry.sh
+source ${HOME}/cfg/ext/shell/bash_completion_poetry.sh
 
 ## set title
 trap __0_title DEBUG

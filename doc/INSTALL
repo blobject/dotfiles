@@ -91,7 +91,7 @@ graphical desktop:
 - load home backup: `./stow.tcl`
 
 work:
-- `xbps-install -S python3-lsp-server k9s kubectl`
+- `xbps-install -S python3-lsp-server k9s kubectl kubernetes kubernetes-helm`
 - manual installs
   - aws & kube
     - aws-cli

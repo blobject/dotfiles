@@ -7,7 +7,7 @@ environment {
   XDG_CURRENT_DESKTOP "niri"
   XDG_CURRENT_SESSION "niri"
   // gfx
-  AQ_DRM_DEVICES "/home/b/cfg/opt/_hw/card_amd:/home/b/cfg/opt/_hw/card_intel"
+  AQ_DRM_DEVICES "/home/b/cfg/ext/hw/card_amd:/home/b/cfg/ext/hw/card_intel"
   // gui toolkit
   CLUTTER_BACKEND "wayland"
   ELECTRON_OZONE_PLATFORM_HINT "auto"
@@ -33,7 +33,7 @@ spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "text-scaling-f
 spawn-at-startup "sh" "-c" "{ xrdb -merge $HOME/.xresources & }"
 spawn-at-startup "0s" "snooze"
 spawn-at-startup "0s" "temper"
-spawn-at-startup "sh" "-c" "{ swaybg --mode fill --image $HOME/cfg/opt/_shell/back.png & }"
+spawn-at-startup "sh" "-c" "{ swaybg --mode fill --image $HOME/cfg/ext/shell/back.png & }"
 spawn-at-startup "blueman-applet"
 spawn-at-startup "gammastep-indicator" "-l" "manual" "-l" "1.28:103.85" "-m" "wayland" "-t" "5500K:4800K"
 spawn-at-startup "hypridle"
@@ -163,8 +163,9 @@ binds {
   super+shift+minus      hotkey-overlay-title="height less"                     { set-window-height "-5%"; }
   super+shift+equal      hotkey-overlay-title="height more"                     { set-window-height "+5%"; }
   super+c                                                          repeat=false { center-column; }
-  super+f                                                          repeat=false { fullscreen-window; }
-  super+shift+f                                                    repeat=false { toggle-windowed-fullscreen; }
+  super+f                                                          repeat=false { maximize-window-to-edges; }
+  super+ctrl+f                                                     repeat=false { toggle-windowed-fullscreen; }
+  super+shift+f                                                    repeat=false { fullscreen-window; }
   super+semicolon        hotkey-overlay-title="resize width"                    { switch-preset-column-width; }
   super+apostrophe       hotkey-overlay-title="resize height"                   { switch-preset-window-height; }
   super+shift+semicolon  hotkey-overlay-title="reset width"        repeat=false { maximize-column; }

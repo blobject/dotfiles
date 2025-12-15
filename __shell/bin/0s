@@ -187,7 +187,7 @@ proc dracut {ver} {
   global DOAS
 
   exec -- >@stdout 2>@stderr $DOAS dracut \
-    --conf $::env(HOME)/cfg/opt/_kernel/dracut.conf \
+    --conf $::env(HOME)/cfg/ext/kernel/dracut.conf \
     --force \
     /boot/initramfs-${ver}_c.img ${ver}_c
 }

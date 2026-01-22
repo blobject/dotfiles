@@ -1,7 +1,8 @@
 {
   "layer": "top",
-  "mode": "dock",
-  "exclusive": false,
+  //"mode": "overlay",
+  "exclusive": true,
+  "gtk-layer-shell": true,
   "passthrough": false,
   "position": "top",
   "modules-left": [

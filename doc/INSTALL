@@ -75,9 +75,9 @@ post-reboot:
   - `xbps-install -S`
 - apps
   - (sys) acpi, blueman, bolt, clamav, dmidecode, exfatprogs, foot, gotop, gammastep-indicator, glxinfo, gocryptfs, gnupg, hwinfo, intel-media-driver, intel-video-accel, kdeconnect, libva-utils, light, mesa, mesa-dri, mesa-vaapi, mesa-vdpau, mesa-vulkan-intel, mesa-vulkan-radeon, sof-firmware, seatd, thermald, tuigreet, Vulkan-Tools, wev, xorg-server-xwayland, xlsclients, xrdb, xterm
-  - (util) elinks, ifuse, kak-lsp, kakoune, lftp, lshw, lz4, lzop, net-tools, ntfs-3g, psmisc, ripgrep, rlwrap, rsync, scrcpy, snooze, socat, stow, tcl, tmux, unzip, xdg-utils, vim, wget, yazi, zip, zstd
+  - (util) elinks, ifuse, jmtpfs, kak-lsp, kakoune, lftp, lshw, lz4, lzop, net-tools, ntfs-3g, psmisc, ripgrep, rlwrap, rsync, scrcpy, snooze, socat, stow, tcl, tmux, unzip, xdg-utils, vim, wget, yazi, zip, zstd
   - (devel) base-devel, clang, llvm, cmake, extra-cmake-modules, docker, docker-compose, dive, elixir, gdb, ghc, go, guile, hyperfine, jq, mono, msbuild-bin, n, octave, openjdk, perf, python3-pip, R, rustup, sbcl, squeak, strace, swi-prolog, tcllib, tk, tree, postgresql, postgresql-client, sqlite, nginx, valgrind
-  - (wm) breeze-hacked-cursor-theme, chayang, elogind, font-inconsolata-otf, font-sarasa-gothic, freefont-ttf, fuzzel, gnome-keyring, grim, iwgtk, libayatana-appindicator, mako, nautilus, niri, papirus-icon-theme, qt6-wayland, slurp, swappy, swaybg, ttf-opensans, waybar, wl-clipboard, xdg-desktop-portal-gnome, xdg-desktop-portal-gtk, xeyes, xwayland-satellite
+  - (wm) breeze-hacked-cursor-theme, chayang, elogind, font-inconsolata-otf, font-sarasa-gothic, freefont-ttf, fuzzel, gnome-keyring, grim, iwgtk, libayatana-appindicator, mako, nautilus, niri, papirus-icon-theme, qt6-wayland, slurp, swappy, swaybg, swayidle, swaylock, ttf-opensans, waybar, wl-clipboard, xdg-desktop-portal-gnome, xdg-desktop-portal-gtk, xeyes, xwayland-satellite
     - iwgtk alternative: network-manager-applet
   - (media) ffmpeg, helvum, imv, mpv, pavucontrol, pipewire, wf-recorder, alsa-pipewire, gstreamer1-pipewire, libspa-bluetooth, libspa-ffmpeg, libspa-vulkan
   - (misc) blender, firefox, foliate, fontforge, fontmatrix, geoclue2, gimp, gnucash, gnuplot, ImageMagick, inkscape, krita, libreoffice, pdf.js, qemu, screenkey, texlive-most, tigervnc, ttfautohint, visidata(python3-openpyxl), zathura-{djvu,pdf-mupdf,ps}
@@ -266,7 +266,7 @@ VOID ON THINKPAD
   - net: net-tools wget
   - manual: chrome
   - firefox config
-    - search engines: mycroft project: g, ddg, w, d, t, u, e, k, l, m, y
+    - search engines: mycroft project: g, ddg, a, w, d, t, u, e, k, l, m, y
     - extensions: react, simple tab groups, translate web pages, ublock origin, video downloadhelper
     - about:config
       + gfx.x11-egl.force-enabled, gfx.webrender.all, gfx.webrender.compositor, gfx.webrender.compositor.force-enabled, media.ffmpeg.vaapi.enabled, toolkit.legacyUserProfileCustomizations.stylesheets

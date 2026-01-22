@@ -78,8 +78,9 @@ __0_title()
 { local net port
   net=$(ip a | rg -o 'inet.*global dynamic' | cut -d' ' -f2)
   net=${net%.*}
+  net=${net%.*}
   port='21000'
-  test "${#}" -ne 2 && echo 'provide phone address & ftp password' \
+  test "${#}" -ne 2 && echo 'provide phone address (last 2) & ftp password' \
     || doas lftp -u "b,${2}" -p "${port}" "ftp://${net}.${1}"; }
 
 0qmk-flash()

@@ -9,7 +9,7 @@ source $home/bin/lib.tcl
 unset home
 
 need notify-send \
-     hyprlock \
+     swaylock \
      dracut \
      rsync xbps-query \
      snooze 0snooze-bat 0snooze-temper
@@ -105,13 +105,13 @@ proc bye {arg} {
         puts {0s: locking canceled, session not wayland}
         return
       }
-      set locker hyprlock
+      set locker "swaylock -f -c 000000"
       if {0 == [catch {exec pidof $locker}]} {
         puts {0s: locking canceled, already locked}
         return
       }
       puts {0s: locking...}
-      catch {exec $locker}
+      catch {exec {*}$locker}
     }
     e - l - q - x - exit - quit - logout {
       save

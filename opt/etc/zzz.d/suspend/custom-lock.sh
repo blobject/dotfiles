@@ -2,8 +2,8 @@
 
 # presume wayland
 
-locker=hyprlock
-locker_cmd='hyprlock --immediate --immediate-render --no-fade-in'
+locker=swaylock
+locker_cmd='swaylock --daemonize --color 000000'
 
 pidof $locker && exit
 

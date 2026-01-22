@@ -71,7 +71,7 @@ window#waybar.hidden { opacity: 0.2; }
 #workspaces button.active,
 #workspaces button.urgent { padding: 0 2px; }
 #custom-dot               { margin: 0 2px; }
-#tray                     { margin: 0 4px; padding: 0 2px; }
+#tray                     { margin: 0 8px; padding: 0 2px; }
 #window                   { margin: 0 8px; }
 #battery                  { padding: 0 4px 0 6px; }
 #battery.charging         { margin: 0 4px; }

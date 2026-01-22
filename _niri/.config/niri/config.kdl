@@ -36,10 +36,10 @@ spawn-at-startup "0s" "temper"
 spawn-at-startup "sh" "-c" "{ swaybg --mode fill --image $HOME/cfg/ext/shell/back.png & }"
 spawn-at-startup "blueman-applet"
 spawn-at-startup "gammastep-indicator" "-l" "manual" "-l" "1.28:103.85" "-m" "wayland" "-t" "5500K:4800K"
-spawn-at-startup "hypridle"
 spawn-at-startup "iwgtk" "--indicators"
 spawn-at-startup "mako"
 spawn-at-startup "pipewire"
+/-spawn-at-startup "swayidle" "-w" "timeout" "890" "chayang -d 8" "timeout" "900" "pidof swaylock || doas /usr/sbin/zzz"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "sh" "-c" "{ sleep 1 && pipewire-pulse & }"
 spawn-at-startup "sh" "-c" "{ sleep 2 && wireplumber & }"
@@ -57,7 +57,7 @@ input {
   }
   mouse {
     accel-profile "flat"
-    /-accel-speed -0.5
+    /-accel-speed -0.8
     accel-speed 0.2
   }
 }
@@ -131,7 +131,7 @@ layout {
     offset x=0 y=0
     color "#0005"
   }
-  /-struts { left 0; right 0; top 24; bottom 0; }
+  /-struts { left 0; right 0; top 24; bottom 0; } // waybar: no mode, exclusive=true
   tab-indicator {
     hide-when-single-tab
     gap 0
@@ -152,7 +152,7 @@ overview {
 prefer-no-csd
 screenshot-path "~/got/screenshot-%s.png"
 /-switch-events {
-  lid-close { spawn "sh" "-c" "pidof hyprlock || hyprlock --immediate --immediate-render --no-fade-in"; }
+  lid-close { spawn "sh" "-c" "pidof swaylock || swaylock --daemonize --color 000000"; }
 }
 binds {
   super+shift+ctrl+escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }

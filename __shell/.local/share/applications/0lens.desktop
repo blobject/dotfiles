@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=_Lens
+Exec=0c '$::env(HOME)/opt/lens/lens'
+Type=Application
+Comment=Lens K8S IDE
+Icon=lens
+Categories=Development;IDE;
+StartupNotify=true
+Terminal=false

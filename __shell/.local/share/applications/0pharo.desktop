@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=_Pharo
+Exec=0c '$::env(HOME)/opt/pharo/pharo-launcher-ui'
+Type=Application
+Comment=Pharo
+Icon=pharo
+Categories=Development;IDE;
+StartupNotify=true
+Terminal=false

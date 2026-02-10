@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=_Cursor
+Exec=0c '$::env(HOME)/opt/cursor/cursor'
+Type=Application
+Comment=Cursor editor
+Icon=cursor
+Categories=TextEditor;
+StartupNotify=true
+Terminal=false

@@ -82,6 +82,7 @@ proc bye {arg} {
     catch {exec pkill dbus-launch}
     catch {exec pkill pipewire-pulse}
     catch {exec pkill pipewire}
+    catch {exec pkill ssh-agent}
     catch {exec pkill wireplumber}
   }
 

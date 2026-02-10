@@ -1,26 +1,6 @@
 /-debug {
   render-drm-device "/dev/dri/renderD129"
 }
-environment {
-  XDG_SESSION_TYPE "wayland"
-  XDG_SESSION_DESKTOP "niri"
-  XDG_CURRENT_DESKTOP "niri"
-  XDG_CURRENT_SESSION "niri"
-  // gfx
-  AQ_DRM_DEVICES "/home/b/cfg/ext/hw/card_amd:/home/b/cfg/ext/hw/card_intel"
-  // gui toolkit
-  CLUTTER_BACKEND "wayland"
-  ELECTRON_OZONE_PLATFORM_HINT "auto"
-  GDK_BACKEND "wayland,x11,*"
-  _JAVA_AWT_WM_NONREPARENTING "1"
-  MOZ_DISABLE_RDD_SANDBOX "1"
-  //MOZ_ENABLE_WAYLAND "1"
-  OZONE_PLATFORM "wayland"
-  QT_QPA_PLATFORM "wayland;xcb"
-  QT_SCALE_FACTOR "2"
-  // x
-  XKB_DEFAULT_LAYOUT "hsnt"
-}
 spawn-at-startup "/usr/sbin/light" "-S" "30"
 spawn-at-startup "dbus-update-activation-environment" "DBUS_SESSION_BUS_ADDRESS" "DISPLAY" "WAYLAND_DISPLAY" "XAUTHORITY" "XCURSOR_SIZE" "XCURSOR_THEME" "XDG_CURRENT_DESKTOP" "XDG_RUNTIME_DIR" "XDG_SESSION_TYPE" "HOME" "LANG" "PATH" "SHELL" "USER"
 spawn-at-startup "foot" "--server" "--log-level=warning"
@@ -33,17 +13,19 @@ spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "text-scaling-f
 spawn-at-startup "sh" "-c" "{ xrdb -merge $HOME/.xresources & }"
 spawn-at-startup "0s" "snooze"
 spawn-at-startup "0s" "temper"
+spawn-at-startup "sh" "-c" "eval $(ssh-agent -a $SSH_AUTH_SOCK 2> /dev/null)"
 spawn-at-startup "sh" "-c" "{ swaybg --mode fill --image $HOME/cfg/ext/shell/back.png & }"
 spawn-at-startup "blueman-applet"
 spawn-at-startup "gammastep-indicator" "-l" "manual" "-l" "1.28:103.85" "-m" "wayland" "-t" "5500K:4800K"
 spawn-at-startup "iwgtk" "--indicators"
 spawn-at-startup "mako"
 spawn-at-startup "pipewire"
-/-spawn-at-startup "swayidle" "-w" "timeout" "890" "chayang -d 8" "timeout" "900" "pidof swaylock || doas /usr/sbin/zzz"
+spawn-at-startup "swayidle" "-w" "timeout" "890" "chayang -d 8" "timeout" "900" "pidof swaylock || doas /usr/sbin/zzz"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "sh" "-c" "{ sleep 1 && pipewire-pulse & }"
 spawn-at-startup "sh" "-c" "{ sleep 2 && wireplumber & }"
 spawn-at-startup "sh" "-c" "{ sleep 3 && waybar & }"
+spawn-at-startup "sh" "-c" "{ sleep 4 && keepassxc & }"
 input {
   keyboard {
     xkb { layout "hsnt"; }
@@ -87,6 +69,9 @@ output "Dell Inc. DELL S2722DC 1V1BHD3" {
 }
 animations {
   slowdown 0.75
+}
+clipboard {
+  disable-primary
 }
 cursor {
   xcursor-size 64
@@ -271,6 +256,7 @@ binds {
   super+t            hotkey-overlay-title=null           repeat=false { spawn "footclient"; }
   super+b            hotkey-overlay-title=null           repeat=false { spawn "footclient" "--title=bluetoothctl" "bluetoothctl"; }
   super+e            hotkey-overlay-title=null           repeat=false { spawn "footclient" "--title=kak" "kak"; }
+  super+x            hotkey-overlay-title=null           repeat=false { spawn "0t" "_kp"; }
   super+w            hotkey-overlay-title=null           repeat=false { spawn "firefox" "-P" "f0"; }
   super+alt+w        hotkey-overlay-title=null           repeat=false { spawn "0t" "_browser"; }
   super+shift+w      hotkey-overlay-title=null           repeat=false { spawn "google-chrome-stable"; }

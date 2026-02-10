@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=_DrawIO
-Exec=0c '$::env(HOME)/opt/drawio'
+Exec=0c '$::env(HOME)/opt/drawio/drawio'
 Type=Application
 Comment=DrawIO
 Icon=drawio

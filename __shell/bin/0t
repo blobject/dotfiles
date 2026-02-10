@@ -12,6 +12,7 @@ need notify-send \
      wl-copy \
      bluetoothctl \
      ifstat \
+     keepassxc \
      light \
      grim slurp swappy \
      wpctl
@@ -37,7 +38,7 @@ proc __nicon {icon} {
 
 ###############################################################################
 
-# for wm
+# for wm: incognito browser
 proc _browser {} {
   try {
     exec firefox --private-window --profile "$::env(HOME)/opt/f1"
@@ -46,7 +47,7 @@ proc _browser {} {
 
 ###############################################################################
 
-# for wm
+# for wm: session power
 proc _bye {} {
   set runner "fuzzel --dmenu --lines=11 {--prompt= } --width=28"
   set menu {\
@@ -72,7 +73,7 @@ proc _bye {} {
 
 ###############################################################################
 
-# for wm
+# for wm: emoticon selector
 proc _emo {} {
   set emoticons $::env(HOME)/opt/emoticons
   set runner "fuzzel --dmenu {--prompt= } --width=64"
@@ -84,7 +85,22 @@ proc _emo {} {
 
 ###############################################################################
 
-# for wm, implicit lum change
+# for wm: keepassxc toggler
+proc _kp {} {
+  set exp {.[] | select(.app_id == "org.keepassxc.KeePassXC") | .id}
+  set win [exec niri msg --json windows | jq -r $exp]
+
+  if {{} eq $win} {
+    exec keepassxc
+  } else {
+    exec niri msg action focus-window --id $win
+    exec wtype -M ctrl -M shift m -m shift -m ctrl
+  }
+}
+
+###############################################################################
+
+# for wm: implicit lum change
 proc _lum {arg} {
   set title lum
   set icon_lo redshift-status-off
@@ -103,7 +119,7 @@ proc _lum {arg} {
 
 ###############################################################################
 
-# for wm
+# for wm: window selector
 proc _win {} {
   set exp {sort_by(.pid) .[] | "\(.app_id)(\(.pid)) : \(.title) ::: \(.id)"}
   set lines [exec niri msg --json windows | jq -r $exp]
@@ -210,7 +226,7 @@ proc lay {arg} {
 
 ###############################################################################
 
-# for wm, explicit lum change
+# for wm: explicit lum change
 proc lum {arg} {
   set title lum
   set notify "notify-send -u low -i"
@@ -277,6 +293,7 @@ proc net {} {
 
 ###############################################################################
 
+# for wm: take screenshot (deprecated by niri)
 proc shot {args} {
   set one [lindex $args 0]
   set two [lindex $args 1]
@@ -368,6 +385,7 @@ proc shot {args} {
 
 ###############################################################################
 
+# for wm: terminal font size toggler
 proc term {} {
   set title term
   cd $::env(HOME)/.config/foot
@@ -456,7 +474,7 @@ proc vol_format_volume {volume} {
   return [expr int($vol * 100)]
 }
 
-# for wm
+# for wm: volume control
 proc vol {args} {
   set title vol
   set cmd wpctl

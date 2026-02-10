@@ -38,7 +38,7 @@ foreach {stowed} $lend {
 
 puts {Calling stow}
 try {
-  exec >/dev/tty stow -v {*}[glob _*]
+  exec > /dev/tty stow -v {*}[glob _*]
 } on error e { puts "$e" }
 
 puts {Restoring absolute links}

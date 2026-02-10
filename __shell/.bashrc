@@ -107,13 +107,12 @@ rgc()
 
 ## variables
 HISTCONTROL=ignoreboth
-HISTFILESIZE=131072
-HISTSIZE=131072
+HISTFILESIZE=65536
+HISTSIZE=65536
 PROMPT_COMMAND=__0_prompt
-LESS=-iRS
-SSH_AUTH_SOCK=${HOME}/.ssh/agent
-export LESS SSH_AUTH_SOCK
+export LESS=-iRS
 eval $(dircolors --sh "${HOME}/opt/cemant/dircolors/dircolors_blobject")
+export SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/ssh-agent.sock
 
 ## services
 if ! pgrep -u "${USER}" ssh-agent > /dev/null; then
@@ -204,6 +203,9 @@ __0_work()
   test -d $_ppd && _pp="$(fd --max-depth 1 --max-results 1 --type d python ${_ppd})site-packages"
   # custom aliasing
   _env=$_e
+  # custom env
+  export PYTHONPATH="${_d}:${_w}/src/$(cat ${_w}/env/_u)${PYTHONPATH:+:$PYTHONPATH}"
+  export USE_CYTHON=0
   #case "$1" in
   #  _____)
   #    # ____
@@ -236,21 +238,21 @@ __0_work()
       alias _python="test -z ${_pp} && echo \"no dir: ${_ppd}\" || cd ${_pp}"
       0conda $_env
       #. "../../env/env_$_e.sh"
-      export PYTHONPATH="${_d}${PYTHONPATH:+:$PYTHONPATH}"
       ;;
   esac
   # ready
   cd "${_d}"; }
 
-alias _='cd /home/work/src'
-alias work='__0_work _'
-alias work_='__0_work __'
-alias work__='__0_work ___'
-alias work___='__0_work ____'
-alias work____='__0_work _____'
-alias work1='__0_work 1'
-alias work2='__0_work 2'
-alias work3='__0_work 3'
-alias work4='__0_work 4'
+alias work='__0_work _g'
+alias workg='__0_work _g'
+alias workc='__0_work _c'
+alias works='__0_work _s'
+alias worki='__0_work _i'
+alias worku='__0_work _u'
+alias worke='__0_work _e'
+alias workb='__0_work _b'
+alias work1='__0_work _1'
+alias work2='__0_work _2'
+alias work3='__0_work _3'
 
 # eof

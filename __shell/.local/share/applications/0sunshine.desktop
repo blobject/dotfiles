@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=_Sunshine
+Exec=0c '$::env(HOME)/opt/sunshine/sunshine'
+Type=Application
+Comment=Self-hosted game stream host for Moonlight
+Icon=sunshine
+Categories=Game;Network;
+StartupNotify=true
+Terminal=false

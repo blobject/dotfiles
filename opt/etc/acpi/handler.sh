@@ -61,9 +61,9 @@ case "$1" in
         case "$2" in
             BAT0)
                 case "$4" in
-                    00000000)   #echo "offline" >/dev/tty5
+                    00000000)   #echo "offline" > /dev/tty5
                     ;;
-                    00000001)   #echo "online"  >/dev/tty5
+                    00000001)   #echo "online"  > /dev/tty5
                     ;;
                 esac
                 ;;

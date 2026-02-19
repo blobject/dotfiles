@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=_Cataclysm
-Exec=0c '$::env(HOME)/opt/cdda/cataclysm-launcher'
+Exec=cataclysm-tiles
 Type=Application
 Comment=Dark Days Ahead
 Icon=cataclysm-dda

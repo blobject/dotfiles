@@ -8,15 +8,12 @@ source $::env(HOME)/bin/lib.tcl
 need notify-send \
      rg \
      firefox \
-     fuzzel \
      wl-copy \
      bluetoothctl \
      ifstat \
      keepassxc \
-     light \
      grim slurp swappy \
      wpctl
-     #wlr-randr \
 
 set ICONS /usr/share/icons/Papirus/24x24
 
@@ -606,7 +603,8 @@ proc vol {args} {
   if {{} eq $notify_body} {
     set notify_body "$device [vol_format_volume [exec wpctl get-volume $device_id]]%"
   }
-  exec {*}$notify $icon $title $notify_body
+  # (done by quickshell)
+  #exec {*}$notify $icon $title $notify_body
 }
 
 ###############################################################################

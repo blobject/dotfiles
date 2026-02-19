@@ -107,8 +107,8 @@ rgc()
 
 ## variables
 HISTCONTROL=ignoreboth
-HISTFILESIZE=65536
-HISTSIZE=65536
+HISTFILESIZE=262144
+HISTSIZE=262144
 PROMPT_COMMAND=__0_prompt
 export LESS=-iRS
 eval $(dircolors --sh "${HOME}/opt/cemant/dircolors/dircolors_blobject")

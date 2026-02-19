@@ -9,7 +9,6 @@ source $home/bin/lib.tcl
 unset home
 
 need notify-send \
-     swaylock \
      dracut \
      rsync xbps-query \
      snooze 0snooze-bat 0snooze-temper
@@ -106,11 +105,12 @@ proc bye {arg} {
         puts {0s: locking canceled, session not wayland}
         return
       }
-      set locker "swaylock -f -c 000000"
-      if {0 == [catch {exec pidof $locker}]} {
-        puts {0s: locking canceled, already locked}
-        return
-      }
+      #set locker "swaylock -f -c 000000"
+      #if {0 == [catch {exec pidof $locker}]} {
+      #  puts {0s: locking canceled, already locked}
+      #  return
+      #}
+      set locker "qs -c noctalia-shell ipc call sessionMenu lockAndSuspend"
       puts {0s: locking...}
       catch {exec {*}$locker}
     }

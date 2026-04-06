@@ -141,21 +141,17 @@ proc _win {} {
 
 # for waybar
 proc btbat {{id {}}} {
-  set k          DD:A5:E3:61:B3:96
-  set earfun     00:12:6F:EE:F0:F7
-  set jbl        B0:F1:A3:63:0A:66
-  set nothing    2C:BE:EB:78:2B:3B]
+  set earfunfree 00:12:6F:EE:F0:F7
+  set nothingear 2C:BE:EB:78:2B:3B]
 
   proc die {} {
     global ME
-    upvar k k earfun earfun jbl jbl nothing nothing
+    upvar earfunfree earfunfree nothingear nothingear
 
     puts stderr "$ME: mac address required
   available devices:
-  k          - Corne keyboard       $k
-  earfun     - EarFun Free Pro 2    $earfun
-  jbl        - JBL Clip 2           $jbl
-  nothing    - Nothing Ear          $nothing"
+  earfunfree - $earfunfree
+  nothingear - $nothingear"
     puts {}
     exit
   }
@@ -480,15 +476,17 @@ proc vol {args} {
 
   set default_device_name {Built-in Audio Analog Stereo}
   set bt_device_names [dict create \
-    earfun     {EarFun Free Pro 2} \
-    earfunmic  {bluez_input.B0:F1:A3:63:0A:66} \
-    fly        {FLY 3 BT} \
-    jbl        {JBL Clip 5} \
-    jblmic     {bluez_input.00:12:6F:EE:F0:F7} \
-    nothing    {Nothing Ear} \
-    nothingmic {bluez_input.2C:BE:EB:78:2B:3B}]
+    earfunfree    {EarFun Free Pro 2} \
+    earfunfreemic {bluez_input.B0:F1:A3:63:0A:66} \
+    fly           {FLY 3 BT} \
+    jblclip       {JBL Clip 5} \
+    jblclipmic    {bluez_input.00:12:6F:EE:F0:F7} \
+    nothingear    {Nothing Ear} \
+    nothingearmic {bluez_input.2C:BE:EB:78:2B:3B}]
   set usb_device_names [dict create \
-    usb {USB-C to 3.5mm Headphone Jack Adapter}]
+    applejack  {USB-C to 3.5mm Headphone Jack Adapter} \
+    jbltune    {JBL TUNE 310C USB-C Analog Stereo} \
+    jbltunemic {JBL TUNE 310C USB-C Mono}]
   set icon_bt_lo bluetooth-disabled
   set icon_usb drive-removable-media-usb-symbolic
   set icon_vol_good audio-ready

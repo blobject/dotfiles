@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=_Bruno
+Exec=0c '$::env(HOME)/opt/bruno/bruno'
+Type=Application
+Comment=Bruno
+Icon=bruno
+Categories=Development;
+StartupNotify=true
+Terminal=false

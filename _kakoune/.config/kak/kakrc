@@ -69,7 +69,7 @@ eval %sh{kak-lsp --kakoune -s ${kak_session}}
 #set-option global lsp_debug true
 set-option global lsp_hover_anchor true
 #set-option global lsp_show_hover_format 'printf %s "${lsp_info}"'
-hook global WinSetOption filetype=(c|cc|cpp|h|hh|m|mm|objc|css|less|scss|html|json|javascript|jsx|tsx|typescript|python|tex|zig) %{
+hook global WinSetOption filetype=(c|cc|cpp|h|hh|m|mm|objc|css|less|scss|html|json|javascript|jsx|tsx|typescript|python|terraform|tex|zig) %{
   hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
   hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
   hook window -group semantic-tokens InsertIdle .* lsp-semantic-tokens

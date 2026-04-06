@@ -1,6 +1,12 @@
 ! test -t 0 && return
 
+if [[ $- != *i* ]]; then
+  unset HISTFILE
+  return
+fi
+
 ## settings
+shopt -s histappend
 stty -ixon
 bind '"\en": menu-complete'
 bind '"\ep": menu-complete-backward'
@@ -10,15 +16,15 @@ __0_prompt_pwd=$PWD
 
 __0_prompt_conda()
 { if test "0${CONDA_SHLVL}" -gt 1; then
-    echo "c\[\033[0;36m\]${CONDA_DEFAULT_ENV} "
+    echo "p\[\033[0;36m\]${CONDA_DEFAULT_ENV} "
   fi; }
 
-__0_prompt_poetry()
-{ if test -v VIRTUAL_ENV; then
-    local a
-    a=$(basename "${VIRTUAL_ENV}")
-    echo "p\[\033[0;36m\]${a%-*-*} "
-  fi; }
+#__0_prompt_poetry()
+#{ if test -v VIRTUAL_ENV; then
+#    local a
+#    a=$(basename "${VIRTUAL_ENV}")
+#    echo "p\[\033[0;36m\]${a%-*-*} "
+#  fi; }
 
 __0_prompt_git()
 { if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
@@ -36,28 +42,27 @@ __0_prompt_git()
     echo "${a}" | sed 's,$, ,;s,^,g\\[\\033[0;33m\\],'
   fi; }
 
-__0_prompt_hg()
-{ #if hg id > /dev/null 2>&1; then
-  if test -d .hg; then
-    local a
-    a=$(hg stat 2> /dev/null | sed 's,^\(.\).\+$,\1,' | sort -u | sed 'N;s,\n,,')
-    hg branch 2> /dev/null | sed 's,$,'"${a}"' ,;s,^,h\\[\\033[0;33m\\],'
-  fi; }
+#__0_prompt_hg()
+#{ #if hg id > /dev/null 2>&1; then
+#  if test -d .hg; then
+#    local a
+#    a=$(hg stat 2> /dev/null | sed 's,^\(.\).\+$,\1,' | sort -u | sed 'N;s,\n,,')
+#    hg branch 2> /dev/null | sed 's,$,'"${a}"' ,;s,^,h\\[\\033[0;33m\\],'
+#  fi; }
 
 __0_prompt()
-{ local e
+{ #history -a
+  local e
   e=${PIPESTATUS[-1]}
   test "${e}" = 0 \
     && e='\[\033[0;32m\]'"${e} " \
     || e='\[\033[0;35m\]'"${e} "
-  local t c p g h d
-  t='\[\033[2;37m\]\t\[\033[0m\] '
-  c='\[\033[1;36m\]'$(__0_prompt_conda)
-  p='\[\033[1;36m\]'$(__0_prompt_poetry)
+  local t p g d
+  t='\[\033[2;30m\]\t\[\033[0m\] '
+  p='\[\033[1;36m\]'$(__0_prompt_conda)
   g='\[\033[1;33m\]'$(__0_prompt_git)
-  h='\[\033[1;33m\]'$(__0_prompt_hg)
   d='\[\033[0;31m\]\w'
-  PS1='\[\033[0;37m\]╭╴'$e$t$c$p$g$h$d'\n\[\033[0;37m\]╰╴\[\033[0m\]'
+  PS1='\[\033[0;37m\]╭╴'$e$t$p$g$d'\n\[\033[0;37m\]╰╴\[\033[0m\]'
   __0_prompt_pwd=$PWD; }
 
 __0_title()
@@ -106,9 +111,7 @@ rgc()
   | bc; }
 
 ## variables
-HISTCONTROL=ignoreboth
-HISTFILESIZE=262144
-HISTSIZE=262144
+HISTCONTROL=ignoredups
 PROMPT_COMMAND=__0_prompt
 export LESS=-iRS
 eval $(dircolors --sh "${HOME}/opt/cemant/dircolors/dircolors_blobject")
@@ -124,7 +127,7 @@ fi
 
 ## aliases
 alias 0cam='mpv av://v4l2:/dev/video0 --profile=low-latency --untimed'
-alias 0clock='echo "$(date +%s) $(TZ=UTC date)"; echo "Prague:    $(TZ=Europe/Prague date)"; echo "Reykjavik: $(TZ=Atlantic/Reykjavik date)"; echo "Riyadh:    $(TZ=Asia/Riyadh date)"; echo "Seoul:     $(TZ=Asia/Seoul date)"; echo "Singapore: $(date)"'
+alias 0clock='echo "$(date +%s) $(TZ=UTC date)"; echo "Reykjavik: $(TZ=Atlantic/Reykjavik date)"; echo "Prague:    $(TZ=Europe/Prague date)"; echo "Riyadh:    $(TZ=Asia/Riyadh date)"; echo "Singapore: $(date)"; echo "Seoul:     $(TZ=Asia/Seoul date)"'
 alias 0ear='bluetoothctl connect B0:F1:A3:63:0A:66'
 alias 0fonts="pango-list | grep '^[^ ]' | sort | pr -4T -S'  ' -w${COLUMNS}"
 alias 0gpu_unplug="doas modprobe -r amdgpu && doas sh -c \"echo 1 > /sys/bus/pci/devices/0000:$(lspci | grep ' VGA ' | grep Radeon | head -1 | cut -d' ' -f1)/remove\""
@@ -148,6 +151,7 @@ alias dmesg='dmesg --color=always'
 alias fd='fd --hidden --no-ignore'
 alias imv='imv -b checks'
 alias le='less'
+alias lew='LESS=iR less'
 alias ls='ls --color=auto --time-style=long-iso'
 alias lstop='fd . --exclude "\\.git/" --ignore --print0 --type file | xargs -0 stat --format "%Y :%y %n" | sort -nr | cut -d: -f2-'
 alias l='ls -AF'
@@ -193,16 +197,44 @@ unset __0_prompt_pwd
 
 ## work
 __0_work()
-{ local _w _e _d _np _ppd _pp
+{ local _w _e _d _dir
   _w=/home/work
   _e="$(cat ${_w}/env/${1})"
-  _d="${_w}/src/${_e}"
-  _np="node ${_d}/node_modules"
-  _ppd="${HOME}/opt/miniconda/envs/${_e}/lib"
+  _dir="$(echo "$_e" | cut -d' ' -f1)"
+  _d="${_w}/src/${_dir}"
+  conda deactivate 2>/dev/null
+  cd "${_d}"; }
+
+__0_work_p()
+{ local _w _e _d _ppd _pp _dir _env
+  _w=/home/work
+  _e="$(cat ${_w}/env/${1})"
+  _dir="$(echo "$_e" | cut -d' ' -f1)"
+  _env="$(echo "$_e" | cut -d' ' -f2)"
+  _d="${_w}/src/${_dir}"
+  _ppd="${HOME}/opt/miniconda/envs/${_env}/lib"
   _pp=""
   test -d $_ppd && _pp="$(fd --max-depth 1 --max-results 1 --type d python ${_ppd})site-packages"
-  # custom aliasing
-  _env=$_e
+  export PYTHONPATH="${_d}:${_w}/src/$(cat ${_w}/env/_u)${PYTHONPATH:+:$PYTHONPATH}"
+  export USE_CYTHON=0
+  alias black="black --diff"
+  alias _python="test -z ${_pp} && echo \"no dir: ${_ppd}\" || cd ${_pp}"
+  conda deactivate 2>/dev/null
+  0conda $_env
+  # ready
+  cd "${_d}"; }
+
+__0_work_n_p()
+{ local _w _e _d _np _ppd _pp _dir _env
+  _w=/home/work
+  _e="$(cat ${_w}/env/${1})"
+  _dir="$(echo "$_e" | cut -d' ' -f1)"
+  _env="$(echo "$_e" | cut -d' ' -f2)"
+  _d="${_w}/src/${_dir}"
+  _np="node ${_dir}/node_modules"
+  _ppd="${HOME}/opt/miniconda/envs/${_env}/lib"
+  _pp=""
+  test -d $_ppd && _pp="$(fd --max-depth 1 --max-results 1 --type d python ${_ppd})site-packages"
   # custom env
   export PYTHONPATH="${_d}:${_w}/src/$(cat ${_w}/env/_u)${PYTHONPATH:+:$PYTHONPATH}"
   export USE_CYTHON=0
@@ -214,45 +246,48 @@ __0_work()
   #    ;;
   #esac
   # node
+  export NODE_OPTIONS=--max-old-space-size=25600
   case "$1" in
-    _|1)
-      export NODE_OPTIONS=--max-old-space-size=25600
-      case "$1" in
-        _)
-          alias eslint="${np}/eslint/bin/eslint.js -c ./.eslintrc.cjs --ext .js,.jsx,.ts,.tsx"
-          ;;
-        1)
-          alias eslint="${_np}/eslint/bin/eslint.js -c ${_d}/eslint.config.mjs"
-          ;;
-      esac
-      alias prettier="${np}/prettier/bin-prettier.js"
-      alias sass="${np}/sass/sass.js"
-      alias tsc="${np}/typescript/bin/tsc --noemit"
-      alias _node="cd ${_d}/node_modules"
+    _g)
+      alias eslint="${_np}/eslint/bin/eslint.js -c ./.eslintrc.cjs --ext .js,.jsx,.ts,.tsx"
+      ;;
+    _i)
+      alias eslint="${_np}/eslint/bin/eslint.js -c ${_d}/eslint.config.mjs"
       ;;
   esac
+  alias prettier="${_np}/prettier/bin-prettier.js"
+  alias sass="${_np}/sass/sass.js"
+  alias tsc="${_np}/typescript/bin/tsc --noemit"
+  alias _node="cd ${_d}/node_modules"
   # python
-  case "$1" in
-    *)
-      alias black="black --diff"
-      alias _python="test -z ${_pp} && echo \"no dir: ${_ppd}\" || cd ${_pp}"
-      0conda $_env
-      #. "../../env/env_$_e.sh"
-      ;;
-  esac
+  alias black="black --diff"
+  alias _python="test -z ${_pp} && echo \"no dir: ${_ppd}\" || cd ${_pp}"
+  conda deactivate 2>/dev/null
+  0conda $_env
   # ready
   cd "${_d}"; }
 
-alias work='__0_work _g'
-alias workg='__0_work _g'
-alias workc='__0_work _c'
-alias works='__0_work _s'
-alias worki='__0_work _i'
-alias worku='__0_work _u'
-alias worke='__0_work _e'
-alias workb='__0_work _b'
-alias work1='__0_work _1'
-alias work2='__0_work _2'
-alias work3='__0_work _3'
+alias work='__0_work_n_p _g'
+alias workg='__0_work_n_p _g'
+alias worki='__0_work_n_p _i'
+alias workb='__0_work_n_p _b'
+alias worknu='__0_work _nu'
+
+alias worku='__0_work_n_p _u'
+alias workc='__0_work_n_p _c'
+alias works='__0_work_n_p _s'
+alias work1='__0_work_n_p _1'
+alias work2='__0_work_n_p _2'
+alias work3='__0_work_n_p _3'
+
+alias worke='__0_work_n_p _e'
+
+alias worko='__0_work _o'
+alias workp='__0_work_p _p'
+alias workt='__0_work_n_p _t'
+alias worktt='__0_work _tt'
+alias worktm='__0_work _tm'
+alias workbb='__0_work _bb'
+alias workcu='__0_work _cu'
 
 # eof

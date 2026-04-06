@@ -7,6 +7,7 @@ _path_prepend()
 _path_prepend "$HOME/opt/python/env/bin"
 _path_prepend "$HOME/.n/bin"
 _path_prepend "$HOME/opt/miniconda/condabin"
+_path_prepend "$HOME/opt/google-cloud-sdk/bin"
 #_path_prepend "$HOME/opt/dotnet"
 _path_prepend "$HOME/.cargo/bin"
 _path_prepend "$HOME/.local/bin"
@@ -18,6 +19,8 @@ export PATH
 #export DOTNET_ROOT="$HOME/opt/dotnet"
 export EDITOR=kak
 export GUILE_AUTO_COMPILE=0
+export HISTFILESIZE=262144
+export HISTSIZE=131072
 export N_PREFIX="$HOME/.n"
 
 #eof

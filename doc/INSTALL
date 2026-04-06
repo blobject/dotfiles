@@ -75,9 +75,9 @@ post-reboot:
   - `xbps-install -S`
 - apps
   - (sys) acpi, blueman, bolt, clamav, dmidecode, exfatprogs, foot, fwupd, gotop, glxinfo, gocryptfs, gnupg, hwinfo, intel-media-driver, intel-video-accel, keepassxc, libva-utils, mesa, mesa-dri, mesa-vaapi, mesa-vdpau, mesa-vulkan-intel, mesa-vulkan-radeon, sof-firmware, seatd, thermald, tuigreet, upower, Vulkan-Tools, wev, xorg-server-xwayland, xlsclients, xrdb, xterm
-  - (util) elinks, ifuse, jmtpfs, kak-lsp, kakoune, lftp, lshw, lz4, lzop, net-tools, ntfs-3g, psmisc, ripgrep, rlwrap, rsync, scrcpy, snooze, socat, stow, tcl, tmux, unzip, xdg-utils, vim, wget, yazi, zip, zstd
-  - (devel) base-devel, bind-utils, clang, llvm, cmake, extra-cmake-modules, docker, docker-compose, dive, elixir, gdb, ghc, go, guile, hyperfine, jq, mono, msbuild-bin, n, octave, openjdk, perf, python3-pip, R, rustup, sbcl, squeak, strace, swi-prolog, tcllib, tk, tree, postgresql, postgresql-client, sqlite, nginx, valgrind
-  - (wm) breeze-hacked-cursor-theme, brightnessctl, chayang, elogind, font-inconsolata-otf, font-sarasa-gothic, freefont-ttf, grim, iwgtk, libayatana-appindicator, nautilus, niri, papirus-icon-theme, qt6-wayland, quickshell, slurp, swappy, swaybg, swayidle, ttf-opensans, wl-clipboard, wlsunset, wtype, xdg-desktop-portal-gnome, xeyes, xwayland-satellite
+  - (util) 7zip, elinks, ifuse, jmtpfs, kak-lsp, kakoune, lftp, lshw, lz4, lzop, net-tools, ntfs-3g, psmisc, ripgrep, rlwrap, rsync, scrcpy, snooze, socat, stow, tcl, tmux, unzip, xdg-utils, vim, wget, yazi, zip, zstd
+  - (devel) base-devel, bind-utils, busybox, clang, llvm, cmake, extra-cmake-modules, docker, docker-buildx, docker-compose, dive, elixir, gdb, ghc, go, guile, hyperfine, jq, mono, msbuild-bin, n, octave, openjdk, perf, python3-pip, R, rustup, sbcl, shellcheck, squeak, strace, swi-prolog, tcllib, tk, tree, postgresql, postgresql-client, sqlite, nginx, valgrind
+  - (wm) breeze-hacked-cursor-theme, brightnessctl, chayang, elogind, font-inconsolata-otf, font-sarasa-gothic, freefont-ttf, grim, iwgtk, libayatana-appindicator, nautilus, niri, papirus-icon-theme, qt6-wayland, quickshell, slurp, swappy, swaybg, swayidle, ttf-opensans, wl-clipboard, wlsunset, wtype, xdg-desktop-portal-gtk (for file chooser), xdg-desktop-portal-wlr (for screencast), xeyes, xwayland-satellite
     - iwgtk alternative: network-manager-applet
   - (media) alsa-pipewire, ffmpeg, gstreamer1-pipewire, helvum, imv, libspa-bluetooth, libspa-ffmpeg, libspa-vulkan, mpv, pavucontrol, pipewire, wf-recorder
   - (misc) blender, firefox, foliate, fontforge, fontmatrix, geoclue2, gimp, gnucash, gnuplot, ImageMagick, inkscape, krita, libreoffice, pdf.js, qemu, screenkey, texlive-most, tigervnc, ttfautohint, visidata(python3-openpyxl), zathura-{djvu,pdf-mupdf,ps}
@@ -91,12 +91,15 @@ graphical desktop:
 - load home backup: `./stow.tcl`
 
 work:
-- `xbps-install -S python3-lsp-server k9s kubectl kubernetes kubernetes-helm`
+- `xbps-install -S python3-lsp-server k9s kubectl kubernetes kubernetes-helm terraform terraform-ls uv yq-go`
 - manual installs
   - aws & kube
     - aws-cli
   - docker
     - `docker login registry.<DOMAIN>.com` (user: username, pass: gitlab token)
+  - gomplate
+    - fetch from github releases
+    - put binary in /usr/local/bin/
   - minio
     - `wget https://dl.min.io/aistor/mc/release/linux-amd64/mc`
   - nodejs
@@ -107,9 +110,11 @@ work:
     - get miniconda
     - `conda create --name <PROJECT> python=3.??`
     - `conda activate ...`
-    - `pip install --user poetry`
-    - `poetry config -- http-basic.<PROJECT_GROUP> gitlab-ci-token <TOKEN>`
-    - `poetry install`
+    #- `pip install --user poetry`
+    #- `poetry config -- http-basic.<PROJECT_GROUP> gitlab-ci-token <TOKEN>`
+    #- `poetry install`
+  - yq
+    - `ln -s /usr/sbin/yq-go /usr/sbin/yq`
 
 play:
 - manual installs

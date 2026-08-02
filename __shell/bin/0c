@@ -1,4 +1,6 @@
 #! /usr/bin/env tclsh
 
-catch {eval exec {*}$::argv &}
+catch {
+  eval exec {*}$::argv &
+}
 

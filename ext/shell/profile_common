@@ -6,6 +6,7 @@ _path_prepend()
 
 _path_prepend "$HOME/opt/python/env/bin"
 _path_prepend "$HOME/.n/bin"
+_path_prepend "$HOME/opt/miniconda/envs/global/bin"
 _path_prepend "$HOME/opt/miniconda/condabin"
 _path_prepend "$HOME/opt/google-cloud-sdk/bin"
 #_path_prepend "$HOME/opt/dotnet"
@@ -15,6 +16,9 @@ _path_prepend "$HOME/bin"
 _path_prepend "/home/work/bin" # highest priority
 unset _path_prepend
 export PATH
+
+#. $HOME/opt/google-cloud-sdk/path.bash.inc
+#. $HOME/opt/google-cloud-sdk/completion.bash.inc
 
 #export DOTNET_ROOT="$HOME/opt/dotnet"
 export EDITOR=kak

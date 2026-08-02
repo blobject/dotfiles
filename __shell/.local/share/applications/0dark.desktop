@@ -7,4 +7,4 @@ Comment=Run terminal with dark colorscheme
 Icon=terminal
 Categories=TerminalEmulator;
 StartupNotify=true
-Terminal=false
+Terminal=true

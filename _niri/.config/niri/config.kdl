@@ -99,14 +99,14 @@ layout {
   focus-ring { off; }
   insert-hint { color "#ba8d3b80"; }
   preset-column-widths {
-    proportion 0.25
-    proportion 0.333
-    proportion 0.5
     proportion 0.666
+    proportion 0.5
+    proportion 0.333
+    proportion 0.25
   }
   preset-window-heights {
-    proportion 0.5
     proportion 0.75
+    proportion 0.5
   }
   shadow {
     on

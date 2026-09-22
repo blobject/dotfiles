@@ -485,6 +485,8 @@ proc vol {args} {
     nothingearmic {bluez_input.2C:BE:EB:78:2B:3B}]
   set usb_device_names [dict create \
     applejack  {USB-C to 3.5mm Headphone Jack Adapter} \
+    cheap      {USB Composite Device Analog Stereo} \
+    cheapmic   {USB Composite Device Mono} \
     jbltune    {JBL TUNE 310C USB-C Analog Stereo} \
     jbltunemic {JBL TUNE 310C USB-C Mono}]
   set icon_bt_lo bluetooth-disabled
@@ -523,6 +525,7 @@ proc vol {args} {
     }
     {usb} {
       set args [lrange $args 1 end]
+      puts $args
       set device usb
       set device_names [dict values $usb_device_names]
       if {{} eq $device_id} {

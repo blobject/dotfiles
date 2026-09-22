@@ -12,8 +12,6 @@ set fend {
 set lend [list \
   __fonts:.local/share/fonts \
     $home/opt/fonts \
-  __shell:bin/0work0 \
-    $home/opt/work/0work0 \
 ]
 set stowd [file dirname $::argv0]
 if {{relative} eq [file pathtype $::argv0]} {

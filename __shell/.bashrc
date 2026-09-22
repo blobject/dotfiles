@@ -187,7 +187,6 @@ alias ,,,,,,,='c ../../../../../../..'
 alias ,,,,,,,,='c ../../../../../../../..'
 
 ## imports
-complete -C ${HOME}/opt/aws/dist/aws_completer aws
 . /usr/share/bash-completion/completions/git
 __git_complete g __git_main
 source ${HOME}/cfg/ext/shell/bash_completion_poetry.sh
@@ -195,100 +194,5 @@ source ${HOME}/cfg/ext/shell/bash_completion_poetry.sh
 ## set title
 trap __0_title DEBUG
 unset __0_prompt_pwd
-
-## work
-__0_work()
-{ local _w _e _d _dir
-  _w=/home/work
-  _e="$(cat ${_w}/env/${1})"
-  _dir="$(echo "$_e" | cut -d' ' -f1)"
-  _d="${_w}/src/${_dir}"
-  conda deactivate 2>/dev/null
-  cd "${_d}"; }
-
-__0_work_p()
-{ local _w _e _d _ppd _pp _dir _env
-  _w=/home/work
-  _e="$(cat ${_w}/env/${1})"
-  _dir="$(echo "$_e" | cut -d' ' -f1)"
-  _env="$(echo "$_e" | cut -d' ' -f2)"
-  _d="${_w}/src/${_dir}"
-  _ppd="${HOME}/opt/miniconda/envs/${_env}/lib"
-  _pp=""
-  test -d $_ppd && _pp="$(fd --max-depth 1 --max-results 1 --type d python ${_ppd})site-packages"
-  export PYTHONPATH="${_d}:${_w}/src/$(cat ${_w}/env/_u)${PYTHONPATH:+:$PYTHONPATH}"
-  export USE_CYTHON=0
-  alias black="black --diff"
-  alias _python="test -z ${_pp} && echo \"no dir: ${_ppd}\" || cd ${_pp}"
-  conda deactivate 2>/dev/null
-  0conda $_env
-  # ready
-  cd "${_d}"; }
-
-__0_work_n_p()
-{ local _w _e _d _np _ppd _pp _dir _env
-  _w=/home/work
-  _e="$(cat ${_w}/env/${1})"
-  _dir="$(echo "$_e" | cut -d' ' -f1)"
-  _env="$(echo "$_e" | cut -d' ' -f2)"
-  _d="${_w}/src/${_dir}"
-  _np="node ${_dir}/node_modules"
-  _ppd="${HOME}/opt/miniconda/envs/${_env}/lib"
-  _pp=""
-  test -d $_ppd && _pp="$(fd --max-depth 1 --max-results 1 --type d python ${_ppd})site-packages"
-  # custom env
-  export PYTHONPATH="${_d}:${_w}/src/$(cat ${_w}/env/_u)${PYTHONPATH:+:$PYTHONPATH}"
-  export USE_CYTHON=0
-  #case "$1" in
-  #  _____)
-  #    # ____
-  #    _env=${_e}old
-  #    _ppd="$HOME/opt/miniconda/envs/$_env/lib"
-  #    ;;
-  #esac
-  # node
-  export NODE_OPTIONS=--max-old-space-size=25600
-  case "$1" in
-    _g)
-      alias eslint="${_np}/eslint/bin/eslint.js -c ./.eslintrc.cjs --ext .js,.jsx,.ts,.tsx"
-      ;;
-    _i)
-      alias eslint="${_np}/eslint/bin/eslint.js -c ${_d}/eslint.config.mjs"
-      ;;
-  esac
-  alias prettier="${_np}/prettier/bin-prettier.js"
-  alias sass="${_np}/sass/sass.js"
-  alias tsc="${_np}/typescript/bin/tsc --noemit"
-  alias _node="cd ${_d}/node_modules"
-  # python
-  alias black="black --diff"
-  alias _python="test -z ${_pp} && echo \"no dir: ${_ppd}\" || cd ${_pp}"
-  conda deactivate 2>/dev/null
-  0conda $_env
-  # ready
-  cd "${_d}"; }
-
-alias work='__0_work_n_p _g'
-alias workg='__0_work_n_p _g'
-alias worki='__0_work_n_p _i'
-alias workb='__0_work_n_p _b'
-alias worknu='__0_work _nu'
-
-alias worku='__0_work_n_p _u'
-alias workc='__0_work_n_p _c'
-alias works='__0_work_n_p _s'
-alias work1='__0_work_n_p _1'
-alias work2='__0_work_n_p _2'
-alias work3='__0_work_n_p _3'
-
-alias worke='__0_work_n_p _e'
-
-alias worko='__0_work _o'
-alias workp='__0_work_p _p'
-alias workt='__0_work_n_p _t'
-alias worktt='__0_work _tt'
-alias worktm='__0_work _tm'
-alias workbb='__0_work _bb'
-alias workcu='__0_work _cu'
 
 # eof
